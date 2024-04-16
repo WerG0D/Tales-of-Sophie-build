@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdo4rijnuka4p"]
+
+[ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/player.tscn" id="1_6wfa2"]
+
+[node name="World" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_6wfa2")]
+texture_filter = 1
+position = Vector2(137, 43)
