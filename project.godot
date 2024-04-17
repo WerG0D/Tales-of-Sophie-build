@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="TosGodot"
+config/version="0.1"
 run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/mode=3
+window/size/borderless=true
 
 [importer_defaults]
 

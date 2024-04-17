@@ -17,20 +17,20 @@ size = Vector2(42, 233)
 
 [node name="Player" parent="." instance=ExtResource("1_6wfa2")]
 texture_filter = 1
-position = Vector2(-42, -54)
+position = Vector2(165, -9)
+scale = Vector2(5, 5)
 
 [node name="Platform" type="StaticBody2D" parent="."]
-position = Vector2(-176, 2)
+position = Vector2(-196, 12)
 scale = Vector2(11.2276, 0.994871)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Platform"]
 modulate = Color(1, 0.113725, 1, 1)
-position = Vector2(32, 66)
+position = Vector2(31.9748, 70.3609)
 mesh = SubResource("QuadMesh_udrp5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
-visible = false
-position = Vector2(32, 66)
+position = Vector2(31.9748, 69.3557)
 shape = SubResource("RectangleShape2D_nddyb")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -44,3 +44,7 @@ mesh = SubResource("QuadMesh_p768g")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(341, -64.5)
 shape = SubResource("RectangleShape2D_ksq8y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(239, -32)
+zoom = Vector2(2, 2)
