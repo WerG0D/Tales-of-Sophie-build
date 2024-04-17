@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=6 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/player.tscn" id="1_6wfa2"]
-[ext_resource type="Texture2D" uid="uid://csxutrx0qwf18" path="res://graphs/sophie.jpeg" id="2_u2yc3"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_udrp5"]
 size = Vector2(32, 32)
@@ -9,18 +8,10 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nddyb"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sinyc"]
+[sub_resource type="QuadMesh" id="QuadMesh_p768g"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_w4e1y"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_u2yc3")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksq8y"]
+size = Vector2(42, 233)
 
 [node name="World" type="Node2D"]
 
@@ -29,6 +20,8 @@ texture_filter = 1
 position = Vector2(-42, -54)
 
 [node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(-176, 2)
+scale = Vector2(11.2276, 0.994871)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Platform"]
 modulate = Color(1, 0.113725, 1, 1)
@@ -36,17 +29,18 @@ position = Vector2(32, 66)
 mesh = SubResource("QuadMesh_udrp5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+visible = false
 position = Vector2(32, 66)
 shape = SubResource("RectangleShape2D_nddyb")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(98, 30)
-scale = Vector2(1.14368, 1.13659)
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-scale = Vector2(1.41599, 1.39444)
-shape = SubResource("RectangleShape2D_sinyc")
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+modulate = Color(0.996078, 0.32549, 0.776471, 1)
+position = Vector2(341, -65)
+scale = Vector2(-41.4884, 233.05)
+mesh = SubResource("QuadMesh_p768g")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_w4e1y")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(341, -64.5)
+shape = SubResource("RectangleShape2D_ksq8y")
