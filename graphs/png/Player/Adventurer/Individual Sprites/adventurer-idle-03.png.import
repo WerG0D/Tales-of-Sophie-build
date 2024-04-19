@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8evs1yj5w36"
-path="res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"
+uid="uid://bvtwmrodudrlx"
+path="res://.godot/imported/adventurer-idle-03.png-a02955be2e08177684e855b2a9d111d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/Player/sophiesprite1.png"
-dest_files=["res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"]
+source_file="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-idle-03.png"
+dest_files=["res://.godot/imported/adventurer-idle-03.png-a02955be2e08177684e855b2a9d111d6.ctex"]
 
 [params]
 

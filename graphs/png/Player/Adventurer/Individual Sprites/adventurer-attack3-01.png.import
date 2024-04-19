@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8evs1yj5w36"
-path="res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"
+uid="uid://bsrn08adlwrx0"
+path="res://.godot/imported/adventurer-attack3-01.png-ac32cfb517156e4b9a407bf513401ea5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/Player/sophiesprite1.png"
-dest_files=["res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"]
+source_file="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-01.png"
+dest_files=["res://.godot/imported/adventurer-attack3-01.png-ac32cfb517156e4b9a407bf513401ea5.ctex"]
 
 [params]
 

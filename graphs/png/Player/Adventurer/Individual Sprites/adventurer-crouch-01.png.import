@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8evs1yj5w36"
-path="res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"
+uid="uid://c4v087weawsvh"
+path="res://.godot/imported/adventurer-crouch-01.png-4d937322495720f9d5ddd701b2cb25e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/Player/sophiesprite1.png"
-dest_files=["res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"]
+source_file="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-crouch-01.png"
+dest_files=["res://.godot/imported/adventurer-crouch-01.png-4d937322495720f9d5ddd701b2cb25e7.ctex"]
 
 [params]
 

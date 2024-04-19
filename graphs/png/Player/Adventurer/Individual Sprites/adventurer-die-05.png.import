@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8evs1yj5w36"
-path="res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"
+uid="uid://cw40xwlcuu2wy"
+path="res://.godot/imported/adventurer-die-05.png-36aaa3de3c8e31fadecc913dd92e6276.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/Player/sophiesprite1.png"
-dest_files=["res://.godot/imported/sophiesprite1.png-fc075476b2c28ae3f035c93ba2afec39.ctex"]
+source_file="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-05.png"
+dest_files=["res://.godot/imported/adventurer-die-05.png-36aaa3de3c8e31fadecc913dd92e6276.ctex"]
 
 [params]
 
