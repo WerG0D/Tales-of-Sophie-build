@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://m8evs1yj5w36" path="res://graphs/png/sophiesprite1.png" id="2_thd8x"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3swe"]
-size = Vector2(0.457267, 6.78055)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sni0y"]
+radius = 0.228633
+height = 6.78055
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1pv58"]
 animations = [{
@@ -24,7 +25,7 @@ script = ExtResource("1_b3mxi")
 position = Vector2(-3.10852e-07, 2.38419e-07)
 rotation = -3.14159
 scale = Vector2(69.981, -4.71938)
-shape = SubResource("RectangleShape2D_j3swe")
+shape = SubResource("CapsuleShape2D_sni0y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1pv58")

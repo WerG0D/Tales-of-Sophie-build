@@ -1,47 +1,53 @@
 extends CharacterBody2D
+@export var max_speed : int = 1000
+@export var jump_force : int = 1600
+@export var acceleration : int = 50
+@export var jump_buffer_time : int  = 15
+@export var cayote_time : int = 15
 
-
-const SPEED = 200.0
-const JUMP_VELOCITY = -400.0
-const JUMP_TIME = 0.35
-const JUMP_RELEASE_MULTIPLIER = 0.5
-const MAX_FALL_SPEED = 500.0
-const MAX_JUMP_TIME = 0.5
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var jump_timer = 0
-var jump_pressed = false
+var jump_buffer_counter : int = 0
+var cayote_counter : int = 0
 
-func _physics_process(delta):
-	# Add the gravity.
+func _physics_process(_delta):
+	
+	if is_on_floor():
+		cayote_counter = cayote_time
+
 	if not is_on_floor():
-		velocity.y += gravity * delta
-		if velocity.y >500:
-			velocity.y = 500
+		if cayote_counter > 0:
+			cayote_counter -= 1
+		
+		velocity.y += gravity
+		if velocity.y > 2000:
+			velocity.y = 2000
 
-	# Handle jump.
-	var input_y = Input.get_action_strength("jump")
-	if is_on_floor() and input_y > 0:
-		jump_pressed = true
-		jump_timer = 0
-	if jump_pressed and jump_timer < JUMP_TIME:
-		velocity.y = lerp(0.0, JUMP_VELOCITY, jump_timer / MAX_JUMP_TIME)
-		jump_timer += delta
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += acceleration 
+		#$Sprite.flip_h = false
+
+	elif Input.is_action_pressed("ui_left"):
+		velocity.x -= acceleration
+		#$Sprite.flip_h = true
+
 	else:
-		jump_pressed = false
-	if not jump_pressed and velocity.y < 0:
-		velocity.y += gravity * JUMP_RELEASE_MULTIPLIER * delta
-	if velocity.y > MAX_FALL_SPEED:
-		velocity.y = MAX_FALL_SPEED
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+		velocity.x = lerp(velocity.x,0.0,0.2)
+	
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	
+	if Input.is_action_just_pressed("ui_select") and is_on_floor():
+		jump_buffer_counter = jump_buffer_time
+	
+	if jump_buffer_counter > 0:
+		jump_buffer_counter -= 1
+	
+	if jump_buffer_counter > 0 and cayote_counter > 0:
+		velocity.y = -jump_force
+		jump_buffer_counter = 0
+		cayote_counter = 0
+	
+	if Input.is_action_just_released("ui_select"):
+		if velocity.y < 0:
+			velocity.y *= 0.2
+	
 	move_and_slide()
-	print(velocity)
