@@ -60,5 +60,6 @@ shape = SubResource("RectangleShape2D_ksq8y")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(209, -69)
+rotation = -0.256563
 scale = Vector2(24.0338, 7.60523)
 zoom = Vector2(2, 2)
