@@ -77,4 +77,4 @@ shape = SubResource("RectangleShape2D_ksq8y")
 position = Vector2(209, -69)
 rotation = -0.256563
 scale = Vector2(24.0338, 7.60523)
-zoom = Vector2(0.65, 0.65)
+zoom = Vector2(0.4, 0.4)
