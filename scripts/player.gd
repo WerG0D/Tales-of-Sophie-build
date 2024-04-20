@@ -7,7 +7,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jump_buffer_counter : int = 0
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	
 	if is_on_floor():
 		pass
@@ -15,20 +15,20 @@ func _physics_process(_delta):
 	if not is_on_floor():
 		pass
 		
-		velocity.y += gravity
+		velocity.y += gravity 
 		if velocity.y > 2000:
 			velocity.y = 2000
 
 	if Input.is_action_pressed("move_right"):
-		velocity.x += acceleration 
+		velocity.x += acceleration
 		$AnimatedSprite2D.flip_h = false
 
 	elif Input.is_action_pressed("move_left"):
-		velocity.x -= acceleration
+		velocity.x -= acceleration 
 		$AnimatedSprite2D.flip_h = true
 
 	else:
-		velocity.x = lerp(velocity.x,0.0,0.2)
+		velocity.x = lerp(velocity.x,0.0,0.2) 
 	
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
@@ -39,12 +39,13 @@ func _physics_process(_delta):
 		jump_buffer_counter -= 1
 	
 	if jump_buffer_counter > 0:
-		velocity.y = -jump_force
+		velocity.y = -jump_force 
 		jump_buffer_counter = 0
 		#pass
 	
 	if Input.is_action_just_released("ui_select"):
 		if velocity.y < 0:
-			velocity.y *= 0.2
-	
+			velocity.y *= 0.2 
+
+	print(delta)	
 	move_and_slide()
