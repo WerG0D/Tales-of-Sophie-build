@@ -3,19 +3,17 @@ extends CharacterBody2D
 @export var jump_force : int = 1600
 @export var acceleration : int = 50
 @export var jump_buffer_time : int  = 15
-@export var cayote_time : int = 15
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jump_buffer_counter : int = 0
-var cayote_counter : int = 0
+
 
 func _physics_process(_delta):
 	
 	if is_on_floor():
-		cayote_counter = cayote_time
+		pass
 
 	if not is_on_floor():
-		if cayote_counter > 0:
-			cayote_counter -= 1
+		pass
 		
 		velocity.y += gravity
 		if velocity.y > 2000:
@@ -40,10 +38,10 @@ func _physics_process(_delta):
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
 	
-	if jump_buffer_counter > 0 and cayote_counter > 0:
+	if jump_buffer_counter > 0:
 		velocity.y = -jump_force
 		jump_buffer_counter = 0
-		cayote_counter = 0
+		#pass
 	
 	if Input.is_action_just_released("ui_select"):
 		if velocity.y < 0:

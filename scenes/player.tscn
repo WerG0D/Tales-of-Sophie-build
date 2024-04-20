@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=77 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://ce2fw8aoqsr6j" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-00.png" id="2_cdxn1"]
@@ -379,8 +379,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
-radius = 0.417595
+radius = 0.375836
 height = 2.50588
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
+size = Vector2(11.3539, 4.3371)
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.14495, 1.03756)
@@ -391,12 +394,10 @@ sprite_frames = SubResource("SpriteFrames_1pv58")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.873401, 0.963799)
+position = Vector2(-5.96046e-08, 0.9638)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CollisionShape2D"]
-build_mode = 1
-
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7.7104)
+position = Vector2(0.436525, 15.3)
+shape = SubResource("RectangleShape2D_vsb3e")
