@@ -20,6 +20,10 @@ texture_filter = 1
 position = Vector2(159, -39)
 scale = Vector2(5, 5)
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 5.52
+
 [node name="Platform2" type="StaticBody2D" parent="."]
 position = Vector2(-821, 21)
 scale = Vector2(56.138, 4.97436)
@@ -72,9 +76,3 @@ mesh = SubResource("QuadMesh_p768g")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(341, -64.5)
 shape = SubResource("RectangleShape2D_ksq8y")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(209, -69)
-rotation = -0.256563
-scale = Vector2(24.0338, 7.60523)
-zoom = Vector2(0.4, 0.4)
