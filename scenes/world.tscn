@@ -17,7 +17,7 @@ size = Vector2(42, 233)
 
 [node name="Player" parent="." instance=ExtResource("1_6wfa2")]
 texture_filter = 1
-position = Vector2(164, -30)
+position = Vector2(167, -233)
 scale = Vector2(5, 5)
 
 [node name="Platform" type="StaticBody2D" parent="."]
