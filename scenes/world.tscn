@@ -20,17 +20,17 @@ texture_filter = 1
 position = Vector2(159, -39)
 scale = Vector2(5, 5)
 
-[node name="Platform" type="StaticBody2D" parent="Player"]
-position = Vector2(-196, 12)
-scale = Vector2(11.2276, 0.994871)
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(-821, 21)
+scale = Vector2(56.138, 4.97436)
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Player/Platform"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Platform2"]
 modulate = Color(1, 0.113725, 1, 1)
 position = Vector2(63.9496, 26.7371)
 scale = Vector2(3.0857, 1)
 mesh = SubResource("QuadMesh_udrp5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Platform"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
 position = Vector2(63.8427, 27.1392)
 shape = SubResource("RectangleShape2D_nddyb")
 
