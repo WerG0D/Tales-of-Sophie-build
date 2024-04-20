@@ -379,11 +379,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
-radius = 0.375836
+radius = 0.274961
 height = 2.50588
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
-size = Vector2(11.3539, 4.3371)
+size = Vector2(11.3539, 6.86675)
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1.14495, 1.03756)
@@ -394,10 +394,10 @@ sprite_frames = SubResource("SpriteFrames_1pv58")
 animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5.96046e-08, 0.9638)
+position = Vector2(0.413, 0.964)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0.436525, 15.3)
+position = Vector2(0.436525, 14.0352)
 shape = SubResource("RectangleShape2D_vsb3e")
