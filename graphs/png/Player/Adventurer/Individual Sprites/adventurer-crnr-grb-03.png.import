@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8evs1yj5w36"
-path="res://.godot/imported/sophiesprite1.png-5f2cb178851050b07bdd7c9a96e284b8.ctex"
+uid="uid://dykxd1swgctkc"
+path="res://.godot/imported/adventurer-crnr-grb-03.png-fd22fcafff65103633ec7ae17308da11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/sophiesprite1.png"
-dest_files=["res://.godot/imported/sophiesprite1.png-5f2cb178851050b07bdd7c9a96e284b8.ctex"]
+source_file="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-crnr-grb-03.png"
+dest_files=["res://.godot/imported/adventurer-crnr-grb-03.png-fd22fcafff65103633ec7ae17308da11.ctex"]
 
 [params]
 

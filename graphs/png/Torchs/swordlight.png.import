@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4nb7yqi8cj1b"
-path="res://.godot/imported/sophiesprite2.png-d0f396bcbc4efabd2700ee63e9ec44d8.ctex"
+uid="uid://cofmq78td6jif"
+path="res://.godot/imported/swordlight.png-1bfb5b8934b185042c8095b9682ba7fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/sophiesprite2.png"
-dest_files=["res://.godot/imported/sophiesprite2.png-d0f396bcbc4efabd2700ee63e9ec44d8.ctex"]
+source_file="res://graphs/png/Torchs/swordlight.png"
+dest_files=["res://.godot/imported/swordlight.png-1bfb5b8934b185042c8095b9682ba7fd.ctex"]
 
 [params]
 
