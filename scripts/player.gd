@@ -33,7 +33,8 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_h = true
 		
 	else:
-		velocity.x = lerp(velocity.x,0.0,0.2) 
+		#velocity.x = lerp(velocity.x,0.0,0.2)
+		velocity.x = 0
 	
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
@@ -58,6 +59,6 @@ func _physics_process(delta):
 	if velocity.y > 0:
 		$AnimatedSprite2D.play("fall")
 		print("fall animated")
-	$RichTextLabel.set_text("DEBUG")
+	$RichTextLabel.set_text(str(velocity.x, "   ", velocity.y))
 	
 	move_and_slide()
