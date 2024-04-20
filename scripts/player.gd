@@ -8,7 +8,7 @@ var jump_buffer_counter : int = 0
 
 
 func _physics_process(delta):
-	Engine.max_fps = 60
+	Engine.max_fps = 60 
 	if is_on_floor():
 		pass
 
@@ -18,7 +18,10 @@ func _physics_process(delta):
 		velocity.y += gravity 
 		if velocity.y > 2000:
 			velocity.y = 2000
-
+	if velocity.x < 10 or velocity.x > -10:
+		$AnimatedSprite2D.play("idle")
+	elif velocity.x > 10 or velocity.x < -10:
+		$AnimatedSprite2D.play("run")
 	if Input.is_action_pressed("move_right"):
 		velocity.x += acceleration
 		$AnimatedSprite2D.flip_h = false
@@ -26,7 +29,7 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("move_left"):
 		velocity.x -= acceleration 
 		$AnimatedSprite2D.flip_h = true
-
+		
 	else:
 		velocity.x = lerp(velocity.x,0.0,0.2) 
 	
@@ -46,6 +49,5 @@ func _physics_process(delta):
 	if Input.is_action_just_released("ui_select"):
 		if velocity.y < 0:
 			velocity.y *= 0.2 
-
-	print(delta)	
+	$RichTextLabel.set_text(str(velocity.x))
 	move_and_slide()
