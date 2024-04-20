@@ -1,8 +1,9 @@
 extends CharacterBody2D
-@export var max_speed : int = 1000
+@export var max_speed : int = 500
 @export var jump_force : int = 1600
-@export var acceleration : int = 50
+@export var acceleration : int = 500
 @export var jump_buffer_time : int  = 15
+var jump_anim_time: int = 100
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jump_buffer_counter : int = 0
 
@@ -18,7 +19,7 @@ func _physics_process(delta):
 		velocity.y += gravity 
 		if velocity.y > 2000:
 			velocity.y = 2000
-	if velocity.x < 10 and velocity.x > -10:
+	if velocity.x < 20 and velocity.x > -20:
 		$AnimatedSprite2D.play("idle")
 	else:
 		$AnimatedSprite2D.play("run")
@@ -35,8 +36,9 @@ func _physics_process(delta):
 	
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
-	if Input.is_action_just_pressed("ui_select") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump_buffer_counter = jump_buffer_time
+		
 	
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
@@ -46,8 +48,15 @@ func _physics_process(delta):
 		jump_buffer_counter = 0
 		#pass
 	
-	if Input.is_action_just_released("ui_select"):
+	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2 
-	$RichTextLabel.set_text(str(velocity.x))
+	if velocity.y < 0 and jump_anim_time == 100:
+		jump_anim_time = 0
+		$AnimatedSprite2D.play("jump")
+	if velocity.y > 0:
+		$AnimatedSprite2D.play("fall")
+	if jump_anim_time > 0:
+		jump_anim_time -= 1
+	$RichTextLabel.set_text(str(jump_anim_time))
 	move_and_slide()
