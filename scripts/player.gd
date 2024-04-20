@@ -18,9 +18,9 @@ func _physics_process(delta):
 		velocity.y += gravity 
 		if velocity.y > 2000:
 			velocity.y = 2000
-	if velocity.x < 10 or velocity.x > -10:
+	if velocity.x < 10 and velocity.x > -10:
 		$AnimatedSprite2D.play("idle")
-	elif velocity.x > 10 or velocity.x < -10:
+	else:
 		$AnimatedSprite2D.play("run")
 	if Input.is_action_pressed("move_right"):
 		velocity.x += acceleration
