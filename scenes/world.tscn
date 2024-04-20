@@ -61,7 +61,7 @@ scale = Vector2(-41.4884, 233.05)
 mesh = SubResource("QuadMesh_p768g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1087, -67)
+position = Vector2(1088, -67)
 shape = SubResource("RectangleShape2D_ksq8y")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
