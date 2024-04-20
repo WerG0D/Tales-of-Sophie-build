@@ -4,7 +4,6 @@ extends CharacterBody2D
 @export var acceleration : int = 50
 @export var jump_buffer_time : int  = 15
 @export var cayote_time : int = 15
-@onready var _animated_sprite = $AnimatedSprite2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jump_buffer_counter : int = 0
 var cayote_counter : int = 0
@@ -22,11 +21,11 @@ func _physics_process(_delta):
 		if velocity.y > 2000:
 			velocity.y = 2000
 
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("move_right"):
 		velocity.x += acceleration 
 		$AnimatedSprite2D.flip_h = false
 
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("move_left"):
 		velocity.x -= acceleration
 		$AnimatedSprite2D.flip_h = true
 
