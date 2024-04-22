@@ -55,4 +55,6 @@ func animateplayerWIP(velocity):
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
 		$AnimatedSprite2D.play("idle")
 	if velocity.x != 0 and is_on_floor():
+		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE!!!!!!!!!!!!!!!!!!!!!
+		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
 		$AnimatedSprite2D.play("run")
