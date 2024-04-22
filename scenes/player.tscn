@@ -305,7 +305,7 @@ animations = [{
 "duration": 0.6,
 "texture": ExtResource("57_230ux")
 }, {
-"duration": 0.6,
+"duration": 1.4,
 "texture": ExtResource("58_i8ya2")
 }],
 "loop": true,
@@ -392,8 +392,8 @@ script = ExtResource("1_b3mxi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1pv58")
-animation = &"run"
-frame_progress = 0.543876
+animation = &"jump"
+frame_progress = 0.580065
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.413, 0.964)
