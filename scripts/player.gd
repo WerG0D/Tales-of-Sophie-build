@@ -54,6 +54,8 @@ func animateplayerWIP(velocity):
 		$AnimatedSprite2D.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#IT NEEDS TO HAVE THE BUTTON PRESSED CHECK!!!!!!!!!!!
+		#TODO:
+		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE!!!!!!!!!!!!!!!!!!!!!
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
 		if velocity.x > 0:
