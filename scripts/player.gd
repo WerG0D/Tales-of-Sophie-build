@@ -46,21 +46,13 @@ func _physics_process(delta):
 	$RichTextLabel.set_text(str("X:",velocity.x, " | Y:", velocity.y))
 	animateplayerWIP(velocity)
 
-
 func animateplayerWIP(velocity):
-
+	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump"):
-		$AnimatedSprite2D.play("jump")
-		print("jumping")	
+		$AnimatedSprite2D.play("jump") 
 	if velocity.y >= 0 and !is_on_floor():
 		$AnimatedSprite2D.play("fall")
-		print("falling")		
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
 		$AnimatedSprite2D.play("idle")
-		print("idling")
 	if velocity.x != 0 and is_on_floor():
 		$AnimatedSprite2D.play("run")
-		print("running")
-		
-		
-	

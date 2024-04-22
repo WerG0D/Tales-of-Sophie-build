@@ -313,22 +313,22 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 0.6,
 "texture": ExtResource("59_s5rln")
 }, {
-"duration": 1.0,
+"duration": 0.6,
 "texture": ExtResource("60_uhjgn")
 }, {
-"duration": 1.0,
+"duration": 0.6,
 "texture": ExtResource("61_7cqoa")
 }, {
-"duration": 1.0,
+"duration": 0.6,
 "texture": ExtResource("62_vdhxb")
 }, {
-"duration": 1.0,
+"duration": 0.6,
 "texture": ExtResource("63_soki7")
 }, {
-"duration": 1.0,
+"duration": 0.6,
 "texture": ExtResource("64_aiegb")
 }],
 "loop": true,
@@ -392,8 +392,7 @@ script = ExtResource("1_b3mxi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1pv58")
-animation = &"jump"
-frame_progress = 0.580065
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.413, 0.964)
