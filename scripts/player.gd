@@ -8,11 +8,10 @@ var jump_buffer_counter : int = 0
 
 
 func _physics_process(delta):
-	Engine.max_fps = 60 
+	Engine.max_fps = 60 #Remove this later 
 	
 	#gravity code
 	if  !is_on_floor():
-		pass
 		velocity.y += gravity 
 		if velocity.y > 2000:
 			velocity.y = 2000
@@ -50,6 +49,10 @@ func animateplayerWIP(velocity):
 		$AnimatedSprite2D.play("jump") 
 	if velocity.y >= 0 and !is_on_floor():
 		$AnimatedSprite2D.play("fall")
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_h = false
+		else:
+			$AnimatedSprite2D.flip_h = true
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
 		$AnimatedSprite2D.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
