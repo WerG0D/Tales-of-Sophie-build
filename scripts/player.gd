@@ -19,10 +19,8 @@ func _physics_process(delta):
 	#MOVE HORIZONTALLY CODE (accel set to max speed make so theres no accel)
 	if Input.is_action_pressed("move_right"):
 		velocity.x += acceleration
-		$AnimatedSprite2D.flip_h = false
 	elif Input.is_action_pressed("move_left"):
 		velocity.x -= acceleration
-		$AnimatedSprite2D.flip_h = true
 	else:
 		#for desceleration
 		#velocity.x = lerp(velocity.x,0.0,0.2)
@@ -54,7 +52,12 @@ func animateplayerWIP(velocity):
 		$AnimatedSprite2D.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
 		$AnimatedSprite2D.play("idle")
-	if velocity.x != 0 and is_on_floor():
+	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
+		#IT NEEDS TO HAVE THE BUTTON PRESSED CHECK!!!!!!!!!!!
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE!!!!!!!!!!!!!!!!!!!!!
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
+		if velocity.x > 0:
+			$AnimatedSprite2D.flip_h = false
+		else:
+			$AnimatedSprite2D.flip_h = true
 		$AnimatedSprite2D.play("run")
