@@ -9,56 +9,58 @@ var jump_buffer_counter : int = 0
 
 func _physics_process(delta):
 	Engine.max_fps = 60 
-	if is_on_floor():
+	
+	#gravity code
+	if  !is_on_floor():
 		pass
-
-	if not is_on_floor():
-		pass
-		
 		velocity.y += gravity 
 		if velocity.y > 2000:
 			velocity.y = 2000
-	if velocity.x < 20 and velocity.x > -20:
-		$AnimatedSprite2D.play("idle")
-
-	else:
-		$AnimatedSprite2D.play("run")
+	#MOVE HORIZONTALLY CODE (accel set to max speed make so theres no accel)
 	if Input.is_action_pressed("move_right"):
-		print("run animated")
 		velocity.x += acceleration
 		$AnimatedSprite2D.flip_h = false
-
 	elif Input.is_action_pressed("move_left"):
-		velocity.x -= acceleration 
+		velocity.x -= acceleration
 		$AnimatedSprite2D.flip_h = true
-		
 	else:
+		#for desceleration
 		#velocity.x = lerp(velocity.x,0.0,0.2)
 		velocity.x = 0
-	
+		
+	#code for speed limit
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
+	#CODE FOR JUMPING
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump_buffer_counter = jump_buffer_time
-		
-	
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
-	
 	if jump_buffer_counter > 0:
 		velocity.y = -jump_force 
 		jump_buffer_counter = 0
-		#pass
-	
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2 
-	if velocity.y < 0 :
-		$AnimatedSprite2D.play("jump")
-		print("jump animated")
-	if velocity.y > 0:
-		$AnimatedSprite2D.play("fall")
-		print("fall animated")
-	$RichTextLabel.set_text(str(velocity.x, "   ", velocity.y))
-	
 	move_and_slide()
+	$RichTextLabel.set_text(str("X:",velocity.x, " | Y:", velocity.y))
+	animateplayerWIP(velocity)
+
+
+func animateplayerWIP(velocity):
+
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump"):
+		$AnimatedSprite2D.play("jump")
+		print("jumping")	
+	if velocity.y >= 0 and !is_on_floor():
+		$AnimatedSprite2D.play("fall")
+		print("falling")		
+	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
+		$AnimatedSprite2D.play("idle")
+		print("idling")
+	if velocity.x != 0 and is_on_floor():
+		$AnimatedSprite2D.play("run")
+		print("running")
+		
+		
+	
