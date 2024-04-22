@@ -44,15 +44,15 @@ func _physics_process(delta):
 	animateplayerWIP(velocity)
 
 func animateplayerWIP(velocity):
+	if Input.is_action_pressed("move_left"):
+		$AnimatedSprite2D.flip_h = true
+	if Input.is_action_pressed("move_right"):
+		$AnimatedSprite2D.flip_h = false
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump"):
 		$AnimatedSprite2D.play("jump") 
 	if velocity.y >= 0 and !is_on_floor():
 		$AnimatedSprite2D.play("fall")
-		if velocity.x > 0:
-			$AnimatedSprite2D.flip_h = false
-		else:
-			$AnimatedSprite2D.flip_h = true
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
 		$AnimatedSprite2D.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
@@ -61,8 +61,5 @@ func animateplayerWIP(velocity):
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
-		if velocity.x > 0:
-			$AnimatedSprite2D.flip_h = false
-		else:
-			$AnimatedSprite2D.flip_h = true
-		$AnimatedSprite2D.play("run")
+		if velocity.x != 0:
+			$AnimatedSprite2D.play("run")
