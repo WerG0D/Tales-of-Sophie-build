@@ -14,11 +14,11 @@ config/name="TosGodot"
 config/version="0.1"
 run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/mode=3
 window/size/borderless=true
 
 [importer_defaults]

@@ -7,7 +7,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jump_buffer_counter : int = 0
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	#gravity code
 	if  !is_on_floor():
@@ -40,9 +40,9 @@ func _physics_process(delta):
 			velocity.y *= 0.2 
 	move_and_slide()
 	$RichTextLabel.set_text(str("X:",velocity.x, " | Y:", velocity.y))
-	animateplayerWIP(velocity)
+	animateplayerWIP()
 
-func animateplayerWIP(velocity):
+func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$AnimatedSprite2D.flip_h = true
 	if Input.is_action_pressed("move_right"):
