@@ -8,7 +8,6 @@ var jump_buffer_counter : int = 0
 
 
 func _physics_process(delta):
-	Engine.max_fps = 60 #Remove this later 
 	
 	#gravity code
 	if  !is_on_floor():
