@@ -5,16 +5,28 @@ var is_openingcutscene = false
 var has_player_entered_area = false
 var player = null
 var is_pathfollowing = false
+var torch_has_happened = false
+var torch_is_happening = false 
 # Called when the node enters the scene tree for the first time.
 func _physics_process(delta):
 	if is_openingcutscene:
 		var pathfollower = $Path2D/PathFollow2D
 		
 		if is_pathfollowing:
-			pathfollower.progress_ratio += 0.001
+			if !torch_is_happening:
+				pathfollower.progress_ratio += 0.001
 			
 			if pathfollower.progress_ratio >= 1:
 				cutsceneendind()
+				
+			if !torch_has_happened and pathfollower.progress_ratio >= 0.768 and !torch_is_happening:
+				torch_is_happening = true
+				await get_tree().create_timer(1).timeout
+				$Objects.visible = true
+				await get_tree().create_timer(0.5).timeout
+				torch_has_happened = true
+				torch_is_happening = false 
+				
 				 
 
 
