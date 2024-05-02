@@ -3816,6 +3816,7 @@ texture = ExtResource("3_doe7n")
 61:15/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_mfb2a"]
+tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_y6eh3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xcwep"]
@@ -3841,6 +3842,7 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="Objects" type="TileMap" parent="."]
 visible = false
+scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_mfb2a")
 format = 2
 layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 196598, 3801088, 15, 196602, 3801088, 15, 131072, 3801088, 15, 131076, 3997696, 15, 262141, 3670016, 16, 262130, 3670016, 16, 262127, 3670016, 16)
