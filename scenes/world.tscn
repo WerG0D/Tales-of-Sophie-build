@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=9 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/player.tscn" id="1_6wfa2"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_u42cx"]
 [ext_resource type="Script" path="res://scenes/RichTextLabel.gd" id="2_jm3r3"]
 [ext_resource type="Texture2D" uid="uid://dhfftuyimcu2x" path="res://graphs/png/Tiles/MainLevBuild.png" id="2_pfq2v"]
 
@@ -3221,20 +3222,27 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_7nuoo")
 sources/0 = SubResource("TileSetAtlasSource_11t38")
 
-[node name="World" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xcwep"]
+size = Vector2(282, 243)
 
-[node name="Player" parent="." instance=ExtResource("1_6wfa2")]
+[node name="World" type="Node2D"]
+script = ExtResource("1_u42cx")
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_1apf7")
+format = 2
+layer_0/name = "Ground"
+layer_0/tile_data = PackedInt32Array(65536, 262144, 10, 65537, 0, 10, 65538, 65536, 10, 65539, 131072, 10, 65540, 196608, 10, 131072, 262144, 11, 196608, 262144, 12, 262144, 262144, 13, 327680, 262144, 14, 131073, 0, 11, 196609, 0, 12, 262145, 0, 13, 327681, 0, 14, 131074, 65536, 11, 196610, 65536, 12, 262146, 65536, 13, 327682, 65536, 14, 131075, 131072, 11, 196611, 131072, 12, 262147, 131072, 13, 327683, 131072, 14, 131076, 196608, 11, 196612, 196608, 12, 262148, 196608, 13, 327684, 196608, 14, 65541, 262144, 10, 131077, 262144, 11, 196613, 262144, 12, 262149, 262144, 13, 327685, 262144, 14, 131078, 0, 11, 196614, 0, 12, 262150, 0, 13, 327686, 0, 14, 131079, 65536, 11, 196615, 65536, 12, 262151, 65536, 13, 327687, 65536, 14, 131080, 131072, 11, 196616, 131072, 12, 262152, 131072, 13, 327688, 131072, 14, 131081, 196608, 11, 196617, 196608, 12, 262153, 196608, 13, 327689, 196608, 14, 65542, 0, 10, 65543, 65536, 10, 65544, 131072, 10, 65545, 196608, 10, 65546, 262144, 10, 131082, 262144, 11, 196618, 262144, 12, 262154, 262144, 13, 327690, 262144, 14, 65547, 0, 10, 131083, 0, 11, 196619, 0, 12, 262155, 0, 13, 327691, 0, 14, 65548, 65536, 10, 131084, 65536, 11, 196620, 65536, 12, 262156, 65536, 13, 327692, 65536, 14, 65549, 131072, 10, 131085, 131072, 11, 196621, 131072, 12, 262157, 131072, 13, 327693, 131072, 14, 65550, 196608, 10, 131086, 196608, 11, 196622, 196608, 12, 262158, 196608, 13, 327694, 196608, 14, 131067, 262144, 10, 196603, 262144, 11, 262139, 262144, 12, 327675, 262144, 13, 393211, 262144, 14, 131068, 0, 10, 196604, 0, 11, 262140, 0, 12, 327676, 0, 13, 393212, 0, 14, 131069, 65536, 10, 196605, 65536, 11, 262141, 65536, 12, 327677, 65536, 13, 393213, 65536, 14, 131070, 131072, 10, 196606, 131072, 11, 262142, 131072, 12, 327678, 131072, 13, 393214, 131072, 14, 131071, 196608, 10, 196607, 196608, 11, 262143, 196608, 12, 327679, 196608, 13, 393215, 196608, 14, 131063, 0, 10, 196599, 0, 11, 262135, 0, 12, 327671, 0, 13, 393207, 0, 14, 131064, 65536, 10, 196600, 65536, 11, 262136, 65536, 12, 327672, 65536, 13, 393208, 65536, 14, 131065, 131072, 10, 196601, 131072, 11, 262137, 131072, 12, 327673, 131072, 13, 393209, 131072, 14, 131066, 196608, 10, 196602, 196608, 11, 262138, 196608, 12, 327674, 196608, 13, 393210, 196608, 14, 65551, 262144, 10, 131087, 262144, 11, 196623, 262144, 12, 262159, 262144, 13, 327695, 262144, 14)
+layer_1/name = "Background"
+layer_1/tile_data = PackedInt32Array()
+
+[node name="player" parent="." instance=ExtResource("1_6wfa2")]
 texture_filter = 1
 position = Vector2(159, -39)
 scale = Vector2(5, 5)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.8, 0.8)
-position_smoothing_enabled = true
-position_smoothing_speed = 3.0
-rotation_smoothing_speed = 1.0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Player"]
+[node name="RichTextLabel" type="RichTextLabel" parent="player"]
 offset_left = 17.0
 offset_top = -18.4
 offset_right = 57.0
@@ -3244,11 +3252,12 @@ scroll_active = false
 autowrap_mode = 0
 script = ExtResource("2_jm3r3")
 
-[node name="TileMap" type="TileMap" parent="."]
-scale = Vector2(2, 2)
-tile_set = SubResource("TileSet_1apf7")
-format = 2
-layer_0/name = "Ground"
-layer_0/tile_data = PackedInt32Array(65536, 0, 10, 65537, 65536, 10, 65538, 131072, 10, 65539, 196608, 10, 65540, 262144, 10, 131072, 0, 11, 196608, 0, 12, 262144, 0, 13, 327680, 0, 14, 131073, 65536, 11, 196609, 65536, 12, 262145, 65536, 13, 327681, 65536, 14, 131074, 131072, 11, 196610, 131072, 12, 262146, 131072, 13, 327682, 131072, 14, 131075, 196608, 11, 196611, 196608, 12, 262147, 196608, 13, 327683, 196608, 14, 131076, 262144, 11, 196612, 262144, 12, 262148, 262144, 13, 327684, 262144, 14, 6, 1048576, 7, 65542, 1048576, 8, 7, 1114112, 7, 65543, 1114112, 8, 8, 1179648, 7, 65544, 1179648, 8, 9, 1245184, 7, 65545, 1245184, 8, 10, 1310720, 7, 65546, 1310720, 8)
-layer_1/name = "Background"
-layer_1/tile_data = PackedInt32Array()
+[node name="cutscene" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cutscene"]
+position = Vector2(883, -66)
+shape = SubResource("RectangleShape2D_xcwep")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]

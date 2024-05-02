@@ -3,8 +3,13 @@ extends CharacterBody2D
 @export var jump_force : int = 1600
 @export var acceleration : int = 700
 @export var jump_buffer_time : int  = 15
+@export var jump_buffer_counter : int = 0
+@export var enable_inputs: bool = true 
+
+@onready var camera = $Camera2D
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var jump_buffer_counter : int = 0
+
 
 
 func _physics_process(_delta):
@@ -54,7 +59,7 @@ func animateplayerWIP():
 		$AnimatedSprite2D.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
 		$AnimatedSprite2D.play("idle")
-	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
+	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):	
 		#SIM! precisa checar se o botao esta sendo apertado e se ela esta se movendo e NUNCA TIRE OS ()()()!
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
@@ -62,3 +67,4 @@ func animateplayerWIP():
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
 		if velocity.x != 0:
 			$AnimatedSprite2D.play("run")
+		
