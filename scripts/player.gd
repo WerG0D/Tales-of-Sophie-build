@@ -5,15 +5,11 @@ extends CharacterBody2D
 @export var jump_buffer_time : int  = 15
 @export var jump_buffer_counter : int = 0
 @export var enable_inputs: bool = true 
-
 @onready var camera = $Camera2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
-
 func _physics_process(_delta):
-	
 	#gravity code
 	if  !is_on_floor():
 		velocity.y += gravity 
@@ -46,7 +42,6 @@ func _physics_process(_delta):
 	move_and_slide()
 	$RichTextLabel.set_text(str("X:",velocity.x, " | Y:", velocity.y))
 	animateplayerWIP()
-
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$AnimatedSprite2D.flip_h = true
@@ -67,4 +62,5 @@ func animateplayerWIP():
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
 		if velocity.x != 0:
 			$AnimatedSprite2D.play("run")
-		
+func player():
+	pass
