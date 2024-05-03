@@ -1,15 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=12 format=3 uid="uid://cdo4rijnuka4p"]
 
-[ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/player.tscn" id="1_6wfa2"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_u42cx"]
-[ext_resource type="Script" path="res://scenes/RichTextLabel.gd" id="2_jm3r3"]
-[ext_resource type="Texture2D" uid="uid://dhfftuyimcu2x" path="res://graphs/png/Tiles/MainLevBuild.png" id="2_pfq2v"]
-[ext_resource type="Texture2D" uid="uid://d143300tkn321" path="res://graphs/png/Decoratives/Decoratives.png" id="3_doe7n"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_43pil"]
+[ext_resource type="Texture2D" uid="uid://dhfftuyimcu2x" path="res://graphs/png/Tiles/MainLevBuild.png" id="2_2fi2x"]
+[ext_resource type="Texture2D" uid="uid://d143300tkn321" path="res://graphs/png/Decoratives/Decoratives.png" id="3_nry75"]
+[ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/player.tscn" id="4_esp5o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7nuoo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_11t38"]
-texture = ExtResource("2_pfq2v")
+texture = ExtResource("2_2fi2x")
 texture_region_size = Vector2i(32, 32)
 6:0/0 = 0
 6:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -3229,7 +3228,7 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_7nuoo")
 sources/0 = SubResource("TileSetAtlasSource_11t38")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y6eh3"]
-texture = ExtResource("3_doe7n")
+texture = ExtResource("3_nry75")
 10:0/0 = 0
 11:0/0 = 0
 16:0/0 = 0
@@ -3828,8 +3827,8 @@ _data = {
 }
 point_count = 5
 
-[node name="World" type="Node2D"]
-script = ExtResource("1_u42cx")
+[node name="tests" type="Node2D"]
+script = ExtResource("1_43pil")
 
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(2, 2)
@@ -3847,21 +3846,11 @@ tile_set = SubResource("TileSet_mfb2a")
 format = 2
 layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 196598, 3801088, 15, 196602, 3801088, 15, 131072, 3801088, 15, 131076, 3997696, 15, 262141, 3670016, 16, 262130, 3670016, 16, 262127, 3670016, 16)
 
-[node name="player" parent="." instance=ExtResource("1_6wfa2")]
+[node name="player" parent="." instance=ExtResource("4_esp5o")]
 z_index = 5
 texture_filter = 1
 position = Vector2(159, -39)
 scale = Vector2(5, 5)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="player"]
-offset_left = 17.0
-offset_top = -18.4
-offset_right = 57.0
-offset_bottom = 21.6
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-script = ExtResource("2_jm3r3")
 
 [node name="cutscene" type="Area2D" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=82 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://ce2fw8aoqsr6j" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-00.png" id="2_cdxn1"]
@@ -77,6 +77,7 @@
 [ext_resource type="Texture2D" uid="uid://c7fdv5kmqy5hq" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-stand-00.png" id="71_gfv2p"]
 [ext_resource type="Texture2D" uid="uid://cwvecu5nd2km" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-stand-01.png" id="72_nmpfn"]
 [ext_resource type="Texture2D" uid="uid://dkvl8fqh0rjlg" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-stand-02.png" id="73_6av8m"]
+[ext_resource type="Script" path="res://scenes/RichTextLabel.gd" id="78_3wrjh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1pv58"]
 animations = [{
@@ -428,3 +429,13 @@ position = Vector2(0.436525, 14.0352)
 shape = SubResource("RectangleShape2D_vsb3e")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 17.0
+offset_top = -18.4
+offset_right = 57.0
+offset_bottom = 21.6
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("78_3wrjh")
