@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var jump_buffer_counter : int = 0
 @export var enable_inputs: bool = true 
 @onready var camera = $Camera2D
+@onready var animplayer = $AnimationPlayer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -44,16 +45,16 @@ func _physics_process(_delta):
 	animateplayerWIP()
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
-		$AnimatedSprite2D.flip_h = true
+		$Sprite.flip_h = true
 	if Input.is_action_pressed("move_right"):
-		$AnimatedSprite2D.flip_h = false
+		$Sprite.flip_h = false
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump"):
-		$AnimatedSprite2D.play("jump") 
+		animplayer.play("jump") 
 	if velocity.y >= 0 and !is_on_floor():
-		$AnimatedSprite2D.play("fall")
+		animplayer.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor()):
-		$AnimatedSprite2D.play("idle")
+		animplayer.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):	
 		#SIM! precisa checar se o botao esta sendo apertado e se ela esta se movendo e NUNCA TIRE OS ()()()!
 		#TODO:
@@ -61,6 +62,9 @@ func animateplayerWIP():
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
 		if velocity.x != 0:
-			$AnimatedSprite2D.play("run")
+			animplayer.play("run")
 func player():
+	#Essa função só existe para poder identificar o CharactherBody como player em outros scripts. Remover vai quebrar muita coisa
+	#if body.has_method("player"):
+		#player = body
 	pass
