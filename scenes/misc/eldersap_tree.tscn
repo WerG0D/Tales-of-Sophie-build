@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3x50sjt3lsc2"]
+
+[ext_resource type="Script" path="res://scripts/eldersap_tree.gd" id="1_5mrou"]
+[ext_resource type="Texture2D" uid="uid://dmuoswnc8dvis" path="res://graphs/png/coconut.png" id="2_sqxuy"]
+[ext_resource type="Texture2D" uid="uid://cn3m8bevw7h3s" path="res://graphs/png/openedcoconut.jpg" id="3_d58up"]
+[ext_resource type="Script" path="res://scripts/RichTextLabel.gd" id="4_ovg25"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ipkiv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sqxuy")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_d58up")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8e38u"]
+radius = 40.3609
+
+[node name="EldersapTree" type="Node2D"]
+script = ExtResource("1_5mrou")
+
+[node name="growth_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3.8147e-06, 0)
+scale = Vector2(0.292969, 0.34375)
+sprite_frames = SubResource("SpriteFrames_ipkiv")
+animation = &"1"
+
+[node name="pickable_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickable_area"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_8e38u")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 17.0
+offset_top = -18.4
+offset_right = 57.0
+offset_bottom = 21.6
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ovg25")
+
+[connection signal="timeout" from="growth_timer" to="." method="_on_growth_timer_timeout"]
+[connection signal="body_entered" from="pickable_area" to="." method="_on_pickable_area_body_entered"]
+[connection signal="body_exited" from="pickable_area" to="." method="_on_pickable_area_body_exited"]
