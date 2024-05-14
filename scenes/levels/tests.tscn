@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=14 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
 [ext_resource type="Texture2D" uid="uid://dhfftuyimcu2x" path="res://graphs/png/Tiles/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Texture2D" uid="uid://d143300tkn321" path="res://graphs/png/Decoratives/Decoratives.png" id="4_gpbnm"]
 [ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/entity/player.tscn" id="5_g2cb2"]
+[ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://scenes/entity/skeleton.tscn" id="6_qyfn6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7nuoo"]
 
@@ -3832,6 +3833,7 @@ point_count = 5
 script = ExtResource("1_22424")
 
 [node name="EldersapTree" parent="." instance=ExtResource("2_i6he7")]
+visible = false
 position = Vector2(-255, -44)
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -3871,5 +3873,7 @@ loop = false
 
 [node name="Camera2D" type="Camera2D" parent="Path2D/PathFollow2D"]
 zoom = Vector2(2, 2)
+
+[node name="Skeleton" parent="." instance=ExtResource("6_qyfn6")]
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]

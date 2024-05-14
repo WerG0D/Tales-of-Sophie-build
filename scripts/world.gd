@@ -7,6 +7,7 @@ var player = null
 var is_pathfollowing = false
 var objects_has_happened = false
 var objects_is_happening = false 
+
 # Called when the node enters the scene tree for the first time.
 func _physics_process(delta):
 	if is_openingcutscene:

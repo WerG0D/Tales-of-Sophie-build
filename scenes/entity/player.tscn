@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://ce2fw8aoqsr6j" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-00.png" id="2_0ha7a"]
 [ext_resource type="Texture2D" uid="uid://bdex74qtumjcd" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-01.png" id="3_tkoms"]
-[ext_resource type="Script" path="res://scripts/HitBox.gd" id="4_eofq0"]
 [ext_resource type="Texture2D" uid="uid://dcosqht6v1xt7" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-02.png" id="4_kf723"]
 [ext_resource type="Texture2D" uid="uid://c2mn87flu4ain" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-03.png" id="5_x4qij"]
 [ext_resource type="Texture2D" uid="uid://drcpx6ogu2rw1" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-04.png" id="6_by5nj"]
@@ -91,7 +90,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("18_bwhqj")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 12.0
 }, {
@@ -164,9 +163,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22264"]
-radius = 2.04453
-height = 13.0064
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpphr"]
+size = Vector2(31.8054, 20.6208)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
 size = Vector2(11.3539, 6.86675)
@@ -174,6 +172,37 @@ size = Vector2(11.3539, 6.86675)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
 radius = 0.274961
 height = 2.50588
+
+[sub_resource type="Animation" id="Animation_mph28"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pth46"]
+resource_name = "attack1"
+length = 1.20001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
 
 [sub_resource type="Animation" id="Animation_61xkv"]
 resource_name = "fall"
@@ -245,24 +274,10 @@ tracks/0/keys = {
 "values": [ExtResource("59_s5rln"), ExtResource("60_uhjgn"), ExtResource("61_7cqoa"), ExtResource("62_vdhxb"), ExtResource("63_soki7"), ExtResource("64_aiegb")]
 }
 
-[sub_resource type="Animation" id="Animation_mph28"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g5p4h"]
 _data = {
 "RESET": SubResource("Animation_mph28"),
+"attack1": SubResource("Animation_pth46"),
 "fall": SubResource("Animation_61xkv"),
 "idle": SubResource("Animation_b0rae"),
 "jump": SubResource("Animation_kge4f"),
@@ -275,16 +290,17 @@ scale = Vector2(1.14495, 1.03756)
 script = ExtResource("1_b3mxi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.984611, 1)
 sprite_frames = SubResource("SpriteFrames_rri2r")
-animation = &"attack"
+animation = &"idle"
 
 [node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
-script = ExtResource("4_eofq0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
-position = Vector2(-14.8478, 14.457)
-rotation = -2.41149
-shape = SubResource("CapsuleShape2D_22264")
+position = Vector2(15.7209, 3.3733)
+rotation = -1.57023
+shape = SubResource("RectangleShape2D_hpphr")
+disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0.436525, 14.0352)
@@ -298,10 +314,10 @@ shape = SubResource("CapsuleShape2D_slk7t")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 17.0
-offset_top = -18.4
-offset_right = 57.0
-offset_bottom = 21.6
+offset_left = 17.468
+offset_top = -16.3846
+offset_right = 57.468
+offset_bottom = 23.6154
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -311,3 +327,6 @@ script = ExtResource("78_3wrjh")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="AnimatedSprite2D/HitBox" to="." method="_on_hit_box_body_entered"]

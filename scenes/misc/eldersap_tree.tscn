@@ -1,15 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3x50sjt3lsc2"]
+[gd_scene load_steps=6 format=3 uid="uid://c3x50sjt3lsc2"]
 
 [ext_resource type="Script" path="res://scripts/eldersap_tree.gd" id="1_5mrou"]
-[ext_resource type="Texture2D" uid="uid://dmuoswnc8dvis" path="res://graphs/png/coconut.png" id="2_sqxuy"]
-[ext_resource type="Texture2D" uid="uid://cn3m8bevw7h3s" path="res://graphs/png/openedcoconut.jpg" id="3_d58up"]
+[ext_resource type="Texture2D" uid="uid://cv8olab5pmgkd" path="res://graphs/png/Tiles/EldersapStatue.png" id="2_vwuih"]
 [ext_resource type="Script" path="res://scripts/RichTextLabel.gd" id="4_ovg25"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ipkiv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_sqxuy")
+"texture": ExtResource("2_vwuih")
 }],
 "loop": true,
 "name": &"1",
@@ -17,7 +16,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_d58up")
+"texture": ExtResource("2_vwuih")
 }],
 "loop": true,
 "name": &"2",
@@ -25,7 +24,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e38u"]
-radius = 40.3609
+radius = 71.1126
 
 [node name="EldersapTree" type="Node2D"]
 script = ExtResource("1_5mrou")
@@ -36,7 +35,7 @@ one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(3.8147e-06, 0)
-scale = Vector2(0.292969, 0.34375)
+scale = Vector2(3, 3.522)
 sprite_frames = SubResource("SpriteFrames_ipkiv")
 animation = &"1"
 
