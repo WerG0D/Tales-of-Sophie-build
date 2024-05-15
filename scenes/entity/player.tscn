@@ -297,16 +297,19 @@ animation = &"idle"
 [node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
+visible = false
 position = Vector2(15.7209, 3.3733)
 rotation = -1.57023
 shape = SubResource("RectangleShape2D_hpphr")
 disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.436525, 14.0352)
 shape = SubResource("RectangleShape2D_vsb3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.413, 0.963997)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
