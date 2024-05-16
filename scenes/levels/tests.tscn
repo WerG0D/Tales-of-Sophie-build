@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cdo4rijnuka4p"]
 
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_22424"]
+[ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
 [ext_resource type="Texture2D" uid="uid://dhfftuyimcu2x" path="res://graphs/png/Tiles/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Texture2D" uid="uid://d143300tkn321" path="res://graphs/png/Decoratives/Decoratives.png" id="4_gpbnm"]

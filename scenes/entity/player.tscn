@@ -1,6 +1,6 @@
-[gd_scene load_steps=47 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=50 format=3 uid="uid://bl12ts1ibfykd"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_b3mxi"]
+[ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://ce2fw8aoqsr6j" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-00.png" id="2_0ha7a"]
 [ext_resource type="Texture2D" uid="uid://bdex74qtumjcd" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-01.png" id="3_tkoms"]
 [ext_resource type="Texture2D" uid="uid://dcosqht6v1xt7" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-02.png" id="4_kf723"]
@@ -18,6 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://b43sxfk45o5fu" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-03.png" id="16_76tib"]
 [ext_resource type="Texture2D" uid="uid://ctwo4bbr5nawe" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-04.png" id="17_i0462"]
 [ext_resource type="Texture2D" uid="uid://vge5fhy2e3i3" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-05.png" id="18_bwhqj"]
+[ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
+[ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="37_hplil"]
+[ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
 [ext_resource type="Texture2D" uid="uid://d0nx5jdkoxe3y" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-fall-00.png" id="42_5iw2t"]
 [ext_resource type="Texture2D" uid="uid://dqwjry4orq5um" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-fall-01.png" id="43_5d154"]
 [ext_resource type="Texture2D" uid="uid://dp5nx1mnu0h48" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-idle-00.png" id="47_uvfm7"]
@@ -34,7 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://hirarwuqeaq7" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-run-03.png" id="62_vdhxb"]
 [ext_resource type="Texture2D" uid="uid://cgmqpyiduei75" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-run-04.png" id="63_soki7"]
 [ext_resource type="Texture2D" uid="uid://dv2lr7boh1ari" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-run-05.png" id="64_aiegb"]
-[ext_resource type="Script" path="res://scripts/RichTextLabel.gd" id="78_3wrjh"]
+[ext_resource type="Script" path="res://scripts/components/RichTextLabel.gd" id="78_3wrjh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rri2r"]
 animations = [{
@@ -297,11 +300,26 @@ animation = &"idle"
 [node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
-visible = false
 position = Vector2(15.7209, 3.3733)
 rotation = -1.57023
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hpphr")
 disabled = true
+
+[node name="HurtBoxComponent" type="Area2D" parent="AnimatedSprite2D" node_paths=PackedStringArray("health_component")]
+script = ExtResource("35_u515o")
+health_component = NodePath("../../HealthComponent")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="AnimatedSprite2D/HurtBoxComponent"]
+visible = false
+position = Vector2(0.436525, 14.0352)
+shape = SubResource("RectangleShape2D_vsb3e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HurtBoxComponent"]
+visible = false
+position = Vector2(0.413, 0.963997)
+scale = Vector2(20.915, 10)
+shape = SubResource("CapsuleShape2D_slk7t")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
@@ -331,5 +349,13 @@ libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
 
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("37_hplil")
+
+[node name="AttackComponent" type="Node2D" parent="."]
+script = ExtResource("38_a7jxw")
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="AnimatedSprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="AnimatedSprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="area_entered" from="AnimatedSprite2D/HurtBoxComponent" to="." method="_on_hurt_box_component_area_entered"]

@@ -7,15 +7,25 @@ extends CharacterBody2D
 @export var enable_inputs: bool = true
 @export var is_attacking: bool = false 
 @onready var camera = $Camera2D
+@onready var attackcomp = $AttackComponent
+@onready var healthcomp = $HealthComponent
+
+var playerdmg = 50
+var playerstuntime = 0.5
+var playerknockbackforce = 0.5
+var playermaxhealth = 100
+var playercurrenthealth = 100
 
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-func _ready():
-	Global.playerBody = self
+
+#var maxhealth = Global.playerMaxHealth
+#var currenthealth = Global.currenthealth
+#var playerdmg = Global.playerDamageAmount
+#var damagezone = Global.playerDamageZone
 	
 func _physics_process(_delta):
-	Global.playerDamageAmount = 50
-	Global.playerDamageZone = $AnimatedSprite2D/HitBox
+
 	#gravity code
 	if  !is_on_floor():
 		velocity.y += gravity 
@@ -90,6 +100,28 @@ func player():
 		#player = body
 	pass
 
+func _on_hit_box_area_entered(area): #dá dano
+	if area.has_method("take_damage"):
+		
+		attackcomp.attack_damage = playerdmg
+		attackcomp.knockback_force = playerknockbackforce
+		attackcomp.stun_time = playerstuntime
+		area.take_damage(attackcomp)
+	else:
+		pass
+
+#func damage():
+	#$Sprite2D/AnimationPlayer.play("hurt")
+	#currenthealth -= attackcomp.attack_damage
+	#if currenthealth <= 0:
+		#currenthealth = 0
+		#dead = true
+		#$Sprite2D/AnimationPlayer.play("die")
+		#taking_damage = false
 
 
-	
+func _on_hurt_box_component_area_entered(area):
+	if area.has_method("deal_damage"):
+		healthcomp.MAX_HEALTH = playermaxhealth
+		healthcomp.health = playercurrenthealth
+		area.take_damage() # Replace with function body.

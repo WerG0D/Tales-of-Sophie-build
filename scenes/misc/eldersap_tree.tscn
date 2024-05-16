@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c3x50sjt3lsc2"]
 
-[ext_resource type="Script" path="res://scripts/eldersap_tree.gd" id="1_5mrou"]
+[ext_resource type="Script" path="res://scripts/misc/eldersap_tree.gd" id="1_5mrou"]
 [ext_resource type="Texture2D" uid="uid://cv8olab5pmgkd" path="res://graphs/png/Tiles/EldersapStatue.png" id="2_vwuih"]
-[ext_resource type="Script" path="res://scripts/RichTextLabel.gd" id="4_ovg25"]
+[ext_resource type="Script" path="res://scripts/components/RichTextLabel.gd" id="4_ovg25"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ipkiv"]
 animations = [{
