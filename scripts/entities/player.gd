@@ -34,9 +34,11 @@ func _physics_process(_delta):
 	#MOVE HORIZONTALLY CODE (accel set to max speed make so theres no accel)
 	if Input.is_action_pressed("move_right"):
 		velocity.x += acceleration
-	elif Input.is_action_pressed("move_left"):
+		print(acceleration)	
+	if Input.is_action_pressed("move_left"):
 		velocity.x -= acceleration
-	else:
+		print(acceleration)		
+	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		#for desceleration
 		#velocity.x = lerp(velocity.x,0.0,0.2)
 		velocity.x = 0
