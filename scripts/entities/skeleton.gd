@@ -3,8 +3,6 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-var maxhealth = 100
-var currenthealth = 100
 @export var dead: bool = false
 @export var taking_damage = false
 @export var is_attacking: bool = false
@@ -28,7 +26,7 @@ func _physics_process(delta):
 	if !taking_damage and !dead and !is_attacking:
 		$Sprite2D/AnimationPlayer.play("idle")
 	
-	$RichTextLabel.set_text(str("HP:",currenthealth, "| tdmg", taking_damage))
+	$RichTextLabel.set_text(str("HP:",$HealthComponent.health, "| tdmg", taking_damage))
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -50,19 +48,24 @@ func damage():
 	#HealthComp.MAX_HEALTH = maxhealth
 	#HealthComp.health = currenthealth
 	#HealthComp.damage()
-	if currenthealth <= 0:
-		currenthealth = 0
+	if  $HealthComponent.health<= 0:
+		$HealthComponent.health = 0
 		dead = true
 		$Sprite2D/AnimationPlayer.play("die")
 		taking_damage = false
 
-
+#func damage():
+	#$Sprite2D/AnimationPlayer.play("hurt")
+	#currenthealth -= attackcomp.attack_damage
+	#if currenthealth <= 0:
+		#currenthealth = 0
+		#dead = true
+		#$Sprite2D/AnimationPlayer.play("die")
+		#taking_damage = false
 
 
 func _on_hurt_box_area_entered(area):
 	if area.has_method("deal_damage"):
-		healthcomp.MAX_HEALTH = maxhealth
-		healthcomp.health = currenthealth
 		area.deal_damage()
 
 

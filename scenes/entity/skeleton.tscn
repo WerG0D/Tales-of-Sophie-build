@@ -122,6 +122,7 @@ libraries = {
 }
 
 [node name="HurtBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 script = ExtResource("3_i3cgn")
 health_component = NodePath("../../HealthComponent")
 
@@ -129,6 +130,7 @@ health_component = NodePath("../../HealthComponent")
 shape = SubResource("CapsuleShape2D_up7ql")
 
 [node name="HitboxComponent" type="Area2D" parent="Sprite2D"]
+visible = false
 script = ExtResource("4_xnfj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
@@ -153,6 +155,8 @@ autowrap_mode = 0
 script = ExtResource("3_3bwqj")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_acdkq")]
+MAX_HEALTH = 100
+health = 100
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("7_hw3bw")

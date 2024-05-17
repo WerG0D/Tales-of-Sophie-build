@@ -295,14 +295,13 @@ script = ExtResource("1_b3mxi")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.984611, 1)
 sprite_frames = SubResource("SpriteFrames_rri2r")
-animation = &"idle"
+animation = &"attack"
 
 [node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
 position = Vector2(15.7209, 3.3733)
 rotation = -1.57023
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hpphr")
 disabled = true
 
@@ -311,12 +310,10 @@ script = ExtResource("35_u515o")
 health_component = NodePath("../../HealthComponent")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="AnimatedSprite2D/HurtBoxComponent"]
-visible = false
 position = Vector2(0.436525, 14.0352)
 shape = SubResource("RectangleShape2D_vsb3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HurtBoxComponent"]
-visible = false
 position = Vector2(0.413, 0.963997)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
@@ -354,6 +351,7 @@ script = ExtResource("37_hplil")
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("38_a7jxw")
+attack_damage = 50
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="AnimatedSprite2D/HitBox" to="." method="_on_hit_box_area_entered"]

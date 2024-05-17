@@ -1,11 +1,11 @@
 extends CharacterBody2D
-@export var max_speed : int = 700
-@export var jump_force : int = 1600
-@export var acceleration : int = 700
-@export var jump_buffer_time : int  = 15
-@export var jump_buffer_counter : int = 0
-@export var enable_inputs: bool = true
-@export var is_attacking: bool = false 
+var max_speed : int = 700
+var jump_force : int = 1600
+var acceleration : int = 700
+var jump_buffer_time : int  = 15
+var jump_buffer_counter : int = 0
+var enable_inputs: bool = true
+var is_attacking: bool = false 
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
@@ -100,7 +100,7 @@ func player():
 		#player = body
 	pass
 
-func _on_hit_box_area_entered(area): #dá dano
+func _on_hit_box_area_entered(area): #Dá dano
 	if area.has_method("take_damage"):
 		
 		attackcomp.attack_damage = playerdmg
@@ -120,7 +120,7 @@ func _on_hit_box_area_entered(area): #dá dano
 		#taking_damage = false
 
 
-func _on_hurt_box_component_area_entered(area):
+func _on_hurt_box_component_area_entered(area): #Recebe dano
 	if area.has_method("deal_damage"):
 		healthcomp.MAX_HEALTH = playermaxhealth
 		healthcomp.health = playercurrenthealth
