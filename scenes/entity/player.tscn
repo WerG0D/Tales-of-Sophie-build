@@ -292,6 +292,10 @@ position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
 script = ExtResource("1_b3mxi")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+scale = Vector2(0.984611, 1)
+target_position = Vector2(0, 100)
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.984611, 1)
 sprite_frames = SubResource("SpriteFrames_rri2r")
