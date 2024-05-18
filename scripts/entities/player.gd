@@ -12,7 +12,7 @@ var is_hooked: bool = false
 var chain_length = 500
 var motion =  Vector2()
 var hook_pos = Vector2()
-var radius = global_position - hook_pos
+var radius = Vector2()
 
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
@@ -41,10 +41,18 @@ func _physics_process(delta):
 	animatedattackWIP()
 	hook()
 	_draw()
-	$RichTextLabel.set_text(str("velocity:", velocity, "\n current chain len:", current_chain_length, "\nglobal pos", global_position," distance to hook ", "\n distance to hook", global_position.distance_to(hook_pos)))
+	$RichTextLabel.set_text(str(
+	"velocity: ", velocity,"
+	\n Current chain len: ", current_chain_length, "
+	\n Global pos: ", global_position,"
+	\n Hook pos: " , hook_pos,"
+	\n Distance to hook: ", global_position.distance_to(hook_pos),"
+	\n Mouse pos:",  get_angle_to(get_global_mouse_position()),"
+	\n Radius: ", radius
+	))#
 func moveplayer(delta):
 	if  !is_on_floor():
-		velocity.y += gravity 
+		velocity.y += gravity
 		if velocity.y > 2000:
 			velocity.y = 2000
 	if Input.is_action_pressed("move_right"):
@@ -155,11 +163,12 @@ func get_hook_pos():
 			return $RayCast2D.get_collision_point()
 		
 func swing(delta):
-	var radius = global_position -hook_pos
+	print(global_position - hook_pos)
+	radius = global_position - hook_pos
 	if velocity.length() < 0.01 or radius.length() < 10: return
 	var angle = acos(radius.dot(velocity)/(radius.length()*velocity.length()))	
 	var rad_vel = cos(angle) * velocity.length()
-	velocity += radius.normalized() * -rad_vel
+	velocity += radius.normalized() * - rad_vel
 	if global_position.distance_to(hook_pos) > current_chain_length:
 		print(" distance to hook ", global_position.distance_to(hook_pos))
 		global_position = hook_pos + radius.normalized() * current_chain_length
