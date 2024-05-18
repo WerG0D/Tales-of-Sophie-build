@@ -1,8 +1,8 @@
 #player, ainda tem mt coisa q mudar/ limpar mas ta quase 100% (eu espero :P) 
 extends CharacterBody2D
-var max_speed : int = 700
+var max_speed : int = 2000
 var jump_force : int = 2600
-var acceleration : int = 700
+var acceleration : int = 2000
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var enable_inputs: bool = true
@@ -59,8 +59,8 @@ func moveplayer(delta):
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= acceleration
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-		#velocity.x = lerp(velocity.x,0.0,0.2)
-		velocity.x = 0
+		velocity.x = lerp(velocity.x,0.0,0.1)
+		
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump_buffer_counter = jump_buffer_time
