@@ -12,7 +12,6 @@ var objects_is_happening = false
 func _physics_process(delta):
 	if is_openingcutscene:
 		var pathfollower = $Path2D/PathFollow2D
-		
 		if is_pathfollowing:
 			if !objects_is_happening:
 				pathfollower.progress_ratio += 0.001

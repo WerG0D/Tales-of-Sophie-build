@@ -23,13 +23,8 @@ var playerstuntime = 0.5
 var playerknockbackforce = 0.5
 var playermaxhealth = 100
 var playercurrenthealth = 100
-
 var gravity = 100
 
-#var maxhealth = Global.playerMaxHealth
-#var currenthealth = Global.currenthealth
-#var playerdmg = Global.playerDamageAmount
-#var damagezone = Global.playerDamageZone
 	
 func _physics_process(delta):
 	if Input.is_action_just_released("debug"):
@@ -153,11 +148,11 @@ func _on_hurt_box_component_area_entered(area): #Recebe dano
 		healthcomp.health = playercurrenthealth
 		area.take_damage() # Replace with function body.
 func hook():
-	
+	$RayCast2D.rotation =  get_angle_to(get_global_mouse_position())
 	if Input.is_action_just_pressed("LClick") and not(is_hooked):
-		$RayCast2D.rotation =  get_angle_to(get_global_mouse_position())
+		
 		hook_pos = get_hook_pos()
-		if get_hook_pos():
+		if not(is_hooked):
 			current_chain_length =global_position.distance_to(hook_pos)
 			is_hooked = 1
 	if Input.is_action_just_released("RClick") and is_hooked:	
