@@ -288,9 +288,8 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, 73164.9)
-scale = Vector2(1.12317, 1.03756)
-velocity = Vector2(0, 2000)
+position = Vector2(0, -18)
+scale = Vector2(1.14495, 1.03756)
 script = ExtResource("1_b3mxi")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -298,16 +297,15 @@ scale = Vector2(0.984611, 1)
 target_position = Vector2(500, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.993984, 1)
+scale = Vector2(0.984611, 1)
 sprite_frames = SubResource("SpriteFrames_rri2r")
-animation = &"idle"
+animation = &"attack"
 
 [node name="HitBox" type="Area2D" parent="AnimatedSprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/HitBox"]
-position = Vector2(17.9145, 2.02549)
+position = Vector2(15.7209, 3.3733)
 rotation = -1.57023
-scale = Vector2(1.04491, 0.976386)
 shape = SubResource("RectangleShape2D_hpphr")
 disabled = true
 

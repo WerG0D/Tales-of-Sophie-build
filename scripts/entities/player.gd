@@ -153,7 +153,7 @@ func hook():
 	if Input.is_action_just_pressed("LClick") and not(is_hooked):
 		
 		hook_pos = get_hook_pos()
-		if not(is_hooked) and not(is_on_floor()):
+		if not(is_hooked) and not(is_on_floor() and $RayCast2D.is_colliding()):
 			current_chain_length =global_position.distance_to(hook_pos)
 			is_hooked = 1
 	if Input.is_action_just_released("RClick") and is_hooked:	
