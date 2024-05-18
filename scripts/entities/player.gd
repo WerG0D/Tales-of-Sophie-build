@@ -170,14 +170,18 @@ func swing(delta):
 	var angle = acos(radius.dot(velocity)/(radius.length()*velocity.length()))	
 	var rad_vel = cos(angle) * velocity.length()
 	velocity += radius.normalized() * - rad_vel
-	if global_position.distance_to(hook_pos) > current_chain_length:
+	if global_position.distance_to(hook_pos) > current_chain_length + 400:
 		print(" distance to hook ", global_position.distance_to(hook_pos))
 		global_position = hook_pos + radius.normalized() * current_chain_length
-		velocity *= (hook_pos-global_position).normalized() * 1500 * delta
+		velocity *= (hook_pos-global_position).normalized() * 100 * delta
+		if velocity.x > 2000: pass
+		if velocity.y > 2000: pass
+		
 		print("hookpos ",hook_pos)
 		print("golbalpos normalized ", global_position.normalized())
 		print("delta ",  delta)
 		print("velocity ",velocity)
+		print("problem causer maybe", (hook_pos-global_position))
 
 
 func player(): #faz nada
