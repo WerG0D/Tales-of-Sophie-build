@@ -41,7 +41,7 @@ func _physics_process(delta):
 	animatedattackWIP()
 	hook()
 	_draw()
-	$RichTextLabel.set_text(str("velocity:", velocity, "\n current chain len:", current_chain_length, "\nglobal pos", global_position))
+	$RichTextLabel.set_text(str("velocity:", velocity, "\n current chain len:", current_chain_length, "\nglobal pos", global_position," distance to hook ", "\n distance to hook", global_position.distance_to(hook_pos)))
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity 
@@ -161,8 +161,9 @@ func swing(delta):
 	var rad_vel = cos(angle) * velocity.length()
 	velocity += radius.normalized() * -rad_vel
 	if global_position.distance_to(hook_pos) > current_chain_length:
+		print(" distance to hook ", global_position.distance_to(hook_pos))
 		global_position = hook_pos + radius.normalized() * current_chain_length
-		velocity *= (hook_pos-global_position).normalized() * 400 * delta
+		velocity *= (hook_pos-global_position).normalized() * 1500 * delta
 		print("hookpos",hook_pos)
 		print("golbalpos normalized", global_position.normalized())
 		print("delta",  delta)
