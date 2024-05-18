@@ -1,5 +1,4 @@
 #player, ainda tem mt coisa q mudar/ limpar mas ta quase 100% (eu espero :P) 
-@tool
 extends CharacterBody2D
 var max_speed : int = 700
 var jump_force : int = 2600
