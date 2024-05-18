@@ -75,6 +75,7 @@ func moveplayer(delta):
 	if is_hooked:
 		swing(delta)
 		velocity *= 0.98
+		
 
 
 func _draw() -> void:
@@ -152,14 +153,15 @@ func hook():
 	if Input.is_action_just_pressed("LClick") and not(is_hooked):
 		
 		hook_pos = get_hook_pos()
-		if not(is_hooked):
+		if not(is_hooked) and not(is_on_floor()):
 			current_chain_length =global_position.distance_to(hook_pos)
 			is_hooked = 1
 	if Input.is_action_just_released("RClick") and is_hooked:	
 			is_hooked = 0		
 			
 func get_hook_pos():
-			return $RayCast2D.get_collision_point()
+			if $RayCast2D.is_colliding():
+				return $RayCast2D.get_collision_point()
 		
 func swing(delta):
 	radius = global_position - hook_pos
