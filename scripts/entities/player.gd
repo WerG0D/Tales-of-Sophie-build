@@ -34,10 +34,7 @@ var gravity = 100
 	
 func _physics_process(delta):
 	if Input.is_action_just_released("debug"):
-		if isdebug:
-			isdebug = false
-		else:
-			isdebug = true
+		isdebug = not(isdebug)
 		print("breakpoint")
 	moveplayer(delta)
 	move_and_slide()
@@ -56,6 +53,8 @@ func _physics_process(delta):
 		\n Radius: ", radius, "
 		\n IsHooked:" , is_hooked
 		))#
+	else:
+		$RichTextLabel.set_text("")
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
