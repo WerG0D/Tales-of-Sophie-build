@@ -1,18 +1,23 @@
+#player, ainda tem mt coisa q mudar/ limpar mas ta quase 100% (eu espero :P) 
+
 extends CharacterBody2D
 var max_speed : int = 700
-var jump_force : int = 1600
+var jump_force : int = 2600
 var acceleration : int = 700
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var enable_inputs: bool = true
 var is_attacking: bool = false 
 var is_hooked: bool = false
-var current_chain_length: float
-var chain_length = 10
+var chain_length = 500
 var motion =  Vector2()
+var hook_pos = Vector2()
+var radius = global_position - hook_pos
+
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
+@onready var current_chain_length = chain_length	
 
 var playerdmg = 50
 var playerstuntime = 0.5
@@ -20,7 +25,7 @@ var playerknockbackforce = 0.5
 var playermaxhealth = 100
 var playercurrenthealth = 100
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity = 100
 
 #var maxhealth = Global.playerMaxHealth
 #var currenthealth = Global.currenthealth
@@ -28,12 +33,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 #var damagezone = Global.playerDamageZone
 	
 func _physics_process(delta):
+	if Input.is_action_pressed("debug"):
+		print("breakpoint")
 	moveplayer(delta)
 	move_and_slide()
 	animateplayerWIP()
 	animatedattackWIP()
 	hook()
-	$RichTextLabel.set_text(str("huki:", is_hooked))
+	_draw()
+	$RichTextLabel.set_text(str("velocity:", velocity, "\n current chain len:", current_chain_length, "\nglobal pos", global_position))
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity 
@@ -59,8 +67,21 @@ func moveplayer(delta):
 			velocity.y *= 0.2 
 	if is_hooked:
 		swing(delta)
-		velocity *= 1.15
+		velocity *= 0.98
 
+
+func _draw():
+	var pos = global_position
+	if is_hooked:
+		draw_line(Vector2(0,-16), to_local(hook_pos), Color(1, 0.7, 0.9),3,true)
+	else:
+		return
+		var colliding = $Raycast2D.is_colliding()
+		var collide_point =$Raycast2D.get_collision_point()
+		if colliding and pos.distance_to(collide_point) < chain_length:
+			draw_line(Vector2(0,-16), to_local(collide_point), Color(1, 1, 1),0.5,true)
+				
+				
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$AnimatedSprite2D.flip_h = true
@@ -120,28 +141,32 @@ func _on_hurt_box_component_area_entered(area): #Recebe dano
 		healthcomp.health = playercurrenthealth
 		area.take_damage() # Replace with function body.
 func hook():
-	if Input.is_action_just_pressed("LClick"):
-		$RayCast2D.rotation =  get_angle_to(get_global_mouse_position()) - 1.58
-		
-		if $RayCast2D.is_colliding():
+	
+	if Input.is_action_just_pressed("LClick") and not(is_hooked):
+		$RayCast2D.rotation =  get_angle_to(get_global_mouse_position())
+		hook_pos = get_hook_pos()
+		if get_hook_pos():
+			current_chain_length =global_position.distance_to(hook_pos)
 			is_hooked = 1
-	if Input.is_action_just_released("RClick"):	
+	if Input.is_action_just_released("RClick") and is_hooked:	
 			is_hooked = 0		
+			
+func get_hook_pos():
+			return $RayCast2D.get_collision_point()
+		
 func swing(delta):
-	current_chain_length = global_position.distance_to($RayCast2D.get_collision_point())
-	if velocity.length() < 0.01 or (global_position - $RayCast2D.get_collision_point()).length() < 10:
-		print(velocity.y)
-		var angle = acos((global_position - $RayCast2D.get_collision_point()).dot(motion)/ (global_position - $RayCast2D.get_collision_point()).length()*motion.length())
-		print(velocity.y)
-		var rad_vel = cos(angle) * velocity.length()
-		print(velocity.y)
-		velocity += (global_position - $RayCast2D.get_collision_point()).normalized() * -rad_vel
-		print(velocity.y)		
-		if global_position.distance_to($RayCast2D.get_collision_point()) > current_chain_length:
-			global_position =$RayCast2D.get_collision_point() + (global_position - $RayCast2D.get_collision_point()).normalized() * current_chain_length
-			print(velocity.y)	
-		velocity += ($RayCast2D.get_collision_point()-global_position).normalized() * 15000 * delta
-		print(velocity.y)
+	var radius = global_position -hook_pos
+	if velocity.length() < 0.01 or radius.length() < 10: return
+	var angle = acos(radius.dot(velocity)/(radius.length()*velocity.length()))	
+	var rad_vel = cos(angle) * velocity.length()
+	velocity += radius.normalized() * -rad_vel
+	if global_position.distance_to(hook_pos) > current_chain_length:
+		global_position = hook_pos + radius.normalized() * current_chain_length
+		velocity *= (hook_pos-global_position).normalized() * 400 * delta
+		print("hookpos",hook_pos)
+		print("golbalpos normalized", global_position.normalized())
+		print("delta",  delta)
+		print("velocity:::::",velocity)
 
 
 func player(): #faz nada
