@@ -59,7 +59,7 @@ func moveplayer(delta):
 	if Input.is_action_pressed("move_left"):
 		velocity.x -= acceleration
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-		velocity.x = lerp(velocity.x,0.0,0.1)
+		velocity.x = lerp(velocity.x,0.0,0.05)
 		
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
