@@ -2,7 +2,7 @@
 extends CharacterBody2D
 var max_speed : int = 2000
 var jump_force : int = 2600
-var acceleration : int = 2000
+var acceleration : int = 200
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var enable_inputs: bool = true
