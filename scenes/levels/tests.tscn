@@ -3881,7 +3881,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 5
 texture_filter = 1
-position = Vector2(796, -327)
+position = Vector2(796, -23.3468)
 scale = Vector2(5, 5)
 
 [node name="cutscene" type="Area2D" parent="."]

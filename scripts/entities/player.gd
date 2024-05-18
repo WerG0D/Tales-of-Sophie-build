@@ -1,5 +1,5 @@
 #player, ainda tem mt coisa q mudar/ limpar mas ta quase 100% (eu espero :P) 
-
+@tool
 extends CharacterBody2D
 var max_speed : int = 700
 var jump_force : int = 2600
@@ -37,11 +37,11 @@ func _physics_process(delta):
 		isdebug = not(isdebug)
 		print("breakpoint")
 	moveplayer(delta)
+	_draw()	
 	move_and_slide()
 	animateplayerWIP()
 	animatedattackWIP()
 	hook()
-	_draw()
 	if isdebug:
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
@@ -49,7 +49,7 @@ func _physics_process(delta):
 		\n Global pos: ", global_position,"
 		\n Hook pos: " , hook_pos,"
 		\n Distance to hook: ", global_position.distance_to(hook_pos),"
-		\n Mouse pos:",  get_angle_to(get_global_mouse_position()),"
+		\n Mouse pos:",  get_global_mouse_position(),"
 		\n Radius: ", radius, "
 		\n IsHooked:" , is_hooked
 		))#
@@ -83,17 +83,17 @@ func moveplayer(delta):
 		velocity *= 0.98
 
 
-func _draw():
+func _draw() -> void:
 	var pos = global_position
 	if is_hooked:
-		draw_line(Vector2(0,-16), to_local(hook_pos), Color(1, 0.7, 0.9),3,true)
+		draw_line(to_local(global_position), to_local(hook_pos), Color(1, 0.7, 0.9),3,true)
 	else:
 		return
 		var colliding = $Raycast2D.is_colliding()
 		var collide_point =$Raycast2D.get_collision_point()
 		if colliding and pos.distance_to(collide_point) < chain_length:
 			draw_line(Vector2(0,-16), to_local(collide_point), Color(1, 1, 1),0.5,true)
-				
+	queue_redraw()
 				
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
@@ -188,3 +188,7 @@ func player(): #faz nada
 	#if body.has_method("player"):
 		#player = body
 	pass
+
+
+func _on_ray_cast_2d_draw():
+	pass # Replace with function body.
