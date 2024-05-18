@@ -28,15 +28,18 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -27.0
-offset_top = -124.0
-offset_right = 43.0
-offset_bottom = -23.0
+offset_left = -104.0
+offset_top = -240.0
+offset_right = -34.0
+offset_bottom = -139.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(1.83602, 1.83602)
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+action_mode = 0
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]
@@ -45,6 +48,7 @@ text = "Options"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
 text = "Quit"
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
