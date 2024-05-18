@@ -170,10 +170,10 @@ func swing(delta):
 	var angle = acos(radius.dot(velocity)/(radius.length()*velocity.length()))	
 	var rad_vel = cos(angle) * velocity.length()
 	velocity += radius.normalized() * - rad_vel
-	if global_position.distance_to(hook_pos) > current_chain_length + 400:
+	if global_position.distance_to(hook_pos) > current_chain_length + 400: #provavelmente vai ter que tirar o 400
 		print(" distance to hook ", global_position.distance_to(hook_pos))
-		global_position = hook_pos + radius.normalized() * current_chain_length
-		velocity *= (hook_pos-global_position).normalized() * 100 * delta
+		global_position = hook_pos + radius.normalized() * current_chain_length # e consertar nessa linha
+		velocity *= (hook_pos-global_position).normalized() * 100 * delta # esse *100 é problematico
 		if velocity.x > 2000: pass
 		if velocity.y > 2000: pass
 		
