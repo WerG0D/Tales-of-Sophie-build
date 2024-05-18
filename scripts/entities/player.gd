@@ -152,16 +152,17 @@ func hook():
 	$RayCast2D.rotation =  get_angle_to(get_global_mouse_position())
 	if Input.is_action_just_pressed("LClick") and not(is_hooked):
 		
-		hook_pos = get_hook_pos()
-		if not(is_hooked) and not(is_on_floor() and $RayCast2D.is_colliding()):
+		
+		if not(is_hooked) and ($RayCast2D.is_colliding()) and not(is_on_floor()):
+			hook_pos = get_hook_pos()
 			current_chain_length =global_position.distance_to(hook_pos)
 			is_hooked = 1
 	if Input.is_action_just_released("RClick") and is_hooked:	
 			is_hooked = 0		
 			
 func get_hook_pos():
-			if $RayCast2D.is_colliding():
 				return $RayCast2D.get_collision_point()
+				
 		
 func swing(delta):
 	radius = global_position - hook_pos
