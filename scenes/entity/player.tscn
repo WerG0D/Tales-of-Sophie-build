@@ -337,13 +337,21 @@ shape = SubResource("CapsuleShape2D_slk7t")
 zoom = Vector2(0.21, 0.21)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 17.468
-offset_top = -16.3846
-offset_right = 57.468
-offset_bottom = 23.6154
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.7966
+offset_top = -70.3574
+offset_right = -2.79663
+offset_bottom = -30.3574
+grow_horizontal = 2
+grow_vertical = 2
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+tab_size = 1
 script = ExtResource("78_3wrjh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
