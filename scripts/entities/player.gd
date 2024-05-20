@@ -125,6 +125,7 @@ func animatedattackWIP():
 		#is_attacking = false
 		#
 func _on_animated_sprite_2d_animation_finished():
+	#Pra isso ficar melhor precisamos trocar o AnimatedSprite por um Sprite2D
 	is_attacking = false
 	$AnimatedSprite2D/HitBox/CollisionShape2D.disabled = true
 	healthcomp.is_taking_damage  = false
