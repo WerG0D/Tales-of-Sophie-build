@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=60 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://ce2fw8aoqsr6j" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack1-00.png" id="2_0ha7a"]
@@ -18,6 +18,16 @@
 [ext_resource type="Texture2D" uid="uid://b43sxfk45o5fu" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-03.png" id="16_76tib"]
 [ext_resource type="Texture2D" uid="uid://ctwo4bbr5nawe" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-04.png" id="17_i0462"]
 [ext_resource type="Texture2D" uid="uid://vge5fhy2e3i3" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-attack3-05.png" id="18_bwhqj"]
+[ext_resource type="Texture2D" uid="uid://ddo2mwrxm1w00" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-00.png" id="19_m3w1k"]
+[ext_resource type="Texture2D" uid="uid://bap0tpew28v1c" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-01.png" id="20_bpmyk"]
+[ext_resource type="Texture2D" uid="uid://cv2pivjy5cy07" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-02.png" id="21_slkk3"]
+[ext_resource type="Texture2D" uid="uid://bxphff7sitc0g" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-03.png" id="22_wc712"]
+[ext_resource type="Texture2D" uid="uid://cl2178qpqj2wv" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-04.png" id="23_tn70n"]
+[ext_resource type="Texture2D" uid="uid://cw40xwlcuu2wy" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-05.png" id="24_120d8"]
+[ext_resource type="Texture2D" uid="uid://0egu0s5mo3m2" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-die-06.png" id="25_37mfu"]
+[ext_resource type="Texture2D" uid="uid://c6g4xuih733ap" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-hurt-00.png" id="28_wuhf1"]
+[ext_resource type="Texture2D" uid="uid://cm4umxkci08e8" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-hurt-01.png" id="29_chtye"]
+[ext_resource type="Texture2D" uid="uid://cgc2mpcx8ufy6" path="res://graphs/png/Player/Adventurer/Individual Sprites/adventurer-hurt-02.png" id="30_wdb6c"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
@@ -99,6 +109,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("19_m3w1k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_bpmyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_slkk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_wc712")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_tn70n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_120d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_37mfu")
+}],
+"loop": false,
+"name": &"die",
+"speed": 11.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("42_5iw2t")
 }, {
 "duration": 1.0,
@@ -107,6 +143,20 @@ animations = [{
 "loop": true,
 "name": &"fall",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_wuhf1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_chtye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_wdb6c")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -322,6 +372,12 @@ position = Vector2(0.413, 0.963997)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_g5p4h")
+}
+
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0.436525, 14.0352)
@@ -334,7 +390,6 @@ scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.21, 0.21)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchors_preset = 8
@@ -354,13 +409,9 @@ autowrap_mode = 0
 tab_size = 1
 script = ExtResource("78_3wrjh")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_g5p4h")
-}
-
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("37_hplil")
+MAX_HEALTH = 100
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("38_a7jxw")

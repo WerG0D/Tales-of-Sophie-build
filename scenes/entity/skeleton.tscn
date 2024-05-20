@@ -130,11 +130,10 @@ health_component = NodePath("../../HealthComponent")
 shape = SubResource("CapsuleShape2D_up7ql")
 
 [node name="HitboxComponent" type="Area2D" parent="Sprite2D"]
-visible = false
 script = ExtResource("4_xnfj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
-position = Vector2(13.25, 0)
+position = Vector2(21, -2)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("RectangleShape2D_bkw4v")
 disabled = true
@@ -154,12 +153,14 @@ scroll_active = false
 autowrap_mode = 0
 script = ExtResource("3_3bwqj")
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_acdkq")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("SpriteAnimPlayer") instance=ExtResource("5_acdkq")]
 MAX_HEALTH = 100
-health = 100
+SpriteAnimPlayer = NodePath("../Sprite2D/AnimationPlayer")
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("7_hw3bw")
+attack_damage = 50
 
+[connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="Sprite2D/HitboxComponent" to="." method="_on_hitbox_component_area_entered"]

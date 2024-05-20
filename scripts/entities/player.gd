@@ -38,14 +38,15 @@ func _physics_process(delta):
 	hook()
 	if isdebug:
 		$RichTextLabel.set_text(str(
-		"velocity: ", velocity,"
-		\n Current chain len: ", current_chain_length, "
-		\n Global pos: ", global_position,"
-		\n Hook pos: " , hook_pos,"
-		\n Distance to hook: ", global_position.distance_to(hook_pos),"
-		\n Mouse pos:",  get_global_mouse_position(),"
-		\n Radius: ", radius, "
-		\n IsHooked:" , is_hooked
+		#"velocity: ", velocity,"
+		#\n Current chain len: ", current_chain_length, "
+		#\n Global pos: ", global_position,"
+		#\n Hook pos: " , hook_pos,"
+		#\n Distance to hook: ", global_position.distance_to(hook_pos),"
+		#\n Mouse pos:",  get_global_mouse_position(),"
+		#\n Radius: ", radius, "
+		#\n IsHooked:" , is_hooked
+		"HP: ", healthcomp.health, " isdead: ", healthcomp.is_dead, " tcmg: ", healthcomp.is_taking_damage
 		))#
 	else:
 		$RichTextLabel.set_text("")
@@ -75,9 +76,6 @@ func moveplayer(delta):
 	if is_hooked:
 		swing(delta)
 		velocity *= 0.98
-		
-
-
 func _draw() -> void:
 	var pos = global_position
 	if is_hooked:
@@ -99,11 +97,11 @@ func animateplayerWIP():
 		$AnimatedSprite2D/HitBox.scale.x = 1
 	
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and is_attacking == false:
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		$AnimatedSprite2D.play("jump") 
-	if velocity.y >= 0 and !is_on_floor() and is_attacking == false:
+	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		$AnimatedSprite2D.play("fall")
-	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and is_attacking == false):
+	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
 		$AnimatedSprite2D.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):	
 		#SIM! precisa checar se o botao esta sendo apertado e se ela esta se movendo e NUNCA TIRE OS ()()()!
@@ -111,8 +109,12 @@ func animateplayerWIP():
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		#provavelmente vai ser tipo $animated2dsprite.frame.blablabla(insiralogicaaquilmao)
-		if velocity.x != 0 and is_attacking == false:
+		if velocity.x != 0 and is_attacking == false and !healthcomp.is_taking_damage:
 			$AnimatedSprite2D.play("run")
+	if healthcomp.is_taking_damage:
+		$AnimatedSprite2D.play("hurt")
+	if healthcomp.is_dead:
+		$AnimatedSprite2D.play("die")
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack"):
 		is_attacking = true
@@ -125,29 +127,19 @@ func animatedattackWIP():
 func _on_animated_sprite_2d_animation_finished():
 	is_attacking = false
 	$AnimatedSprite2D/HitBox/CollisionShape2D.disabled = true
+	healthcomp.is_taking_damage  = false
+	if healthcomp.is_dead:
+		get_parent().queue_free()
+		
 func _on_hit_box_area_entered(area): #Dá dano
 	if area.has_method("take_damage"):
-		
-		attackcomp.attack_damage = playerdmg
-		attackcomp.knockback_force = playerknockbackforce
-		attackcomp.stun_time = playerstuntime
 		area.take_damage(attackcomp)
 	else:
 		pass
 
-#func damage():
-	#$Sprite2D/AnimationPlayer.play("hurt")
-	#currenthealth -= attackcomp.attack_damage
-	#if currenthealth <= 0:
-		#currenthealth = 0
-		#dead = true
-		#$Sprite2D/AnimationPlayer.play("die")
-		#taking_damage = false
 func _on_hurt_box_component_area_entered(area): #Recebe dano
 	if area.has_method("deal_damage"):
-		healthcomp.MAX_HEALTH = playermaxhealth
-		healthcomp.health = playercurrenthealth
-		area.take_damage() # Replace with function body.
+		area.deal_damage(healthcomp) # Replace with function body.
 func hook():
 	$RayCast2D.rotation =  get_angle_to(get_global_mouse_position())
 	if Input.is_action_just_pressed("LClick") and not(is_hooked):
@@ -189,7 +181,3 @@ func player(): #faz nada
 	#if body.has_method("player"):
 		#player = body
 	pass
-
-
-func _on_ray_cast_2d_draw():
-	pass # Replace with function body.
