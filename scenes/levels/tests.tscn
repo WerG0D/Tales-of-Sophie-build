@@ -3902,5 +3902,9 @@ loop = false
 zoom = Vector2(2, 2)
 
 [node name="Skeleton" parent="." instance=ExtResource("6_qyfn6")]
+position = Vector2(367, 1)
+
+[node name="Skeleton2" parent="." instance=ExtResource("6_qyfn6")]
+position = Vector2(-235, -2)
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]

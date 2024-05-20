@@ -26,6 +26,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_lyq1f"]
 resource_name = "idle"
 length = 1.20001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -144,10 +145,10 @@ scale = Vector2(1.54648, 1.05708)
 shape = SubResource("CapsuleShape2D_bchs7")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 17.468
-offset_top = -16.3846
-offset_right = 57.468
-offset_bottom = 23.6154
+offset_left = -21.0
+offset_top = -130.0
+offset_right = 19.0
+offset_bottom = -90.0
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
