@@ -13,7 +13,7 @@ script = ExtResource("1_dfs1s")
 
 [node name="Links" type="Sprite2D" parent="."]
 texture_repeat = 2
-scale = Vector2(0.26, 0.26)
+scale = Vector2(0.14, 0.14)
 texture = ExtResource("2_evmuk")
 offset = Vector2(0, -185)
 region_enabled = true
@@ -26,7 +26,7 @@ collision_mask = 10
 
 [node name="Hook" type="Sprite2D" parent="Tip"]
 position = Vector2(0, -1.78814e-07)
-scale = Vector2(1.965, 1.965)
+scale = Vector2(0.315, 0.315)
 texture = ExtResource("3_2p0ru")
 offset = Vector2(0, 6.705)
 flip_v = true
