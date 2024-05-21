@@ -8,18 +8,19 @@ var acceleration : int = 1300
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var enable_inputs: bool = true 
-var is_hooked: bool = false
-var is_jumping: bool = false 
 var chain_length = 500
 var motion =  Vector2()
 var hook_pos = Vector2()
 var radius = Vector2()
 var isdebug = false
+var chain_velocity := Vector2(0,0)
+var CHAIN_PULL = 205
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
 @onready var animplayer = $Sprite2D/AnimationPlayer
 @onready var current_chain_length = chain_length	
+@onready var initialized = true
 
 var playerdmg = 50
 var playerstuntime = 0.5
@@ -34,21 +35,15 @@ func _physics_process(delta):
 		isdebug = not(isdebug)
 		print("breakpoint")
 	moveplayer(delta)
-	_draw()	
 	move_and_slide()
 	animateplayerWIP()
 	animatedattackWIP()
-	hook()
+	
 	if isdebug:
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
-		\n Current chain len: ", current_chain_length, "
 		\n Global pos: ", global_position,"
-		\n Hook pos: " , hook_pos,"
-		\n Distance to hook: ", global_position.distance_to(hook_pos),"
-		\n Mouse pos:",  get_global_mouse_position(),"
-		\n Radius: ", radius, "
-		\n IsHooked:" , is_hooked
+		\n Mouse pos:",  get_global_mouse_position(),
 		))#
 	else:
 		$RichTextLabel.set_text("")
@@ -57,21 +52,18 @@ func moveplayer(delta):
 		velocity.y += gravity
 		if velocity.y > 2000:
 			velocity.y = 2000
-	if Input.is_action_pressed("move_right") and !is_hooked:
-		if velocity.x > acceleration:
-			velocity.x =lerp(velocity.x,float(2000),0.2)
-		else:
-			velocity.x = acceleration #dumbcode
-	if Input.is_action_pressed("move_left") and !is_hooked:
-		if velocity.x < -acceleration:
-			velocity.x =lerp(velocity.x,float(-2000),0.2)
-		else:
-			velocity.x = -acceleration #dumbcode
+	if Input.is_action_pressed("move_right") and !$Chain.hooked:
+		velocity.x =lerp(velocity.x,float(2000),0.2)
+		velocity.x = acceleration #dumbcode
+	if Input.is_action_pressed("move_left") and !$Chain.hooked:
+		velocity.x =lerp(velocity.x,float(-2000),0.2)
+		velocity.x = -acceleration #dumbcode
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-		velocity.x = 0
+		if !$Chain.hooked: ############TODO REFATORAR ISSO TUDO
+			velocity.x = 0
+			
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		is_jumping = true 
 		jump_buffer_counter = jump_buffer_time
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
@@ -80,32 +72,23 @@ func moveplayer(delta):
 		jump_buffer_counter = 0
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
-			velocity.y *= 0.2 
-	if is_hooked:
-		swing(delta)
-		if Input.is_action_pressed("move_right"):
-			velocity.x =lerp(velocity.x,float(2000),0.2)
-		if Input.is_action_pressed("move_left"):
-			velocity.x =lerp(velocity.x,float(-2000),0.2)
-		if Input.is_action_pressed("down"):
-			velocity.y = lerp(velocity.y,float(150), 0.2)
-		velocity *= 0.98
-		velocity.x = lerp(velocity.x,0.0,0.01)		
-		if Input.is_action_just_pressed("jump"):
-			velocity *=1.4
-		
-func _draw() -> void:
-	var pos = global_position
-	if is_hooked:
-		draw_line(to_local(global_position), to_local(hook_pos), Color.AQUA,3,true)
-		draw_circle(to_local(hook_pos), to_local(global_position).distance_to(to_local(hook_pos)),Color(3,3,3,0.1)) ##### real readius lmao
+			velocity.y *= 0.2
+	# Hook physics
+	if $Chain.hooked:
+		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE			
+		chain_velocity = to_local($Chain.tip).normalized() * CHAIN_PULL
+		if chain_velocity.y > 0:
+			chain_velocity.y *= 0.55 ##pull pra cima e pra baixo
+		else:
+			chain_velocity.y *= 1.1
+		if sign(chain_velocity.x) != sign(walk):
+			chain_velocity.x *= 0.3
 	else:
-		return
-		var colliding = $Raycast2D.is_colliding()
-		var collide_point =$Raycast2D.get_collision_point()
-		if colliding and pos.distance_to(collide_point) < chain_length:
-			draw_line(Vector2(0,-16), to_local(collide_point), Color(1, 1, 1),0.5,true)
-	queue_redraw()
+		chain_velocity = Vector2(0,0)
+	velocity += chain_velocity
+
+
+	
 				
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
@@ -118,7 +101,7 @@ func animateplayerWIP():
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("jump") 
-	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage and !is_jumping:
+	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
 		animplayer.play("idle")
@@ -140,8 +123,18 @@ func animatedattackWIP():
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
 			$Sprite2D/HitBox/CollisionShape2D.disabled = false
-	#if Input.is_action_just_released("attack"):
-		#attackcomp.is_attacking = false
+			
+func _input(event: InputEvent ):
+	if event is InputEventMouseButton and initialized:
+			if event.pressed:
+				$Chain.shoot(event.position - get_viewport().size * 0.5)
+			else:
+				$Chain.release()
+
+
+
+
+
 
 		
 func _on_hit_box_area_entered(area): #Dá dano
@@ -153,38 +146,6 @@ func _on_hit_box_area_entered(area): #Dá dano
 func _on_hurt_box_component_area_entered(area): #Recebe dano
 	if area.has_method("deal_damage"):
 		area.deal_damage(healthcomp) # Replace with function body.
-func hook():
-	$RayCast2D.rotation =  get_angle_to(get_global_mouse_position())
-	if Input.is_action_just_pressed("LClick") and not(is_hooked):
-		
-		
-		if not(is_hooked) and ($RayCast2D.is_colliding()) and not(is_on_floor()):
-			hook_pos = get_hook_pos()
-			current_chain_length =global_position.distance_to(hook_pos)
-			is_hooked = 1
-	if (Input.is_action_just_released("RClick") or Input.is_action_just_pressed("jump")) and is_hooked:	
-			is_hooked = 0		
-			
-func get_hook_pos():
-				return $RayCast2D.get_collision_point()
-				
-		
-func swing(delta):
-	radius = global_position - hook_pos
-	if velocity.length() < 0.01 or radius.length() < 10: return
-	var angle = acos(radius.dot(velocity)/(radius.length()*velocity.length()))	
-	var rad_vel = cos(angle) * velocity.length()
-	velocity += radius.normalized() * - rad_vel
-	if global_position.distance_to(hook_pos) > current_chain_length + 400: #provavelmente vai ter que tirar o 400
-		print(" distance to hook ", global_position.distance_to(hook_pos))
-		global_position = hook_pos + radius.normalized() * current_chain_length # e consertar nessa linha
-		velocity *= (hook_pos-global_position).normalized() * 15000 * delta # esse *100 é problematico
-		
-		print("hookpos ",hook_pos)
-		print("golbalpos normalized ", global_position.normalized())
-		print("delta ",  delta)
-		print("velocity ",velocity)
-		print("problem causer maybe", (hook_pos-global_position))
 
 
 func player(): #faz nada
@@ -201,7 +162,8 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hurt":	
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
-		get_parent().queue_free()
-	if anim_name == "jump":
-		is_jumping = false # Replace with function body.
+		get_parent().queue_free() # Replace with function body.
 #
+
+
+
