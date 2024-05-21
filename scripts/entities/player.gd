@@ -1,8 +1,10 @@
-#player, ainda tem mt coisa q mudar/ limpar mas ta quase 100% (eu espero :P) 
+#TODO(gabriel) lerpar a bosta da vel.x do player quando tiver no hook e ele virar
+
+
 extends CharacterBody2D
 var max_speed : int = 2000
 var jump_force : int = 2600
-var acceleration : int = 200
+var acceleration : int = 1300
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var enable_inputs: bool = true 
@@ -38,15 +40,14 @@ func _physics_process(delta):
 	hook()
 	if isdebug:
 		$RichTextLabel.set_text(str(
-		#"velocity: ", velocity,"
-		#\n Current chain len: ", current_chain_length, "
-		#\n Global pos: ", global_position,"
-		#\n Hook pos: " , hook_pos,"
-		#\n Distance to hook: ", global_position.distance_to(hook_pos),"
-		#\n Mouse pos:",  get_global_mouse_position(),"
-		#\n Radius: ", radius, "
-		#\n IsHooked:" , is_hooked
-		"HP: ", healthcomp.health, " isdead: ", healthcomp.is_dead, " tcmg: ", healthcomp.is_taking_damage
+		"velocity: ", velocity,"
+		\n Current chain len: ", current_chain_length, "
+		\n Global pos: ", global_position,"
+		\n Hook pos: " , hook_pos,"
+		\n Distance to hook: ", global_position.distance_to(hook_pos),"
+		\n Mouse pos:",  get_global_mouse_position(),"
+		\n Radius: ", radius, "
+		\n IsHooked:" , is_hooked
 		))#
 	else:
 		$RichTextLabel.set_text("")
@@ -55,13 +56,23 @@ func moveplayer(delta):
 		velocity.y += gravity
 		if velocity.y > 2000:
 			velocity.y = 2000
-	if Input.is_action_pressed("move_right"):
-		velocity.x += acceleration
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= acceleration
+	if Input.is_action_pressed("move_right") and !is_hooked:
+		if velocity.x > acceleration:
+			velocity.x =lerp(velocity.x,float(2000),0.2)
+		else:
+			velocity.x = acceleration #dumbcode
+	if Input.is_action_pressed("move_left") and !is_hooked:
+		if velocity.x < -acceleration:
+			velocity.x =lerp(velocity.x,float(-2000),0.2)
+		else:
+			velocity.x = -acceleration #dumbcode
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
+<<<<<<< Updated upstream
 		velocity.x = 0 #lerp(velocity.x,0.0,0.05)
 		
+=======
+		velocity.x = 0
+>>>>>>> Stashed changes
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump_buffer_counter = jump_buffer_time
@@ -75,11 +86,22 @@ func moveplayer(delta):
 			velocity.y *= 0.2 
 	if is_hooked:
 		swing(delta)
+		if Input.is_action_pressed("move_right"):
+			velocity.x =lerp(velocity.x,float(2000),0.2)
+		if Input.is_action_pressed("move_left"):
+			velocity.x =lerp(velocity.x,float(-2000),0.2)
+		if Input.is_action_pressed("down"):
+			velocity.y = lerp(velocity.y,float(150), 0.2)
 		velocity *= 0.98
+		velocity.x = lerp(velocity.x,0.0,0.01)		
+		if Input.is_action_just_pressed("jump"):
+			velocity *=1.4
+		
 func _draw() -> void:
 	var pos = global_position
 	if is_hooked:
-		draw_line(to_local(global_position), to_local(hook_pos), Color(1, 0.7, 0.9),3,true)
+		draw_line(to_local(global_position), to_local(hook_pos), Color.AQUA,3,true)
+		draw_circle(to_local(hook_pos), to_local(global_position).distance_to(to_local(hook_pos)),Color(3,3,3,0.1)) ##### real readius lmao
 	else:
 		return
 		var colliding = $Raycast2D.is_colliding()
@@ -143,7 +165,7 @@ func hook():
 			hook_pos = get_hook_pos()
 			current_chain_length =global_position.distance_to(hook_pos)
 			is_hooked = 1
-	if Input.is_action_just_released("RClick") and is_hooked:	
+	if (Input.is_action_just_released("RClick") or Input.is_action_just_pressed("jump")) and is_hooked:	
 			is_hooked = 0		
 			
 func get_hook_pos():
@@ -159,9 +181,7 @@ func swing(delta):
 	if global_position.distance_to(hook_pos) > current_chain_length + 400: #provavelmente vai ter que tirar o 400
 		print(" distance to hook ", global_position.distance_to(hook_pos))
 		global_position = hook_pos + radius.normalized() * current_chain_length # e consertar nessa linha
-		velocity *= (hook_pos-global_position).normalized() * 100 * delta # esse *100 é problematico
-		if velocity.x > 2000: pass
-		if velocity.y > 2000: pass
+		velocity *= (hook_pos-global_position).normalized() * 15000 * delta # esse *100 é problematico
 		
 		print("hookpos ",hook_pos)
 		print("golbalpos normalized ", global_position.normalized())
