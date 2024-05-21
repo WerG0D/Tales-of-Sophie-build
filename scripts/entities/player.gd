@@ -9,6 +9,7 @@ var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var enable_inputs: bool = true 
 var is_hooked: bool = false
+var is_jumping: bool = false 
 var chain_length = 500
 var motion =  Vector2()
 var hook_pos = Vector2()
@@ -70,6 +71,7 @@ func moveplayer(delta):
 		velocity.x = 0
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		is_jumping = true 
 		jump_buffer_counter = jump_buffer_time
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
@@ -116,7 +118,7 @@ func animateplayerWIP():
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("jump") 
-	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
+	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage and !is_jumping:
 		animplayer.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
 		animplayer.play("idle")
@@ -199,5 +201,7 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hurt":	
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
-		get_parent().queue_free() # Replace with function body.
+		get_parent().queue_free()
+	if anim_name == "jump":
+		is_jumping = false # Replace with function body.
 #
