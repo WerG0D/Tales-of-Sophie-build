@@ -1,7 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=21 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
+[ext_resource type="Script" path="res://scenes/entity/Camera2D.gd" id="4_arv00"]
+[ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://scenes/entity/chain.tscn" id="8_bc8it"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
@@ -246,6 +248,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
+collision_mask = 14
 script = ExtResource("1_b3mxi")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -299,6 +302,9 @@ shape = SubResource("CapsuleShape2D_slk7t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.595, 0.595)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("4_arv00")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchors_preset = 8
@@ -308,11 +314,11 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -45.4168
 offset_top = -41.4434
-offset_right = -6.41683
+offset_right = -8.0618
 offset_bottom = -11.4434
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.4, 1.4)
+scale = Vector2(0.85, 0.85)
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -326,6 +332,10 @@ MAX_HEALTH = 100
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("38_a7jxw")
 attack_damage = 50
+
+[node name="Chain" parent="." instance=ExtResource("8_bc8it")]
+position = Vector2(7.62939e-06, 0)
+scale = Vector2(0.75, 0.75)
 
 [connection signal="draw" from="RayCast2D" to="." method="_on_ray_cast_2d_draw"]
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
