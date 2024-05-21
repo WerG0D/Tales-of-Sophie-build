@@ -257,10 +257,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.4168
-offset_top = -41.4434
-offset_right = -17.7368
-offset_bottom = -19.3434
+offset_left = -26.202
+offset_top = -24.095
+offset_right = 1.47798
+offset_bottom = -1.99499
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.31, 0.31)
@@ -270,15 +270,14 @@ autowrap_mode = 0
 tab_size = 1
 script = ExtResource("78_3wrjh")
 
+[node name="Chain" parent="." instance=ExtResource("8_bc8it")]
+position = Vector2(-1.66588e-06, 0)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.595, 0.595)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("4_arv00")
-
-[node name="Chain" parent="." instance=ExtResource("8_bc8it")]
-position = Vector2(7.62939e-06, 0)
-scale = Vector2(0.75, 0.75)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.984611, 1)
@@ -291,7 +290,6 @@ vframes = 11
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(20.4022, 2.8914)
 rotation = -1.57023
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hpphr")
 disabled = true
 

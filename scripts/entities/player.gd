@@ -36,7 +36,6 @@ func _physics_process(delta):
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
-		velocity.y = clamp(velocity.y, -max_speed, max_speed)
 	if Input.is_action_pressed("move_right") and !$Chain.hooked:
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
@@ -136,6 +135,7 @@ func debug():
 		"velocity: ", velocity,"
 		\n Global pos: ", global_position,"
 		\n Mouse pos:",  get_global_mouse_position(),"
+		\n Mouse local pos:",  get_local_mouse_position(),"		
 		\n Pull force:", chain_pull_force,
 		))#
 	else:

@@ -29,14 +29,16 @@ func _process(_delta: float) -> void:
 		return	
 	var tip_loc = to_local(tip)	
 	
-	links.rotation = self.position.angle_to_point(tip_loc) - deg_to_rad(90)
 	$Tip.rotation = self.position.angle_to_point(tip_loc) - deg_to_rad(90)
-	links.position = tip_loc						# Tmovendo pra ponta nn fujnciona legal dms
-	links.region_rect.grow_individual(0,0,0,tip_loc.length())		# deveriam estar sendo extendidos entre 0, 0 e a ponta mas, ne
-	print("tiploc:",tip_loc.length())
-	var regionrectsizzz = links.region_rect
-	print("regionsize:",regionrectsizzz.grow_individual(0,0,0,tip_loc.length()) )
-	links.region_rect.size.y = tip_loc.length()
+	$Line2D.set_point_position(0, tip_loc)
+
+	
+	if Input.is_action_just_pressed("debug"):
+		pass
+	
+	
+	#links.position = tip_loc						# Tmovendo pra ponta nn fujnciona legal dms
+	#links.region_rect.size.y = tip_loc.length()
 func _physics_process(_delta: float) -> void:
 	$Tip.global_position = tip	
 	if flying:
@@ -45,3 +47,4 @@ func _physics_process(_delta: float) -> void:
 			hooked = true	
 			flying = false	
 	tip = $Tip.global_position	
+

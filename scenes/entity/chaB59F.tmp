@@ -12,18 +12,15 @@ height = 8.0
 script = ExtResource("1_dfs1s")
 
 [node name="Links" type="Sprite2D" parent="."]
-visible = false
 texture_repeat = 2
 scale = Vector2(0.26, 0.26)
 texture = ExtResource("2_evmuk")
-offset = Vector2(0, -150)
+offset = Vector2(0, -185)
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 360)
 region_filter_clip_enabled = true
 
 [node name="Line2D" type="Line2D" parent="."]
-texture_repeat = 2
-points = PackedVector2Array(0, 0, 0, 0)
 texture = ExtResource("2_evmuk")
 texture_mode = 1
 
