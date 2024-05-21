@@ -1,6 +1,6 @@
 
 extends Node2D
-
+var chain_len = 1500
 @onready var links = $Links		
 var direction := Vector2(0,0)	
 var tip := Vector2(0,0)			
@@ -31,15 +31,12 @@ func _process(_delta: float) -> void:
 	
 	$Tip.rotation = self.position.angle_to_point(tip_loc) - deg_to_rad(90)
 	$Line2D.set_point_position(0, tip_loc)
+	if tip_loc.distance_to($Line2D.get_point_position(1)) > chain_len:
+			release()
 
-	
-	if Input.is_action_just_pressed("debug"):
-		pass
-	
-	
-	#links.position = tip_loc						# Tmovendo pra ponta nn fujnciona legal dms
-	#links.region_rect.size.y = tip_loc.length()
 func _physics_process(_delta: float) -> void:
+	
+	
 	$Tip.global_position = tip	
 	if flying:
 		
@@ -47,4 +44,6 @@ func _physics_process(_delta: float) -> void:
 			hooked = true	
 			flying = false	
 	tip = $Tip.global_position	
+	
+	
 
