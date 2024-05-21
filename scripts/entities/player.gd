@@ -2,24 +2,20 @@
 
 
 extends CharacterBody2D
-var max_speed : int = 2000
+var max_speed : int = 3000
 var jump_force : int = 2600
 var acceleration : int = 1300
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
-var enable_inputs: bool = true 
-var chain_length = 500
-var motion =  Vector2()
-var hook_pos = Vector2()
-var radius = Vector2()
 var isdebug = false
 var chain_velocity := Vector2(0,0)
 var CHAIN_PULL = 205
+var on_ground_friction = 0.01 #more is more
+var on_air_friction = 0.008 #more is more (duuhh)
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
 @onready var animplayer = $Sprite2D/AnimationPlayer
-@onready var current_chain_length = chain_length	
 @onready var initialized = true
 
 var playerdmg = 50
@@ -31,37 +27,36 @@ var gravity = 100
 
 	
 func _physics_process(delta):
-	if Input.is_action_just_released("debug"):
-		isdebug = not(isdebug)
-		print("breakpoint")
+	debug()
 	moveplayer(delta)
 	move_and_slide()
 	animateplayerWIP()
 	animatedattackWIP()
 	
-	if isdebug:
-		$RichTextLabel.set_text(str(
-		"velocity: ", velocity,"
-		\n Global pos: ", global_position,"
-		\n Mouse pos:",  get_global_mouse_position(),
-		))#
-	else:
-		$RichTextLabel.set_text("")
+
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
-		if velocity.y > 2000:
-			velocity.y = 2000
+		velocity.y = clamp(velocity.y, -max_speed, max_speed)
 	if Input.is_action_pressed("move_right") and !$Chain.hooked:
-		velocity.x =lerp(velocity.x,float(2000),0.2)
-		velocity.x = acceleration #dumbcode
+		if !(velocity.x >= -acceleration and velocity.x < acceleration):
+			if !is_on_floor():
+				velocity.x =lerp(velocity.x,float(acceleration),on_air_friction)
+			else:
+				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
+		else:
+			velocity.x = acceleration #dumbcode
 	if Input.is_action_pressed("move_left") and !$Chain.hooked:
-		velocity.x =lerp(velocity.x,float(-2000),0.2)
-		velocity.x = -acceleration #dumbcode
+		if !(velocity.x >= -acceleration and velocity.x < acceleration):
+			if !is_on_floor():
+				velocity.x =lerp(velocity.x,float(-acceleration),on_air_friction)
+			else:
+				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
+		else:
+			velocity.x = -acceleration #dumbcode
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if !$Chain.hooked: ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
-			
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump_buffer_counter = jump_buffer_time
@@ -87,9 +82,6 @@ func moveplayer(delta):
 		chain_velocity = Vector2(0,0)
 	velocity += chain_velocity
 
-
-	
-				
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$Sprite2D.flip_h = true
@@ -130,7 +122,18 @@ func _input(event: InputEvent ):
 				$Chain.shoot(event.position - get_viewport().size * 0.5)
 			else:
 				$Chain.release()
-
+func debug():
+	if Input.is_action_just_released("debug"):
+		isdebug = not(isdebug)
+		print("breakpoint")
+	if isdebug:
+		$RichTextLabel.set_text(str(
+		"velocity: ", velocity,"
+		\n Global pos: ", global_position,"
+		\n Mouse pos:",  get_global_mouse_position(),
+		))#
+	else:
+		$RichTextLabel.set_text("")	
 
 
 
