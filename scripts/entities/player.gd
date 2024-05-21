@@ -9,9 +9,9 @@ var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
-var CHAIN_PULL = 205
+var chain_pull_force = 205
 var on_ground_friction = 0.01 #more is more
-var on_air_friction = 0.008 #more is more (duuhh)
+var on_air_friction = 0.002 #more is more (duuhh)
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
@@ -32,8 +32,7 @@ func _physics_process(delta):
 	move_and_slide()
 	animateplayerWIP()
 	animatedattackWIP()
-	
-
+	hook()
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
@@ -71,7 +70,7 @@ func moveplayer(delta):
 	# Hook physics
 	if $Chain.hooked:
 		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE			
-		chain_velocity = to_local($Chain.tip).normalized() * CHAIN_PULL
+		chain_velocity = to_local($Chain.tip).normalized() * chain_pull_force
 		if chain_velocity.y > 0:
 			chain_velocity.y *= 0.55 ##pull pra cima e pra baixo
 		else:
@@ -116,12 +115,18 @@ func animatedattackWIP():
 			animplayer.play("attack")
 			$Sprite2D/HitBox/CollisionShape2D.disabled = false
 			
-func _input(event: InputEvent ):
-	if event is InputEventMouseButton and initialized:
-			if event.pressed:
-				$Chain.shoot(event.position - get_viewport().size * 0.5)
-			else:
+func hook():
+			if Input.is_action_just_pressed("hook") and initialized and !$Chain.hooked and !$Chain.flying :
+				var mouse_viewport_pos = get_viewport().get_mouse_position()
+				$Chain.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
+			elif Input.is_action_just_pressed("hook"):
 				$Chain.release()
+			if Input.is_action_just_pressed("scroll_up"):
+				chain_pull_force = chain_pull_force +10
+				
+			if Input.is_action_just_pressed("scroll_down"):
+				chain_pull_force = chain_pull_force -10
+				
 func debug():
 	if Input.is_action_just_released("debug"):
 		isdebug = not(isdebug)
@@ -130,11 +135,20 @@ func debug():
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
 		\n Global pos: ", global_position,"
-		\n Mouse pos:",  get_global_mouse_position(),
+		\n Mouse pos:",  get_global_mouse_position(),"
+		\n Pull force:", chain_pull_force,
 		))#
 	else:
 		$RichTextLabel.set_text("")	
-
+	if isdebug and Input.is_action_pressed("ctrl"):
+		if Input.is_action_just_pressed("scroll_up"):
+			$Camera2D.zoom = $Camera2D.zoom * 1.2
+			print("zoom:",$Camera2D.zoom)
+			
+				
+		if Input.is_action_just_pressed("scroll_down"):
+			$Camera2D.zoom = $Camera2D.zoom / 1.2
+			print("zoom:",$Camera2D.zoom)
 
 
 

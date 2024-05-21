@@ -251,9 +251,34 @@ scale = Vector2(1.14495, 1.03756)
 collision_mask = 10
 script = ExtResource("1_b3mxi")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-scale = Vector2(0.984611, 1)
-target_position = Vector2(500, 0)
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.4168
+offset_top = -41.4434
+offset_right = -17.7368
+offset_bottom = -19.3434
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.31, 0.31)
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+tab_size = 1
+script = ExtResource("78_3wrjh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.595, 0.595)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("4_arv00")
+
+[node name="Chain" parent="." instance=ExtResource("8_bc8it")]
+position = Vector2(7.62939e-06, 0)
+scale = Vector2(0.75, 0.75)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.984611, 1)
@@ -266,6 +291,7 @@ vframes = 11
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(20.4022, 2.8914)
 rotation = -1.57023
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_hpphr")
 disabled = true
 
@@ -300,31 +326,6 @@ position = Vector2(0.413, 0.963997)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.595, 0.595)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-script = ExtResource("4_arv00")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -45.4168
-offset_top = -41.4434
-offset_right = -8.0618
-offset_bottom = -11.4434
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.85, 0.85)
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-tab_size = 1
-script = ExtResource("78_3wrjh")
-
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100
@@ -333,11 +334,6 @@ MAX_HEALTH = 100
 script = ExtResource("38_a7jxw")
 attack_damage = 50
 
-[node name="Chain" parent="." instance=ExtResource("8_bc8it")]
-position = Vector2(7.62939e-06, 0)
-scale = Vector2(0.75, 0.75)
-
-[connection signal="draw" from="RayCast2D" to="." method="_on_ray_cast_2d_draw"]
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="area_entered" from="Sprite2D/HurtBoxComponent" to="." method="_on_hurt_box_component_area_entered"]
