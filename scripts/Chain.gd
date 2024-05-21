@@ -1,6 +1,6 @@
 
 extends Node2D
-var chain_len = 1500
+var chain_len = 800
 @onready var links = $Links		
 var direction := Vector2(0,0)	
 var tip := Vector2(0,0)			
