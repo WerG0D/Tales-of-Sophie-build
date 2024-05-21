@@ -67,12 +67,7 @@ func moveplayer(delta):
 		else:
 			velocity.x = -acceleration #dumbcode
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-<<<<<<< Updated upstream
-		velocity.x = 0 #lerp(velocity.x,0.0,0.05)
-		
-=======
 		velocity.x = 0
->>>>>>> Stashed changes
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		jump_buffer_counter = jump_buffer_time
@@ -205,3 +200,4 @@ func _on_animation_player_animation_finished(anim_name):
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
 		get_parent().queue_free() # Replace with function body.
+#
