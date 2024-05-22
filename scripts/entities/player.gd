@@ -9,6 +9,7 @@ var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
+var chain2_velocity := Vector2(0,0)
 var chain_pull_force = 205
 var on_ground_friction = 0.01 #more is more
 var on_air_friction = 0.002 #more is more (duuhh)
@@ -40,7 +41,7 @@ func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
 		velocity.y = clamp(velocity.y, -max_speed+1000, max_speed+1000)	#dallingspeed should be faster than walking
-	if Input.is_action_pressed("move_right") and (!$Chain.hooked or !$Chain2.hooked): #cant walk wile hooked
+	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
 				velocity.x =lerp(velocity.x,float(acceleration),on_air_friction)
@@ -48,7 +49,7 @@ func moveplayer(delta):
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
 			velocity.x = acceleration #dumbcode
-	if Input.is_action_pressed("move_left") and (!$Chain.hooked or !$Chain2.hooked): #cant walk wile hooked
+	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
 				velocity.x =lerp(velocity.x,float(-acceleration),on_air_friction)
@@ -57,7 +58,7 @@ func moveplayer(delta):
 		else:
 			velocity.x = -acceleration #dumbcode
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-		if (!$Chain.hooked or !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
+		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -87,20 +88,19 @@ func hook_phys():
 	else:
 		chain_velocity = Vector2(0,0)
 	velocity += chain_velocity
-	
+
 	if $Chain2.hooked:
 		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE			
-		chain_velocity = to_local($Chain2.tip).normalized() * chain_pull_force
-		if chain_velocity.y > 0:
-			chain_velocity.y *= 0.55 ##pull pra cima e pra baixo
+		chain2_velocity = to_local($Chain2.tip).normalized() * chain_pull_force
+		if chain2_velocity.y > 0:
+			chain2_velocity.y *= 0.55 ##pull pra cima e pra baixo
 		else:
-			chain_velocity.y *= 1.1
-		if sign(chain_velocity.x) != sign(walk):
-			chain_velocity.x *= 0.3
+			chain2_velocity.y *= 1.1
+		if sign(chain2_velocity.x) != sign(walk):
+			chain2_velocity.x *= 0.3
 	else:
-		chain_velocity = Vector2(0,0)
-	velocity += chain_velocity			
-	
+		chain2_velocity = Vector2(0,0)
+	velocity += chain2_velocity
 	
 	
 func hook():
