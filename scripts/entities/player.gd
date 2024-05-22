@@ -211,7 +211,7 @@ func debug():
 		\n Mouse local pos:",  get_local_mouse_position(),"		
 		\n Pull force:", chain_pull_force,
 		))#
-		$PointLight2D.position  = get_mouse_position()
+		$PointLight2D.position  = get_global_mouse_position()
 	else:
 		$RichTextLabel.set_text("")	
 	if isdebug and Input.is_action_pressed("ctrl"):

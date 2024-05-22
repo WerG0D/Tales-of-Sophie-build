@@ -474,7 +474,9 @@ attack_damage = 50
 position = Vector2(49, -48)
 color = Color(1, 0, 0, 1)
 energy = 13.99
+range_z_min = -1189
 texture = ExtResource("11_74r2x")
+texture_scale = 0.54
 
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
