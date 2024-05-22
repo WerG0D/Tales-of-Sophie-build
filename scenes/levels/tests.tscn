@@ -4035,7 +4035,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 5
 texture_filter = 1
-position = Vector2(1, -152)
+position = Vector2(24, -88)
 scale = Vector2(1, 1)
 
 [node name="cutscene" type="Area2D" parent="."]
@@ -4064,6 +4064,7 @@ collision_layer = 8
 collision_mask = 6
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(832, -16)
 collision_layer = 2
 collision_mask = 13
 

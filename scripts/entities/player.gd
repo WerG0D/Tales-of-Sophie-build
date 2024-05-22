@@ -2,15 +2,15 @@
 
 
 extends CharacterBody2D
-var max_speed : int = 3000
-var jump_force : int = 2600
-var acceleration : int = 1300
+var max_speed : int = 1600
+var jump_force : int = 800
+var acceleration : int = 400
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
 var chain2_velocity := Vector2(0,0)
-var chain_pull_force = 205
+var chain_pull_force = 160
 var on_ground_friction = 0.01 #more is more
 var on_air_friction = 0.002 #more is more (duuhh)
 @onready var camera = $Camera2D
@@ -24,7 +24,7 @@ var playerstuntime = 0.5
 var playerknockbackforce = 0.5
 var playermaxhealth = 100
 var playercurrenthealth = 100
-var gravity = 100
+var gravity = 60
 
 func _physics_process(delta):
 	debug()
@@ -40,7 +40,7 @@ func _physics_process(delta):
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
-		velocity.y = clamp(velocity.y, -max_speed+1000, max_speed+1000)	#dallingspeed should be faster than walking
+		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():

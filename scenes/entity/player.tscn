@@ -309,6 +309,7 @@ position = Vector2(-1.66588e-06, 0)
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.4, 2.4)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("4_arv00")
