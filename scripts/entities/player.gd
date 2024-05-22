@@ -162,7 +162,7 @@ func animatedattackWIP():
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
-			$Sprite2D/HitBox/CollisionShape2D.disabled = false
+			$Sprite2D/HitBox/CollisionSword1.disabled = false
 	
 	
 	
@@ -191,7 +191,7 @@ func player(): #faz nada
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "attack":
 		attackcomp.is_attacking = false
-		$Sprite2D/HitBox/CollisionShape2D.disabled = true
+		$Sprite2D/HitBox/CollisionSword2.disabled = true
 	if anim_name == "hurt":	
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
