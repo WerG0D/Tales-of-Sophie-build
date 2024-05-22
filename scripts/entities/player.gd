@@ -16,7 +16,7 @@ var on_air_friction = 0.002 #more is more (duuhh)
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
-#@onready var animplayer = $AnimatedSprite2D/AnimationPlayer
+@onready var animplayer = $Sprite2D/AnimationPlayer
 @onready var initialized = true
 
 var playerdmg = 50
@@ -129,31 +129,31 @@ func hook():
 	
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
-		$AnimatedSprite2D.flip_h = true
-		$AnimatedSprite2D/HitBoxSword.scale.x = -1
+		$Sprite2D.flip_h = true
+		$Sprite2D/HitBox.scale.x = -1
 	if Input.is_action_pressed("move_right"):
-		$AnimatedSprite2D.flip_h = false
-		$AnimatedSprite2D/HitBoxSword.scale.x = 1
+		$Sprite2D.flip_h = false
+		$Sprite2D/HitBox.scale.x = 1
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
-		$AnimatedSprite2D.play("jump") 
+		animplayer.play("jump") 
 	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
-		$AnimatedSprite2D.play("fall")
+		animplayer.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
-		$AnimatedSprite2D.play("idle")
+		animplayer.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):	
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		if velocity.x != 0 and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 			#$Sprite2D/AnimationPlayer.speed_scale *= unit(velocity.x) / 1000
-			$AnimatedSprite2D.play("run")
+			animplayer.play("run")
 			
 	if healthcomp.is_taking_damage and !healthcomp.is_dead:
-		$AnimatedSprite2D.play("hurt")
+		animplayer.play("hurt")
 	if healthcomp.is_dead:
-		$AnimatedSprite2D.play("die")
+		animplayer.play("die")
 	
 	
 	
@@ -161,8 +161,8 @@ func animatedattackWIP():
 	if Input.is_action_just_pressed("attack"):
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
-			$AnimatedSprite2D.play("attack")
-			$AnimatedSprite2D/HitBoxSword/CollisionShape2D.disabled = false
+			animplayer.play("attack")
+			$Sprite2D/HitBox/CollisionShape2D.disabled = false
 	
 	
 	
@@ -187,25 +187,17 @@ func player(): #faz nada
 	pass
 	
 	
-#Para AnimationPlayer
 	
-#func _on_animation_player_animation_finished(anim_name):
-	#if anim_name == "attack":
-		#attackcomp.is_attacking = false
-		#$AnimatedSprite2D/HitBox/CollisionShape2D.disabled = true
-	#if anim_name == "hurt":	
-		#healthcomp.is_taking_damage  = false
-	#if anim_name == "die":
-		#get_parent().queue_free()
-
-func _on_animated_sprite_2d_animation_finished():
-	if $AnimatedSprite2D.animation == "attack":
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "attack":
 		attackcomp.is_attacking = false
-		$AnimatedSprite2D/HitBoxSword/CollisionShape2D.disabled = true
-	if $AnimatedSprite2D.animation == "hurt":
+		$Sprite2D/HitBox/CollisionShape2D.disabled = true
+	if anim_name == "hurt":	
 		healthcomp.is_taking_damage  = false
-	if $AnimatedSprite2D.animation == "die":
-		get_parent().queue_free()
+	if anim_name == "die":
+		get_parent().queue_free() # Replace with function body.
+	
+	
 	
 func debug():
 	if Input.is_action_just_released("debug"):
@@ -230,7 +222,3 @@ func debug():
 		if Input.is_action_just_pressed("scroll_down"):
 			$Camera2D.zoom = $Camera2D.zoom / 1.2
 			print("zoom:",$Camera2D.zoom)	
-
-
-
-
