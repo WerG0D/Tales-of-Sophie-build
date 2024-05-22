@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=26 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8hmsi8osfspl" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://b0ql0cg0fghcu" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://scenes/entity/chain.tscn" id="8_bc8it"]
+[ext_resource type="Texture2D" uid="uid://cur16o1xsaerl" path="res://graphs/png/Light/neutral.webp" id="11_74r2x"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
@@ -468,6 +469,12 @@ MAX_HEALTH = 100
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("38_a7jxw")
 attack_damage = 50
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(49, -48)
+color = Color(1, 0, 0, 1)
+energy = 13.99
+texture = ExtResource("11_74r2x")
 
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
