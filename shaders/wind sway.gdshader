@@ -17,7 +17,7 @@ render_mode blend_mix;
 uniform float speed = 1.0;
 uniform float minStrength : hint_range(0.0, 1.0) = 0.05;
 uniform float maxStrength : hint_range(0.0, 1.0) = 0.01;
-uniform float strengthScale = 200.0;
+uniform float strengthScale = 800.0;
 uniform float interval = 3.5;
 uniform float detail = 1.0;
 uniform float distortion : hint_range(0.0, 1.0);
