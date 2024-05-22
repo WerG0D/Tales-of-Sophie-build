@@ -1,0 +1,42 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://b51d133ct6vft"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_xjbh4"]
+output_port_for_preview = 0
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_a62b0"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(10, 15)]
+op_type = 0
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void vertex() {
+// Input:2
+	vec2 n_out2p0 = VERTEX;
+
+
+// VectorOp:3
+	vec2 n_in3p1 = vec2(10.00000, 15.00000);
+	vec2 n_out3p0 = n_out2p0 + n_in3p1;
+
+
+// Output:0
+	VERTEX = n_out3p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(520, 60)
+nodes/vertex/2/node = SubResource("VisualShaderNodeInput_xjbh4")
+nodes/vertex/2/position = Vector2(20, 60)
+nodes/vertex/3/node = SubResource("VisualShaderNodeVectorOp_a62b0")
+nodes/vertex/3/position = Vector2(260, 60)
+nodes/vertex/connections = PackedInt32Array(2, 0, 3, 0, 3, 0, 0, 0)
+nodes/fragment/0/position = Vector2(380, 80)

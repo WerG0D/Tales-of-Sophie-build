@@ -672,9 +672,10 @@ attack_damage = 50
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(15.7212, -38.552)
-color = Color(1, 0, 0, 1)
-energy = 13.99
+color = Color(1, 0.509804, 0, 1)
+energy = 8.44
 range_z_min = -1189
+shadow_enabled = true
 texture = ExtResource("11_74r2x")
 texture_scale = 0.54
 
