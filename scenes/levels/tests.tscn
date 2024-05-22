@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=55 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -15,10 +15,13 @@
 [ext_resource type="Texture2D" uid="uid://drsrqk0craunc" path="res://graphs/png/Grass/grass_random_grid_BRIGHT.png" id="12_nipar"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="13_0ncsd"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="14_itq6u"]
+[ext_resource type="Texture2D" uid="uid://ctbadt2mgqd6o" path="res://graphs/png/Grass/grass_random_grid_BRIGHT_n.png" id="14_o7j4f"]
 [ext_resource type="Texture2D" uid="uid://q016h13kcfxb" path="res://graphs/png/Grass/32xdirt.png" id="15_5je11"]
+[ext_resource type="Texture2D" uid="uid://crymf8ykbmsap" path="res://graphs/png/Grass/grass_random_grid_BRIGHT_s.png" id="15_m5nda"]
 [ext_resource type="Script" path="res://scenes/levels/LightOccluder2D.gd" id="17_o4b6w"]
 [ext_resource type="Shader" uid="uid://b51d133ct6vft" path="res://shaders/mysawy.tres" id="18_mrgix"]
 [ext_resource type="Texture2D" uid="uid://dqesx60s1safs" path="res://graphs/png/Decoratives/tree597976819.png" id="18_yapfc"]
+[ext_resource type="Texture2D" uid="uid://deccvqcrk7hx6" path="res://graphs/png/Grass/32xdirt_n.png" id="19_4rufc"]
 [ext_resource type="Texture2D" uid="uid://bcnecal05ptfw" path="res://graphs/png/Decoratives/tree597976819_n.png" id="19_j70u7"]
 [ext_resource type="Texture2D" uid="uid://b871xhqx2tls" path="res://graphs/png/Decoratives/tree597976819_s.png" id="20_hgw7w"]
 
@@ -3982,9 +3985,15 @@ Array[int]([0, 4]): 15
 _next_key = 6
 _material_overrides = {}
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_mu1ln"]
+diffuse_texture = ExtResource("12_nipar")
+normal_texture = ExtResource("14_o7j4f")
+specular_texture = ExtResource("15_m5nda")
+specular_shininess = 0.35
+
 [sub_resource type="Resource" id="Resource_ax2r5"]
 script = ExtResource("11_ah16j")
-textures = Array[Texture2D]([ExtResource("12_nipar")])
+textures = Array[Texture2D]([SubResource("CanvasTexture_mu1ln")])
 textures_corner_outer = Array[Texture2D]([])
 textures_corner_inner = Array[Texture2D]([])
 textures_taper_left = Array[Texture2D]([])
@@ -4004,14 +4013,17 @@ edgeRendering = Vector2(0, 0)
 script = ExtResource("14_itq6u")
 edge_material = SubResource("Resource_ax2r5")
 normal_range = SubResource("Resource_pjgmi")
-weld = false
+weld = true
 render = true
 z_index = 0
 z_as_relative = true
-offset = -0.7
+offset = -0.8
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wkjp1"]
 diffuse_texture = ExtResource("15_5je11")
+normal_texture = ExtResource("19_4rufc")
+specular_texture = ExtResource("15_m5nda")
+specular_shininess = 0.0
 
 [sub_resource type="Resource" id="Resource_2y8j3"]
 script = ExtResource("12_73wxd")
@@ -4070,7 +4082,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 5
 texture_filter = 1
-position = Vector2(75, -22)
+position = Vector2(163, -14)
 scale = Vector2(1, 1)
 
 [node name="cutscene" type="Area2D" parent="."]
