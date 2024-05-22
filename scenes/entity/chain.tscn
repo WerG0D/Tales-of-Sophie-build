@@ -75,7 +75,6 @@ collision_mask = 10
 
 [node name="Hook" type="Sprite2D" parent="Tip"]
 position = Vector2(0, -1.78814e-07)
-scale = Vector2(1.47, 1.47)
 texture = ExtResource("3_2p0ru")
 offset = Vector2(0, 6.705)
 flip_v = true

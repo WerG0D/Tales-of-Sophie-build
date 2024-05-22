@@ -1,13 +1,20 @@
-[gd_scene load_steps=21 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=24 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://scenes/entity/Camera2D.gd" id="4_arv00"]
+[ext_resource type="Texture2D" uid="uid://8hmsi8osfspl" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
+[ext_resource type="Texture2D" uid="uid://b0ql0cg0fghcu" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://scenes/entity/chain.tscn" id="8_bc8it"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
 [ext_resource type="Script" path="res://scripts/components/RichTextLabel.gd" id="78_3wrjh"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
+diffuse_texture = ExtResource("2_1gfqm")
+normal_texture = ExtResource("6_7uhr8")
+specular_texture = ExtResource("7_n0qo7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekrlk"]
 size = Vector2(6.74357, 20.9751)
@@ -302,14 +309,13 @@ position = Vector2(-1.66588e-06, 0)
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.595, 0.595)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("4_arv00")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.984611, 1)
-texture = ExtResource("2_1gfqm")
+texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
 
