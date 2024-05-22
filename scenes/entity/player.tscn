@@ -610,7 +610,6 @@ script = ExtResource("35_u515o")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
 position = Vector2(0, 2.891)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HurtBoxRArm" type="Area2D" parent="Sprite2D"]
