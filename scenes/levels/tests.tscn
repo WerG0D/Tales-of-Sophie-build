@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=49 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://q016h13kcfxb" path="res://graphs/png/Grass/32xdirt.png" id="15_5je11"]
 [ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="17_e2dja"]
 [ext_resource type="Texture2D" uid="uid://dqesx60s1safs" path="res://graphs/png/Decoratives/tree597976819.png" id="18_yapfc"]
+[ext_resource type="Texture2D" uid="uid://bcnecal05ptfw" path="res://graphs/png/Decoratives/tree597976819_n.png" id="19_j70u7"]
+[ext_resource type="Texture2D" uid="uid://b871xhqx2tls" path="res://graphs/png/Decoratives/tree597976819_s.png" id="20_hgw7w"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7nuoo"]
 
@@ -3870,7 +3872,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Resource" id="Resource_cak0c"]
+[sub_resource type="Resource" id="Resource_51yj3"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3881,9 +3883,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(-1073.57, -0.346848)
 point_in = Vector2(-241.558, 6.35681)
 point_out = Vector2(241.558, -6.35681)
-properties = SubResource("Resource_cak0c")
+properties = SubResource("Resource_51yj3")
 
-[sub_resource type="Resource" id="Resource_bl624"]
+[sub_resource type="Resource" id="Resource_2mx66"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3894,9 +3896,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(1314.62, -114)
 point_in = Vector2(-154.682, -144.087)
 point_out = Vector2(154.682, 144.087)
-properties = SubResource("Resource_bl624")
+properties = SubResource("Resource_2mx66")
 
-[sub_resource type="Resource" id="Resource_rigyx"]
+[sub_resource type="Resource" id="Resource_gh62n"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3907,9 +3909,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(1075.88, 453.68)
 point_in = Vector2(146.206, -116.541)
 point_out = Vector2(-146.206, 116.541)
-properties = SubResource("Resource_rigyx")
+properties = SubResource("Resource_gh62n")
 
-[sub_resource type="Resource" id="Resource_u78ic"]
+[sub_resource type="Resource" id="Resource_a3x51"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3920,9 +3922,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(-1079.38, 448.023)
 point_in = Vector2(241.558, -31.7839)
 point_out = Vector2(-241.558, 31.7839)
-properties = SubResource("Resource_u78ic")
+properties = SubResource("Resource_a3x51")
 
-[sub_resource type="Resource" id="Resource_wpfio"]
+[sub_resource type="Resource" id="Resource_vs8ou"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3933,9 +3935,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(-1073.57, -0.346848)
 point_in = Vector2(-241.558, 6.35681)
 point_out = Vector2(241.558, -6.35681)
-properties = SubResource("Resource_wpfio")
+properties = SubResource("Resource_vs8ou")
 
-[sub_resource type="Resource" id="Resource_1lbyr"]
+[sub_resource type="Resource" id="Resource_pnwws"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3946,7 +3948,7 @@ script = ExtResource("9_4quyx")
 position = Vector2(732.769, 29.1149)
 point_in = Vector2(-283.936, 114.422)
 point_out = Vector2(283.936, -114.422)
-properties = SubResource("Resource_1lbyr")
+properties = SubResource("Resource_pnwws")
 
 [sub_resource type="Resource" id="Resource_jdawe"]
 script = ExtResource("10_4a4ko")
@@ -4022,14 +4024,19 @@ shader_parameter/distortion = null
 shader_parameter/heightOffset = null
 shader_parameter/offset = 0.0
 
-[sub_resource type="Environment" id="Environment_k3em3"]
-background_mode = 1
-background_color = Color(0.401895, 0.588229, 0.994388, 1)
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-glow_enabled = true
+[sub_resource type="CanvasTexture" id="CanvasTexture_fud3y"]
+diffuse_texture = ExtResource("18_yapfc")
+normal_texture = ExtResource("19_j70u7")
+specular_texture = ExtResource("20_hgw7w")
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a2in0"]
+[sub_resource type="Environment" id="Environment_nywk2"]
+background_mode = 3
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.2
+glow_bloom = 0.04
+glow_blend_mode = 0
 
 [node name="tests" type="Node2D"]
 script = ExtResource("1_22424")
@@ -4105,10 +4112,13 @@ polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_2pf2x")
 position = Vector2(336, -74)
-texture = ExtResource("18_yapfc")
+texture = SubResource("CanvasTexture_fud3y")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_k3em3")
-camera_attributes = SubResource("CameraAttributesPractical_a2in0")
+environment = SubResource("Environment_nywk2")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.266575, 0.266575, 0.266575, 1)
+blend_mode = 2
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]

@@ -672,7 +672,7 @@ script = ExtResource("38_a7jxw")
 attack_damage = 50
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(49, -48)
+position = Vector2(15.7212, -38.552)
 color = Color(1, 0, 0, 1)
 energy = 13.99
 range_z_min = -1189
