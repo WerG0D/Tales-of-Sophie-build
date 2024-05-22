@@ -9,8 +9,8 @@
 [ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
 [ext_resource type="Script" path="res://scripts/components/RichTextLabel.gd" id="78_3wrjh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpphr"]
-size = Vector2(31.8054, 20.6208)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ekrlk"]
+size = Vector2(6.74357, 20.9751)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
 size = Vector2(11.3539, 6.86675)
@@ -32,6 +32,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/HitBox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(18.6281, 1.9276)]
 }
 
 [sub_resource type="Animation" id="Animation_w74ge"]
@@ -60,6 +72,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/HitBox/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(16.2898, -1.92767), Vector2(6.36615, -14.9369)]
 }
 
 [sub_resource type="Animation" id="Animation_n8y3u"]
@@ -271,7 +295,11 @@ tab_size = 1
 script = ExtResource("78_3wrjh")
 
 [node name="Chain" parent="." instance=ExtResource("8_bc8it")]
+visible = false
 position = Vector2(-1.66588e-06, 0)
+
+[node name="Chain2" parent="." instance=ExtResource("8_bc8it")]
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.595, 0.595)
@@ -288,9 +316,10 @@ vframes = 11
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitBox"]
-position = Vector2(20.4022, 2.8914)
+position = Vector2(18.6281, 1.9276)
 rotation = -1.57023
-shape = SubResource("RectangleShape2D_hpphr")
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_ekrlk")
 disabled = true
 
 [node name="HurtBoxComponent" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
@@ -311,7 +340,7 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
-speed_scale = 0.5
+speed_scale = 1.5
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false

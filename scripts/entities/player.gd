@@ -40,7 +40,7 @@ func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
 		velocity.y = clamp(velocity.y, -max_speed+1000, max_speed+1000)	#dallingspeed should be faster than walking
-	if Input.is_action_pressed("move_right") and !$Chain.hooked: #cant walk wile hooked
+	if Input.is_action_pressed("move_right") and (!$Chain.hooked or !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
 				velocity.x =lerp(velocity.x,float(acceleration),on_air_friction)
@@ -48,7 +48,7 @@ func moveplayer(delta):
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
 			velocity.x = acceleration #dumbcode
-	if Input.is_action_pressed("move_left") and !$Chain.hooked: #cant walk wile hooked
+	if Input.is_action_pressed("move_left") and (!$Chain.hooked or !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
 				velocity.x =lerp(velocity.x,float(-acceleration),on_air_friction)
@@ -57,7 +57,7 @@ func moveplayer(delta):
 		else:
 			velocity.x = -acceleration #dumbcode
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-		if !$Chain.hooked: ############TODO REFATORAR ISSO TUDO
+		if (!$Chain.hooked or !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -86,7 +86,20 @@ func hook_phys():
 			chain_velocity.x *= 0.3
 	else:
 		chain_velocity = Vector2(0,0)
-	velocity += chain_velocity		
+	velocity += chain_velocity
+	
+	if $Chain2.hooked:
+		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE			
+		chain_velocity = to_local($Chain2.tip).normalized() * chain_pull_force
+		if chain_velocity.y > 0:
+			chain_velocity.y *= 0.55 ##pull pra cima e pra baixo
+		else:
+			chain_velocity.y *= 1.1
+		if sign(chain_velocity.x) != sign(walk):
+			chain_velocity.x *= 0.3
+	else:
+		chain_velocity = Vector2(0,0)
+	velocity += chain_velocity			
 	
 	
 	
@@ -101,7 +114,17 @@ func hook():
 				
 			if Input.is_action_just_pressed("scroll_down"):
 				chain_pull_force = chain_pull_force -10
-	
+				
+			if Input.is_action_just_pressed("hook2") and initialized and !$Chain2.hooked and !$Chain2.flying :
+				var mouse_viewport_pos = get_viewport().get_mouse_position()
+				$Chain2.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
+			elif Input.is_action_just_pressed("hook2"):
+				$Chain2.release()
+			if Input.is_action_just_pressed("scroll_up"):
+				chain_pull_force = chain_pull_force +10
+				
+			if Input.is_action_just_pressed("scroll_down"):
+				chain_pull_force = chain_pull_force -10	
 	
 	
 func animateplayerWIP():
@@ -111,6 +134,7 @@ func animateplayerWIP():
 	if Input.is_action_pressed("move_right"):
 		$Sprite2D.flip_h = false
 		$Sprite2D/HitBox.scale.x = 1
+
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("jump") 
@@ -123,7 +147,9 @@ func animateplayerWIP():
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		if velocity.x != 0 and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
+			#$Sprite2D/AnimationPlayer.speed_scale *= unit(velocity.x) / 1000
 			animplayer.play("run")
+			
 	if healthcomp.is_taking_damage and !healthcomp.is_dead:
 		animplayer.play("hurt")
 	if healthcomp.is_dead:
