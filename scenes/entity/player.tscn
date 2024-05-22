@@ -423,12 +423,10 @@ vframes = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(15.4022, -2.40949)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_5oav3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(-13.3058, 12.1979)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_pcw4w")
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
