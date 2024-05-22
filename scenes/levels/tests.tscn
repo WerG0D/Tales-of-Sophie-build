@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=47 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -4022,6 +4022,14 @@ shader_parameter/distortion = null
 shader_parameter/heightOffset = null
 shader_parameter/offset = 0.0
 
+[sub_resource type="Environment" id="Environment_k3em3"]
+background_mode = 1
+background_color = Color(0.401895, 0.588229, 0.994388, 1)
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_a2in0"]
+
 [node name="tests" type="Node2D"]
 script = ExtResource("1_22424")
 
@@ -4097,5 +4105,9 @@ polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71
 material = SubResource("ShaderMaterial_2pf2x")
 position = Vector2(336, -74)
 texture = ExtResource("18_yapfc")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k3em3")
+camera_attributes = SubResource("CameraAttributesPractical_a2in0")
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]
