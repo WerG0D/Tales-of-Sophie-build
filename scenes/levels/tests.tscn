@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=45 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="13_0ncsd"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="14_itq6u"]
 [ext_resource type="Texture2D" uid="uid://q016h13kcfxb" path="res://graphs/png/Grass/32xdirt.png" id="15_5je11"]
+[ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="17_e2dja"]
+[ext_resource type="Texture2D" uid="uid://dqesx60s1safs" path="res://graphs/png/Decoratives/tree597976819.png" id="18_yapfc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7nuoo"]
 
@@ -4008,6 +4010,18 @@ fill_texture_angle_offset = 0.0
 fill_mesh_offset = 0.0
 render_offset = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2pf2x"]
+shader = ExtResource("17_e2dja")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
+
 [node name="tests" type="Node2D"]
 script = ExtResource("1_22424")
 
@@ -4078,5 +4092,10 @@ collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 modulate = Color(1, 1, 1, 0.3)
 polygon = PackedVector2Array(-1073.57, -0.348256, -186.294, 54.9084, 364.712, 71.8889, 583.54, 60.4392, 668.346, 47.5699, 703.292, 39.0789, 732.769, 29.1138, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.727, 1198.38, -168.516, 1213.16, -166.997, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.591, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1607, 1347.94, -69.4702, 1354.77, -53.0189, 1359.61, -35.8718, 1362.56, -18.0934, 1363.7, 0.251515, 1363.13, 19.0982, 1360.95, 38.382, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.737, 1075.88, 453.681, 1067.85, 458.947, 1057.52, 463.827, 1044.96, 468.332, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.492, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.65, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.488, -1214.35, 392.268, -1224.75, 376.511, -1233.73, 359.395, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.65, 238.141, -1254.27, 194.928, -1245.26, 152.694, -1238.64, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.36, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.29, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_2pf2x")
+position = Vector2(336, -74)
+texture = ExtResource("18_yapfc")
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]
