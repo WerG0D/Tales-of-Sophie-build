@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=33 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://scenes/entity/Camera2D.gd" id="4_arv00"]
 [ext_resource type="Texture2D" uid="uid://8hmsi8osfspl" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://b0ql0cg0fghcu" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
+[ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_36c5d"]
 [ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://scenes/entity/chain.tscn" id="8_bc8it"]
 [ext_resource type="Texture2D" uid="uid://cur16o1xsaerl" path="res://graphs/png/Light/neutral.webp" id="11_74r2x"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
@@ -23,12 +24,23 @@ size = Vector2(17.0964, 31.8054)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcw4w"]
 size = Vector2(15.5234, 7.7104)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
-size = Vector2(11.3539, 6.86675)
+[sub_resource type="CircleShape2D" id="CircleShape2D_ljyal"]
+radius = 4.53877
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
-radius = 0.274961
-height = 2.50588
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4gu4"]
+size = Vector2(7.98346, 10.6018)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
+size = Vector2(3.54821, 7.7104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
+size = Vector2(3.54821, 8.67419)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlu1y"]
+size = Vector2(5.32231, 7.7104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lpleu"]
+size = Vector2(4.11295, 7.1086)
 
 [sub_resource type="Animation" id="Animation_a15sg"]
 length = 0.001
@@ -376,6 +388,13 @@ _data = {
 "run": SubResource("Animation_4rx8x")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
+size = Vector2(11.3539, 6.86675)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
+radius = 0.274961
+height = 2.50588
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
@@ -420,7 +439,9 @@ texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
 
-[node name="HitBox" type="Area2D" parent="Sprite2D"]
+[node name="HitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
+script = ExtResource("8_36c5d")
+attack_component = NodePath("../../AttackComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(15.4022, -2.40949)
@@ -431,18 +452,56 @@ position = Vector2(-13.3058, 12.1979)
 shape = SubResource("RectangleShape2D_pcw4w")
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
-[node name="HurtBoxComponent" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 script = ExtResource("35_u515o")
 health_component = NodePath("../../HealthComponent")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/HurtBoxComponent"]
-position = Vector2(0.436525, 14.0352)
-shape = SubResource("RectangleShape2D_vsb3e")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
+position = Vector2(0, -6.7466)
+shape = SubResource("CircleShape2D_ljyal")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxComponent"]
-position = Vector2(0.413, 0.963997)
-scale = Vector2(20.915, 10)
-shape = SubResource("CapsuleShape2D_slk7t")
+[node name="HurtBoxBody" type="Area2D" parent="Sprite2D"]
+scale = Vector2(1, 1)
+script = ExtResource("35_u515o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
+position = Vector2(5.96046e-08, 3.8552)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_n4gu4")
+
+[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D"]
+scale = Vector2(1, 1)
+script = ExtResource("35_u515o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
+position = Vector2(6.20936, 2.8914)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_u6mo1")
+
+[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D"]
+scale = Vector2(1, 1)
+script = ExtResource("35_u515o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
+position = Vector2(-6.20936, 3.3733)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_00s58")
+
+[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D"]
+scale = Vector2(1, 1)
+script = ExtResource("35_u515o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
+position = Vector2(3.54821, 13.4932)
+shape = SubResource("RectangleShape2D_dlu1y")
+
+[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D"]
+scale = Vector2(1, 1)
+script = ExtResource("35_u515o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
+position = Vector2(-2.94353, 13.7941)
+shape = SubResource("RectangleShape2D_lpleu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 root_node = NodePath("../..")
@@ -480,5 +539,5 @@ texture_scale = 0.54
 
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxComponent" to="." method="_on_hurt_box_component_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxHead" to="." method="_on_hurt_box_component_area_entered"]
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
