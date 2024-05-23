@@ -36,6 +36,7 @@ func _physics_process(delta):
 
 
 
+
 func moveplayer(_delta):
 	if  !is_on_floor():
 		velocity.y += gravity
@@ -161,7 +162,10 @@ func animatedattackWIP():
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
-			#animplayer.queue("RESET")
+			animplayer.queue("RESET")
+			var queue = animplayer.get_queue()
+			if queue != PackedStringArray([]):
+				print(queue)
 			$Sprite2D/HitBox/CollisionSword1.disabled = false
 
 
@@ -195,7 +199,11 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hurt":
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
-		get_parent().queue_free() # Replace with function body.
+		get_parent().queue_free() #
+	if anim_name == "RESET":
+		var queue = animplayer.get_queue()
+		print(queue)
+		animplayer.play("idle")
 
 
 
