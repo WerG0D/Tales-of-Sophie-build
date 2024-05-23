@@ -130,10 +130,31 @@ func hook():
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$Sprite2D.flip_h = true
-		#$Sprite2D/HitBox.scale.x = -1
+		var hitbox_scale = $Sprite2D/HitBox.scale.x
+		var hurtbox_head_scale = $Sprite2D/HurtBoxHead.scale.x
+		var hurtbox_body_scale =  $Sprite2D/HurtBoxBody.scale.x
+		var hurtbox_LArm_scale = $Sprite2D/HurtBoxLArm.scale.x
+		var hurtbox_RArm_scale = $Sprite2D/HurtBoxRArm.scale.x
+		var hurtbox_RLeg_scale = $Sprite2D/HurtBoxLleg.scale.x
+		var hurtbox_LLeg_scale = $Sprite2D/HurtBoxRLeg.scale.x
+		$Sprite2D/HitBox.scale.x = -1
+		$Sprite2D/HurtBoxHead.scale.x *= -1
+		$Sprite2D/HurtBoxBody.scale.x *= -1
+		$Sprite2D/HurtBoxLArm.scale.x *= -1
+		$Sprite2D/HurtBoxRArm.scale.x *= -1
+		$Sprite2D/HurtBoxLleg.scale.x *= -1
+		$Sprite2D/HurtBoxRLeg.scale.x *= -1
+								
+		
 	if Input.is_action_pressed("move_right"):
 		$Sprite2D.flip_h = false
-		#$Sprite2D/HitBox.scale.x = 1
+		$Sprite2D/HitBox.scale.x = 1
+		$Sprite2D/HurtBoxHead.scale.x *= 1
+		$Sprite2D/HurtBoxBody.scale.x *= 1
+		$Sprite2D/HurtBoxLArm.scale.x *= 1
+		$Sprite2D/HurtBoxRArm.scale.x *= 1
+		$Sprite2D/HurtBoxLleg.scale.x *= 1
+		$Sprite2D/HurtBoxRLeg.scale.x *= 1
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
