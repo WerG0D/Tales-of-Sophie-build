@@ -1,6 +1,7 @@
-[gd_scene load_steps=58 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=57 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
+[ext_resource type="Texture2D" uid="uid://cur16o1xsaerl" path="res://graphs/png/Light/neutral.webp" id="2_e327q"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
 [ext_resource type="Script" path="res://scenes/levels/PointLight2D.gd" id="3_arkdb"]
 [ext_resource type="Texture2D" uid="uid://dhfftuyimcu2x" path="res://graphs/png/Tiles/MainLevBuild.png" id="3_fx2kr"]
@@ -25,16 +26,6 @@
 [ext_resource type="Texture2D" uid="uid://deccvqcrk7hx6" path="res://graphs/png/Grass/32xdirt_n.png" id="19_4rufc"]
 [ext_resource type="Texture2D" uid="uid://bcnecal05ptfw" path="res://graphs/png/Decoratives/tree597976819_n.png" id="19_j70u7"]
 [ext_resource type="Texture2D" uid="uid://b871xhqx2tls" path="res://graphs/png/Decoratives/tree597976819_s.png" id="20_hgw7w"]
-
-[sub_resource type="Gradient" id="Gradient_ujfxm"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wk2nu"]
-gradient = SubResource("Gradient_ujfxm")
-use_hdr = true
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.5, 0)
 
 [sub_resource type="Environment" id="Environment_nywk2"]
 background_mode = 3
@@ -3904,6 +3895,9 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ylv3w"]
+polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
+
 [sub_resource type="Resource" id="Resource_qkngw"]
 script = ExtResource("8_af28u")
 texture_idx = -22
@@ -4053,10 +4047,6 @@ fill_texture_angle_offset = 0.0
 fill_mesh_offset = 0.0
 render_offset = 0.0
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ylv3w"]
-cull_mode = 1
-polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_snqm3"]
 shader = ExtResource("18_mrgix")
 
@@ -4069,18 +4059,12 @@ specular_texture = ExtResource("20_hgw7w")
 script = ExtResource("1_22424")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-z_index = -1
-z_as_relative = false
-position = Vector2(163, 12)
-scale = Vector2(15.2059, 11.1618)
-color = Color(0.838246, 0.624521, 0, 1)
-energy = 2.84
+position = Vector2(48, -23)
+color = Color(1, 0.509804, 0, 1)
+energy = 18.64
 shadow_enabled = true
-shadow_color = Color(0, 0, 0, 1)
-texture = SubResource("GradientTexture2D_wk2nu")
-texture_scale = 0.1
+texture = ExtResource("2_e327q")
+texture_scale = 0.54
 script = ExtResource("3_arkdb")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -4117,7 +4101,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 5
 texture_filter = 1
-position = Vector2(186, -158)
+position = Vector2(171, 82)
 scale = Vector2(1, 1)
 
 [node name="cutscene" type="Area2D" parent="."]
@@ -4150,6 +4134,13 @@ position = Vector2(832, -16)
 collision_layer = 2
 collision_mask = 13
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="StaticBody2D"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+z_index = 1
+occluder = SubResource("OccluderPolygon2D_ylv3w")
+script = ExtResource("17_o4b6w")
+
 [node name="SS2D_Shape" type="Node2D" parent="StaticBody2D"]
 texture_repeat = 2
 script = ExtResource("7_5v8d8")
@@ -4158,27 +4149,13 @@ shape_material = SubResource("Resource_2y8j3")
 collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-modulate = Color(0, 0, 0, 0.3)
-self_modulate = Color(0, 0, 0, 1)
-z_index = -1
+modulate = Color(1, 1, 1, 0.3)
 z_as_relative = false
-polygon = PackedVector2Array(-1073.57, -0.348258, -811.845, 15.951, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-light_mask = 2
-visibility_layer = 2
-z_index = 1
-position = Vector2(832, -16)
-occluder = SubResource("OccluderPolygon2D_ylv3w")
-occluder_light_mask = 2
-script = ExtResource("17_o4b6w")
+polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
 
 [node name="arvre" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_snqm3")
-position = Vector2(336, -82)
+position = Vector2(336, -74)
 texture = SubResource("CanvasTexture_fud3y")
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]
