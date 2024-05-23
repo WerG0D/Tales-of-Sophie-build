@@ -161,6 +161,7 @@ func animatedattackWIP():
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
+			#animplayer.queue("RESET")
 			$Sprite2D/HitBox/CollisionSword1.disabled = false
 
 
