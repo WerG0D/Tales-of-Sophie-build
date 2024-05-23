@@ -25,7 +25,6 @@ var playerknockbackforce = 0.5
 var playermaxhealth = 100
 var playercurrenthealth = 100
 var gravity = 60
-
 func _physics_process(delta):
 	debug()
 	moveplayer(delta)
@@ -37,7 +36,7 @@ func _physics_process(delta):
 
 
 
-func moveplayer(delta):
+func moveplayer(_delta):
 	if  !is_on_floor():
 		velocity.y += gravity
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking

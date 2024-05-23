@@ -10,7 +10,7 @@ func _ready():
 		$growth_timer.start()
 	pass
 
-func _process(delta):
+func _process(_delta):
 	$RichTextLabel.set_text(str("pos:",$AnimatedSprite2D.global_position, " | state:", state))
 	if state == "no sap":
 		$AnimatedSprite2D.play("1")

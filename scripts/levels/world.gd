@@ -9,7 +9,7 @@ var objects_has_happened = false
 var objects_is_happening = false
 
 # Called when the node enters the scene tree for the first time.
-func _physics_process(delta):
+func _physics_process(_delta):
 	if is_openingcutscene:
 		var pathfollower = $Path2D/PathFollow2D
 		if is_pathfollowing:
