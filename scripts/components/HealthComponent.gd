@@ -11,8 +11,8 @@ extends Node2D
 func _ready():
 	health = MAX_HEALTH
 	is_dead = false
-	is_taking_damage = false 
-	
+	is_taking_damage = false
+
 func health_reduce(attackcomp: AttackComponent):
 	health -= attackcomp.attack_damage
 	is_taking_damage = true
@@ -21,8 +21,8 @@ func health_reduce(attackcomp: AttackComponent):
 	else:
 		is_taking_damage = false
 		is_dead = true
-			
-		
-		
+
+
+
 
 

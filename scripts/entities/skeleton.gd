@@ -17,11 +17,11 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	pass
 	 # Replace with function body.
-	
-func _physics_process(delta):	
-	$RichTextLabel.set_text(str("HP: ",$HealthComponent.health, 
-	"\ntdmg: ", healthcomp.is_taking_damage, 
-	"\ndead: ", healthcomp.is_dead, 
+
+func _physics_process(delta):
+	$RichTextLabel.set_text(str("HP: ",$HealthComponent.health,
+	"\ntdmg: ", healthcomp.is_taking_damage,
+	"\ndead: ", healthcomp.is_dead,
 	"\nroaming: ", is_roaming, "| atck: ", attackcomp.is_attacking))
 	# Add the gravity.
 	if not is_on_floor():
@@ -30,12 +30,12 @@ func _physics_process(delta):
 		if is_roaming:
 			is_roaming = false
 		else:
-			is_roaming = true	
+			is_roaming = true
 	move_and_slide()
 	animateWIP()
-	
-	
-			
+
+
+
 func animateWIP():
 	if !healthcomp.is_taking_damage and !healthcomp.is_dead and !is_roaming:
 		$Sprite2D/AnimationPlayer.play("idle")
@@ -47,13 +47,13 @@ func animateWIP():
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			$Sprite2D/AnimationPlayer.play("attack")
-			$Sprite2D/HitboxComponent/CollisionShape2D.disabled = false	
+			$Sprite2D/HitboxComponent/CollisionShape2D.disabled = false
 
 
 func _on_hurt_box_area_entered(area): # Levar dano
 	if area.has_method("deal_damage"):
 		area.deal_damage()
-		
+
 
 func _on_hitbox_component_area_entered(area): #Realizar dano
 	if area.has_method("take_damage"):

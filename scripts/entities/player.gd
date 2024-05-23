@@ -34,9 +34,9 @@ func _physics_process(delta):
 	hook_phys()
 	animateplayerWIP()
 	animatedattackWIP()
-	
-	
-	
+
+
+
 func moveplayer(delta):
 	if  !is_on_floor():
 		velocity.y += gravity
@@ -66,18 +66,18 @@ func moveplayer(delta):
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
 	if jump_buffer_counter > 0:
-		velocity.y = -jump_force 
+		velocity.y = -jump_force
 		jump_buffer_counter = 0
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
-	
-	
-	
+
+
+
 func hook_phys():
 	# Hook physics
 	if $Chain.hooked:
-		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE			
+		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE
 		chain_velocity = to_local($Chain.tip).normalized() * chain_pull_force
 		if chain_velocity.y > 0:
 			chain_velocity.y *= 0.55 ##pull pra cima e pra baixo
@@ -90,7 +90,7 @@ func hook_phys():
 	velocity += chain_velocity
 
 	if $Chain2.hooked:
-		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE			
+		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE
 		chain2_velocity = to_local($Chain2.tip).normalized() * chain_pull_force
 		if chain2_velocity.y > 0:
 			chain2_velocity.y *= 0.55 ##pull pra cima e pra baixo
@@ -101,8 +101,8 @@ func hook_phys():
 	else:
 		chain2_velocity = Vector2(0,0)
 	velocity += chain2_velocity
-	
-	
+
+
 func hook():
 			if Input.is_action_just_pressed("hook") and initialized and !$Chain.hooked and !$Chain.flying :
 				var mouse_viewport_pos = get_viewport().get_mouse_position()
@@ -111,10 +111,10 @@ func hook():
 				$Chain.release()
 			if Input.is_action_just_pressed("scroll_up"):
 				chain_pull_force = chain_pull_force +10
-				
+
 			if Input.is_action_just_pressed("scroll_down"):
 				chain_pull_force = chain_pull_force -10
-				
+
 			if Input.is_action_just_pressed("hook2") and initialized and !$Chain2.hooked and !$Chain2.flying :
 				var mouse_viewport_pos = get_viewport().get_mouse_position()
 				$Chain2.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
@@ -122,11 +122,11 @@ func hook():
 				$Chain2.release()
 			if Input.is_action_just_pressed("scroll_up"):
 				chain_pull_force = chain_pull_force +10
-				
+
 			if Input.is_action_just_pressed("scroll_down"):
-				chain_pull_force = chain_pull_force -10	
-	
-	
+				chain_pull_force = chain_pull_force -10
+
+
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$Sprite2D.flip_h = true
@@ -137,68 +137,68 @@ func animateplayerWIP():
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
-		animplayer.play("jump") 
+		animplayer.play("jump")
 	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("fall")
 	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
 		animplayer.play("idle")
-	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):	
+	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		if velocity.x != 0 and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 			#$Sprite2D/AnimationPlayer.speed_scale *= unit(velocity.x) / 1000
 			animplayer.play("run")
-			
+
 	if healthcomp.is_taking_damage and !healthcomp.is_dead:
 		animplayer.play("hurt")
 	if healthcomp.is_dead:
 		animplayer.play("die")
-	
-	
-	
+
+
+
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack"):
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
 			$Sprite2D/HitBox/CollisionSword1.disabled = false
-	
-	
-	
+
+
+
 func _on_hit_box_area_entered(area): #Dá dano
 	if area.has_method("take_damage"):
 		area.take_damage(attackcomp)
 	else:
 		pass
-	
-	
-	
+
+
+
 func _on_hurt_box_component_area_entered(area): #Recebe dano
 	if area.has_method("deal_damage"):
 		area.deal_damage(healthcomp) # Replace with function body.
-	
-	
-	
+
+
+
 func player(): #faz nada
 	#Essa função só existe para poder identificar o CharactherBody como player em outros scripts. Remover vai quebrar muita coisa
 	#if body.has_method("player"):
 		#player = body
 	pass
-	
-	
-	
+
+
+
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "attack":
 		attackcomp.is_attacking = false
 		$Sprite2D/HitBox/CollisionSword2.disabled = true
-	if anim_name == "hurt":	
+	if anim_name == "hurt":
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
 		get_parent().queue_free() # Replace with function body.
-	
-	
-	
+
+
+
 func debug():
 	if Input.is_action_just_released("debug"):
 		isdebug = not(isdebug)
@@ -208,17 +208,17 @@ func debug():
 		"velocity: ", velocity,"
 		\n Global pos: ", global_position,"
 		\n Mouse pos:",  get_global_mouse_position(),"
-		\n Mouse local pos:",  get_local_mouse_position(),"		
+		\n Mouse local pos:",  get_local_mouse_position(),"
 		\n Pull force:", chain_pull_force,
 		))#
 	else:
-		$RichTextLabel.set_text("")	
+		$RichTextLabel.set_text("")
 	if isdebug and Input.is_action_pressed("ctrl"):
 		if Input.is_action_just_pressed("scroll_up"):
 			$Camera2D.zoom = $Camera2D.zoom * 1.2
 			print("zoom:",$Camera2D.zoom)
-			
-				
+
+
 		if Input.is_action_just_pressed("scroll_down"):
 			$Camera2D.zoom = $Camera2D.zoom / 1.2
-			print("zoom:",$Camera2D.zoom)	
+			print("zoom:",$Camera2D.zoom)
