@@ -5,6 +5,7 @@ class_name AttackComponent
 @export var knockback_force: float
 @export var stun_time: float
 @export var is_attacking: bool
-func deal_damage(healthcomp: HealthComponent):
+#var nomearea = self
+func deal_damage(healthcomp: HealthComponent, #nomearea: Area2D
+):
 	is_attacking = true
-	healthcomp.health -= attack_damage 

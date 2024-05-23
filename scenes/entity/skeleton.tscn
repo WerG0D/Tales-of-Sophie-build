@@ -124,20 +124,26 @@ libraries = {
 
 [node name="HurtBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 visible = false
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("3_i3cgn")
 health_component = NodePath("../../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
 shape = SubResource("CapsuleShape2D_up7ql")
 
-[node name="HitboxComponent" type="Area2D" parent="Sprite2D"]
+[node name="HitboxComponent" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
+collision_layer = 8
+collision_mask = 9
 script = ExtResource("4_xnfj1")
+attack_component = NodePath("../../AttackComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
 position = Vector2(21, -2)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("RectangleShape2D_bkw4v")
 disabled = true
+debug_color = Color(1, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 1.19209e-07)
@@ -160,7 +166,7 @@ SpriteAnimPlayer = NodePath("../Sprite2D/AnimationPlayer")
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("7_hw3bw")
-attack_damage = 50
+attack_damage = 1
 
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]

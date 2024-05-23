@@ -18,7 +18,7 @@ normal_texture = ExtResource("6_7uhr8")
 specular_texture = ExtResource("7_n0qo7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5oav3"]
-size = Vector2(17.0964, 31.8054)
+size = Vector2(17.0757, 4.09615)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcw4w"]
 size = Vector2(15.5234, 7.7104)
@@ -47,7 +47,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D/HitBox/CollisionSword1:disabled")
-tracks/0/interp = 1
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
@@ -59,19 +59,19 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D/HitBox/CollisionSword1:position")
-tracks/1/interp = 1
+tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(15.4022, -2.40949)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("Sprite2D/HitBox/CollisionSword2:disabled")
-tracks/2/interp = 1
+tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
@@ -83,19 +83,19 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("Sprite2D/HitBox/CollisionSword2:position")
-tracks/3/interp = 1
+tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(-13.3058, 12.1979)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/path = NodePath("Sprite2D/HurtBoxHead/CollisionHead:disabled")
-tracks/4/interp = 1
+tracks/4/interp = 0
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
@@ -107,19 +107,19 @@ tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/path = NodePath("Sprite2D/HurtBoxHead/CollisionHead:position")
-tracks/5/interp = 1
+tracks/5/interp = 0
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(0, -6.7466)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/path = NodePath("Sprite2D/HurtBoxBody/CollisionBody:disabled")
-tracks/6/interp = 1
+tracks/6/interp = 0
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
@@ -131,7 +131,7 @@ tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/path = NodePath("Sprite2D/HurtBoxBody/CollisionBody:position")
-tracks/7/interp = 1
+tracks/7/interp = 0
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
@@ -143,7 +143,7 @@ tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/path = NodePath("Sprite2D/HurtBoxHead/CollisionHead:shape")
-tracks/8/interp = 1
+tracks/8/interp = 0
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
@@ -155,7 +155,7 @@ tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/path = NodePath("Sprite2D/HurtBoxBody/CollisionBody:shape")
-tracks/9/interp = 1
+tracks/9/interp = 0
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
@@ -167,7 +167,7 @@ tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/path = NodePath("Sprite2D/HitBox/CollisionSword1:shape")
-tracks/10/interp = 1
+tracks/10/interp = 0
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
@@ -179,43 +179,43 @@ tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/path = NodePath("Sprite2D/HurtBoxLArm/CollisionLArm:position")
-tracks/11/interp = 1
+tracks/11/interp = 0
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(-6.20936, 3.3733)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
 tracks/12/path = NodePath("Sprite2D/HurtBoxLArm/CollisionLArm:rotation")
-tracks/12/interp = 1
+tracks/12/interp = 0
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [0.0]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/path = NodePath("Sprite2D/HurtBoxBody/CollisionBody:rotation")
-tracks/13/interp = 1
+tracks/13/interp = 0
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [0.0]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/path = NodePath("Sprite2D/HurtBoxLArm/CollisionLArm:shape")
-tracks/14/interp = 1
+tracks/14/interp = 0
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
@@ -227,7 +227,7 @@ tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
 tracks/15/path = NodePath("Sprite2D/HurtBoxRArm/CollisionRArm:shape")
-tracks/15/interp = 1
+tracks/15/interp = 0
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
@@ -239,24 +239,24 @@ tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
 tracks/16/path = NodePath("Sprite2D/HurtBoxRArm/CollisionRArm:position")
-tracks/16/interp = 1
+tracks/16/interp = 0
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(6.20936, 2.8914)]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
 tracks/17/path = NodePath("Sprite2D/HurtBoxRArm/CollisionRArm:rotation")
-tracks/17/interp = 1
+tracks/17/interp = 0
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [0.0]
 }
 tracks/18/type = "value"
@@ -347,7 +347,7 @@ tracks/25/type = "value"
 tracks/25/imported = false
 tracks/25/enabled = true
 tracks/25/path = NodePath("Sprite2D/HurtBoxLArm/CollisionLArm:disabled")
-tracks/25/interp = 1
+tracks/25/interp = 0
 tracks/25/loop_wrap = true
 tracks/25/keys = {
 "times": PackedFloat32Array(0),
@@ -363,7 +363,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.10001, 1.2, 1.3, 1.4, 1.5, 1.6),
@@ -675,7 +675,7 @@ tracks/26/type = "value"
 tracks/26/imported = false
 tracks/26/enabled = true
 tracks/26/path = NodePath("Sprite2D/HurtBoxLArm/CollisionLArm:disabled")
-tracks/26/interp = 1
+tracks/26/interp = 0
 tracks/26/loop_wrap = true
 tracks/26/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3),
@@ -917,7 +917,6 @@ scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
-frame = 44
 
 [node name="HitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
 collision_mask = 10
@@ -937,62 +936,91 @@ debug_color = Color(0.995183, 0, 0.209667, 0.42)
 [node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("../../HealthComponent")
+health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
 position = Vector2(0, -6.7466)
 shape = SubResource("CircleShape2D_ljyal")
 
-[node name="HurtBoxBody" type="Area2D" parent="Sprite2D"]
+[node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
+script = ExtResource("37_hplil")
+MAX_HEALTH = 101
+
+[node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
 script = ExtResource("35_u515o")
+health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
 position = Vector2(0, 3.3733)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n4gu4")
 
-[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D"]
+[node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
+script = ExtResource("37_hplil")
+MAX_HEALTH = 101
+
+[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
 script = ExtResource("35_u515o")
+health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
 position = Vector2(6.20936, 2.8914)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_u6mo1")
 
-[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D"]
+[node name="HealthComponentRightArm" type="Node2D" parent="Sprite2D/HurtBoxRArm"]
+script = ExtResource("37_hplil")
+MAX_HEALTH = 101
+
+[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
 script = ExtResource("35_u515o")
+health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionLArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
 position = Vector2(-6.20936, 3.3733)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_00s58")
 
-[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D"]
+[node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
+script = ExtResource("37_hplil")
+MAX_HEALTH = 101
+
+[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
 script = ExtResource("35_u515o")
+health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
 position = Vector2(3.54821, 13.4932)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dlu1y")
 
-[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D"]
+[node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
+script = ExtResource("37_hplil")
+MAX_HEALTH = 101
+
+[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
 script = ExtResource("35_u515o")
+health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
 position = Vector2(-2.94353, 13.7941)
 shape = SubResource("RectangleShape2D_lpleu")
+
+[node name="HealthComponentLeftLeg" type="Node2D" parent="Sprite2D/HurtBoxLleg"]
+script = ExtResource("37_hplil")
+MAX_HEALTH = 101
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
-speed_scale = 1.5
+speed_scale = 0.5
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
@@ -1007,7 +1035,7 @@ shape = SubResource("CapsuleShape2D_slk7t")
 
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 100
+MAX_HEALTH = 1000
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("38_a7jxw")
@@ -1015,5 +1043,10 @@ attack_damage = 50
 
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxHead" to="." method="_on_hurt_box_component_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxHead" to="." method="_on_hurt_box_head_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxBody" to="." method="_on_hurt_box_body_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxRArm" to="." method="_on_hurt_box_right_arm_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxLArm" to="." method="_on_hurt_box_left_arm_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxRLeg" to="." method="_on_hurt_box_right_leg_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HurtBoxLleg" to="." method="_on_hurt_box_left_leg_area_entered"]
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

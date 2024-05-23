@@ -4143,7 +4143,6 @@ loop = false
 zoom = Vector2(2, 2)
 
 [node name="Skeleton2" parent="." instance=ExtResource("6_qyfn6")]
-visible = false
 position = Vector2(-156, 26)
 collision_layer = 8
 collision_mask = 6

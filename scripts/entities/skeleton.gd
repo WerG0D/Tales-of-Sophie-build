@@ -52,12 +52,14 @@ func animateWIP():
 
 func _on_hurt_box_area_entered(area): # Levar dano
 	if area.has_method("deal_damage"):
-		area.deal_damage()
+		print("Nome da Area: ", area)
+		area.deal_damage(healthcomp)
 
 
 func _on_hitbox_component_area_entered(area): #Realizar dano
 	if area.has_method("take_damage"):
-		area.take_damage(attackcomp) # Replace with function body.
+		area.take_damage(attackcomp)
+		print(area)
 
 
 func _on_animation_player_animation_finished(anim_name):

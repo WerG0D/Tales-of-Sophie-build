@@ -162,10 +162,6 @@ func animatedattackWIP():
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
-			animplayer.queue("RESET")
-			var queue = animplayer.get_queue()
-			if queue != PackedStringArray([]):
-				print(queue)
 			$Sprite2D/HitBox/CollisionSword1.disabled = false
 
 
@@ -176,11 +172,42 @@ func _on_hit_box_area_entered(area): #Dá dano
 	else:
 		pass
 
-
-
-func _on_hurt_box_component_area_entered(area): #Recebe dano
+func _on_hurt_box_head_area_entered(area): #Recebe dano
 	if area.has_method("deal_damage"):
-		area.deal_damage(healthcomp) # Replace with function body.
+		area.deal_damage($Sprite2D/HurtBoxHead/HealthComponentHead, #$Sprite2D/HurtBoxHead
+		)
+		#print("Dano na cabeça") 
+
+func _on_hurt_box_body_area_entered(area):
+	if area.has_method("deal_damage"):
+		area.deal_damage($Sprite2D/HurtBoxBody/HealthComponentBody, #$Sprite2D/HurtBoxBody
+		)
+		#print("Dano no corpo") 
+func _on_hurt_box_right_arm_area_entered(area):
+		if area.has_method("deal_damage"):
+			area.deal_damage($Sprite2D/HurtBoxRArm/HealthComponentRightArm, #$Sprite2D/HurtBoxRArm
+			)
+			#print("Dano no braço direito") 
+
+func _on_hurt_box_left_arm_area_entered(area):
+	if area.has_method("deal_damage"):
+		area.deal_damage($Sprite2D/HurtBoxLArm/HealthComponentLeftArm, #$Sprite2D/HurtBoxLArm
+		)
+		#print("Dano no braço esquerdo")
+		
+func _on_hurt_box_right_leg_area_entered(area):
+	if area.has_method("deal_damage"):
+		area.deal_damage($Sprite2D/HurtBoxRLeg/HealthComponentRightLeg, #$Sprite2D/HurtBoxRLeg
+		)
+		#print("Dano na perna direita")
+
+func _on_hurt_box_left_leg_area_entered(area):
+	if area.has_method("deal_damage"):
+		area.deal_damage($Sprite2D/HurtBoxLleg/HealthComponentLeftLeg, #$Sprite2D/HurtBoxLleg
+		)
+		#print("Dano na perna esquerda")
+
+
 
 
 
@@ -213,11 +240,21 @@ func debug():
 		print("breakpoint")
 	if isdebug:
 		$RichTextLabel.set_text(str(
-		"velocity: ", velocity,"
-		\n Global pos: ", global_position,"
-		\n Mouse pos:",  get_global_mouse_position(),"
-		\n Mouse local pos:",  get_local_mouse_position(),"
-		\n Pull force:", chain_pull_force,
+		"velocity: ", velocity,
+		#"
+		#\n Global pos: ", global_position,"
+		#\n Mouse pos:",  get_global_mouse_position(),"
+		#\n Mouse local pos:",  get_local_mouse_position(),"
+		#\n Pull force:", chain_pull_force,"
+		"\n BaseHealth:", healthcomp.health,"
+		\n HeadHealth:", $Sprite2D/HurtBoxHead/HealthComponentHead.health,"
+		\n Bodyhealth:", $Sprite2D/HurtBoxBody/HealthComponentBody.health,"
+		\n RightArmHealth:", $Sprite2D/HurtBoxRArm/HealthComponentRightArm.health,"
+		\n LeftArmHealth:", $Sprite2D/HurtBoxLArm/HealthComponentLeftArm.health,"
+		\n RightLegHealth:", $Sprite2D/HurtBoxRLeg/HealthComponentRightLeg.health,"
+		\n LeftLegHealth:", $Sprite2D/HurtBoxLleg/HealthComponentLeftLeg.health,
+		
+		
 		))#
 	else:
 		$RichTextLabel.set_text("")
@@ -230,3 +267,14 @@ func debug():
 		if Input.is_action_just_pressed("scroll_down"):
 			$Camera2D.zoom = $Camera2D.zoom / 1.2
 			print("zoom:",$Camera2D.zoom)
+
+
+
+
+
+
+
+
+
+
+
