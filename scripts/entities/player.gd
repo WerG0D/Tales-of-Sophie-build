@@ -14,7 +14,6 @@ var chain2_velocity := Vector2(0,0)
 var chain_pull_force = 60
 var on_ground_friction = 0.01 #more is more
 var on_air_friction = 0.002 #more is more (duuhh)
-var flipped = false #dumb code.
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
@@ -45,7 +44,6 @@ func _physics_process(delta):
 
 func moveplayer(_delta):
 	normal = $RayCastFloor.get_collision_normal()
-	print(normal)
 	if  !is_on_floor():
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
@@ -146,26 +144,20 @@ func hook():
 
 
 func animateplayerWIP():
-	if Input.is_action_pressed("move_left"):
+	if (Input.is_action_pressed("move_left"))or(get_local_mouse_position().x < 0) and velocity.x == 0:
 		$Sprite2D.flip_h = true
-		#for childs in $Sprite2D.get_children():
-			#if childs is Area2D:
-				#childs.scale.x *= 1
-		flipped = true
 
 
 
-	if Input.is_action_pressed("move_right"):
-		$Sprite2D.flip_h = false
-		flipped = false
+
 
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
 		animplayer.play("jump")
 	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("fall")
-	if (((velocity.x < 10 and velocity.x > -10) and velocity.y == 0) and is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage)):
 		animplayer.play("idle")
 	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
@@ -183,7 +175,7 @@ func animateplayerWIP():
 
 
 func animatedattackWIP():
-	if Input.is_action_just_pressed("attack") and !flipped:
+	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
@@ -191,7 +183,7 @@ func animatedattackWIP():
 				#if childs is CollisionShape2D:
 					#childs.disabled = false
 
-	if Input.is_action_just_pressed("attack") and flipped:
+	if Input.is_action_just_pressed("attack") and $Sprite2D.flip_h:
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack_left")
@@ -287,6 +279,7 @@ func debug():
 		\n Global pos: ", global_position,"
 		\n Mouse pos:",  get_global_mouse_position(),"
 		\n Mouse local pos:",  get_local_mouse_position(),"
+		\n Mouse viewport pos:",get_viewport().get_mouse_position() ,"
 		\n Pull force:", chain_pull_force,
 		))#
 	else:

@@ -2975,6 +2975,18 @@ tracks/20/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("Sprite2D:flip_h")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_4ofvl"]
 resource_name = "run_left"
@@ -3354,7 +3366,7 @@ texture = SubResource("CanvasTexture_tnjmh")
 flip_h = true
 hframes = 7
 vframes = 11
-frame = 13
+frame = 14
 
 [node name="HitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
 visible = false
@@ -3409,7 +3421,6 @@ health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
 position = Vector2(6.57897, 0.980051)
-rotation = 0.020944
 shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
