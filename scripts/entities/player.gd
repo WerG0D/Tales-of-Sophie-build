@@ -19,6 +19,7 @@ var on_air_friction = 0.002 #more is more (duuhh)
 @onready var healthcomp = $HealthComponent
 @onready var animplayer = $Sprite2D/AnimationPlayer
 @onready var initialized = true
+var unsigned_speed : float
 
 var playerdmg = 50
 var playerstuntime = 0.5
@@ -43,6 +44,7 @@ func _physics_process(delta):
 
 
 func moveplayer(_delta):
+	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
 	normal = $RayCastFloor.get_collision_normal()
 	if  !is_on_floor():
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
@@ -79,11 +81,7 @@ func moveplayer(_delta):
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
-	if $RayCastFloor.is_colliding():
-		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
-		$Camera2D.rotation_degrees  = normal.angle()+deg_to_rad(90)
-	else:
-		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
+
 
 
 
@@ -146,6 +144,15 @@ func hook():
 func animateplayerWIP():
 	if (Input.is_action_pressed("move_left"))or(get_local_mouse_position().x < 0) and velocity.x == 0:
 		$Sprite2D.flip_h = true
+	else:
+		$Sprite2D.flip_h = false
+	if $RayCastFloor.is_colliding():
+		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
+		#$Camera2D.rotation = normal.angle()+deg_to_rad(90)
+
+	else:
+		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
+
 
 
 
@@ -159,13 +166,14 @@ func animateplayerWIP():
 		animplayer.play("fall")
 	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage)):
 		animplayer.play("idle")
-	if (velocity.x != 0 and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
+	if ((velocity.x < 10 or velocity.x > -10) and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
-		if velocity.x != 0 and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
+		if (velocity.x < 10 or velocity.x > -10) and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 			#$Sprite2D/AnimationPlayer.speed_scale *= unit(velocity.x) / 1000
 			animplayer.play("run")
+			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
 
 	if healthcomp.is_taking_damage and !healthcomp.is_dead:
 		animplayer.play("hurt")
@@ -276,6 +284,7 @@ func debug():
 	if isdebug:
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
+		unsigned speed: ", unsigned_speed,"
 		\n Global pos: ", global_position,"
 		\n Mouse pos:",  get_global_mouse_position(),"
 		\n Mouse local pos:",  get_local_mouse_position(),"
