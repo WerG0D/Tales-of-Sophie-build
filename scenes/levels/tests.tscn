@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=58 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -3902,99 +3902,130 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Resource" id="Resource_qua8n"]
-script = ExtResource("8_af28u")
-texture_idx = -22
-flip = false
-width = 1.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snqm3"]
+shader = ExtResource("21_cwcri")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 800.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = null
+shader_parameter/heightOffset = null
+shader_parameter/offset = 0.0
 
-[sub_resource type="Resource" id="Resource_x6ki8"]
-script = ExtResource("9_4quyx")
-position = Vector2(-1073.57, -0.346848)
-point_in = Vector2(-241.558, 6.35681)
-point_out = Vector2(241.558, -6.35681)
-properties = SubResource("Resource_qua8n")
+[sub_resource type="CanvasTexture" id="CanvasTexture_fud3y"]
+diffuse_texture = ExtResource("18_yapfc")
+normal_texture = ExtResource("19_j70u7")
+specular_texture = ExtResource("20_hgw7w")
 
-[sub_resource type="Resource" id="Resource_r70d5"]
-script = ExtResource("8_af28u")
-texture_idx = 0
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_ng4lt"]
-script = ExtResource("9_4quyx")
-position = Vector2(1314.62, -114)
-point_in = Vector2(-154.682, -144.087)
-point_out = Vector2(154.682, 144.087)
-properties = SubResource("Resource_r70d5")
-
-[sub_resource type="Resource" id="Resource_xwaa0"]
+[sub_resource type="Resource" id="Resource_8gi1c"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
 width = 1.0
 
-[sub_resource type="Resource" id="Resource_clk18"]
+[sub_resource type="Resource" id="Resource_mk7tn"]
 script = ExtResource("9_4quyx")
-position = Vector2(1075.88, 453.68)
-point_in = Vector2(146.206, -116.541)
-point_out = Vector2(-146.206, 116.541)
-properties = SubResource("Resource_xwaa0")
+position = Vector2(301.336, -16.0494)
+point_in = Vector2(-274.357, 87.6812)
+point_out = Vector2(274.357, -87.6812)
+properties = SubResource("Resource_8gi1c")
 
-[sub_resource type="Resource" id="Resource_orcci"]
-script = ExtResource("8_af28u")
-texture_idx = 18
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_w7wp1"]
-script = ExtResource("9_4quyx")
-position = Vector2(-1079.38, 448.023)
-point_in = Vector2(241.558, -31.7839)
-point_out = Vector2(-241.558, 31.7839)
-properties = SubResource("Resource_orcci")
-
-[sub_resource type="Resource" id="Resource_f08n6"]
-script = ExtResource("8_af28u")
-texture_idx = -22
-flip = false
-width = 1.0
-
-[sub_resource type="Resource" id="Resource_eb0ym"]
-script = ExtResource("9_4quyx")
-position = Vector2(-1073.57, -0.346848)
-point_in = Vector2(-241.558, 6.35681)
-point_out = Vector2(241.558, -6.35681)
-properties = SubResource("Resource_f08n6")
-
-[sub_resource type="Resource" id="Resource_3n4q6"]
+[sub_resource type="Resource" id="Resource_xc82q"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
 width = 1.0
 
-[sub_resource type="Resource" id="Resource_3jdfw"]
+[sub_resource type="Resource" id="Resource_mv4rl"]
 script = ExtResource("9_4quyx")
-position = Vector2(732.769, 29.1149)
-point_in = Vector2(-283.936, 114.422)
-point_out = Vector2(283.936, -114.422)
-properties = SubResource("Resource_3n4q6")
+position = Vector2(707.336, -16.0494)
+point_in = Vector2(-189.505, -342.24)
+point_out = Vector2(185.262, 305.47)
+properties = SubResource("Resource_xc82q")
+
+[sub_resource type="Resource" id="Resource_tp580"]
+script = ExtResource("8_af28u")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_4ykx4"]
+script = ExtResource("9_4quyx")
+position = Vector2(689.336, 369.951)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_tp580")
+
+[sub_resource type="Resource" id="Resource_17c5n"]
+script = ExtResource("8_af28u")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_3wgpu"]
+script = ExtResource("9_4quyx")
+position = Vector2(-1082.66, 387.951)
+point_in = Vector2(0, 0)
+point_out = Vector2(0, 0)
+properties = SubResource("Resource_17c5n")
+
+[sub_resource type="Resource" id="Resource_a0m3a"]
+script = ExtResource("8_af28u")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_j2meh"]
+script = ExtResource("9_4quyx")
+position = Vector2(-1074.66, -16.0494)
+point_in = Vector2(-120.208, 209.304)
+point_out = Vector2(120.208, -209.304)
+properties = SubResource("Resource_a0m3a")
+
+[sub_resource type="Resource" id="Resource_7wkvc"]
+script = ExtResource("8_af28u")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_uk7io"]
+script = ExtResource("9_4quyx")
+position = Vector2(-280.664, 243.951)
+point_in = Vector2(-135.765, -12.7279)
+point_out = Vector2(135.765, 12.7279)
+properties = SubResource("Resource_7wkvc")
+
+[sub_resource type="Resource" id="Resource_2pwba"]
+script = ExtResource("8_af28u")
+texture_idx = 0
+flip = false
+width = 1.0
+
+[sub_resource type="Resource" id="Resource_gpiee"]
+script = ExtResource("9_4quyx")
+position = Vector2(301.336, -16.0494)
+point_in = Vector2(-274.357, 87.6812)
+point_out = Vector2(274.357, -87.6812)
+properties = SubResource("Resource_2pwba")
 
 [sub_resource type="Resource" id="Resource_jdawe"]
 script = ExtResource("10_4a4ko")
 _points = {
-0: SubResource("Resource_x6ki8"),
-1: SubResource("Resource_ng4lt"),
-2: SubResource("Resource_clk18"),
-3: SubResource("Resource_w7wp1"),
-4: SubResource("Resource_eb0ym"),
-5: SubResource("Resource_3jdfw")
+0: SubResource("Resource_gpiee"),
+6: SubResource("Resource_mk7tn"),
+7: SubResource("Resource_mv4rl"),
+8: SubResource("Resource_4ykx4"),
+10: SubResource("Resource_3wgpu"),
+11: SubResource("Resource_j2meh"),
+12: SubResource("Resource_uk7io")
 }
-_point_order = Array[int]([0, 5, 1, 2, 3, 4])
+_point_order = Array[int]([6, 7, 8, 10, 11, 12, 0])
 _constraints = {
-Array[int]([0, 4]): 15
+Array[int]([6, 0]): 15
 }
-_next_key = 6
+_next_key = 13
 _material_overrides = {}
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_mu1ln"]
@@ -4051,26 +4082,6 @@ fill_texture_angle_offset = 0.0
 fill_mesh_offset = 0.0
 render_offset = 0.0
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ylv3w"]
-polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_snqm3"]
-shader = ExtResource("21_cwcri")
-shader_parameter/speed = 1.0
-shader_parameter/minStrength = 0.05
-shader_parameter/maxStrength = 0.01
-shader_parameter/strengthScale = 800.0
-shader_parameter/interval = 3.5
-shader_parameter/detail = 1.0
-shader_parameter/distortion = null
-shader_parameter/heightOffset = null
-shader_parameter/offset = 0.0
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_fud3y"]
-diffuse_texture = ExtResource("18_yapfc")
-normal_texture = ExtResource("19_j70u7")
-specular_texture = ExtResource("20_hgw7w")
-
 [node name="tests" type="Node2D"]
 script = ExtResource("1_22424")
 
@@ -4120,7 +4131,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 5
 texture_filter = 1
-position = Vector2(186, -158)
+position = Vector2(234, -28)
 scale = Vector2(1, 1)
 
 [node name="cutscene" type="Area2D" parent="."]
@@ -4143,14 +4154,18 @@ loop = false
 zoom = Vector2(2, 2)
 
 [node name="Skeleton2" parent="." instance=ExtResource("6_qyfn6")]
-position = Vector2(-156, 26)
+position = Vector2(-564, 7)
 collision_layer = 8
 collision_mask = 6
 
+[node name="arvre" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_snqm3")
+position = Vector2(-288, 166)
+texture = SubResource("CanvasTexture_fud3y")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(832, -16)
 collision_layer = 2
-collision_mask = 13
+collision_mask = 15
 
 [node name="SS2D_Shape" type="Node2D" parent="StaticBody2D"]
 texture_repeat = 2
@@ -4160,18 +4175,8 @@ shape_material = SubResource("Resource_2y8j3")
 collision_polygon_node_path = NodePath("../CollisionPolygon2D")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-z_index = -1
-z_as_relative = false
-polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-z_index = 1
-position = Vector2(832, -16)
-occluder = SubResource("OccluderPolygon2D_ylv3w")
-
-[node name="arvre" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_snqm3")
-position = Vector2(344, -66)
-texture = SubResource("CanvasTexture_fud3y")
+visible = false
+modulate = Color(1, 1, 1, 0.3)
+polygon = PackedVector2Array(301.336, -16.0494, 349.026, -34.2595, 389.779, -55.2613, 424.443, -77.9369, 453.868, -101.168, 536.154, -177.271, 544.208, -182.583, 548.175, -184.724, 552.119, -186.497, 556.054, -187.886, 559.993, -188.872, 563.949, -189.438, 567.937, -189.568, 571.968, -189.242, 576.057, -188.444, 580.216, -187.157, 584.458, -185.362, 588.798, -183.043, 593.249, -180.181, 602.533, -172.763, 612.417, -162.965, 623.009, -150.65, 646.735, -117.906, 707.336, -16.0495, 737.664, 38.6252, 759.753, 88.2396, 774.47, 133.005, 782.682, 173.133, 785.254, 208.835, 784.697, 225.093, 783.055, 240.323, 780.437, 254.553, 776.951, 267.808, 772.706, 280.116, 767.81, 291.502, 756.497, 311.616, 743.88, 328.362, 730.826, 341.951, 718.201, 352.595, 706.873, 360.506, 697.708, 365.894, 689.338, 369.962, -1082.71, 388.018, -1098.32, 354.259, -1111.83, 315.31, -1123.74, 264.44, -1127.84, 235.193, -1130.02, 203.758, -1129.79, 170.397, -1126.63, 135.375, -1120.04, 98.956, -1109.52, 61.4028, -1094.56, 22.9796, -1074.66, -16.0497, -1068.73, -25.3774, -1062.2, -33.7551, -1055.09, -41.2082, -1047.43, -47.7621, -1039.23, -53.4421, -1030.52, -58.2736, -1021.3, -62.2822, -1011.6, -65.4931, -1001.44, -67.9318, -990.843, -69.624, -968.386, -70.8692, -944.382, -69.4315, -918.981, -65.515, -864.588, -51.0566, -806.409, -29.1194, -683.498, 30.6884, -445.098, 168.523, -348.83, 220.539, -310.634, 236.633, -294.546, 241.49, -287.32, 243.033, -280.664, 243.95, -267.829, 244.573, -254.769, 244.091, -241.474, 242.558, -227.93, 240.029, -200.051, 232.196, -171.033, 221.024, -41.6367, 151.604, 113.745, 63.3557, 203.126, 20.8182)
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]

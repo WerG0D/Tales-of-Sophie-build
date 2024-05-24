@@ -26,10 +26,11 @@ var playerknockbackforce = 0.5
 var playermaxhealth = 100
 var playercurrenthealth = 100
 var gravity = 60
+var normal
 func _physics_process(delta):
 	Engine.max_fps = 60
 
-	set_floor_snap_length(4)
+	set_floor_snap_length(20)
 	debug()
 	moveplayer(delta)
 	move_and_slide()
@@ -42,6 +43,7 @@ func _physics_process(delta):
 
 
 func moveplayer(_delta):
+	normal = $RayCastFloor.get_collision_normal()
 	if  !is_on_floor():
 		velocity.y = lerp(velocity.y, float(max_speed),0.05)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
@@ -53,8 +55,7 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
 			velocity.x = acceleration #dumbcode
-			velocity + get_floor_normal() * 1000
-			print(get_floor_normal()* 1000)
+			velocity = velocity * Vector2(normal.x+1, normal.y+1)
 	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
@@ -63,6 +64,7 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
 		else:
 			velocity.x = -acceleration #dumbcode
+			velocity = velocity / Vector2(normal.x+1, normal.y+1) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
@@ -78,7 +80,6 @@ func moveplayer(_delta):
 		if velocity.y < 0:
 			velocity.y *= 0.2
 	if $RayCastFloor.is_colliding():
-		var normal = $RayCastFloor.get_collision_normal()
 		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
 		$Camera2D.rotation_degrees  = normal.angle()+deg_to_rad(90)
 	else:
