@@ -169,9 +169,7 @@ func animateplayerWIP():
 	if ((velocity.x < 10 or velocity.x > -10) and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
-		#LEMBRAR DE ADICIONAR UM MULTIPLICADOR DE VELOCIDAAAADEEEEEE (PRO SPRITE) !!!!!!!!!!!!!!!!!!!!!
 		if (velocity.x < 10 or velocity.x > -10) and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
-			#$Sprite2D/AnimationPlayer.speed_scale *= unit(velocity.x) / 1000
 			animplayer.play("run")
 			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
 
