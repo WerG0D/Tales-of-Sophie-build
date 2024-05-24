@@ -1330,14 +1330,14 @@ size = Vector2(11.3539, 6.86675)
 radius = 0.274961
 height = 2.50588
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player2" type="CharacterBody2D"]
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
 collision_mask = 10
 script = ExtResource("1_b3mxi")
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
-target_position = Vector2(-0.873401, 32.7692)
+target_position = Vector2(0, 32.7692)
 collision_mask = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -1386,6 +1386,7 @@ attack_component = NodePath("../../AttackComponent")
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(15.4022, -2.40949)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_5oav3")
 debug_color = Color(0.996078, 0, 0.207843, 0.419608)
 
