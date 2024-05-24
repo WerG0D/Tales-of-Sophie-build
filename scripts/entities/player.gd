@@ -64,8 +64,7 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
 		else:
 			velocity.x = -acceleration #dumbcode
-			velocity = velocity / Vector2(normal.x+1, normal.y+1)
-
+			velocity = velocity / Vector2(normal.x+1, normal.y+1) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
