@@ -14,6 +14,7 @@ var chain2_velocity := Vector2(0,0)
 var chain_pull_force = 160
 var on_ground_friction = 0.01 #more is more
 var on_air_friction = 0.002 #more is more (duuhh)
+var flipped = false #dumb code.
 @onready var camera = $Camera2D
 @onready var attackcomp = $AttackComponent
 @onready var healthcomp = $HealthComponent
@@ -144,14 +145,16 @@ func hook():
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$Sprite2D.flip_h = true
-		for childs in $Sprite2D.get_children():
-			if childs is Area2D:
-				childs.scale.x *= 1
+		#for childs in $Sprite2D.get_children():
+			#if childs is Area2D:
+				#childs.scale.x *= 1
+		flipped = true
 
 
 
 	if Input.is_action_pressed("move_right"):
 		$Sprite2D.flip_h = false
+		flipped = false 
 
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
@@ -177,11 +180,23 @@ func animateplayerWIP():
 
 
 func animatedattackWIP():
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and !flipped:
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
-			$Sprite2D/HitBox/CollisionSword1.disabled = false
+			#for childs in $Sprite2D/HitBox.get_children():
+				#if childs is CollisionShape2D:	
+					#childs.disabled = false
+					
+	if Input.is_action_just_pressed("attack") and flipped:
+		attackcomp.is_attacking = true
+		if attackcomp.is_attacking == true:
+			animplayer.play("attack_left")
+			#for childs in $Sprite2D/HitBox.get_children():
+				#if childs is CollisionShape2D:	
+					#childs.disabled = false
+	
+			
 
 
 
@@ -242,6 +257,12 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "attack":
 		attackcomp.is_attacking = false
 		$Sprite2D/HitBox/CollisionSword2.disabled = true
+		$Sprite2D/HitBox/CollisionSword1.disabled = true
+	if anim_name == "attack_left":
+		attackcomp.is_attacking = false
+		$Sprite2D/HitBox/CollisionSword2.disabled = true
+		$Sprite2D/HitBox/CollisionSword1.disabled = true
+		
 	if anim_name == "hurt":
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
