@@ -1,4 +1,5 @@
-#TODO(gabriel) lerpar a bosta da vel.x do player quando tiver no hook e ele virar
+#TODO(gabriel) lerpar a bosta da vel.x do player quando ele virar e  blablab
+#TODO é sério
 
 
 extends CharacterBody2D
@@ -26,6 +27,9 @@ var playermaxhealth = 100
 var playercurrenthealth = 100
 var gravity = 60
 func _physics_process(delta):
+	Engine.max_fps = 60
+
+	set_floor_snap_length(4)
 	debug()
 	moveplayer(delta)
 	move_and_slide()
@@ -49,6 +53,8 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
 			velocity.x = acceleration #dumbcode
+			velocity + get_floor_normal() * 1000
+			print(get_floor_normal()* 1000)
 	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
@@ -66,7 +72,7 @@ func moveplayer(_delta):
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
 	if jump_buffer_counter > 0:
-		velocity.y = -jump_force
+		velocity = velocity + get_floor_normal()* jump_force
 		jump_buffer_counter = 0
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
@@ -76,7 +82,7 @@ func moveplayer(_delta):
 		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
 		$Camera2D.rotation_degrees  = normal.angle()+deg_to_rad(90)
 	else:
-		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.1)
+		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
 
 
 
@@ -137,9 +143,15 @@ func hook():
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$Sprite2D.flip_h = true
+		for childs in $Sprite2D.get_children():
+			if childs is Area2D:
+				childs.scale.x *= 1
+
+
 
 	if Input.is_action_pressed("move_right"):
 		$Sprite2D.flip_h = false
+
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
