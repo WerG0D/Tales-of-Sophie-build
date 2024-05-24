@@ -3902,7 +3902,7 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Resource" id="Resource_gms86"]
+[sub_resource type="Resource" id="Resource_ocndn"]
 script = ExtResource("8_af28u")
 texture_idx = -22
 flip = false
@@ -3913,9 +3913,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(-1073.57, -0.346848)
 point_in = Vector2(-241.558, 6.35681)
 point_out = Vector2(241.558, -6.35681)
-properties = SubResource("Resource_gms86")
+properties = SubResource("Resource_ocndn")
 
-[sub_resource type="Resource" id="Resource_e6kxt"]
+[sub_resource type="Resource" id="Resource_8mvsa"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3926,9 +3926,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(1314.62, -114)
 point_in = Vector2(-154.682, -144.087)
 point_out = Vector2(154.682, 144.087)
-properties = SubResource("Resource_e6kxt")
+properties = SubResource("Resource_8mvsa")
 
-[sub_resource type="Resource" id="Resource_ulx0l"]
+[sub_resource type="Resource" id="Resource_egojb"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3939,9 +3939,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(1075.88, 453.68)
 point_in = Vector2(146.206, -116.541)
 point_out = Vector2(-146.206, 116.541)
-properties = SubResource("Resource_ulx0l")
+properties = SubResource("Resource_egojb")
 
-[sub_resource type="Resource" id="Resource_cyrox"]
+[sub_resource type="Resource" id="Resource_cel17"]
 script = ExtResource("8_af28u")
 texture_idx = 18
 flip = false
@@ -3952,9 +3952,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(-1079.38, 448.023)
 point_in = Vector2(241.558, -31.7839)
 point_out = Vector2(-241.558, 31.7839)
-properties = SubResource("Resource_cyrox")
+properties = SubResource("Resource_cel17")
 
-[sub_resource type="Resource" id="Resource_6upsg"]
+[sub_resource type="Resource" id="Resource_khu18"]
 script = ExtResource("8_af28u")
 texture_idx = -22
 flip = false
@@ -3965,9 +3965,9 @@ script = ExtResource("9_4quyx")
 position = Vector2(-1073.57, -0.346848)
 point_in = Vector2(-241.558, 6.35681)
 point_out = Vector2(241.558, -6.35681)
-properties = SubResource("Resource_6upsg")
+properties = SubResource("Resource_khu18")
 
-[sub_resource type="Resource" id="Resource_t4mgt"]
+[sub_resource type="Resource" id="Resource_2v6bm"]
 script = ExtResource("8_af28u")
 texture_idx = 0
 flip = false
@@ -3978,7 +3978,7 @@ script = ExtResource("9_4quyx")
 position = Vector2(732.769, 29.1149)
 point_in = Vector2(-283.936, 114.422)
 point_out = Vector2(283.936, -114.422)
-properties = SubResource("Resource_t4mgt")
+properties = SubResource("Resource_2v6bm")
 
 [sub_resource type="Resource" id="Resource_jdawe"]
 script = ExtResource("10_4a4ko")
@@ -4165,6 +4165,7 @@ z_as_relative = false
 polygon = PackedVector2Array(-1073.57, -0.348258, -186.292, 54.9084, 364.712, 71.8889, 583.54, 60.4393, 668.346, 47.5699, 703.291, 39.079, 732.769, 29.1139, 1072.16, -139.384, 1105.43, -152.585, 1137.41, -162.208, 1168.32, -167.701, 1183.44, -168.728, 1198.38, -168.516, 1213.16, -166.998, 1227.82, -164.103, 1242.37, -159.765, 1256.85, -153.913, 1271.29, -146.479, 1285.71, -137.395, 1300.15, -126.592, 1314.62, -114, 1327.96, -100.026, 1339.04, -85.1608, 1347.94, -69.4703, 1354.77, -53.019, 1359.61, -35.8719, 1362.56, -18.0935, 1363.7, 0.251456, 1363.13, 19.0982, 1360.95, 38.3819, 1357.24, 58.0381, 1345.61, 98.2086, 1328.98, 139.092, 1308.08, 180.17, 1256.46, 260.84, 1196.62, 336.077, 1134.46, 401.738, 1075.88, 453.681, 1067.85, 458.948, 1057.52, 463.828, 1044.96, 468.333, 1030.24, 472.473, 951.202, 485.594, 711.409, 497.493, -1079.38, 448.024, -1101.3, 449.552, -1121.78, 448.296, -1131.47, 446.679, -1140.81, 444.434, -1149.78, 441.581, -1158.39, 438.144, -1166.64, 434.144, -1174.54, 429.604, -1189.24, 418.993, -1202.51, 406.489, -1214.35, 392.268, -1224.75, 376.511, -1233.72, 359.396, -1241.27, 341.099, -1247.39, 321.8, -1252.08, 301.676, -1255.36, 280.906, -1257.64, 238.141, -1254.27, 194.928, -1245.25, 152.694, -1238.63, 132.389, -1230.61, 112.864, -1221.18, 94.2951, -1210.35, 76.862, -1198.13, 60.7425, -1184.51, 46.1147, -1169.49, 33.1568, -1153.08, 22.047, -1135.28, 12.9634, -1116.1, 6.0843, -1095.53, 1.58788)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 z_index = 1
 position = Vector2(832, -16)
 occluder = SubResource("OccluderPolygon2D_ylv3w")

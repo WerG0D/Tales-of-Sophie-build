@@ -43,8 +43,7 @@ func _physics_process(delta):
 
 
 func moveplayer(_delta):
-	if $RayCastFloor.is_colliding():
-		normal = $RayCastFloor.get_collision_normal()
+	normal = $RayCastFloor.get_collision_normal()
 	if  !is_on_floor():
 		velocity.y = lerp(velocity.y, float(max_speed),0.05)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
@@ -56,8 +55,7 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
 			velocity.x = acceleration #dumbcode
-			velocity + get_floor_normal() * 1000
-			print(get_floor_normal()* 1000)
+			velocity = velocity * Vector2(normal.x+1, normal.y+1)
 	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
@@ -66,6 +64,8 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
 		else:
 			velocity.x = -acceleration #dumbcode
+			velocity = velocity / Vector2(normal.x+1, normal.y+1)
+
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
