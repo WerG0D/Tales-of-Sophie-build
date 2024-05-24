@@ -39,7 +39,7 @@ func _physics_process(delta):
 
 func moveplayer(_delta):
 	if  !is_on_floor():
-		velocity.y += gravity
+		velocity.y = lerp(velocity.y, float(max_speed),0.05)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
@@ -71,6 +71,13 @@ func moveplayer(_delta):
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
+	if $RayCastFloor.is_colliding():
+		var normal = $RayCastFloor.get_collision_normal()
+		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
+		$Camera2D.rotation_degrees  = normal.angle()+deg_to_rad(90)
+	else:
+		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.1)
+
 
 
 
@@ -130,31 +137,9 @@ func hook():
 func animateplayerWIP():
 	if Input.is_action_pressed("move_left"):
 		$Sprite2D.flip_h = true
-		var hitbox_scale = $Sprite2D/HitBox.scale.x
-		var hurtbox_head_scale = $Sprite2D/HurtBoxHead.scale.x
-		var hurtbox_body_scale =  $Sprite2D/HurtBoxBody.scale.x
-		var hurtbox_LArm_scale = $Sprite2D/HurtBoxLArm.scale.x
-		var hurtbox_RArm_scale = $Sprite2D/HurtBoxRArm.scale.x
-		var hurtbox_RLeg_scale = $Sprite2D/HurtBoxLleg.scale.x
-		var hurtbox_LLeg_scale = $Sprite2D/HurtBoxRLeg.scale.x
-		$Sprite2D/HitBox.scale.x = -1
-		$Sprite2D/HurtBoxHead.scale.x *= -1
-		$Sprite2D/HurtBoxBody.scale.x *= -1
-		$Sprite2D/HurtBoxLArm.scale.x *= -1
-		$Sprite2D/HurtBoxRArm.scale.x *= -1
-		$Sprite2D/HurtBoxLleg.scale.x *= -1
-		$Sprite2D/HurtBoxRLeg.scale.x *= -1
-								
-		
+
 	if Input.is_action_pressed("move_right"):
 		$Sprite2D.flip_h = false
-		$Sprite2D/HitBox.scale.x = 1
-		$Sprite2D/HurtBoxHead.scale.x *= 1
-		$Sprite2D/HurtBoxBody.scale.x *= 1
-		$Sprite2D/HurtBoxLArm.scale.x *= 1
-		$Sprite2D/HurtBoxRArm.scale.x *= 1
-		$Sprite2D/HurtBoxLleg.scale.x *= 1
-		$Sprite2D/HurtBoxRLeg.scale.x *= 1
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
@@ -197,25 +182,25 @@ func _on_hurt_box_head_area_entered(area): #Recebe dano
 	if area.has_method("deal_damage"):
 		area.deal_damage($Sprite2D/HurtBoxHead/HealthComponentHead, #$Sprite2D/HurtBoxHead
 		)
-		#print("Dano na cabeça") 
+		#print("Dano na cabeça")
 
 func _on_hurt_box_body_area_entered(area):
 	if area.has_method("deal_damage"):
 		area.deal_damage($Sprite2D/HurtBoxBody/HealthComponentBody, #$Sprite2D/HurtBoxBody
 		)
-		#print("Dano no corpo") 
+		#print("Dano no corpo")
 func _on_hurt_box_right_arm_area_entered(area):
 		if area.has_method("deal_damage"):
 			area.deal_damage($Sprite2D/HurtBoxRArm/HealthComponentRightArm, #$Sprite2D/HurtBoxRArm
 			)
-			#print("Dano no braço direito") 
+			#print("Dano no braço direito")
 
 func _on_hurt_box_left_arm_area_entered(area):
 	if area.has_method("deal_damage"):
 		area.deal_damage($Sprite2D/HurtBoxLArm/HealthComponentLeftArm, #$Sprite2D/HurtBoxLArm
 		)
 		#print("Dano no braço esquerdo")
-		
+
 func _on_hurt_box_right_leg_area_entered(area):
 	if area.has_method("deal_damage"):
 		area.deal_damage($Sprite2D/HurtBoxRLeg/HealthComponentRightLeg, #$Sprite2D/HurtBoxRLeg
@@ -261,21 +246,11 @@ func debug():
 		print("breakpoint")
 	if isdebug:
 		$RichTextLabel.set_text(str(
-		"velocity: ", velocity,
-		#"
-		#\n Global pos: ", global_position,"
-		#\n Mouse pos:",  get_global_mouse_position(),"
-		#\n Mouse local pos:",  get_local_mouse_position(),"
-		#\n Pull force:", chain_pull_force,"
-		"\n BaseHealth:", healthcomp.health,"
-		\n HeadHealth:", $Sprite2D/HurtBoxHead/HealthComponentHead.health,"
-		\n Bodyhealth:", $Sprite2D/HurtBoxBody/HealthComponentBody.health,"
-		\n RightArmHealth:", $Sprite2D/HurtBoxRArm/HealthComponentRightArm.health,"
-		\n LeftArmHealth:", $Sprite2D/HurtBoxLArm/HealthComponentLeftArm.health,"
-		\n RightLegHealth:", $Sprite2D/HurtBoxRLeg/HealthComponentRightLeg.health,"
-		\n LeftLegHealth:", $Sprite2D/HurtBoxLleg/HealthComponentLeftLeg.health,
-		
-		
+		"velocity: ", velocity,"
+		\n Global pos: ", global_position,"
+		\n Mouse pos:",  get_global_mouse_position(),"
+		\n Mouse local pos:",  get_local_mouse_position(),"
+		\n Pull force:", chain_pull_force,
 		))#
 	else:
 		$RichTextLabel.set_text("")

@@ -1349,8 +1349,6 @@ collision_mask = 10
 script = ExtResource("1_b3mxi")
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
-target_position = Vector2(-0.873401, 32.7692)
-collision_mask = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchors_preset = 8
