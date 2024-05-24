@@ -4,14 +4,14 @@
 
 extends CharacterBody2D
 var max_speed : int = 1600
-var jump_force : int = 800
-var acceleration : int = 400
+var jump_force : int = 500
+var acceleration : int = 290
 var jump_buffer_time : int  = 15
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
 var chain2_velocity := Vector2(0,0)
-var chain_pull_force = 160
+var chain_pull_force = 60
 var on_ground_friction = 0.01 #more is more
 var on_air_friction = 0.002 #more is more (duuhh)
 var flipped = false #dumb code.
@@ -26,7 +26,7 @@ var playerstuntime = 0.5
 var playerknockbackforce = 0.5
 var playermaxhealth = 100
 var playercurrenthealth = 100
-var gravity = 60
+var gravityfactor = 0.02
 var normal
 func _physics_process(delta):
 	Engine.max_fps = 60
@@ -45,8 +45,9 @@ func _physics_process(delta):
 
 func moveplayer(_delta):
 	normal = $RayCastFloor.get_collision_normal()
+	print(normal)
 	if  !is_on_floor():
-		velocity.y = lerp(velocity.y, float(max_speed),0.05)
+		velocity.y = lerp(velocity.y, float(max_speed),0.02)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
@@ -56,7 +57,7 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
 			velocity.x = acceleration #dumbcode
-			velocity = velocity * Vector2(normal.x+1, normal.y+1)
+			velocity.x = velocity.x * (normal.x+0.9)
 	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
 			if !is_on_floor():
@@ -65,7 +66,7 @@ func moveplayer(_delta):
 				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
 		else:
 			velocity.x = -acceleration #dumbcode
-			velocity = velocity / Vector2(normal.x+1, normal.y+1) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
+			velocity.x = velocity.x / (normal.x+0.9) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
@@ -122,8 +123,9 @@ func hook():
 			if Input.is_action_just_pressed("hook") and initialized and !$Chain.hooked and !$Chain.flying :
 				var mouse_viewport_pos = get_viewport().get_mouse_position()
 				$Chain.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
-			elif Input.is_action_just_pressed("hook"):
+			elif (Input.is_action_just_pressed("hook") or Input.is_action_just_pressed("jump")and $Chain.hooked):
 				$Chain.release()
+				velocity = velocity*1.2
 			if Input.is_action_just_pressed("scroll_up"):
 				chain_pull_force = chain_pull_force +10
 
@@ -133,8 +135,9 @@ func hook():
 			if Input.is_action_just_pressed("hook2") and initialized and !$Chain2.hooked and !$Chain2.flying :
 				var mouse_viewport_pos = get_viewport().get_mouse_position()
 				$Chain2.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
-			elif Input.is_action_just_pressed("hook2"):
+			elif (Input.is_action_just_pressed("hook2") or Input.is_action_just_pressed("jump") and $Chain2.hooked):
 				$Chain2.release()
+				velocity = velocity*1.2
 			if Input.is_action_just_pressed("scroll_up"):
 				chain_pull_force = chain_pull_force +10
 
@@ -154,7 +157,7 @@ func animateplayerWIP():
 
 	if Input.is_action_pressed("move_right"):
 		$Sprite2D.flip_h = false
-		flipped = false 
+		flipped = false
 
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
@@ -185,18 +188,18 @@ func animatedattackWIP():
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack")
 			#for childs in $Sprite2D/HitBox.get_children():
-				#if childs is CollisionShape2D:	
+				#if childs is CollisionShape2D:
 					#childs.disabled = false
-					
+
 	if Input.is_action_just_pressed("attack") and flipped:
 		attackcomp.is_attacking = true
 		if attackcomp.is_attacking == true:
 			animplayer.play("attack_left")
 			#for childs in $Sprite2D/HitBox.get_children():
-				#if childs is CollisionShape2D:	
+				#if childs is CollisionShape2D:
 					#childs.disabled = false
-	
-			
+
+
 
 
 
@@ -262,7 +265,7 @@ func _on_animation_player_animation_finished(anim_name):
 		attackcomp.is_attacking = false
 		$Sprite2D/HitBox/CollisionSword2.disabled = true
 		$Sprite2D/HitBox/CollisionSword1.disabled = true
-		
+
 	if anim_name == "hurt":
 		healthcomp.is_taking_damage  = false
 	if anim_name == "die":
