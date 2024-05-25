@@ -76,7 +76,7 @@ func moveplayer(_delta):
 	if jump_buffer_counter > 0:
 		jump_buffer_counter -= 1
 	if jump_buffer_counter > 0:
-		velocity = velocity + get_floor_normal()* jump_force
+		velocity = velocity +get_floor_normal()* jump_force
 		jump_buffer_counter = 0
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
