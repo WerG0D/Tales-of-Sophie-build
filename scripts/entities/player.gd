@@ -157,26 +157,39 @@ func animateplayerWIP():
 
 
 
-
+	#Guerra, to add esse coment pra vc saber que tudo que eu modifiquei aqui nessa função é monkey code e to só experimentando umas possibilidades pra ver como é, n planejo manter nada assim do jeito que tá e sei q é a maneira mais burra o possivel de fzr. Ass: Wer 
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
 		animplayer.play("jump")
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage) and $Sprite2D.flip_h:
+		animplayer.play("jump_left")
 	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
 		animplayer.play("fall")
+	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage and $Sprite2D.flip_h:
+		animplayer.play("fall_left")
 	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage)):
 		animplayer.play("idle")
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage and $Sprite2D.flip_h)):
+		animplayer.play("idle_left")
 	if ((velocity.x < 10 or velocity.x > -10) and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
-		if (velocity.x < 10 or velocity.x > -10) and attackcomp.is_attacking == false and !healthcomp.is_taking_damage:
+		if (velocity.x < 10 or velocity.x > -10) and attackcomp.is_attacking == false and !healthcomp.is_taking_damage and !$Sprite2D.flip_h:
 			animplayer.play("run")
+			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
+		if(velocity.x < 10 or velocity.x > -10) and attackcomp.is_attacking == false and !healthcomp.is_taking_damage and $Sprite2D.flip_h:
+			animplayer.play("run_left")
 			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
 
 	if healthcomp.is_taking_damage and !healthcomp.is_dead:
 		animplayer.play("hurt")
+	if healthcomp.is_taking_damage and !healthcomp.is_dead and $Sprite2D.flip_h:
+		animplayer.play("hurt_left")
 	if healthcomp.is_dead:
 		animplayer.play("die")
+	if healthcomp.is_dead and $Sprite2D.flip_h:
+		animplayer.play("die_left")
 
 
 

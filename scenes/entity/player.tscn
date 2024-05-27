@@ -18,7 +18,7 @@ normal_texture = ExtResource("6_7uhr8")
 specular_texture = ExtResource("7_n0qo7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5oav3"]
-size = Vector2(17.096, 31.805)
+size = Vector2(3.54821, 11.5656)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcw4w"]
 size = Vector2(15.5234, 7.7104)
@@ -2204,6 +2204,18 @@ tracks/14/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Sprite2D/HurtBoxLleg/CollisionLleg:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0331613]
+}
 
 [sub_resource type="Animation" id="Animation_rjjpw"]
 resource_name = "idle_left"
@@ -2386,6 +2398,30 @@ tracks/14/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Sprite2D/HurtBoxLleg/CollisionLleg:rotation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("Sprite2D/HurtBoxLArm/CollisionlArm:rotation")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.260054]
 }
 
 [sub_resource type="Animation" id="Animation_hpwut"]
@@ -3331,10 +3367,8 @@ scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
-frame = 22
 
 [node name="HitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("8_36c5d")
 attack_component = NodePath("../../AttackComponent")
@@ -3350,7 +3384,6 @@ shape = SubResource("RectangleShape2D_pcw4w")
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
 [node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentHead")
@@ -3364,7 +3397,6 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 101
 
 [node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentBody")
@@ -3379,14 +3411,13 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 101
 
 [node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
 position = Vector2(6.57897, 0.980051)
-rotation = 0.020944
+rotation = -0.607374
 shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
@@ -3394,7 +3425,6 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 101
 
 [node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightArm")
@@ -3440,6 +3470,7 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
+speed_scale = 0.5
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
