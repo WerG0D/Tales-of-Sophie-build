@@ -143,7 +143,7 @@ func hook():
 
 func animateplayerWIP():
 	if (Input.is_action_pressed("move_left"))or(get_local_mouse_position().x < 0) and velocity.x == 0:
-		$Sprite2D.flip_h = true
+		$Sprite2D.flip_h = true #É realmente necessário fazer o sprite flipar com a posição do mouse? é interessante mas n sei se vamo manter na gameplay
 	else:
 		$Sprite2D.flip_h = false
 	if $RayCastFloor.is_colliding():
@@ -168,7 +168,7 @@ func animateplayerWIP():
 		animplayer.play("fall")
 	if velocity.y >= 0 and !is_on_floor() and attackcomp.is_attacking == false and !healthcomp.is_taking_damage and $Sprite2D.flip_h:
 		animplayer.play("fall_left")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage)):
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage and !$Sprite2D.flip_h)):
 		animplayer.play("idle")
 	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage and $Sprite2D.flip_h)):
 		animplayer.play("idle_left")
