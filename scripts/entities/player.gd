@@ -56,7 +56,7 @@ func moveplayer(_delta):
 			else:
 				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
 		else:
-			velocity.x = acceleration #dumbcode
+			velocity.x = lerp(velocity.x,float(acceleration),1) #dumbcode
 			velocity.x = velocity.x * (normal.x+0.9)
 	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
@@ -65,7 +65,7 @@ func moveplayer(_delta):
 			else:
 				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
 		else:
-			velocity.x = -acceleration #dumbcode
+			velocity.x = lerp(velocity.x,float(-acceleration),1)
 			velocity.x = velocity.x / (normal.x+0.9) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
@@ -142,9 +142,10 @@ func hook():
 
 
 func animateplayerWIP():
-	if (Input.is_action_pressed("move_left"))or(get_local_mouse_position().x < 0) and velocity.x == 0:
+	if (Input.is_action_pressed("move_left")):
 		$Sprite2D.flip_h = true #É realmente necessário fazer o sprite flipar com a posição do mouse? é interessante mas n sei se vamo manter na gameplay
-	else:
+	if (Input.is_action_pressed("move_right")):
+	
 		$Sprite2D.flip_h = false
 	if $RayCastFloor.is_colliding():
 		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)

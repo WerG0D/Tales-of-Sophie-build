@@ -1,8 +1,7 @@
-[gd_scene load_steps=39 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=38 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
-[ext_resource type="Script" path="res://scenes/entity/Camera2D.gd" id="4_arv00"]
 [ext_resource type="Texture2D" uid="uid://8hmsi8osfspl" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://b0ql0cg0fghcu" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_36c5d"]
@@ -3325,7 +3324,7 @@ collision_mask = 10
 script = ExtResource("1_b3mxi")
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
-target_position = Vector2(0, 21.2036)
+target_position = Vector2(0, 28.914)
 collision_mask = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -3360,11 +3359,11 @@ zoom = Vector2(2.4, 2.4)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 3.0
-script = ExtResource("4_arv00")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
+flip_h = true
 hframes = 7
 vframes = 11
 
@@ -3417,7 +3416,7 @@ health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
 position = Vector2(6.57897, 0.980051)
-rotation = -0.607374
+rotation = 0.260054
 shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
