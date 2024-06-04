@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://m8evs1yj5w36"
-path="res://.godot/imported/sophiesprite1.png-944d50a32169592ebaf5dc9c588b11e4.ctex"
+uid="uid://d31ggdxram14e"
+path="res://.godot/imported/sophie_idle.png-9986dda036a97dbc4de45d26764e2043.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphs/png/Player/Sophie/sophiesprite1.png"
-dest_files=["res://.godot/imported/sophiesprite1.png-944d50a32169592ebaf5dc9c588b11e4.ctex"]
+source_file="res://graphs/png/Player/Sophie/sophie_idle.png"
+dest_files=["res://.godot/imported/sophie_idle.png-9986dda036a97dbc4de45d26764e2043.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=42 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ql0cg0fghcu" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_36c5d"]
 [ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://scenes/entity/chain.tscn" id="8_bc8it"]
+[ext_resource type="Texture2D" uid="uid://d31ggdxram14e" path="res://graphs/png/Player/Sophie/sophie_idle.png" id="10_j58qy"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://scripts/components/AttackComponent.gd" id="38_a7jxw"]
@@ -3310,6 +3311,56 @@ _data = {
 "run_left": SubResource("Animation_4ofvl")
 }
 
+[sub_resource type="Animation" id="Animation_vcgsl"]
+resource_name = "idle"
+length = 0.40001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
+[sub_resource type="Animation" id="Animation_5bjfo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6yovn"]
+_data = {
+"RESET": SubResource("Animation_5bjfo"),
+"idle": SubResource("Animation_vcgsl")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
 size = Vector2(11.3539, 6.86675)
 
@@ -3317,7 +3368,7 @@ size = Vector2(11.3539, 6.86675)
 radius = 0.274961
 height = 2.50588
 
-[node name="Player2" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
 collision_mask = 10
@@ -3470,6 +3521,16 @@ libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
 speed_scale = 0.5
+
+[node name="SophieSprite" type="Sprite2D" parent="."]
+texture = ExtResource("10_j58qy")
+hframes = 4
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SophieSprite"]
+libraries = {
+"": SubResource("AnimationLibrary_6yovn")
+}
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 visible = false
