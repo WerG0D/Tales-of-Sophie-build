@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bvofog5cxvno8"]
+[gd_scene load_steps=18 format=3 uid="uid://bvofog5cxvno8"]
 
 [ext_resource type="Script" path="res://scripts/entities/skeleton.gd" id="1_gep1k"]
 [ext_resource type="Texture2D" uid="uid://cosmvuovo0u32" path="res://graphs/png/Enemys/Skeleton enemy/Skeleton enemy.png" id="2_4utay"]
@@ -107,6 +107,9 @@ size = Vector2(100, 164)
 radius = 19.3989
 height = 113.52
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_yp8a4"]
+radius = 458.373
+
 [node name="Skeleton" type="CharacterBody2D"]
 script = ExtResource("1_gep1k")
 
@@ -168,6 +171,13 @@ SpriteAnimPlayer = NodePath("../Sprite2D/AnimationPlayer")
 script = ExtResource("7_hw3bw")
 attack_damage = 1
 
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_yp8a4")
+
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="Sprite2D/HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

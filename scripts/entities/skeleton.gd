@@ -7,6 +7,7 @@ var is_roaming: bool = false
 var skeletondmg = 50
 var skeletonstuntime = 0.5
 var skeletonknockbackforce = 0.5
+var player_in_area = false
 @onready var healthcomp = $HealthComponent
 @onready var attackcomp = $AttackComponent
 
@@ -31,6 +32,10 @@ func _physics_process(delta):
 			is_roaming = false
 		else:
 			is_roaming = true
+	if !healthcomp.is_dead:
+		$DetectionArea/CollisionShape2D.disabled = false
+		if player_in_area:
+			position += (player.position - position)
 	move_and_slide()
 	animateWIP()
 
@@ -69,3 +74,14 @@ func _on_animation_player_animation_finished(anim_name):
 		queue_free()
 	if anim_name == "attack":
 		attackcomp.is_attacking = false
+
+
+func _on_detection_area_body_entered(body):
+	if body.has_method("player"):
+		player_in_area = true
+		player = body
+		
+
+
+func _on_detection_area_body_exited(body):
+	pass # Replace with function body.
