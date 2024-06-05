@@ -3785,11 +3785,24 @@ tracks/0/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TextEdit:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["						Yo! 
+Welcome to Tales of Sophie
+ 		Github repository :D"]
+}
 
 [sub_resource type="Animation" id="Animation_vcgsl"]
 resource_name = "idle"
 length = 0.40001
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3813,6 +3826,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TextEdit:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.126747, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": ["", "						Yo! 
+Welcome to Tales of Sophie
+ 		Github repository :D"]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6yovn"]
@@ -3872,6 +3899,7 @@ rotation_smoothing_enabled = true
 rotation_smoothing_speed = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
 flip_h = true
@@ -3916,7 +3944,6 @@ health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
 position = Vector2(0, 3.3733)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
@@ -3960,7 +3987,6 @@ health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
 position = Vector2(3.54821, 13.4932)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
@@ -3988,7 +4014,6 @@ libraries = {
 }
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("10_j58qy")
 hframes = 4
 frame = 1
@@ -4017,6 +4042,17 @@ MAX_HEALTH = 1000
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("38_a7jxw")
 attack_damage = 50
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = -110.922
+offset_top = -124.33
+offset_right = 113.078
+offset_bottom = -20.3302
+theme_override_colors/background_color = Color(0.298039, 0.298039, 0.298039, 1)
+theme_override_font_sizes/font_size = 16
+text = "						Yo! 
+Welcome to Tales of Sophie
+ 		Github repository :D"
 
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
