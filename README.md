@@ -27,7 +27,7 @@
 - [@BryanCodex](https://github.com/BryanCodex) -> GameDeveloper
 - [@Gagacosta](https://github.com/gagacosta) -> GameDeveloper & TabletopRPG Developer
 - [@Peachylemunydrawns](https://www.instagram.com/pewchylemunydraws?igsh=MThmNWM5Yjdkajlkcg==) -> PixelArtist & Art Team Manager
-- [@AlienKitty](https://www.instagram.com/alienkitty318?igsh=azM5ZG1wNWQzcW9r) -> Artist 
+- @AlienKitty -> Artist 
 - [@MatheusWerneckRosa](https://www.instagram.com/matheuswerneckr?igsh=MWcwaTJ3N2gzbTJ4eQ==) -> Sound Director & OST 
 
 
