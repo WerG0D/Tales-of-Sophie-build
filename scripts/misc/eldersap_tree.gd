@@ -13,9 +13,9 @@ func _ready():
 func _process(_delta):
 	$RichTextLabel.set_text(str("pos:",$AnimatedSprite2D.global_position, " | state:", state))
 	if state == "no sap":
-		$AnimatedSprite2D.play("1")
+		$AnimationPlayer.play("idle")
 	if state =="sap":
-		$AnimatedSprite2D.play("2")
+		$AnimationPlayer.play("idle")		
 		if player_in_area:
 			if Input.is_action_just_pressed("e"):
 				state = "no sap"
