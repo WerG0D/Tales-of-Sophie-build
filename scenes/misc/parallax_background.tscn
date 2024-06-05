@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://fnf2qr4inu8i"]
+
+[ext_resource type="Texture2D" uid="uid://c8s7mmlcwlaja" path="res://graphs/png/Background/Background1.png" id="1_wlbcj"]
+[ext_resource type="Texture2D" uid="uid://1xvs0pecq40m" path="res://graphs/png/Background/Background2.png" id="2_2mqh5"]
+[ext_resource type="Texture2D" uid="uid://cn5qg46plijoh" path="res://graphs/png/Background/Background3.png" id="3_yjh7p"]
+[ext_resource type="Texture2D" uid="uid://c8b4ji8a5aylk" path="res://graphs/png/Background/Background4.png" id="4_j66uw"]
+[ext_resource type="Texture2D" uid="uid://bapxy41uyta55" path="res://graphs/png/Background/Background5.png" id="5_txwmy"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+position = Vector2(-169, 23)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(214, -11)
+texture = ExtResource("1_wlbcj")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+position = Vector2(-169, 23)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
+position = Vector2(214, -11)
+texture = ExtResource("2_2mqh5")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+position = Vector2(-169, 23)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer3"]
+position = Vector2(214, -11)
+texture = ExtResource("3_yjh7p")
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+position = Vector2(-169, 23)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer4"]
+position = Vector2(214, -11)
+texture = ExtResource("4_j66uw")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
+position = Vector2(-169, 23)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer5"]
+position = Vector2(214, -11)
+texture = ExtResource("5_txwmy")
