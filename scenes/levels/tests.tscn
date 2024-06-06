@@ -4018,8 +4018,6 @@ width = 5.0
 texture = ExtResource("17_g1fgk")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
-parallaxvelocityX = 16.0
-parallaxvelocityY = 10.0
 
 [node name="MontanhaDeepest" type="Line2D" parent="."]
 z_index = -5
@@ -4032,10 +4030,10 @@ width = 5.0
 texture = ExtResource("18_romjn")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
-parallaxvelocityX = 14.0
-parallaxvelocityY = 8.0
-parallaxsize = 5
-parallaxheight = 0.2
+parallaxvelocityX = 10.0
+parallaxvelocityY = 1.0
+parallaxsize = 10
+parallaxheight = 0.1
 isshaded = true
 
 [node name="MontanhaDeep" type="Line2D" parent="."]
@@ -4049,8 +4047,6 @@ width = 5.0
 texture = ExtResource("19_346xc")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
-parallaxvelocityX = 12.0
-parallaxvelocityY = 6.0
 
 [node name="MontanhaNear" type="Line2D" parent="."]
 visible = false
@@ -4063,8 +4059,6 @@ width = 5.0
 texture = ExtResource("20_qddg1")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
-parallaxvelocityX = 10.0
-parallaxvelocityY = 4.0
 
 [node name="MontanhaNearest" type="Line2D" parent="."]
 visible = false
@@ -4079,8 +4073,6 @@ width = 5.0
 texture = ExtResource("21_pyfyx")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
-parallaxvelocityX = 9.0
-parallaxvelocityY = 2.8
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]
 
