@@ -36,7 +36,7 @@ func _physics_process(delta):
 	if !healthcomp.is_dead:
 		$DetectionArea/CollisionShape2D.disabled = false
 		if player_in_area:
-			position += (player.position - position)
+			position.x = lerp(player.position.x, position.x, 1)
 	move_and_slide()
 	animateWIP()
 

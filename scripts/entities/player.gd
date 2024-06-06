@@ -29,7 +29,7 @@ var playercurrenthealth = 100
 var gravityfactor = 0.02
 var normal
 func _physics_process(delta):
-	Engine.max_fps = 60
+	#Engine.max_fps = 60
 
 	set_floor_snap_length(20)
 	debug()
@@ -302,6 +302,7 @@ func debug():
 		\n Mouse local pos:",  get_local_mouse_position(),"
 		\n Mouse viewport pos:",get_viewport().get_mouse_position() ,"
 		\n Pull force:", chain_pull_force,
+		
 		))#
 	else:
 		$RichTextLabel.set_text("")

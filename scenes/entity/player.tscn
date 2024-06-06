@@ -1,7 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=43 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://graphs/png/Player/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
+[ext_resource type="Script" path="res://scripts/misc/Camera2D.gd" id="4_87wg4"]
 [ext_resource type="Texture2D" uid="uid://8hmsi8osfspl" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://b0ql0cg0fghcu" path="res://graphs/png/Player/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_36c5d"]
@@ -24,7 +25,7 @@ size = Vector2(17.0964, 31.8054)
 size = Vector2(15.5234, 7.7104)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ljyal"]
-radius = 3.5482
+radius = 4.43526
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4gu4"]
 size = Vector2(7.09641, 11.0839)
@@ -1471,7 +1472,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.8, 0.9, 1),
@@ -1483,7 +1484,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
-tracks/1/interp = 1
+tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
@@ -1495,7 +1496,7 @@ tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/path = NodePath("Sprite2D/HurtBoxHead/CollisionHead:position")
-tracks/2/interp = 1
+tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
@@ -1507,7 +1508,7 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("Sprite2D/HurtBoxLArm/CollisionlArm:shape:size")
-tracks/3/interp = 1
+tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
@@ -1519,7 +1520,7 @@ tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/path = NodePath("Sprite2D/HurtBoxLArm/CollisionlArm:position")
-tracks/4/interp = 1
+tracks/4/interp = 0
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
@@ -1531,7 +1532,7 @@ tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/path = NodePath("Sprite2D/HurtBoxLArm/CollisionlArm:rotation")
-tracks/5/interp = 1
+tracks/5/interp = 0
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
@@ -1663,7 +1664,7 @@ tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
 tracks/16/path = NodePath("Sprite2D/HurtBoxLArm/CollisionlArm:disabled")
-tracks/16/interp = 1
+tracks/16/interp = 0
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
@@ -1675,7 +1676,7 @@ tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
 tracks/17/path = NodePath("Sprite2D:flip_h")
-tracks/17/interp = 1
+tracks/17/interp = 0
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
@@ -3789,6 +3790,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_vcgsl"]
 resource_name = "idle"
 length = 0.40001
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3869,12 +3871,14 @@ zoom = Vector2(2.4, 2.4)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 3.0
+script = ExtResource("4_87wg4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
+frame = 22
 
 [node name="HitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
 collision_mask = 10
@@ -3981,7 +3985,6 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
-speed_scale = 0.5
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
 visible = false

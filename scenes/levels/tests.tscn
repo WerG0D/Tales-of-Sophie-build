@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=30 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d143300tkn321" path="res://graphs/png/Decoratives/Decoratives.png" id="4_gpbnm"]
 [ext_resource type="PackedScene" uid="uid://bl12ts1ibfykd" path="res://scenes/entity/player.tscn" id="5_g2cb2"]
 [ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://scenes/entity/skeleton.tscn" id="6_qyfn6"]
+[ext_resource type="Script" path="res://scripts/misc/ParallaxBg.gd" id="14_ogrgr"]
 [ext_resource type="Texture2D" uid="uid://c8s7mmlcwlaja" path="res://graphs/png/Background/Background1.png" id="17_g1fgk"]
 [ext_resource type="Texture2D" uid="uid://1xvs0pecq40m" path="res://graphs/png/Background/Background2.png" id="18_romjn"]
 [ext_resource type="Texture2D" uid="uid://dqesx60s1safs" path="res://graphs/png/Decoratives/tree597976819.png" id="18_yapfc"]
@@ -3940,55 +3941,8 @@ environment = SubResource("Environment_nywk2")
 visible = false
 position = Vector2(-255, -44)
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-83, 1)
-motion_scale = Vector2(0.1, 0.1)
-motion_mirroring = Vector2(640, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(214, -11)
-texture = ExtResource("17_g1fgk")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-83, 1)
-motion_scale = Vector2(0.3, 0.3)
-motion_mirroring = Vector2(640, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(214, -11)
-texture = ExtResource("18_romjn")
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-83, 1)
-motion_scale = Vector2(0.6, 0.6)
-motion_mirroring = Vector2(640, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-position = Vector2(214, -11)
-texture = ExtResource("19_346xc")
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-83, 1)
-motion_scale = Vector2(1.2, 1.2)
-motion_mirroring = Vector2(640, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-position = Vector2(214, -11)
-texture = ExtResource("20_qddg1")
-
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-83, 1)
-motion_scale = Vector2(1.5, 1.5)
-motion_mirroring = Vector2(640, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
-position = Vector2(214, -11)
-texture = ExtResource("21_pyfyx")
-
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(10, 0)
+position = Vector2(-356, 174)
 tile_set = SubResource("TileSet_1apf7")
 format = 2
 layer_0/name = "Ground"
@@ -4006,7 +3960,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 5
 texture_filter = 1
-position = Vector2(221, -106)
+position = Vector2(0, 0)
 scale = Vector2(1, 1)
 
 [node name="cutscene" type="Area2D" parent="."]
@@ -4029,13 +3983,81 @@ loop = false
 zoom = Vector2(2, 2)
 
 [node name="Skeleton2" parent="." instance=ExtResource("6_qyfn6")]
-position = Vector2(-676, -81)
+visible = false
+position = Vector2(-1693, 451)
 collision_layer = 8
 collision_mask = 6
 
 [node name="arvre" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_snqm3")
-position = Vector2(465, -147)
+position = Vector2(253, 21)
 texture = SubResource("CanvasTexture_fud3y")
 
+[node name="Fundo" type="Line2D" parent="."]
+z_index = -5
+texture_repeat = 2
+rotation = 4.71239
+scale = Vector2(120, 120)
+points = PackedVector2Array(0, 1, 0, 0)
+width = 5.0
+texture = ExtResource("17_g1fgk")
+texture_mode = 1
+script = ExtResource("14_ogrgr")
+parallaxvelocityX = 16.0
+parallaxvelocityY = 10.0
+
+[node name="MontanhaDeepest" type="Line2D" parent="."]
+z_index = -5
+texture_repeat = 2
+rotation = 4.71239
+scale = Vector2(120, 120)
+points = PackedVector2Array(0, 1, 0, 0)
+width = 5.0
+texture = ExtResource("18_romjn")
+texture_mode = 1
+script = ExtResource("14_ogrgr")
+parallaxvelocityX = 14.0
+parallaxvelocityY = 8.0
+
+[node name="MontanhaDeep" type="Line2D" parent="."]
+z_index = -5
+texture_repeat = 2
+rotation = 4.71239
+scale = Vector2(120, 120)
+points = PackedVector2Array(0, 1, 0, 0)
+width = 5.0
+texture = ExtResource("19_346xc")
+texture_mode = 1
+script = ExtResource("14_ogrgr")
+parallaxvelocityX = 12.0
+parallaxvelocityY = 6.0
+
+[node name="MontanhaNear" type="Line2D" parent="."]
+z_index = -5
+texture_repeat = 2
+rotation = 4.71239
+scale = Vector2(120, 120)
+points = PackedVector2Array(0, 1, 0, 0)
+width = 5.0
+texture = ExtResource("20_qddg1")
+texture_mode = 1
+script = ExtResource("14_ogrgr")
+parallaxvelocityX = 10.0
+parallaxvelocityY = 4.0
+
+[node name="MontanhaNearest" type="Line2D" parent="."]
+z_index = -5
+texture_repeat = 2
+rotation = 4.71239
+scale = Vector2(120, 120)
+points = PackedVector2Array(0, 1, 0, 0)
+width = 5.0
+texture = ExtResource("21_pyfyx")
+texture_mode = 1
+script = ExtResource("14_ogrgr")
+parallaxvelocityX = 9.0
+parallaxvelocityY = 2.8
+
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]
+
+[editable path="player"]
