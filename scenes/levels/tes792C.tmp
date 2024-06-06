@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=30 format=3 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://scripts/levels/world.gd" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://scenes/misc/eldersap_tree.tscn" id="2_i6he7"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://scenes/entity/skeleton.tscn" id="6_qyfn6"]
 [ext_resource type="Script" path="res://scripts/misc/ParallaxBg.gd" id="14_ogrgr"]
 [ext_resource type="Texture2D" uid="uid://c8s7mmlcwlaja" path="res://graphs/png/Background/Background1.png" id="17_g1fgk"]
-[ext_resource type="Shader" path="res://scenes/levels/scroll.gdshader" id="17_ovvn1"]
 [ext_resource type="Texture2D" uid="uid://1xvs0pecq40m" path="res://graphs/png/Background/Background2.png" id="18_romjn"]
 [ext_resource type="Texture2D" uid="uid://dqesx60s1safs" path="res://graphs/png/Decoratives/tree597976819.png" id="18_yapfc"]
 [ext_resource type="Texture2D" uid="uid://cn5qg46plijoh" path="res://graphs/png/Background/Background3.png" id="19_346xc"]
@@ -3913,20 +3912,6 @@ diffuse_texture = ExtResource("18_yapfc")
 normal_texture = ExtResource("19_j70u7")
 specular_texture = ExtResource("20_hgw7w")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wykmp"]
-shader = ExtResource("17_ovvn1")
-shader_parameter/camlocaloffset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0qpmd"]
-resource_local_to_scene = true
-shader = ExtResource("17_ovvn1")
-shader_parameter/camlocaloffset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_od2bk"]
-resource_local_to_scene = true
-shader = ExtResource("17_ovvn1")
-shader_parameter/camlocaloffset = null
-
 [node name="tests" type="Node2D"]
 script = ExtResource("1_22424")
 
@@ -4011,7 +3996,6 @@ texture = SubResource("CanvasTexture_fud3y")
 [node name="Fundo" type="Line2D" parent="."]
 z_index = -5
 texture_repeat = 2
-material = SubResource("ShaderMaterial_wykmp")
 rotation = 4.71239
 points = PackedVector2Array(0, 1, 0, 0)
 width = 5.0
@@ -4024,7 +4008,6 @@ parallaxvelocityY = 10.0
 [node name="MontanhaDeepest" type="Line2D" parent="."]
 z_index = -5
 texture_repeat = 2
-material = SubResource("ShaderMaterial_0qpmd")
 rotation = 4.71239
 scale = Vector2(120, 120)
 points = PackedVector2Array(0, 1, 0, 0)
@@ -4036,10 +4019,8 @@ parallaxvelocityX = 14.0
 parallaxvelocityY = 8.0
 parallaxsize = 5
 parallaxheight = 0.2
-isshaded = true
 
 [node name="MontanhaDeep" type="Line2D" parent="."]
-visible = false
 z_index = -5
 texture_repeat = 2
 rotation = 4.71239
@@ -4053,7 +4034,6 @@ parallaxvelocityX = 12.0
 parallaxvelocityY = 6.0
 
 [node name="MontanhaNear" type="Line2D" parent="."]
-visible = false
 z_index = -5
 texture_repeat = 2
 rotation = 4.71239
@@ -4067,10 +4047,8 @@ parallaxvelocityX = 10.0
 parallaxvelocityY = 4.0
 
 [node name="MontanhaNearest" type="Line2D" parent="."]
-visible = false
 z_index = -5
 texture_repeat = 2
-material = SubResource("ShaderMaterial_od2bk")
 position = Vector2(-200, -1)
 rotation = 4.71239
 scale = Vector2(120, 120)
@@ -4081,6 +4059,8 @@ texture_mode = 1
 script = ExtResource("14_ogrgr")
 parallaxvelocityX = 9.0
 parallaxvelocityY = 2.8
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
 
 [connection signal="body_entered" from="cutscene" to="." method="_on_cutscene_body_entered"]
 

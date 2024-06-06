@@ -8,7 +8,7 @@ var skeletondmg = 50
 var skeletonstuntime = 0.5
 var skeletonknockbackforce = 0.5
 var player_in_area = false
-var player 
+var player
 @onready var healthcomp = $HealthComponent
 @onready var attackcomp = $AttackComponent
 
@@ -81,7 +81,7 @@ func _on_detection_area_body_entered(body):
 	if body.has_method("player"):
 		player_in_area = true
 		player = body
-		
+
 
 
 func _on_detection_area_body_exited(body):

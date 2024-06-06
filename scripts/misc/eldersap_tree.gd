@@ -15,7 +15,7 @@ func _process(_delta):
 	if state == "no sap":
 		$AnimationPlayer.play("idle")
 	if state =="sap":
-		$AnimationPlayer.play("idle")		
+		$AnimationPlayer.play("idle")
 		if player_in_area:
 			if Input.is_action_just_pressed("e"):
 				state = "no sap"
