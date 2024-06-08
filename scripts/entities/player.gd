@@ -145,7 +145,7 @@ func animateplayerWIP():
 	if (Input.is_action_pressed("move_left")):
 		$Sprite2D.flip_h = true #É realmente necessário fazer o sprite flipar com a posição do mouse? é interessante mas n sei se vamo manter na gameplay
 	if (Input.is_action_pressed("move_right")):
-
+	
 		$Sprite2D.flip_h = false
 	if $RayCastFloor.is_colliding():
 		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
@@ -158,7 +158,7 @@ func animateplayerWIP():
 
 
 
-	#Guerra, to add esse coment pra vc saber que tudo que eu modifiquei aqui nessa função é monkey code e to só experimentando umas possibilidades pra ver como é, n planejo manter nada assim do jeito que tá e sei q é a maneira mais burra o possivel de fzr. Ass: Wer
+	#Guerra, to add esse coment pra vc saber que tudo que eu modifiquei aqui nessa função é monkey code e to só experimentando umas possibilidades pra ver como é, n planejo manter nada assim do jeito que tá e sei q é a maneira mais burra o possivel de fzr. Ass: Wer 
 
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
 	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (attackcomp.is_attacking == false and !healthcomp.is_taking_damage):
@@ -302,7 +302,7 @@ func debug():
 		\n Mouse local pos:",  get_local_mouse_position(),"
 		\n Mouse viewport pos:",get_viewport().get_mouse_position() ,"
 		\n Pull force:", chain_pull_force,
-
+		
 		))#
 	else:
 		$RichTextLabel.set_text("")
