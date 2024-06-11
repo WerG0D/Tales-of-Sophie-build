@@ -111,6 +111,8 @@ height = 113.52
 radius = 458.373
 
 [node name="Skeleton" type="CharacterBody2D"]
+collision_layer = 12
+collision_mask = 3
 script = ExtResource("1_gep1k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -135,11 +137,12 @@ health_component = NodePath("../../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
 shape = SubResource("CapsuleShape2D_up7ql")
 
-[node name="HitboxComponent" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
+[node name="HitboxComponent" type="Area2D" parent="Sprite2D"]
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("4_xnfj1")
-attack_component = NodePath("../../AttackComponent")
+damage = 100.0
+knockback_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
 position = Vector2(21, -2)
@@ -149,7 +152,7 @@ disabled = true
 debug_color = Color(1, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 1.19209e-07)
+position = Vector2(-1, 12)
 scale = Vector2(1.54648, 1.05708)
 shape = SubResource("CapsuleShape2D_bchs7")
 
@@ -163,15 +166,17 @@ scroll_active = false
 autowrap_mode = 0
 script = ExtResource("3_3bwqj")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("SpriteAnimPlayer") instance=ExtResource("5_acdkq")]
-MAX_HEALTH = 100
-SpriteAnimPlayer = NodePath("../Sprite2D/AnimationPlayer")
+[node name="HealthComponent" parent="." instance=ExtResource("5_acdkq")]
+MAX_HEALTH = 1000
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("7_hw3bw")
 attack_damage = 1
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_yp8a4")

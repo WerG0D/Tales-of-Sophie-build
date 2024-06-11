@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=42 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://d31ggdxram14e" path="res://entity/player/Graphs/Sophie/sophie_idle.png" id="10_j58qy"]
 [ext_resource type="Script" path="res://entity/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://entity/components/HealthComponent.gd" id="37_hplil"]
-[ext_resource type="Script" path="res://entity/components/AttackComponent.gd" id="38_a7jxw"]
 [ext_resource type="Script" path="res://entity/player/RichTextLabel.gd" id="78_3wrjh"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
@@ -3878,12 +3877,11 @@ scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
-frame = 22
+frame = 63
 
-[node name="HitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("attack_component")]
+[node name="HitBox" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("8_36c5d")
-attack_component = NodePath("../../AttackComponent")
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 visible = false
@@ -3908,7 +3906,7 @@ shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 101
+MAX_HEALTH = 100
 
 [node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -3937,7 +3935,7 @@ shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 101
+MAX_HEALTH = 102
 
 [node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -3951,7 +3949,7 @@ shape = SubResource("RectangleShape2D_00s58")
 
 [node name="HealthComponentRightArm" type="Node2D" parent="Sprite2D/HurtBoxRArm"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 101
+MAX_HEALTH = 103
 
 [node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -3964,7 +3962,7 @@ shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 101
+MAX_HEALTH = 104
 
 [node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -3978,13 +3976,14 @@ shape = SubResource("RectangleShape2D_lpleu")
 
 [node name="HealthComponentLeftLeg" type="Node2D" parent="Sprite2D/HurtBoxLleg"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 101
+MAX_HEALTH = 105
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
+speed_scale = 0.5
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
 visible = false
@@ -4012,10 +4011,6 @@ shape = SubResource("CapsuleShape2D_slk7t")
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("37_hplil")
 MAX_HEALTH = 1000
-
-[node name="AttackComponent" type="Node2D" parent="."]
-script = ExtResource("38_a7jxw")
-attack_damage = 50
 
 [connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
