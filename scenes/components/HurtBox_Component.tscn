@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://btnh351jsbrdm"]
-
-[ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="1_p2hod"]
-
-[node name="HurtBoxComponent" type="Node2D"]
-script = ExtResource("1_p2hod")
