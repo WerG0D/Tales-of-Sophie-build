@@ -65,7 +65,7 @@ func _physics_process(delta):
 	animateplayerWIP()
 	animatedattackWIP()
 
-func moveplayer(_delta):
+func moveplayer(delta):
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
 	normal = $RayCastFloor.get_collision_normal()
 	if  !is_on_floor():
@@ -103,9 +103,11 @@ func moveplayer(_delta):
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
+
 func detect_is_taking_damage():
 	if healthcomphead.is_taking_damage or healthcomphead.is_taking_damage or healthcompLeftArm.is_taking_damage or healthcompLeftLeg.is_taking_damage or healthcompRightArm.is_taking_damage or healthcompRightLeg.is_taking_damage:
 		is_taking_damage = true
+
 func hook_phys():
 	# Hook physics
 	if $Chain.hooked:
@@ -273,11 +275,10 @@ func _damaged(_amount: float, knockback: Vector2) -> void:
 	await animplayer.animation_finished
 	
 func apply_knockback(knockback: Vector2, frames: int = 10) -> void:
-	var p_velocity: Vector2
 	if knockback.is_zero_approx():
 		return
 	for i in range(frames):
-		velocity = lerp(velocity, p_velocity, 0.2)
+		velocity = lerp(velocity, knockback, 0.2)
 		await get_tree().physics_frame
 
 func die() -> void:
@@ -289,8 +290,8 @@ func die() -> void:
 		animplayer.play("die_left")
 	else:
 		animplayer.play("die")
-	$CollisionShape2D.set_deferred("disabled", true)
-	$CollisionShape2D2.set_deferred("disabled", true)
+	#$CollisionShape2D.set_deferred("disabled", true)
+	#$CollisionShape2D2.set_deferred("disabled", true)
 	
 func _on_animation_player_animation_finished(anim_name):
 	detect_is_taking_damage()

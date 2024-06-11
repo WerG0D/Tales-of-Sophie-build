@@ -3882,6 +3882,7 @@ frame = 63
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("8_36c5d")
+knockback_enabled = true
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 visible = false

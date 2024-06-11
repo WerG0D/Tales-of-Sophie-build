@@ -26,6 +26,7 @@ func _ready():
 func _physics_process(delta):
 	$RichTextLabel.set_text(str("HP: ",healthcomp._current,
 	"\ndead: ", _is_dead,
+	"\nvelocity:", velocity,
 	"\nroaming: ", is_roaming, "| atck: ", is_attacking))
 	# Add the gravity.
 	if not is_on_floor():
@@ -51,11 +52,10 @@ func _damaged(_amount: float, knockback: Vector2) -> void:
 	await animplayer.animation_finished
 	
 func apply_knockback(knockback: Vector2, frames: int = 10) -> void:
-	var p_velocity: Vector2
 	if knockback.is_zero_approx():
 		return
 	for i in range(frames):
-		velocity = lerp(velocity, p_velocity, 0.2)
+		velocity = lerp(velocity, knockback, 0.2)
 		await get_tree().physics_frame
 
 func die() -> void:
@@ -67,7 +67,7 @@ func die() -> void:
 		animplayer.play("die_left")
 	else:
 		animplayer.play("die")
-	$CollisionShape2D.set_deferred("disabled", true)
+	#$CollisionShape2D.set_deferred("disabled", true)
 
 func get_health() -> HealthComponent:
 	return healthcomp
