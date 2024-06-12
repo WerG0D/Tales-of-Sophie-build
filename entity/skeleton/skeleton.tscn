@@ -141,7 +141,7 @@ shape = SubResource("CapsuleShape2D_up7ql")
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("4_xnfj1")
-damage = 100.0
+damage = 10.0
 knockback_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
@@ -157,6 +157,7 @@ scale = Vector2(1.54648, 1.05708)
 shape = SubResource("CapsuleShape2D_bchs7")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
 offset_left = -21.0
 offset_top = -130.0
 offset_right = 19.0

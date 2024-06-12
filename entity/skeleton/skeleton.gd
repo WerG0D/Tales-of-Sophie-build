@@ -12,6 +12,7 @@ var player_in_area = false
 var player
 var _is_dead: bool
 var is_attacking: bool 
+var is_taking_damage: bool
 @onready var animplayer = $Sprite2D/AnimationPlayer
 @onready var healthcomp = $HealthComponent
 
@@ -45,11 +46,15 @@ func _physics_process(delta):
 
 func _damaged(_amount: float, knockback: Vector2) -> void:
 	apply_knockback(knockback)
+	is_taking_damage = true 
 	if $Sprite2D.flip_h:
 		animplayer.play("hurt_left")
+		await animplayer.animation_finished
+		is_taking_damage = false 
 	else:
 		animplayer.play("hurt")
-	await animplayer.animation_finished
+		await animplayer.animation_finished
+		is_taking_damage = false 
 	
 func apply_knockback(knockback: Vector2, frames: int = 10) -> void:
 	if knockback.is_zero_approx():
@@ -74,9 +79,9 @@ func get_health() -> HealthComponent:
 
 
 func animateWIP():
-	if !healthcomp.is_taking_damage and !_is_dead and !is_roaming:
+	if !is_taking_damage and !_is_dead and !is_roaming:
 		$Sprite2D/AnimationPlayer.play("idle")
-	if healthcomp.is_taking_damage and !_is_dead:
+	if is_taking_damage and !_is_dead:
 		$Sprite2D/AnimationPlayer.play("hurt")
 	if _is_dead:
 		$Sprite2D/AnimationPlayer.play("die")

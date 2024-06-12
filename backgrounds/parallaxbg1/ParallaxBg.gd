@@ -14,10 +14,10 @@ func _physics_process(delta):
 	self.set_point_position(1,Vector2(to_local(camera.global_position).x / parallaxvelocityX , to_local(camera.global_position).y / parallaxvelocityY +100))
 	#TODO GABRIEL  
 	#self.global_position.x = (camera.global_position.x - camerainit.x) / parallaxvelocity 
-	print("Camera:", camera.global_position.x)
-	print("Camerainit:", camerainit.x)
-	print("montanhanearest:", $"../MontanhaNearest".position.x )
-	print("parallax:", parallaxvelocityX )
+	#print("Camera:", camera.global_position.x)
+	#print("Camerainit:", camerainit.x)
+	#print("montanhanearest:", $"../MontanhaNearest".position.x )
+	#print("parallax:", parallaxvelocityX )
 	
 	
 	

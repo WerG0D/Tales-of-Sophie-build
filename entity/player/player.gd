@@ -16,6 +16,7 @@ extends CharacterBody2D
 @onready var initialized = true
 
 signal death
+signal dismember
 
 var max_speed : int = 1600
 var jump_force : int = 500
@@ -29,30 +30,31 @@ var chain_pull_force = 60
 var on_ground_friction = 0.01 #more is more
 var on_air_friction = 0.002 #more is more (duuhh)
 var unsigned_speed : float
-var playerdmg = 50
-var playerstuntime = 0.5
-var playerknockbackforce = 0.5
-var playermaxhealth = 100
-var playercurrenthealth = 100
 var gravityfactor = 0.02
 var normal
 var _is_dead: bool
 var is_taking_damage: bool
 var is_attacking: bool
+var is_dismembered: bool
 
 func _ready() -> void:
 	healthcomphead.damaged.connect(_damaged)
 	healthcomphead.death.connect(die)
+	healthcomphead.dismember.connect(dismember_bodypart)
 	healthcompbody.damaged.connect(_damaged)
 	healthcompbody.death.connect(die)
 	healthcompRightArm.damaged.connect(_damaged)
 	healthcompRightArm.death.connect(die)
+	healthcompRightArm.dismember.connect(dismember_bodypart)
 	healthcompLeftArm.damaged.connect(_damaged)
 	healthcompLeftArm.death.connect(die)
+	healthcompLeftArm.dismember.connect(dismember_bodypart)
 	healthcompRightLeg.damaged.connect(_damaged)
 	healthcompRightLeg.death.connect(die)
+	healthcompRightLeg.dismember.connect(dismember_bodypart)
 	healthcompLeftLeg.damaged.connect(_damaged)
 	healthcompLeftLeg.death.connect(die)
+	healthcompLeftLeg.dismember.connect(dismember_bodypart)
 	pass
 	
 func _physics_process(delta):
@@ -103,10 +105,6 @@ func moveplayer(delta):
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
-
-func detect_is_taking_damage():
-	if healthcomphead.is_taking_damage or healthcomphead.is_taking_damage or healthcompLeftArm.is_taking_damage or healthcompLeftLeg.is_taking_damage or healthcompRightArm.is_taking_damage or healthcompRightLeg.is_taking_damage:
-		is_taking_damage = true
 
 func hook_phys():
 	# Hook physics
@@ -162,7 +160,6 @@ func hook():
 				chain_pull_force = chain_pull_force -10
 
 func animateplayerWIP():
-	detect_is_taking_damage()
 	if (Input.is_action_pressed("move_left")):
 		$Sprite2D.flip_h = true #É realmente necessário fazer o sprite flipar com a posição do mouse? é interessante mas n sei se vamo manter na gameplay
 	if (Input.is_action_pressed("move_right")):
@@ -197,82 +194,32 @@ func animateplayerWIP():
 			animplayer.play("run_left")
 			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
 
-	if is_taking_damage and !_is_dead:
-		animplayer.play("hurt")
-	if is_taking_damage and !_is_dead and $Sprite2D.flip_h:
-		animplayer.play("hurt_left")
-	if _is_dead:
-		animplayer.play("die")
-	if _is_dead and $Sprite2D.flip_h:
-		animplayer.play("die_left")
-
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
 		is_attacking = true
 		if is_attacking:
 			animplayer.play("attack")
-			#for childs in $Sprite2D/HitBox.get_children():
-				#if childs is CollisionShape2D:
-					#childs.disabled = false
+			await animplayer.animation_finished
+			is_attacking = false
 
 	if Input.is_action_just_pressed("attack") and $Sprite2D.flip_h:
 		is_attacking = true
 		if is_attacking:
 			animplayer.play("attack_left")
-			#for childs in $Sprite2D/HitBox.get_children():
-				#if childs is CollisionShape2D:
-					#childs.disabled = false
+			await animplayer.animation_finished
+			is_attacking = false
 
-#func _on_hit_box_area_entered(area): #Dá dano
-	#if area.has_method("take_damage"):
-		#area.take_damage(attackcomp)
-	#else:
-		#pass
-#
-#func _on_hurt_box_head_area_entered(area): #Recebe dano
-	#if area.has_method("deal_damage"):
-		#area.deal_damage($Sprite2D/HurtBoxHead/HealthComponentHead, #$Sprite2D/HurtBoxHead
-		#)
-		##print("Dano na cabeça")
-#
-#func _on_hurt_box_body_area_entered(area):
-	#
-	#if area.has_method("deal_damage"):
-		#area.deal_damage($Sprite2D/HurtBoxBody/HealthComponentBody, #$Sprite2D/HurtBoxBody
-		#)
-		##print("Dano no corpo")
-#
-#func _on_hurt_box_right_arm_area_entered(area):
-		#if area.has_method("deal_damage"):
-			#area.deal_damage($Sprite2D/HurtBoxRArm/HealthComponentRightArm, #$Sprite2D/HurtBoxRArm
-			#)
-			##print("Dano no braço direito")
-#
-#func _on_hurt_box_left_arm_area_entered(area):
-	#if area.has_method("deal_damage"):
-		#area.deal_damage($Sprite2D/HurtBoxLArm/HealthComponentLeftArm, #$Sprite2D/HurtBoxLArm
-		#)
-		##print("Dano no braço esquerdo")
-#
-#func _on_hurt_box_right_leg_area_entered(area):
-	#if area.has_method("deal_damage"):
-		#area.deal_damage($Sprite2D/HurtBoxRLeg/HealthComponentRightLeg, #$Sprite2D/HurtBoxRLeg
-		#)
-		##print("Dano na perna direita")
-#
-#func _on_hurt_box_left_leg_area_entered(area):
-	#if area.has_method("deal_damage"):
-		#area.deal_damage($Sprite2D/HurtBoxLleg/HealthComponentLeftLeg, #$Sprite2D/HurtBoxLleg
-		#)
-		##print("Dano na perna esquerda")
 
 func _damaged(_amount: float, knockback: Vector2) -> void:
 	apply_knockback(knockback)
+	is_taking_damage = true 
 	if $Sprite2D.flip_h:
 		animplayer.play("hurt_left")
 	else:
 		animplayer.play("hurt")
 	await animplayer.animation_finished
+	is_taking_damage = false 
+		
 	
 func apply_knockback(knockback: Vector2, frames: int = 10) -> void:
 	if knockback.is_zero_approx():
@@ -292,27 +239,22 @@ func die() -> void:
 		animplayer.play("die")
 	#$CollisionShape2D.set_deferred("disabled", true)
 	#$CollisionShape2D2.set_deferred("disabled", true)
+func dismember_bodypart(name: String) -> void:
+	if is_dismembered:
+		return
+	dismember.emit()
+	is_dismembered = true
+	if name == "HealthComponentHead":
+		print("Head dismem")
+	if name == "HealthComponentRightArm":
+		print("R Arm dismem")
+	if name == "HealthComponentLefttArm":
+		print("L Arm dismem")
+	if name == "HealthComponentRightLeg":
+		print("R Leg dismem")
+	if name == "HealthComponentLeftLeg":
+		print("L Leg dismem")	
 	
-func _on_animation_player_animation_finished(anim_name):
-	detect_is_taking_damage()
-	if anim_name == "attack":
-		is_attacking = false
-		$Sprite2D/HitBox/CollisionSword2.disabled = true
-		$Sprite2D/HitBox/CollisionSword1.disabled = true
-	if anim_name == "attack_left":
-		is_attacking = false
-		$Sprite2D/HitBox/CollisionSword2.disabled = true
-		$Sprite2D/HitBox/CollisionSword1.disabled = true
-
-	if anim_name == "hurt":
-		is_taking_damage  = false
-	if anim_name == "die":
-		queue_free() #
-	if anim_name == "RESET":
-		var queue = animplayer.get_queue()
-		print(queue)
-		animplayer.play("idle")
-
 func debug():
 	if Input.is_action_just_released("debug"):
 		isdebug = not(isdebug)
@@ -321,6 +263,7 @@ func debug():
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
 		\nHealth: ", healthcompbody._current,"
+		\nTDamage: ", is_taking_damage,"
 		\nunsigned speed: ", unsigned_speed,"
 		\n Global pos: ", global_position,"
 		\n Mouse pos:",  get_global_mouse_position(),"
