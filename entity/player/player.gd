@@ -11,7 +11,6 @@ extends CharacterBody2D
 @onready var healthcompLeftArm = $Sprite2D/HurtBoxLArm/HealthComponentLeftArm
 @onready var healthcompRightLeg = $Sprite2D/HurtBoxRLeg/HealthComponentRightLeg
 @onready var healthcompLeftLeg = $Sprite2D/HurtBoxLleg/HealthComponentLeftLeg
-
 @onready var animplayer = $Sprite2D/AnimationPlayer
 @onready var initialized = true
 
@@ -55,7 +54,6 @@ func _ready() -> void:
 	healthcompLeftLeg.damaged.connect(_damaged)
 	healthcompLeftLeg.death.connect(die)
 	healthcompLeftLeg.dismember.connect(dismember_bodypart)
-	pass
 	
 func _physics_process(delta):
 	set_floor_snap_length(20)
@@ -209,7 +207,6 @@ func animatedattackWIP():
 			await animplayer.animation_finished
 			is_attacking = false
 
-
 func _damaged(_amount: float, knockback: Vector2) -> void:
 	apply_knockback(knockback)
 	is_taking_damage = true 
@@ -220,7 +217,6 @@ func _damaged(_amount: float, knockback: Vector2) -> void:
 	await animplayer.animation_finished
 	is_taking_damage = false 
 		
-	
 func apply_knockback(knockback: Vector2, frames: int = 10) -> void:
 	if knockback.is_zero_approx():
 		return
@@ -239,6 +235,7 @@ func die() -> void:
 		animplayer.play("die")
 	#$CollisionShape2D.set_deferred("disabled", true)
 	#$CollisionShape2D2.set_deferred("disabled", true)
+
 func dismember_bodypart(compname: String) -> void:
 	if is_dismembered:
 		return
