@@ -67,7 +67,7 @@ func _physics_process(delta):
 	animateplayerWIP()
 	animatedattackWIP()
 
-func moveplayer(delta):
+func moveplayer(_delta):
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
 	normal = $RayCastFloor.get_collision_normal()
 	if  !is_on_floor():
@@ -239,20 +239,20 @@ func die() -> void:
 		animplayer.play("die")
 	#$CollisionShape2D.set_deferred("disabled", true)
 	#$CollisionShape2D2.set_deferred("disabled", true)
-func dismember_bodypart(name: String) -> void:
+func dismember_bodypart(compname: String) -> void:
 	if is_dismembered:
 		return
 	dismember.emit()
 	is_dismembered = true
-	if name == "HealthComponentHead":
+	if compname == "HealthComponentHead":
 		print("Head dismem")
-	if name == "HealthComponentRightArm":
+	if compname == "HealthComponentRightArm":
 		print("R Arm dismem")
-	if name == "HealthComponentLefttArm":
+	if compname == "HealthComponentLefttArm":
 		print("L Arm dismem")
-	if name == "HealthComponentRightLeg":
+	if compname == "HealthComponentRightLeg":
 		print("R Leg dismem")
-	if name == "HealthComponentLeftLeg":
+	if compname == "HealthComponentLeftLeg":
 		print("L Leg dismem")	
 	
 func debug():

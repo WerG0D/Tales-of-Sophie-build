@@ -6,7 +6,7 @@ extends Line2D
 var camerainit = Vector2()
 func _ready():
 	camerainit = camera.global_position
-func _physics_process(delta):
+func _physics_process(_delta):
 	while camera == null:
 		print("")		
 	camera = $"../player/Camera2D"

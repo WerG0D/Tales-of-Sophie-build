@@ -4,7 +4,7 @@ extends Node2D
 @export var MAX_HEALTH: int
 var _current: float
 
-signal dismember(name: String)
+signal dismember(compname: String)
 signal death
 signal damaged(amount: float, knockback: Vector2)
 

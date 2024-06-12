@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bvofog5cxvno8"]
+[gd_scene load_steps=17 format=3 uid="uid://bvofog5cxvno8"]
 
 [ext_resource type="Script" path="res://entity/skeleton/skeleton.gd" id="1_gep1k"]
 [ext_resource type="Texture2D" uid="uid://cosmvuovo0u32" path="res://entity/skeleton/Skeleton enemy.png" id="2_4utay"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://entity/components/HurtboxComponent.gd" id="3_i3cgn"]
 [ext_resource type="Script" path="res://entity/components/HitboxComponent.gd" id="4_xnfj1"]
 [ext_resource type="PackedScene" uid="uid://t4j7nk4uuk3n" path="res://entity/components/HealthComponent.tscn" id="5_acdkq"]
-[ext_resource type="Script" path="res://entity/components/AttackComponent.gd" id="7_hw3bw"]
 
 [sub_resource type="Animation" id="Animation_rvq3t"]
 length = 0.001
@@ -169,10 +168,6 @@ script = ExtResource("3_3bwqj")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_acdkq")]
 MAX_HEALTH = 1000
-
-[node name="AttackComponent" type="Node2D" parent="."]
-script = ExtResource("7_hw3bw")
-attack_damage = 1
 
 [node name="DetectionArea" type="Area2D" parent="."]
 visible = false

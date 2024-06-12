@@ -24,22 +24,22 @@ size = Vector2(17.0964, 31.8054)
 size = Vector2(15.5234, 7.7104)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ljyal"]
-radius = 3.5482
+radius = 4.43526
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4gu4"]
-size = Vector2(7.98346, 8.43335)
+size = Vector2(8.42699, 11.0839)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
-size = Vector2(2.9938, 8.6254)
+size = Vector2(4.58309, 5.98212)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
-size = Vector2(6.83734, 3.8552)
+size = Vector2(10.6018, 3.8552)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dlu1y"]
-size = Vector2(5.32231, 7.78552)
+size = Vector2(5.32231, 9.0343)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpleu"]
-size = Vector2(4.43526, 6.42111)
+size = Vector2(4.43526, 8.98702)
 
 [sub_resource type="Animation" id="Animation_w74ge"]
 resource_name = "attack"
@@ -391,10 +391,10 @@ tracks/2/path = NodePath("Sprite2D/HitBox/CollisionSword1:shape:size")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.8, 0.9, 1, 1.3, 1.4, 1.5, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.2, 0.3, 0.4, 0.8, 0.9, 1, 1.3, 1.4, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2(17.096, 31.805), Vector2(-20.0799, 5.78278), Vector2(-3.54821, 11.5656), Vector2(15.08, 28.914), Vector2(-15.0799, 7.7104), Vector2(-15.856, 7.10803), Vector2(-18.1846, 18.3122), Vector2(-17.0757, 8.1923), Vector2(-17.0757, 8.1923), Vector2(-17.0757, 4.09615)]
+"values": [Vector2(17.096, 31.805), Vector2(20.08, 5.783), Vector2(3.548, 11.566), Vector2(15.08, 28.914), Vector2(15.08, 7.71), Vector2(15.856, 7.108), Vector2(18.185, 18.312), Vector2(17.076, 8.192), Vector2(17.076, 4.096)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -3511,10 +3511,9 @@ script = ExtResource("4_87wg4")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
-flip_h = true
 hframes = 7
 vframes = 11
-frame = 14
+frame = 42
 
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
@@ -3539,7 +3538,7 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
-position = Vector2(-3.54821, -1.9276)
+position = Vector2(2.66115, -0.9638)
 shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
@@ -3552,7 +3551,7 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
-position = Vector2(-1.33058, 6.14427)
+position = Vector2(0.000102699, 5.7828)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
@@ -3566,10 +3565,10 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
-position = Vector2(4.43526, 5.7828)
+position = Vector2(6.87057, 5.45786)
+rotation = -0.607374
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
-disabled = true
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
 script = ExtResource("37_hplil")
@@ -3581,8 +3580,8 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
-position = Vector2(-8.10316, 5.23747)
-rotation = 2.52375
+position = Vector2(-6.34028, 3.85515)
+rotation = -0.71384
 scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
 
@@ -3596,8 +3595,7 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
-position = Vector2(1.996, 14.259)
-rotation = -0.520108
+position = Vector2(4.87878, 13.4932)
 shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
@@ -3610,7 +3608,8 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
-position = Vector2(-4.435, 14.138)
+position = Vector2(-6.46344, 13.4316)
+rotation = 0.553025
 scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
 
@@ -3623,6 +3622,7 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
+speed_scale = 1.5
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
 visible = false
@@ -3646,13 +3646,3 @@ visible = false
 position = Vector2(0.413, 0.963997)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
-
-[connection signal="area_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_area_entered"]
-[connection signal="body_entered" from="Sprite2D/HitBox" to="." method="_on_hit_box_body_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxHead" to="." method="_on_hurt_box_head_area_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxBody" to="." method="_on_hurt_box_body_area_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxLArm" to="." method="_on_hurt_box_right_arm_area_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxRArm" to="." method="_on_hurt_box_left_arm_area_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxRLeg" to="." method="_on_hurt_box_right_leg_area_entered"]
-[connection signal="area_entered" from="Sprite2D/HurtBoxLleg" to="." method="_on_hurt_box_left_leg_area_entered"]
-[connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -106,7 +106,7 @@ func animateWIP():
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hurt":
-		healthcomp.is_taddking_damage  = false
+		is_taking_damage  = false
 	if anim_name == "die":
 		queue_free()
 	if anim_name == "attack":
