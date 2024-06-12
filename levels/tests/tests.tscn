@@ -3916,6 +3916,7 @@ specular_texture = ExtResource("20_hgw7w")
 script = ExtResource("1_22424")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 z_index = -1
 z_as_relative = false
 position = Vector2(137, -4)
@@ -3928,6 +3929,7 @@ texture_scale = 0.1
 script = ExtResource("3_arkdb")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(0.099986, 0.099986, 0.099986, 1)
 energy = 0.6
 blend_mode = 2
@@ -3983,6 +3985,7 @@ loop = false
 zoom = Vector2(2, 2)
 
 [node name="arvre" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_snqm3")
 position = Vector2(253, 21)
 texture = SubResource("CanvasTexture_fud3y")

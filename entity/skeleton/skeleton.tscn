@@ -156,7 +156,6 @@ scale = Vector2(1.54648, 1.05708)
 shape = SubResource("CapsuleShape2D_bchs7")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-visible = false
 offset_left = -21.0
 offset_top = -130.0
 offset_right = 19.0
@@ -167,7 +166,7 @@ autowrap_mode = 0
 script = ExtResource("3_3bwqj")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_acdkq")]
-MAX_HEALTH = 1000
+MAX_HEALTH = 300
 
 [node name="DetectionArea" type="Area2D" parent="."]
 visible = false

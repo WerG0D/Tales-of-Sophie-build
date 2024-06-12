@@ -32,11 +32,6 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	if Input.is_action_just_pressed("roaming"):
-		if is_roaming:
-			is_roaming = false
-		else:
-			is_roaming = true
 	if !_is_dead:
 		$DetectionArea/CollisionShape2D.disabled = false
 		if player_in_area:
@@ -68,10 +63,7 @@ func die() -> void:
 		return
 	death.emit()
 	_is_dead = true
-	if $Sprite2D.flip_h:
-		animplayer.play("die_left")
-	else:
-		animplayer.play("die")
+	animplayer.play("die")
 	#$CollisionShape2D.set_deferred("disabled", true)
 
 func get_health() -> HealthComponent:
@@ -81,44 +73,20 @@ func get_health() -> HealthComponent:
 func animateWIP():
 	if !is_taking_damage and !_is_dead and !is_roaming:
 		$Sprite2D/AnimationPlayer.play("idle")
-	if is_taking_damage and !_is_dead:
-		$Sprite2D/AnimationPlayer.play("hurt")
-	if _is_dead:
-		$Sprite2D/AnimationPlayer.play("die")
+	if Input.is_action_just_pressed("roaming"):
+		if is_roaming:
+			is_roaming = false
+			$DetectionArea/CollisionShape2D.disabled = true
+		else:
+			is_roaming = true
 	if is_roaming: #Implementar lógica de ataque inimigo
 		is_attacking = true
 		if is_attacking == true:
 			$Sprite2D/AnimationPlayer.play("attack")
 			$Sprite2D/HitboxComponent/CollisionShape2D.disabled = false
 
-
-#func _on_hurt_box_area_entered(area): # Levar dano
-	#if area.has_method("deal_damage"):
-		#print("Nome da Area: ", area)
-		#area.deal_damage(healthcomp)
-#
-#
-#func _on_hitbox_component_area_entered(area): #Realizar dano
-	#if area.has_method("take_damage"):
-		#area.take_damage(attackcomp)
-		#print(area)
-
-
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "hurt":
 		is_taking_damage  = false
-	if anim_name == "die":
-		queue_free()
 	if anim_name == "attack":
 		is_attacking = false
-
-#
-#func _on_detection_area_body_entered(body):
-	#if body.has_method("player"):
-		#player_in_area = true
-		#player = body
-		#
-#
-#
-#func _on_detection_area_body_exited(body):
-	#pass # Replace with function body.
