@@ -14,15 +14,15 @@ config/name="TosGodot"
 config/version="0.1"
 run/main_scene="res://levels/menu/menu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://scripts/components/global.gd"
+Global="*res://levels/tests/global.gd"
 
 [debug]
 
 settings/stdout/print_fps=true
+settings/stdout/print_gpu_profile=true
 
 [display]
 
