@@ -3510,7 +3510,7 @@ rotation_smoothing_speed = 3.0
 script = ExtResource("4_87wg4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.984611, 1)
+visible = false
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
@@ -3669,8 +3669,8 @@ scale = Vector2(0.035547, 0.035)
 texture = ExtResource("12_inlxp")
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("10_j58qy")
+flip_h = true
 hframes = 4
 frame = 1
 

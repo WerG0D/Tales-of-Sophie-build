@@ -103,8 +103,8 @@ radius = 7.75
 size = Vector2(100, 164)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bchs7"]
-radius = 19.3989
-height = 113.52
+radius = 6.4663
+height = 39.7321
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yp8a4"]
 radius = 458.373
@@ -115,7 +115,6 @@ collision_mask = 3
 script = ExtResource("1_gep1k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4, 4)
 texture = ExtResource("2_4utay")
 hframes = 13
 vframes = 5
@@ -151,7 +150,7 @@ disabled = true
 debug_color = Color(1, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 12)
+position = Vector2(-1, 1)
 scale = Vector2(1.54648, 1.05708)
 shape = SubResource("CapsuleShape2D_bchs7")
 

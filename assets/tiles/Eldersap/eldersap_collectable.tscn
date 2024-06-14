@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkcqes42l5jw3"]
 
-[ext_resource type="Texture2D" uid="uid://bferlrnraiqb" path="res://tiles/Misc/greencoconut.jpg" id="1_bcvsv"]
-[ext_resource type="Script" path="res://tiles/Eldersap/eldersap_collectable.gd" id="1_q2mfe"]
+[ext_resource type="Texture2D" uid="uid://bferlrnraiqb" path="res://assets/tiles/Misc/greencoconut.jpg" id="1_bcvsv"]
+[ext_resource type="Script" path="res://assets/tiles/Eldersap/eldersap_collectable.gd" id="1_q2mfe"]
 
 [sub_resource type="Animation" id="Animation_vogyp"]
 resource_name = "fade"
