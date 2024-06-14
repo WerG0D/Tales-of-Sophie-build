@@ -28,7 +28,7 @@ window/stdout/print_fps=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/goutte.animated_shape_2d/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
+enabled=PackedStringArray("res://addons/amano-ldtk-importer/plugin.cfg", "res://addons/goutte.animated_shape_2d/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg")
 
 [importer_defaults]
 
