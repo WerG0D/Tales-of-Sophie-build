@@ -3510,7 +3510,6 @@ rotation_smoothing_speed = 3.0
 script = ExtResource("4_87wg4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
@@ -3535,7 +3534,6 @@ disabled = true
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
 [node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentHead")
@@ -3549,7 +3547,6 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 
 [node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentBody")
@@ -3559,12 +3556,10 @@ position = Vector2(0, 2.8914)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
-visible = false
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100000
 
 [node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftArm")
@@ -3578,9 +3573,9 @@ shape = SubResource("RectangleShape2D_u6mo1")
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100
+metadata/_edit_lock_ = true
 
 [node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightArm")
@@ -3596,7 +3591,6 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 
 [node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightLeg")
@@ -3608,10 +3602,9 @@ shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 104
+MAX_HEALTH = 100
 
 [node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftLeg")
@@ -3624,7 +3617,7 @@ shape = SubResource("RectangleShape2D_lpleu")
 
 [node name="HealthComponentLeftLeg" type="Node2D" parent="Sprite2D/HurtBoxLleg"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 105
+MAX_HEALTH = 100
 
 [node name="Dismember Icon Head" type="Sprite2D" parent="Sprite2D"]
 visible = false
@@ -3663,12 +3656,13 @@ texture = ExtResource("12_inlxp")
 
 [node name="Dismember Icon LeftLeg" type="Sprite2D" parent="Sprite2D"]
 visible = false
-position = Vector2(-2.86102e-06, 3.8552)
+position = Vector2(-6.1138, 21.2036)
 rotation = 3.14159
 scale = Vector2(0.035547, 0.035)
 texture = ExtResource("12_inlxp")
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("10_j58qy")
 flip_h = true
 hframes = 4

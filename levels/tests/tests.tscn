@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cn5qg46plijoh" path="res://assets/backgrounds/parallaxbg1/Background/Background3.png" id="19_346xc"]
 [ext_resource type="Texture2D" uid="uid://bcnecal05ptfw" path="res://assets/backgrounds/parallaxbg1/Decoratives/tree597976819_n.png" id="19_j70u7"]
 [ext_resource type="Texture2D" uid="uid://b871xhqx2tls" path="res://assets/backgrounds/parallaxbg1/Decoratives/tree597976819_s.png" id="20_hgw7w"]
-[ext_resource type="Texture2D" uid="uid://c8b4ji8a5aylk" path="res://assets/backgrounds/parallaxbg1/Background/Background4.png" id="20_qddg1"]
+[ext_resource type="Texture2D" uid="uid://d4n7f03fs8oi" path="res://assets/backgrounds/parallaxbg1/Background/Background debug.png" id="20_qddg1"]
 [ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="21_cwcri"]
 [ext_resource type="Texture2D" uid="uid://bapxy41uyta55" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="21_pyfyx"]
 

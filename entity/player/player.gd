@@ -44,6 +44,7 @@ var is_LLEG_dismembered: bool
 func _ready() -> void:
 	healthcomphead.damaged.connect(_damaged)
 	healthcomphead.death.connect(die)
+	healthcomphead.dismember_head.connect(dismember_bodypart)
 	healthcompbody.damaged.connect(_damaged)
 	healthcompbody.death.connect(die)
 	healthcompRightArm.damaged.connect(_damaged)
@@ -254,7 +255,7 @@ func dismember_bodypart(compname: String) -> void:
 		is_RARM_dismembered = true
 		print("R Arm dismem")
 		$"Sprite2D/Dismember Icon RightArm".visible = true
-	if compname == "HealthComponentLefttArm":
+	if compname == "HealthComponentLeftArm":
 		if is_LARM_dismembered:
 			return
 		is_LARM_dismembered = true

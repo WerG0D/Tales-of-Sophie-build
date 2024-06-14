@@ -19,11 +19,6 @@ config/features=PackedStringArray("4.2", "Mobile")
 
 Global="*res://levels/tests/global.gd"
 
-[debug]
-
-settings/stdout/print_fps=true
-settings/stdout/print_gpu_profile=true
-
 [display]
 
 window/size/viewport_width=1980
