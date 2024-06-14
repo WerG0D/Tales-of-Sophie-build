@@ -4,7 +4,13 @@ extends Node2D
 @export var MAX_HEALTH: int
 var _current: float
 
-signal dismember(compname: String)
+signal dismember_head(compname: String)
+signal dismember_RARM(compname: String)
+signal dismember_LARM(compname: String)
+signal dismember_RLEG(compname: String)
+signal dismember_LLEG(compname: String)
+
+
 signal death
 signal damaged(amount: float, knockback: Vector2)
 
@@ -23,12 +29,18 @@ func health_reduce(amount: float, knockback: Vector2) -> void:
 		_current -= amount
 		_current = max(_current, 0.0)
 	
-	if _current <= 0.0:
+	if self._current <= 0.0:
 		if self.name == "HealthComponentHead":
-			dismember.emit(self.name)
-			death.emit()
-		elif self.name == "HealthComponentLeftArm" or "HealthComponentRightArm" or "HealthComponentLeftLeg" or "HealthComponentRightLeg":
-			dismember.emit(self.name)	
+			dismember_head.emit(self.name)
+			#death.emit()
+		elif self.name == "HealthComponentLeftArm":
+			dismember_LARM.emit(self.name)
+		elif self.name == "HealthComponentRightArm":
+			dismember_RARM.emit(self.name)
+		elif self.name == "HealthComponentLeftLeg":
+			dismember_LLEG.emit(self.name)
+		elif self.name == "HealthComponentRightLeg":
+			dismember_RLEG.emit(self.name)	
 		else:
 			death.emit()
 

@@ -11,7 +11,7 @@ extends CharacterBody2D
 @onready var healthcompLeftArm = $Sprite2D/HurtBoxLArm/HealthComponentLeftArm
 @onready var healthcompRightLeg = $Sprite2D/HurtBoxRLeg/HealthComponentRightLeg
 @onready var healthcompLeftLeg = $Sprite2D/HurtBoxLleg/HealthComponentLeftLeg
-@onready var animplayer = $Sprite2D/AnimationPlayer
+@onready var animplayer = $AnimationPlayer
 @onready var initialized = true
 
 signal death
@@ -34,26 +34,30 @@ var normal
 var _is_dead: bool
 var is_taking_damage: bool
 var is_attacking: bool
-var is_dismembered: bool
+var is_head_dismembered: bool
+var is_RARM_dismembered: bool
+var is_LARM_dismembered: bool
+var is_RLEG_dismembered: bool
+var is_LLEG_dismembered: bool
+
 
 func _ready() -> void:
 	healthcomphead.damaged.connect(_damaged)
 	healthcomphead.death.connect(die)
-	healthcomphead.dismember.connect(dismember_bodypart)
 	healthcompbody.damaged.connect(_damaged)
 	healthcompbody.death.connect(die)
 	healthcompRightArm.damaged.connect(_damaged)
 	healthcompRightArm.death.connect(die)
-	healthcompRightArm.dismember.connect(dismember_bodypart)
+	healthcompRightArm.dismember_RARM.connect(dismember_bodypart)
 	healthcompLeftArm.damaged.connect(_damaged)
 	healthcompLeftArm.death.connect(die)
-	healthcompLeftArm.dismember.connect(dismember_bodypart)
+	healthcompLeftArm.dismember_LARM.connect(dismember_bodypart)
 	healthcompRightLeg.damaged.connect(_damaged)
 	healthcompRightLeg.death.connect(die)
-	healthcompRightLeg.dismember.connect(dismember_bodypart)
+	healthcompRightLeg.dismember_RLEG.connect(dismember_bodypart)
 	healthcompLeftLeg.damaged.connect(_damaged)
 	healthcompLeftLeg.death.connect(die)
-	healthcompLeftLeg.dismember.connect(dismember_bodypart)
+	healthcompLeftLeg.dismember_LLEG.connect(dismember_bodypart)
 	
 func _physics_process(delta):
 	set_floor_snap_length(20)
@@ -187,10 +191,10 @@ func animateplayerWIP():
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
 		if (velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !$Sprite2D.flip_h:
 			animplayer.play("run")
-			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
+			animplayer.speed_scale = unsigned_speed /200
 		if(velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and $Sprite2D.flip_h:
 			animplayer.play("run_left")
-			$Sprite2D/AnimationPlayer.speed_scale = unsigned_speed /200
+			animplayer.speed_scale = unsigned_speed /200
 
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
@@ -237,19 +241,36 @@ func die() -> void:
 	#$CollisionShape2D2.set_deferred("disabled", true)
 
 func dismember_bodypart(compname: String) -> void:
-	if is_dismembered:
-		return
 	dismember.emit()
-	is_dismembered = true
 	if compname == "HealthComponentHead":
+		if is_head_dismembered:
+			return
+		is_head_dismembered = true
 		print("Head dismem")
+		$"Sprite2D/Dismember Icon Head".visible = true
 	if compname == "HealthComponentRightArm":
+		if is_RARM_dismembered:
+			return
+		is_RARM_dismembered = true
 		print("R Arm dismem")
+		$"Sprite2D/Dismember Icon RightArm".visible = true
 	if compname == "HealthComponentLefttArm":
+		if is_LARM_dismembered:
+			return
+		is_LARM_dismembered = true
 		print("L Arm dismem")
+		$"Sprite2D/Dismember Icon LeftArm".visible = true
 	if compname == "HealthComponentRightLeg":
+		if is_RLEG_dismembered:
+			return
+		is_RLEG_dismembered = true
 		print("R Leg dismem")
+		$"Sprite2D/Dismember Icon RightLeg".visible = true
 	if compname == "HealthComponentLeftLeg":
+		if is_LLEG_dismembered:
+			return
+		is_LLEG_dismembered = true
+		$"Sprite2D/Dismember Icon LeftLeg".visible = true
 		print("L Leg dismem")	
 	
 func debug():
@@ -259,16 +280,14 @@ func debug():
 	if isdebug:
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
-		\nHealth: ", healthcompbody._current,"
-		\nTDamage: ", is_taking_damage,"
-		\nunsigned speed: ", unsigned_speed,"
-		\n Global pos: ", global_position,"
-		\n Mouse pos:",  get_global_mouse_position(),"
-		\n Mouse local pos:",  get_local_mouse_position(),"
-		\n Mouse viewport pos:",get_viewport().get_mouse_position() ,"
-		\n Pull force:", chain_pull_force,
+		\nHealthHead: ", healthcomphead._current,"
+		\nHealthRightArm: ", healthcompRightArm._current,"
+		\nHealthLeftArm: ", healthcompLeftArm._current,"
+		\nHealthRightLeg: ", healthcompRightLeg._current,"
+		\nHealthLeftLeg: ", healthcompLeftLeg._current,"
+		\nTDamage: ", is_taking_damage
 		
-		))#
+		))
 	else:
 		$RichTextLabel.set_text("")
 	if isdebug and Input.is_action_pressed("ctrl"):
@@ -286,13 +305,3 @@ func player(): #faz nada
 	#if body.has_method("player"):
 		#player = body
 	pass
-
-
-
-
-
-
-
-
-
-

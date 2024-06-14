@@ -28,8 +28,6 @@ func _physics_process(_delta):
 				objects_is_happening = false
 
 
-
-
 func _on_cutscene_body_entered(body):
 	if body.has_method("player"):
 		player = body

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=42 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/player.gd" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://beel0qvn0648r" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://entity/components/HitboxComponent.gd" id="8_36c5d"]
 [ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://entity/chain/chain.tscn" id="8_bc8it"]
 [ext_resource type="Texture2D" uid="uid://d31ggdxram14e" path="res://entity/player/Graphs/Sophie/sophie_idle.png" id="10_j58qy"]
+[ext_resource type="Texture2D" uid="uid://b8b8d4juo8581" path="res://assets/icons/ConditionIcons/Big (240x240)/Stunned.png" id="12_inlxp"]
 [ext_resource type="Script" path="res://entity/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://entity/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://entity/player/RichTextLabel.gd" id="78_3wrjh"]
@@ -27,10 +28,10 @@ size = Vector2(15.5234, 7.7104)
 radius = 4.43526
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4gu4"]
-size = Vector2(8.42699, 11.0839)
+size = Vector2(8.87051, 11.0839)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
-size = Vector2(4.58309, 5.98212)
+size = Vector2(3.84387, 9.573)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
 size = Vector2(10.6018, 3.8552)
@@ -40,6 +41,63 @@ size = Vector2(5.32231, 9.0343)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpleu"]
 size = Vector2(4.43526, 8.98702)
+
+[sub_resource type="Animation" id="Animation_5bjfo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_vcgsl"]
+resource_name = "idle"
+length = 0.40001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6yovn"]
+_data = {
+"RESET": SubResource("Animation_5bjfo"),
+"idle": SubResource("Animation_vcgsl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
+size = Vector2(11.3539, 6.86675)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
+radius = 0.274961
+height = 2.50588
 
 [sub_resource type="Animation" id="Animation_w74ge"]
 resource_name = "attack"
@@ -59,7 +117,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -375,7 +433,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -643,7 +701,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -826,7 +884,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -987,7 +1045,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1243,7 +1301,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1451,7 +1509,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1671,7 +1729,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1844,7 +1902,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2101,7 +2159,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2369,7 +2427,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2613,7 +2671,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2870,7 +2928,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3139,7 +3197,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/AnimationPlayer:speed_scale")
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -3407,63 +3465,6 @@ _data = {
 "run_left": SubResource("Animation_4ofvl")
 }
 
-[sub_resource type="Animation" id="Animation_5bjfo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_vcgsl"]
-resource_name = "idle"
-length = 0.40001
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationPlayer:speed_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.5]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6yovn"]
-_data = {
-"RESET": SubResource("Animation_5bjfo"),
-"idle": SubResource("Animation_vcgsl")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
-size = Vector2(11.3539, 6.86675)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_slk7t"]
-radius = 0.274961
-height = 2.50588
-
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
@@ -3513,9 +3514,9 @@ scale = Vector2(0.984611, 1)
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
-frame = 42
 
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
+visible = false
 collision_mask = 10
 script = ExtResource("8_36c5d")
 damage = 100.0
@@ -3534,12 +3535,13 @@ disabled = true
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
 [node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
-position = Vector2(2.66115, -0.9638)
+position = Vector2(0, -6.7466)
 shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
@@ -3547,56 +3549,61 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 
 [node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
-position = Vector2(0.000102699, 5.7828)
+position = Vector2(0, 2.8914)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
 visible = false
 script = ExtResource("37_hplil")
-MAX_HEALTH = 101
+MAX_HEALTH = 100000
 
 [node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
-position = Vector2(6.87057, 5.45786)
-rotation = -0.607374
+position = Vector2(6.20936, 2.8589)
+rotation = -0.172788
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 102
+MAX_HEALTH = 100
 
 [node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
-position = Vector2(-6.34028, 3.85515)
-rotation = -0.71384
+position = Vector2(-6.20936, 3.3733)
+rotation = 1.5708
 scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
 
 [node name="HealthComponentRightArm" type="Node2D" parent="Sprite2D/HurtBoxRArm"]
 script = ExtResource("37_hplil")
-MAX_HEALTH = 103
+MAX_HEALTH = 100
 
 [node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
-position = Vector2(4.87878, 13.4932)
+position = Vector2(3.5482, 13.1913)
+rotation = -0.520108
 shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
@@ -3604,13 +3611,14 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 104
 
 [node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+visible = false
 collision_mask = 10
 script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
-position = Vector2(-6.46344, 13.4316)
-rotation = 0.553025
+position = Vector2(-3.10468, 13.1677)
+rotation = 0.0331613
 scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
 
@@ -3618,12 +3626,47 @@ shape = SubResource("RectangleShape2D_lpleu")
 script = ExtResource("37_hplil")
 MAX_HEALTH = 105
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_g5p4h")
-}
-speed_scale = 1.5
+[node name="Dismember Icon Head" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(0.88705, -15.4208)
+rotation = 3.14159
+scale = Vector2(0.035547, 0.035)
+texture = ExtResource("12_inlxp")
+
+[node name="Dismember Icon Body" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(-4.43526, 22.1674)
+rotation = 3.14159
+scale = Vector2(0.035547, 0.035)
+texture = ExtResource("12_inlxp")
+
+[node name="Dismember Icon RightArm" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(-14.1928, 3.8552)
+rotation = 3.14159
+scale = Vector2(0.035547, 0.035)
+texture = ExtResource("12_inlxp")
+
+[node name="Dismember Icon LeftArm" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(13.3058, 2.8914)
+rotation = 3.14159
+scale = Vector2(0.035547, 0.035)
+texture = ExtResource("12_inlxp")
+
+[node name="Dismember Icon RightLeg" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(4.43526, 22.1674)
+rotation = 3.14159
+scale = Vector2(0.035547, 0.035)
+texture = ExtResource("12_inlxp")
+
+[node name="Dismember Icon LeftLeg" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(-2.86102e-06, 3.8552)
+rotation = 3.14159
+scale = Vector2(0.035547, 0.035)
+texture = ExtResource("12_inlxp")
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
 visible = false
@@ -3647,3 +3690,9 @@ visible = false
 position = Vector2(0.413, 0.963997)
 scale = Vector2(20.915, 10)
 shape = SubResource("CapsuleShape2D_slk7t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g5p4h")
+}
+speed_scale = 0.5
