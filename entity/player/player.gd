@@ -21,6 +21,7 @@ var max_speed : int = 1600
 var jump_force : int = 500
 var acceleration : int = 290
 var jump_buffer_time : int  = 15
+var dash_timer: int = 0
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
@@ -39,6 +40,8 @@ var is_RARM_dismembered: bool
 var is_LARM_dismembered: bool
 var is_RLEG_dismembered: bool
 var is_LLEG_dismembered: bool
+var is_gravity: bool = true 
+
 
 
 func _ready() -> void:
@@ -73,7 +76,14 @@ func _physics_process(delta):
 func moveplayer(_delta):
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
 	normal = $RayCastFloor.get_collision_normal()
-	if  !is_on_floor():
+	if dash_timer >5:
+		dash_timer = 5
+	if dash_timer <= 1:
+		is_gravity = true
+	else:
+		dash_timer += 1
+		
+	if  !is_on_floor() and is_gravity:
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
@@ -108,6 +118,12 @@ func moveplayer(_delta):
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
+	if (Input.is_physical_key_pressed(KEY_SHIFT) and dash_timer >= 5):
+		is_gravity = false
+		dash_timer -= 1 
+		velocity.y = 0
+		velocity.x *= 1.1  
+
 
 func hook_phys():
 	# Hook physics
@@ -240,6 +256,7 @@ func die() -> void:
 		animplayer.play("die")
 	#$CollisionShape2D.set_deferred("disabled", true)
 	#$CollisionShape2D2.set_deferred("disabled", true)
+	
 
 func dismember_bodypart(compname: String) -> void:
 	dismember.emit()
@@ -281,14 +298,8 @@ func debug():
 	if isdebug:
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
-		\nHealthHead: ", healthcomphead._current,"
-		\nHealthRightArm: ", healthcompRightArm._current,"
-		\nHealthLeftArm: ", healthcompLeftArm._current,"
-		\nHealthRightLeg: ", healthcompRightLeg._current,"
-		\nHealthLeftLeg: ", healthcompLeftLeg._current,"
-		\nTDamage: ", is_taking_damage
-		
-		))
+		\ndash_timer: ", dash_timer,"
+		\ngravity: ", is_gravity))
 	else:
 		$RichTextLabel.set_text("")
 	if isdebug and Input.is_action_pressed("ctrl"):
