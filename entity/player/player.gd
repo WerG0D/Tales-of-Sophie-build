@@ -284,6 +284,7 @@ func checkdash():
 		is_input =true
 	if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("jump"):
 		dash_timer=dash_cd
+		velocity = velocity +get_floor_normal()* jump_force
 	else:
 		dash_timer += 1
 func dash():
