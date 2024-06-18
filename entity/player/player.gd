@@ -22,6 +22,7 @@ var jump_force : int = 500
 var acceleration : int = 290
 var jump_buffer_time : int  = 15
 var dash_timer: int = 0
+var dash_cd: int = 50
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
@@ -41,6 +42,7 @@ var is_LARM_dismembered: bool
 var is_RLEG_dismembered: bool
 var is_LLEG_dismembered: bool
 var is_gravity: bool = true 
+var is_input:bool = true
 
 
 
@@ -76,53 +78,12 @@ func _physics_process(delta):
 func moveplayer(_delta):
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
 	normal = $RayCastFloor.get_collision_normal()
-	if dash_timer >5:
-		dash_timer = 5
-	if dash_timer <= 1:
-		is_gravity = true
-	else:
-		dash_timer += 1
-		
-	if  !is_on_floor() and is_gravity:
-		velocity.y = lerp(velocity.y, float(max_speed),0.02)
-		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
-	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
-		if !(velocity.x >= -acceleration and velocity.x < acceleration):
-			if !is_on_floor():
-				velocity.x =lerp(velocity.x,float(acceleration),on_air_friction)
-			else:
-				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
-		else:
-			velocity.x = lerp(velocity.x,float(acceleration),1) #dumbcode
-			velocity.x = velocity.x * (normal.x+0.9)
-	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked): #cant walk wile hooked
-		if !(velocity.x >= -acceleration and velocity.x < acceleration):
-			if !is_on_floor():
-				velocity.x =lerp(velocity.x,float(-acceleration),on_air_friction)
-			else:
-				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
-		else:
-			velocity.x = lerp(velocity.x,float(-acceleration),1)
-			velocity.x = velocity.x / (normal.x+0.9) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
-	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
-		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
-			velocity.x = 0
-	velocity.x = clamp(velocity.x, -max_speed, max_speed)
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		jump_buffer_counter = jump_buffer_time
-	if jump_buffer_counter > 0:
-		jump_buffer_counter -= 1
-	if jump_buffer_counter > 0:
-		velocity = velocity +get_floor_normal()* jump_force
-		jump_buffer_counter = 0
-	if Input.is_action_just_released("jump"):
-		if velocity.y < 0:
-			velocity.y *= 0.2
-	if (Input.is_physical_key_pressed(KEY_SHIFT) and dash_timer >= 5):
-		is_gravity = false
-		dash_timer -= 1 
-		velocity.y = 0
-		velocity.x *= 1.1  
+	applyGravity()
+	moveRL()
+	jump()
+	checkdash()	
+	dash()
+	
 
 
 func hook_phys():
@@ -179,10 +140,9 @@ func hook():
 				chain_pull_force = chain_pull_force -10
 
 func animateplayerWIP():
-	if (Input.is_action_pressed("move_left")):
+	if (Input.is_action_pressed("move_left")) and is_input:
 		$Sprite2D.flip_h = true #É realmente necessário fazer o sprite flipar com a posição do mouse? é interessante mas n sei se vamo manter na gameplay
-	if (Input.is_action_pressed("move_right")):
-	
+	if (Input.is_action_pressed("move_right")) and is_input:
 		$Sprite2D.flip_h = false
 	if $RayCastFloor.is_colliding():
 		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
@@ -317,3 +277,57 @@ func player(): #faz nada
 	#if body.has_method("player"):
 		#player = body
 	pass
+func checkdash():
+	if dash_timer >dash_cd:
+		dash_timer = dash_cd
+		is_gravity = true
+		is_input =true
+	if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("jump"):
+		dash_timer=dash_cd
+	else:
+		dash_timer += 1
+func dash():
+	if (Input.is_action_just_pressed("dash") and dash_timer >= dash_cd):
+		is_gravity = false
+		dash_timer = 1 
+		is_input = false
+		velocity.y = 0
+		velocity.x *= 2  
+func jump():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and is_input:
+		jump_buffer_counter = jump_buffer_time
+	if jump_buffer_counter > 0:
+		jump_buffer_counter -= 1
+	if jump_buffer_counter > 0:
+		velocity = velocity +get_floor_normal()* jump_force
+		jump_buffer_counter = 0
+	if Input.is_action_just_released("jump"):
+		if velocity.y < 0:
+			velocity.y *= 0.2
+func moveRL():
+	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked) and is_input: #cant walk wile hooked
+		if !(velocity.x >= -acceleration and velocity.x < acceleration):
+			if !is_on_floor():
+				velocity.x =lerp(velocity.x,float(acceleration),on_air_friction)
+			else:
+				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
+		else:
+			velocity.x = lerp(velocity.x,float(acceleration),1) #dumbcode
+			velocity.x = velocity.x * (normal.x+0.9)
+	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked)and is_input: #cant walk wile hooked
+		if !(velocity.x >= -acceleration and velocity.x < acceleration):
+			if !is_on_floor():
+				velocity.x =lerp(velocity.x,float(-acceleration),on_air_friction)
+			else:
+				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
+		else:
+			velocity.x = lerp(velocity.x,float(-acceleration),1)
+			velocity.x = velocity.x / (normal.x+0.9) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
+	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
+		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
+			velocity.x = 0
+	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+func applyGravity():
+	if  !is_on_floor() and is_gravity:
+		velocity.y = lerp(velocity.y, float(max_speed),0.02)
+		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
