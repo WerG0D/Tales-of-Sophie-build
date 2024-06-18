@@ -278,15 +278,17 @@ func player(): #faz nada
 		#player = body
 	pass
 func checkdash():
-	if dash_timer >dash_cd:
+	if dash_timer >=dash_cd:
 		dash_timer = dash_cd
 		is_gravity = true
 		is_input =true
-	if Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("jump"):
-		dash_timer=dash_cd
-		velocity = velocity +get_floor_normal()* jump_force
 	else:
 		dash_timer += 1
+	if dash_timer!= dash_cd and (Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("jump")):
+		dash_timer=dash_cd
+		if Input.is_action_pressed("jump"):		
+			velocity = velocity +get_floor_normal()* jump_force
+
 func dash():
 	if (Input.is_action_just_pressed("dash") and dash_timer >= dash_cd):
 		is_gravity = false
