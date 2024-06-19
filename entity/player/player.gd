@@ -1,7 +1,3 @@
-#TODO(gabriel) lerpar a bosta da vel.x do player quando ele virar e  blablab
-#TODO é sério
-
-
 extends CharacterBody2D
 
 @onready var camera = $Camera2D
@@ -44,8 +40,6 @@ var is_LLEG_dismembered: bool
 var is_gravity: bool = true 
 var is_input:bool = true
 
-
-
 func _ready() -> void:
 	healthcomphead.damaged.connect(_damaged)
 	healthcomphead.death.connect(die)
@@ -84,8 +78,6 @@ func moveplayer(_delta):
 	checkdash()	
 	dash()
 	
-
-
 func hook_phys():
 	# Hook physics
 	if $Chain.hooked:
@@ -217,7 +209,6 @@ func die() -> void:
 	#$CollisionShape2D.set_deferred("disabled", true)
 	#$CollisionShape2D2.set_deferred("disabled", true)
 	
-
 func dismember_bodypart(compname: String) -> void:
 	dismember.emit()
 	if compname == "HealthComponentHead":
@@ -277,6 +268,7 @@ func player(): #faz nada
 	#if body.has_method("player"):
 		#player = body
 	pass
+	
 func checkdash():
 	if dash_timer >=dash_cd:
 		dash_timer = dash_cd
@@ -296,6 +288,7 @@ func dash():
 		is_input = false
 		velocity.y = 0
 		velocity.x *= 2  
+		
 func jump():
 	if Input.is_action_just_pressed("jump") and is_on_floor() and is_input:
 		jump_buffer_counter = jump_buffer_time
@@ -307,6 +300,7 @@ func jump():
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
+			
 func moveRL():
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked) and is_input: #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
@@ -330,6 +324,7 @@ func moveRL():
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
+	
 func applyGravity():
 	if  !is_on_floor() and is_gravity:
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
