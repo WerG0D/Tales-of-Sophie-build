@@ -3,7 +3,7 @@ extends Node2D
 var state = "no sap"
 var player_in_area = false
 
-var eldersap = preload("res://tiles/Eldersap/eldersap_collectable.tscn")
+var eldersap = preload("res://assets/tiles/Eldersap/eldersap_collectable.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if state == "no sap":

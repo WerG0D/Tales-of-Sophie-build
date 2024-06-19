@@ -3962,7 +3962,7 @@ layer_0/tile_data = PackedInt32Array(20, 0, 10, 65515, 0, 10, -458717, 0, 10, 19
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
 texture_filter = 1
-position = Vector2(0, 0)
+position = Vector2(-13, 188)
 scale = Vector2(1, 1)
 
 [node name="cutscene" type="Area2D" parent="."]
@@ -4108,6 +4108,7 @@ parallaxvelocityX = 9.0
 parallaxvelocityY = 2.8
 
 [node name="Skeleton" parent="." instance=ExtResource("6_qyfn6")]
+visible = false
 z_index = 11
 position = Vector2(-488, 182)
 

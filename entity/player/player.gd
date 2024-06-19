@@ -15,10 +15,11 @@ signal dismember
 
 var max_speed : int = 1600
 var jump_force : int = 500
-var acceleration : int = 290
+var acceleration : int = 300
 var jump_buffer_time : int  = 15
-var dash_timer: int = 0
-var dash_cd: int = 20
+var dash_duration := 0.2
+var walljmp_timer: int = 0
+var walljmp_cd: int = 20
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
@@ -33,6 +34,7 @@ var _is_dead: bool
 var is_taking_damage: bool
 var is_attacking: bool
 var is_dash: bool
+var is_walljmp: bool
 var is_head_dismembered: bool
 var is_RARM_dismembered: bool
 var is_LARM_dismembered: bool
@@ -69,6 +71,7 @@ func _physics_process(delta):
 	hook_phys()
 	animateplayerWIP()
 	animatedattackWIP()
+	print(velocity.x)
 
 func moveplayer(_delta):
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
@@ -76,8 +79,13 @@ func moveplayer(_delta):
 	applyGravity()
 	moveRL()
 	jump()
-	checkdash()	
+	walljmp()
 	dash()
+
+func start_timer(timer: Timer, duration):
+	timer.wait_time = duration
+	timer.one_shot = true
+	timer.start()
 	
 func hook_phys():
 	# Hook physics
@@ -143,31 +151,35 @@ func animateplayerWIP():
 	else:
 		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash):
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp):
 		animplayer.play("jump")
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash) and $Sprite2D.flip_h:
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp) and $Sprite2D.flip_h:
 		animplayer.play("jump_left")
-	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash:
+	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp:
 		animplayer.play("fall")
-	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash and $Sprite2D.flip_h:
+	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp and $Sprite2D.flip_h:
 		animplayer.play("fall_left")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and !$Sprite2D.flip_h)):
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp and !$Sprite2D.flip_h)):
 		animplayer.play("idle")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and $Sprite2D.flip_h)):
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp and $Sprite2D.flip_h)):
 		animplayer.play("idle_left")
 	if ((velocity.x < 10 or velocity.x > -10) and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
-		if (velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and !$Sprite2D.flip_h:
+		if (velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp and !$Sprite2D.flip_h:
 			animplayer.play("run")
 			animplayer.speed_scale = unsigned_speed /200
-		if(velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and $Sprite2D.flip_h:
+		if(velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp and $Sprite2D.flip_h:
 			animplayer.play("run_left")
 			animplayer.speed_scale = unsigned_speed /200
-	if is_dash:
+	if is_dash and !is_walljmp:
 		animplayer.play("dash")
-	if is_dash and $Sprite2D.flip_h:
+	if is_dash and !is_walljmp and $Sprite2D.flip_h:
 		animplayer.play("dash_left")
+	if is_walljmp:
+		animplayer.play("walljmp")
+	if is_walljmp and $Sprite2D.flip_h:
+		animplayer.play("walljmp_left")
 
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
@@ -253,7 +265,9 @@ func debug():
 	if isdebug:
 		$RichTextLabel.set_text(str(
 		"velocity: ", velocity,"
-		\ndash_timer: ", dash_timer,"
+		\ntimer sec: ", $DashTimer.time_left,"
+		\ntimer run: ", $DashTimer.is_stopped(),"		
+		\ndashing: ", is_dash,"
 		\ngravity: ", is_gravity))
 	else:
 		$RichTextLabel.set_text("")
@@ -273,30 +287,29 @@ func player(): #faz nada
 		#player = body
 	pass
 	
-func checkdash():
-	if dash_timer >=dash_cd:
-		dash_timer = dash_cd
-		is_gravity = true
-		is_input =true
-		is_dash = false 
-	else:
-		dash_timer += 1
-	if dash_timer!= dash_cd and (Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("jump")):
-		dash_timer=dash_cd
-		is_dash = false
-		if Input.is_action_pressed("jump"):		
-			velocity = velocity +get_floor_normal()* jump_force
-		is_dash = true			
-
 func dash():
-	if (Input.is_action_just_pressed("dash") and dash_timer >= dash_cd):
+	if (Input.is_action_just_pressed("dash")) and $DashTimer.is_stopped():
+		if $DashTimer.is_stopped():
+			start_timer($DashTimer, dash_duration)
+			print("Timer")
+	if !$DashTimer.is_stopped():
 		is_gravity = false
-		dash_timer = 1 
 		is_input = false
 		is_dash = true
-		velocity.y = 0
-		velocity.x *= 2  
+		# HANDLE STOPPED DASH
+		var dash_speed = 600 
 		
+		#if velocity.x == 0: 
+		if $Sprite2D.flip_h:
+			velocity.x = -dash_speed
+		else:
+			velocity.x = dash_speed
+		velocity.y = 0 	
+	else:
+		is_gravity = true
+		is_dash = false
+		is_input = true
+					
 func jump():
 	if Input.is_action_just_pressed("jump") and is_on_floor() and is_input:
 		jump_buffer_counter = jump_buffer_time
@@ -308,32 +321,38 @@ func jump():
 	if Input.is_action_just_released("jump"):
 		if velocity.y < 0:
 			velocity.y *= 0.2
+
+func walljmp():
+	if velocity.y >= 10 and is_on_wall_only() and is_input and walljmp_timer <= walljmp_cd:
+		walljmp_timer += 1
+		is_walljmp = true
 			
+	else:
+		walljmp_timer = 0
+		is_walljmp = false		
+	
 func moveRL():
+	var friction = on_ground_friction if is_on_floor() else on_air_friction
+	if is_dash:
+		friction *= 4
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked) and is_input: #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
-			if !is_on_floor():
-				velocity.x =lerp(velocity.x,float(acceleration),on_air_friction)
-			else:
-				velocity.x =lerp(velocity.x,float(acceleration),on_ground_friction)
+				velocity.x =lerp(velocity.x,float(acceleration),friction)
 		else:
 			velocity.x = lerp(velocity.x,float(acceleration),1) #dumbcode
-			velocity.x = velocity.x * (normal.x+0.9)
+		velocity.x = velocity.x * (normal.x+0.9)
 	if Input.is_action_pressed("move_left") and (!$Chain.hooked and !$Chain2.hooked)and is_input: #cant walk wile hooked
 		if !(velocity.x >= -acceleration and velocity.x < acceleration):
-			if !is_on_floor():
-				velocity.x =lerp(velocity.x,float(-acceleration),on_air_friction)
-			else:
-				velocity.x =lerp(velocity.x,float(-acceleration),on_ground_friction)
+			velocity.x =lerp(velocity.x,float(-acceleration),friction)
 		else:
 			velocity.x = lerp(velocity.x,float(-acceleration),1)
-			velocity.x = velocity.x / (normal.x+0.9) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
+		velocity.x = velocity.x * (normal.x+0.9) ########################TODO LER HERE AND ON MOVE RIGHT so accel and decel isnt insta
 	if ((not(Input.is_action_pressed("move_left"))) and (not(Input.is_action_pressed("move_right"))) or (Input.is_action_pressed("move_right") and (Input.is_action_pressed("move_left")))):
 		if (!$Chain.hooked and !$Chain2.hooked): ############TODO REFATORAR ISSO TUDO
 			velocity.x = 0
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
 func applyGravity():
-	if  !is_on_floor() and is_gravity:
+	if  !is_on_floor() and is_gravity and !is_walljmp:
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
