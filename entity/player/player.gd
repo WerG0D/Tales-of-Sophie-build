@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var camera = $Camera2D
+@onready var sprite = $Sprite2D
 @onready var healthcomphead = $Sprite2D/HurtBoxHead/HealthComponentHead
 @onready var healthcompbody = $Sprite2D/HurtBoxBody/HealthComponentBody
 @onready var healthcompRightArm = $Sprite2D/HurtBoxRArm/HealthComponentRightArm
@@ -10,6 +11,8 @@ extends CharacterBody2D
 @onready var animplayer = $AnimationPlayer
 @onready var initialized = true
 
+var ghost_scene = preload("res://entity/player/dash_ghost.tscn")
+var ghost
 signal death
 signal dismember
 
@@ -18,6 +21,7 @@ var jump_force : int = 500
 var acceleration : int = 300
 var jump_buffer_time : int  = 15
 var dash_duration := 0.2
+var ghost_dash_duration := 0.003
 var walljmp_timer: int = 0
 var walljmp_cd: int = 20
 var jump_buffer_counter : int = 0
@@ -71,7 +75,7 @@ func _physics_process(delta):
 	hook_phys()
 	animateplayerWIP()
 	animatedattackWIP()
-	print(velocity.x)
+	print("frames: ", sprite.frame)
 
 func moveplayer(_delta):
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
@@ -84,9 +88,23 @@ func moveplayer(_delta):
 
 func start_timer(timer: Timer, duration):
 	timer.wait_time = duration
-	timer.one_shot = true
+	await animplayer.animation_finished
 	timer.start()
+	$DashGhostTimer.start()
+	instance_dash_ghost()
 	
+func instance_dash_ghost():
+	ghost = ghost_scene.instantiate()
+	add_child(ghost)
+	
+	ghost.global_position = global_position
+	ghost.texture = sprite.texture
+	ghost.vframes = sprite.vframes
+	ghost.hframes = sprite.hframes
+	ghost.frame = sprite.frame
+		
+	ghost.flip_h = sprite.flip_h
+
 func hook_phys():
 	# Hook physics
 	if $Chain.hooked:
@@ -291,11 +309,12 @@ func dash():
 	if (Input.is_action_just_pressed("dash")) and $DashTimer.is_stopped():
 		if $DashTimer.is_stopped():
 			start_timer($DashTimer, dash_duration)
-			print("Timer")
+			#print("Frame: ", $Sprite2D.frame)
 	if !$DashTimer.is_stopped():
 		is_gravity = false
 		is_input = false
 		is_dash = true
+		
 		# HANDLE STOPPED DASH
 		var dash_speed = 600 
 		
@@ -306,9 +325,15 @@ func dash():
 			velocity.x = dash_speed
 		velocity.y = 0 	
 	else:
+		$DashGhostTimer.stop()
 		is_gravity = true
 		is_dash = false
 		is_input = true
+	#Handle Ghosts
+	if $DashGhostTimer.time_left > 0:
+		instance_dash_ghost()
+		print("Ghost frame: ", ghost.frame)
+		
 					
 func jump():
 	if Input.is_action_just_pressed("jump") and is_on_floor() and is_input:

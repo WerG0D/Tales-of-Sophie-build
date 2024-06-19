@@ -31,7 +31,7 @@ radius = 4.43526
 size = Vector2(8.87051, 11.0839)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
-size = Vector2(3.84387, 9.573)
+size = Vector2(4.58309, 5.98212)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
 size = Vector2(10.6018, 3.8552)
@@ -4828,6 +4828,7 @@ script = ExtResource("4_87wg4")
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
+frame = 24
 
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 visible = false
@@ -4854,8 +4855,9 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
-position = Vector2(0, -6.7466)
+position = Vector2(2.66115, -0.9638)
 shape = SubResource("CircleShape2D_ljyal")
+disabled = true
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
 script = ExtResource("37_hplil")
@@ -4867,8 +4869,9 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
-position = Vector2(0, 2.8914)
+position = Vector2(0.000102699, 5.7828)
 shape = SubResource("RectangleShape2D_n4gu4")
+disabled = true
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
 script = ExtResource("37_hplil")
@@ -4880,10 +4883,11 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
-position = Vector2(6.20936, 2.8589)
-rotation = -0.172788
+position = Vector2(6.87057, 5.45786)
+rotation = -0.607374
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
+disabled = true
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
 script = ExtResource("37_hplil")
@@ -4896,10 +4900,11 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
-position = Vector2(-6.20936, 3.3733)
-rotation = 1.5708
+position = Vector2(-6.34028, 3.85515)
+rotation = -0.71384
 scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
+disabled = true
 
 [node name="HealthComponentRightArm" type="Node2D" parent="Sprite2D/HurtBoxRArm"]
 script = ExtResource("37_hplil")
@@ -4911,10 +4916,10 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
-position = Vector2(3.5482, 13.1913)
-rotation = -0.520108
+position = Vector2(4.87878, 13.4932)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_dlu1y")
+disabled = true
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
 script = ExtResource("37_hplil")
@@ -4926,10 +4931,11 @@ script = ExtResource("35_u515o")
 health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
-position = Vector2(-3.10468, 13.1677)
-rotation = 0.0331613
+position = Vector2(-6.46344, 13.4316)
+rotation = 0.553025
 scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
+disabled = true
 
 [node name="HealthComponentLeftLeg" type="Node2D" parent="Sprite2D/HurtBoxLleg"]
 script = ExtResource("37_hplil")
@@ -5005,7 +5011,9 @@ shape = SubResource("CapsuleShape2D_slk7t")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
-speed_scale = 0.5
+speed_scale = 1.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="DashGhostTimer" type="Timer" parent="."]
