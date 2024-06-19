@@ -18,7 +18,7 @@ var jump_force : int = 500
 var acceleration : int = 290
 var jump_buffer_time : int  = 15
 var dash_timer: int = 0
-var dash_cd: int = 50
+var dash_cd: int = 20
 var jump_buffer_counter : int = 0
 var isdebug = false
 var chain_velocity := Vector2(0,0)
@@ -32,6 +32,7 @@ var normal
 var _is_dead: bool
 var is_taking_damage: bool
 var is_attacking: bool
+var is_dash: bool
 var is_head_dismembered: bool
 var is_RARM_dismembered: bool
 var is_LARM_dismembered: bool
@@ -139,31 +140,34 @@ func animateplayerWIP():
 	if $RayCastFloor.is_colliding():
 		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
 		#$Camera2D.rotation = normal.angle()+deg_to_rad(90)
-
 	else:
 		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
 	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage):
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash):
 		animplayer.play("jump")
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage) and $Sprite2D.flip_h:
+	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash) and $Sprite2D.flip_h:
 		animplayer.play("jump_left")
-	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage:
+	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash:
 		animplayer.play("fall")
-	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and $Sprite2D.flip_h:
+	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash and $Sprite2D.flip_h:
 		animplayer.play("fall_left")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !$Sprite2D.flip_h)):
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and !$Sprite2D.flip_h)):
 		animplayer.play("idle")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and $Sprite2D.flip_h)):
+	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and $Sprite2D.flip_h)):
 		animplayer.play("idle_left")
 	if ((velocity.x < 10 or velocity.x > -10) and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
 		#TODO:
 		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
-		if (velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !$Sprite2D.flip_h:
+		if (velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and !$Sprite2D.flip_h:
 			animplayer.play("run")
 			animplayer.speed_scale = unsigned_speed /200
-		if(velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and $Sprite2D.flip_h:
+		if(velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and $Sprite2D.flip_h:
 			animplayer.play("run_left")
 			animplayer.speed_scale = unsigned_speed /200
+	if is_dash:
+		animplayer.play("dash")
+	if is_dash and $Sprite2D.flip_h:
+		animplayer.play("dash_left")
 
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
@@ -274,18 +278,22 @@ func checkdash():
 		dash_timer = dash_cd
 		is_gravity = true
 		is_input =true
+		is_dash = false 
 	else:
 		dash_timer += 1
 	if dash_timer!= dash_cd and (Input.is_action_just_pressed("move_left") or Input.is_action_just_pressed("move_right") or Input.is_action_just_pressed("jump")):
 		dash_timer=dash_cd
+		is_dash = false
 		if Input.is_action_pressed("jump"):		
 			velocity = velocity +get_floor_normal()* jump_force
+		is_dash = true			
 
 func dash():
 	if (Input.is_action_just_pressed("dash") and dash_timer >= dash_cd):
 		is_gravity = false
 		dash_timer = 1 
 		is_input = false
+		is_dash = true
 		velocity.y = 0
 		velocity.x *= 2  
 		
