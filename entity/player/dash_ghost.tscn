@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkcp5nt6mkpwt"]
-
-[ext_resource type="Texture2D" uid="uid://dmuoswnc8dvis" path="res://assets/tiles/Misc/coconut.png" id="1_mtxw1"]
-[ext_resource type="Script" path="res://entity/player/DashGhost.gd" id="2_31bu3"]
-
-[node name="DashGhost" type="Sprite2D"]
-texture = ExtResource("1_mtxw1")
-script = ExtResource("2_31bu3")
