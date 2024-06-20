@@ -46,6 +46,3 @@ func health_reduce(amount: float, knockback: Vector2) -> void:
 
 	else:
 		damaged.emit(amount, knockback)
-
-
-

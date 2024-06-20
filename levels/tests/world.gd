@@ -46,5 +46,3 @@ func cutsceneendind():
 	is_openingcutscene = false
 	camera.enabled = false
 	player.camera.enabled = true
-
-
