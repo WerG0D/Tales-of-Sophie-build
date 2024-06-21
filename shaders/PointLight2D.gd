@@ -11,4 +11,3 @@ func _process(_delta):
 	pass
 func _physics_process(_delta):
 		self.position  = get_global_mouse_position()
-

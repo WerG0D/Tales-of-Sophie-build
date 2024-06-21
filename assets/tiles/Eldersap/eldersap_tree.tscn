@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3x50sjt3lsc2"]
 
-[ext_resource type="Script" path="res://tiles/Eldersap/eldersap_tree.gd" id="1_5mrou"]
-[ext_resource type="Texture2D" uid="uid://cmo0kashmav7h" path="res://tiles/Eldersap/sprite sheet.png" id="2_727l8"]
+[ext_resource type="Script" path="res://assets/tiles/Eldersap/eldersap_tree.gd" id="1_5mrou"]
+[ext_resource type="Texture2D" uid="uid://cmo0kashmav7h" path="res://assets/tiles/Eldersap/sprite sheet.png" id="2_727l8"]
 [ext_resource type="Script" path="res://entity/player/RichTextLabel.gd" id="4_ovg25"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e38u"]

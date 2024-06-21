@@ -1,5 +1,5 @@
 extends Line2D
-@onready var camera = $"../player/Camera2D"
+@onready var camera = $"../../player/Camera2D"
 @export var parallaxvelocityX: float #SO LEMBRAR QUE É INVERTIDO!!!
 @export var parallaxvelocityY: float 
  
@@ -9,7 +9,7 @@ func _ready():
 func _physics_process(_delta):
 	while camera == null:
 		print("")		
-	camera = $"../player/Camera2D"
+	camera = $"../../player/Camera2D"
 	self.set_point_position(0,Vector2(to_local(camera.global_position).x / parallaxvelocityX , to_local(camera.global_position).y / parallaxvelocityY -100))
 	self.set_point_position(1,Vector2(to_local(camera.global_position).x / parallaxvelocityX , to_local(camera.global_position).y / parallaxvelocityY +100))
 	#TODO GABRIEL  
