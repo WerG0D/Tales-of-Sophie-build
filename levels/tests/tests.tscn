@@ -2732,6 +2732,8 @@ material = SubResource("ShaderMaterial_snqm3")
 position = Vector2(253, 21)
 texture = SubResource("CanvasTexture_fud3y")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Tiles"]
+
 [node name="Shaders" type="Node2D" parent="."]
 
 [node name="PointLight2D" type="PointLight2D" parent="Shaders"]

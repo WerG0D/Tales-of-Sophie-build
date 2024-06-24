@@ -205,7 +205,7 @@ collision_mask = 2
 script = ExtResource("1_5mrou")
 
 [node name="growth_timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 0.2
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
