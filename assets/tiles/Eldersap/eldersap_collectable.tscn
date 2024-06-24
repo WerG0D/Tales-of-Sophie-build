@@ -1,89 +1,92 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkcqes42l5jw3"]
+[gd_scene load_steps=8 format=3 uid="uid://bkcqes42l5jw3"]
 
-[ext_resource type="Texture2D" uid="uid://bferlrnraiqb" path="res://assets/tiles/Misc/greencoconut.jpg" id="1_bcvsv"]
 [ext_resource type="Script" path="res://assets/tiles/Eldersap/eldersap_collectable.gd" id="1_q2mfe"]
+[ext_resource type="Texture2D" uid="uid://cfiys3m2u1fc7" path="res://assets/tiles/Eldersap/sap2.png" id="2_7i6r0"]
+[ext_resource type="Shader" path="res://shaders/shine.gdshader" id="2_yr3j2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1uv80"]
+shader = ExtResource("2_yr3j2")
+shader_parameter/shine_color = Color(1, 1, 1, 0.757)
+shader_parameter/line_width = 0.35
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 1.0
+shader_parameter/wait_cycles = 1.0
+
+[sub_resource type="Animation" id="Animation_iydsj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 3
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_vogyp"]
 resource_name = "fade"
-length = 0.60001
+length = 0.30001
+loop_mode = 1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 417.415)]
+"values": [Vector2(0, 0), Vector2(0, 25), Vector2(0, -25)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
+tracks/1/interp = 3
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.74533]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_dw824"]
-resource_name = "sapfall"
-length = 0.60001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 184), Vector2(0, 329), Vector2(0, 417.415)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.820305, 1.22522, 1.74533]
+"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a0ipq"]
 _data = {
-"fade": SubResource("Animation_vogyp"),
-"sapfall": SubResource("Animation_dw824")
+"RESET": SubResource("Animation_iydsj"),
+"sapfall": SubResource("Animation_vogyp")
 }
 
 [node name="EldersapCollectable" type="StaticBody2D"]
+modulate = Color(1.2, 1.2, 1.2, 1)
 script = ExtResource("1_q2mfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_bcvsv")
+self_modulate = Color(1, 0.823529, 0.00392157, 1)
+material = SubResource("ShaderMaterial_1uv80")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_7i6r0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_a0ipq")
 }
+speed_scale = 0.1

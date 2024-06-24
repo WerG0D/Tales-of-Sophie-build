@@ -13,29 +13,30 @@ func _ready():
 func _process(_delta):
 	#$RichTextLabel.set_text(str("pos:",$AnimatedSprite2D.global_position, " | state:", state))
 	if state == "no sap":
-		$AnimationPlayer.play("idle")
+		$AnimatedSprite2D.play("nosap")
 	if state =="sap":
-		$AnimationPlayer.play("idle")		
+		$AnimatedSprite2D.play("default")
 		if player_in_area:
-			if Input.is_action_just_pressed("e"):
+			if Input.is_action_just_pressed("collect"):
 				state = "no sap"
 				drop_eldersap()
 
 
 
-func _on_pickable_area_body_entered(body):
-	if body.has_method("player"):
-		player_in_area = true
 
-
-func _on_pickable_area_body_exited(body):
-	if body.has_method("player"):
-		player_in_area = false
-
-
-func _on_growth_timer_timeout():
-	if state == "no sap":
-		state = "sap" # Replace with function body.
+#func _on_pickable_area_body_entered(body):
+	#if body.has_method("player"):
+		#player_in_area = true
+#
+#
+#func _on_pickable_area_body_exited(body):
+	#if body.has_method("player"):
+		#player_in_area = false
+#
+#
+#func _on_growth_timer_timeout():
+	#if state == "no sap":
+		#state = "sap" # Replace with function body.
 
 func drop_eldersap():
 	var eldersap_instance = eldersap.instantiate()
@@ -45,3 +46,16 @@ func drop_eldersap():
 
 	await get_tree().create_timer(3).timeout
 	$growth_timer.start()
+
+
+func _on_growth_timer_timeout() -> void:
+	if state == "no sap":
+		state = "sap"
+
+func _on_pickable_area_body_entered(body) -> void:
+	if body.has_method("player"):
+		player_in_area = true
+
+func _on_pickable_area_body_exited(body) -> void:
+	if body.has_method("player"):
+		player_in_area = false

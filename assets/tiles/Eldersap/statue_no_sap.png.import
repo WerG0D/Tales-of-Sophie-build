@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsyl3c6uyyxbj"
-path="res://.godot/imported/Decoratives.png-424364bfebc214f2e14648cc72dd78f7.ctex"
+uid="uid://diyd6nh8g8rhe"
+path="res://.godot/imported/statue_no_sap.png-9415905b139eecc01965b7a3d045ac70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/MainLevelTileSet/Decoratives.png"
-dest_files=["res://.godot/imported/Decoratives.png-424364bfebc214f2e14648cc72dd78f7.ctex"]
+source_file="res://assets/tiles/Eldersap/statue_no_sap.png"
+dest_files=["res://.godot/imported/statue_no_sap.png-9415905b139eecc01965b7a3d045ac70.ctex"]
 
 [params]
 

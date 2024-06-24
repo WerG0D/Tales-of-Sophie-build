@@ -1,6 +1,6 @@
 extends Node2D
 @onready var camera = $Path2D/PathFollow2D/Camera2D
-
+@onready var torchs = $Tiles/Torchs
 var is_openingcutscene = false
 var has_player_entered_area = false
 var player = null
@@ -8,7 +8,6 @@ var is_pathfollowing = false
 var objects_has_happened = false
 var objects_is_happening = false
 
-# Called when the node enters the scene tree for the first time.
 func _physics_process(_delta):
 	if is_openingcutscene:
 		var pathfollower = $Path2D/PathFollow2D
@@ -26,7 +25,6 @@ func _physics_process(_delta):
 				await get_tree().create_timer(0.5).timeout
 				objects_has_happened = true
 				objects_is_happening = false
-
 
 func _on_cutscene_body_entered(body):
 	if body.has_method("player"):

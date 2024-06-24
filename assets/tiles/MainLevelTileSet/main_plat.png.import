@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsyl3c6uyyxbj"
-path="res://.godot/imported/Decoratives.png-424364bfebc214f2e14648cc72dd78f7.ctex"
+uid="uid://cytaer6f0k7ir"
+path="res://.godot/imported/main_plat.png-0431d1350521bc7366e00e2b0da7ce55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/MainLevelTileSet/Decoratives.png"
-dest_files=["res://.godot/imported/Decoratives.png-424364bfebc214f2e14648cc72dd78f7.ctex"]
+source_file="res://assets/tiles/MainLevelTileSet/main_plat.png"
+dest_files=["res://.godot/imported/main_plat.png-0431d1350521bc7366e00e2b0da7ce55.ctex"]
 
 [params]
 
