@@ -1,4 +1,8 @@
 extends CharacterBody2D
+####################### EXPORT VAR #######################
+
+
+####################### ONREADY VAR #######################
 
 @onready var camera = $Camera2D
 @onready var healthcomphead = $Sprite2D/HurtBoxHead/HealthComponentHead
@@ -10,8 +14,12 @@ extends CharacterBody2D
 @onready var animplayer = $AnimationPlayer
 @onready var initialized = true
 
+####################### SIGNALS #######################
+
 signal death
 signal dismember
+
+####################### VARS #########################
 
 var max_speed : int = 1600
 var jump_force : int = 500
@@ -258,35 +266,6 @@ func dismember_bodypart(compname: String) -> void:
 		$"Sprite2D/Dismember Icon LeftLeg".visible = true
 		print("L Leg dismem")	
 	
-func debug():
-	if Input.is_action_just_released("debug"):
-		isdebug = not(isdebug)
-		print("breakpoint")
-	if isdebug:
-		$RichTextLabel.set_text(str(
-		"velocity: ", velocity,"
-		\ntimer sec: ", $DashTimer.time_left,"
-		\ntimer run: ", $DashTimer.is_stopped(),"		
-		\ndashing: ", is_dash,"
-		\ngravity: ", is_gravity))
-	else:
-		$RichTextLabel.set_text("")
-	if isdebug and Input.is_action_pressed("ctrl"):
-		if Input.is_action_just_pressed("scroll_up"):
-			$Camera2D.zoom = $Camera2D.zoom * 1.2
-			print("zoom:",$Camera2D.zoom)
-
-
-		if Input.is_action_just_pressed("scroll_down"):
-			$Camera2D.zoom = $Camera2D.zoom / 1.2
-			print("zoom:",$Camera2D.zoom)
-
-func player(): #faz nada
-	#Essa função só existe para poder identificar o CharactherBody como player em outros scripts. Remover vai quebrar muita coisa
-	#if body.has_method("player"):
-		#player = body
-	pass
-	
 func dash():
 	if (Input.is_action_just_pressed("dash")) and $DashTimer.is_stopped():
 		if $DashTimer.is_stopped():
@@ -356,3 +335,32 @@ func applyGravity():
 	if  !is_on_floor() and is_gravity and !is_walljmp:
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
+
+func debug():
+	if Input.is_action_just_released("debug"):
+		isdebug = not(isdebug)
+		print("breakpoint")
+	if isdebug:
+		$RichTextLabel.set_text(str(
+		"velocity: ", velocity,"
+		\ntimer sec: ", $DashTimer.time_left,"
+		\ntimer run: ", $DashTimer.is_stopped(),"		
+		\ndashing: ", is_dash,"
+		\ngravity: ", is_gravity))
+	else:
+		$RichTextLabel.set_text("")
+	if isdebug and Input.is_action_pressed("ctrl"):
+		if Input.is_action_just_pressed("scroll_up"):
+			$Camera2D.zoom = $Camera2D.zoom * 1.2
+			print("zoom:",$Camera2D.zoom)
+
+
+		if Input.is_action_just_pressed("scroll_down"):
+			$Camera2D.zoom = $Camera2D.zoom / 1.2
+			print("zoom:",$Camera2D.zoom)
+
+func player():
+	#Essa função só existe para poder identificar o CharactherBody como player em outros scripts. Remover vai quebrar muita coisa
+	#if body.has_method("player"):
+		#player = body
+	pass
