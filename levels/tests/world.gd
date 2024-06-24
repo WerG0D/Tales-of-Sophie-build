@@ -1,5 +1,5 @@
 extends Node2D
-@onready var camera = $Path2D/PathFollow2D/Camera2D
+@onready var camera = $"Cutscenes & Areas/Path2D/PathFollow2D/Camera2D"
 @onready var torchs = $Tiles/Torchs
 var is_openingcutscene = false
 var has_player_entered_area = false

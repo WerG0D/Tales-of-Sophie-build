@@ -4813,8 +4813,14 @@ script = ExtResource("78_3wrjh")
 visible = false
 position = Vector2(-1.66588e-06, 0)
 
+[node name="Hook" parent="Chain/Tip" index="0"]
+modulate = Color(0.168627, 0.113725, 1, 1)
+
 [node name="Chain2" parent="." instance=ExtResource("8_bc8it")]
 visible = false
+
+[node name="Hook" parent="Chain2/Tip" index="0"]
+modulate = Color(1, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -5006,3 +5012,6 @@ speed_scale = 0.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
+
+[editable path="Chain"]
+[editable path="Chain2"]
