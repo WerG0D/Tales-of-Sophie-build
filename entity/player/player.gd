@@ -33,8 +33,8 @@ var isdebug = false
 var chain_velocity := Vector2(0,0)
 var chain2_velocity := Vector2(0,0)
 var chain_pull_force = 60
-var on_ground_friction = 0.01 #more is more
-var on_air_friction = 0.002 #more is more (duuhh)
+var on_ground_friction = 0.01
+var on_air_friction = 0.002 
 var unsigned_speed : float
 var gravityfactor = 0.02
 var normal
@@ -77,7 +77,7 @@ func _physics_process(delta):
 	move_and_slide()
 	hook()
 	hook_phys()
-	animateplayerWIP()
+	animate_player()
 	animatedattackWIP()
 	print(velocity.x)
 
@@ -148,46 +148,48 @@ func hook():
 			if Input.is_action_just_pressed("scroll_down"):
 				chain_pull_force = chain_pull_force -10
 
-func animateplayerWIP():
-	if (Input.is_action_pressed("move_left")) and is_input:
-		$Sprite2D.flip_h = true #É realmente necessário fazer o sprite flipar com a posição do mouse? é interessante mas n sei se vamo manter na gameplay
-	if (Input.is_action_pressed("move_right")) and is_input:
-		$Sprite2D.flip_h = false
+func animate_player():
+	handle_horizontal_flip()
+	update_sprite_rotation()
+	play_jump_or_fall_animation()
+	play_movement_animation()
+	handle_special_animations()
+
+func handle_horizontal_flip():
+	if is_input:
+		if Input.is_action_pressed("move_left"):
+			$Sprite2D.flip_h = true
+		elif Input.is_action_pressed("move_right"):
+			$Sprite2D.flip_h = false
+
+func update_sprite_rotation():
 	if $RayCastFloor.is_colliding():
-		$Sprite2D.rotation = normal.angle()+deg_to_rad(90)
-		#$Camera2D.rotation = normal.angle()+deg_to_rad(90)
+		$Sprite2D.rotation = normal.angle() + deg_to_rad(90)
 	else:
 		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
-	#only play the jump animation if the jump button was pressed (idk may need to add a hurt animation l8r)
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp):
-		animplayer.play("jump")
-	if velocity.y < 1 and !is_on_floor() and Input.is_action_just_pressed("jump") and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp) and $Sprite2D.flip_h:
-		animplayer.play("jump_left")
-	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp:
-		animplayer.play("fall")
-	if velocity.y >= 0 and !is_on_floor() and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp and $Sprite2D.flip_h:
-		animplayer.play("fall_left")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp and !$Sprite2D.flip_h)):
-		animplayer.play("idle")
-	if (((velocity.x < 20 and velocity.x > -20) and velocity.y < 10) and is_on_floor() and (!is_attacking and !is_taking_damage and !is_dash and !is_walljmp and $Sprite2D.flip_h)):
-		animplayer.play("idle_left")
-	if ((velocity.x < 10 or velocity.x > -10) and is_on_floor()) and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")):
-		#TODO:
-		#adicionar um check se o controle do player esta habilitado (caso aconteca uma cuscene vai estar desabilitado ai Input.is_action_pressed("move_left") vai ser false e nn vai animar lmao)
-		if (velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp and !$Sprite2D.flip_h:
-			animplayer.play("run")
-			animplayer.speed_scale = unsigned_speed /200
-		if(velocity.x < 10 or velocity.x > -10) and !is_attacking and !is_taking_damage and !is_dash and !is_walljmp and $Sprite2D.flip_h:
-			animplayer.play("run_left")
-			animplayer.speed_scale = unsigned_speed /200
-	if is_dash and !is_walljmp:
-		animplayer.play("dash")
-	if is_dash and !is_walljmp and $Sprite2D.flip_h:
-		animplayer.play("dash_left")
+
+func play_jump_or_fall_animation():
+	if velocity.y < 1 and not is_on_floor() and Input.is_action_just_pressed("jump") and not is_restricted():
+		animplayer.play("jump" if not $Sprite2D.flip_h else "jump_left")
+	elif velocity.y >= 0 and not is_on_floor() and not is_restricted():
+		animplayer.play("fall" if not $Sprite2D.flip_h else "fall_left")
+
+func play_movement_animation():
+	if is_on_floor():
+		if (velocity.x < 20 and velocity.x > -20) and velocity.y < 10 and not is_restricted():
+			animplayer.play("idle" if not $Sprite2D.flip_h else "idle_left")
+		elif velocity.x != 0 and (Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left")) and not is_restricted():
+			animplayer.play("run" if not $Sprite2D.flip_h else "run_left")
+			animplayer.speed_scale = unsigned_speed / 200
+
+func handle_special_animations():
+	if is_dash and not is_walljmp:
+		animplayer.play("dash" if not $Sprite2D.flip_h else "dash_left")
 	if is_walljmp:
-		animplayer.play("walljmp")
-	if is_walljmp and $Sprite2D.flip_h:
-		animplayer.play("walljmp_left")
+		animplayer.play("walljmp" if not $Sprite2D.flip_h else "walljmp_left")
+
+func is_restricted():
+	return is_attacking or is_taking_damage or is_dash or is_walljmp
 
 func animatedattackWIP():
 	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
