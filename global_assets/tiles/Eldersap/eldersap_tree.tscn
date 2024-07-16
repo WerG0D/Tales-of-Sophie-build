@@ -1,8 +1,8 @@
 [gd_scene load_steps=33 format=3 uid="uid://c3x50sjt3lsc2"]
 
-[ext_resource type="Script" path="res://assets/tiles/Eldersap/eldersap_tree.gd" id="1_5mrou"]
-[ext_resource type="Texture2D" uid="uid://cmo0kashmav7h" path="res://assets/tiles/Eldersap/sprite sheet.png" id="2_727l8"]
-[ext_resource type="Texture2D" uid="uid://diyd6nh8g8rhe" path="res://assets/tiles/Eldersap/statue_no_sap.png" id="3_q7j88"]
+[ext_resource type="Script" path="res://global_assets/tiles/Eldersap/eldersap_tree.gd" id="1_5mrou"]
+[ext_resource type="Texture2D" uid="uid://cmo0kashmav7h" path="res://global_assets/tiles/Eldersap/sprite sheet.png" id="2_727l8"]
+[ext_resource type="Texture2D" uid="uid://diyd6nh8g8rhe" path="res://global_assets/tiles/Eldersap/statue_no_sap.png" id="3_q7j88"]
 [ext_resource type="Script" path="res://entity/player/RichTextLabel.gd" id="4_ovg25"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7kas"]

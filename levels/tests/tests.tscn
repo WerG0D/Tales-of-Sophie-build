@@ -2649,9 +2649,7 @@ safe_margin = 1.0
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="EldersapTree" parent="." instance=ExtResource("2_i6he7")]
-modulate = Color(1.5, 1.5, 1.5, 1)
-position = Vector2(-55, -49)
-script = null
+position = Vector2(-48, -48)
 
 [node name="Tiles" type="Node2D" parent="."]
 script = ExtResource("3_s7fqm")
