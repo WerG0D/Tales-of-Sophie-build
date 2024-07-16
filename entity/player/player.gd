@@ -79,7 +79,6 @@ func _physics_process(delta: float) -> void:
 	hook_phys()
 	animate_player()
 	animatedattackWIP()
-	print(velocity.x)
 
 func moveplayer(_delta: float) -> void:
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
@@ -280,7 +279,6 @@ func dash() -> void:
 		# HANDLE STOPPED DASH
 		var dash_speed := 600 
 		
-		#if velocity.x == 0: 
 		if $Sprite2D.flip_h:
 			velocity.x = -dash_speed
 		else:

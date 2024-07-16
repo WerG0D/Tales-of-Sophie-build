@@ -13,6 +13,7 @@ var _is_dead: bool
 var is_attacking: bool 
 var is_taking_damage: bool
 var player: Node
+var dir: int = 1
 @onready var animplayer := $Sprite2D/AnimationPlayer
 @onready var healthcomp := $HealthComponent
 
@@ -25,9 +26,13 @@ func _ready() -> void:
 	healthcomp.death.connect(die)
 
 func _physics_process(delta: float) -> void:
+
+	
+	
 	$RichTextLabel.set_text(str("HP: ",healthcomp._current,
 	"\ndead: ", _is_dead,
-	"\nvelocity:", velocity,
+	"\nwall: ", is_on_wall(),
+	"\nvelocity:", velocity.x,
 	"\nroaming: ", is_roaming, "| atck: ", is_attacking))
 	# Add the gravity.
 	if not is_on_floor():
@@ -37,6 +42,7 @@ func _physics_process(delta: float) -> void:
 		if player_in_area:
 			position.x = lerp(player.position.x, position.x, 1)
 	move_and_slide()
+	move()	
 	animateWIP()
 
 func _damaged(_amount: float, knockback: Vector2) -> void:
@@ -69,7 +75,6 @@ func die() -> void:
 func get_health() -> HealthComponent:
 	return healthcomp
 
-
 func animateWIP() -> void:
 	if !is_taking_damage and !_is_dead and !is_roaming:
 		$Sprite2D/AnimationPlayer.play("idle")
@@ -84,6 +89,15 @@ func animateWIP() -> void:
 		if is_attacking == true:
 			$Sprite2D/AnimationPlayer.play("attack")
 			$Sprite2D/HitboxComponent/CollisionShape2D.disabled = false
+
+func move() -> void:
+	
+	if is_on_wall() and is_on_floor():
+		dir *= -1
+	velocity.x = dir * SPEED
+	print('dir: ' + str(dir))
+	print("speed: " + str(SPEED))
+	print("velocity : " + str(velocity.x))
 
 func _on_animation_player_animation_finished(anim_name: String) -> void:
 	if anim_name == "hurt":
