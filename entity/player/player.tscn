@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://entity/components/HitboxComponent.gd" id="8_36c5d"]
 [ext_resource type="PackedScene" uid="uid://ckuc2ippqahus" path="res://entity/chain/chain.tscn" id="8_bc8it"]
 [ext_resource type="Texture2D" uid="uid://d31ggdxram14e" path="res://entity/player/Graphs/Sophie/sophie_idle.png" id="10_j58qy"]
-[ext_resource type="Texture2D" uid="uid://b8b8d4juo8581" path="res://assets/icons/ConditionIcons/Big (240x240)/Stunned.png" id="12_inlxp"]
+[ext_resource type="Texture2D" uid="uid://b8b8d4juo8581" path="res://global_assets/icons/ConditionIcons/Big (240x240)/Stunned.png" id="12_inlxp"]
 [ext_resource type="Script" path="res://entity/components/HurtboxComponent.gd" id="35_u515o"]
 [ext_resource type="Script" path="res://entity/components/HealthComponent.gd" id="37_hplil"]
 [ext_resource type="Script" path="res://entity/player/RichTextLabel.gd" id="78_3wrjh"]

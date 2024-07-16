@@ -4,15 +4,15 @@ extends CharacterBody2D
 
 ####################### ONREADY VAR #######################
 
-@onready var camera = $Camera2D
-@onready var healthcomphead = $Sprite2D/HurtBoxHead/HealthComponentHead
-@onready var healthcompbody = $Sprite2D/HurtBoxBody/HealthComponentBody
-@onready var healthcompRightArm = $Sprite2D/HurtBoxRArm/HealthComponentRightArm
-@onready var healthcompLeftArm = $Sprite2D/HurtBoxLArm/HealthComponentLeftArm
-@onready var healthcompRightLeg = $Sprite2D/HurtBoxRLeg/HealthComponentRightLeg
-@onready var healthcompLeftLeg = $Sprite2D/HurtBoxLleg/HealthComponentLeftLeg
-@onready var animplayer = $AnimationPlayer
-@onready var initialized = true
+@onready var camera: Camera2D = $Camera2D
+@onready var healthcomphead: HealthComponent = $Sprite2D/HurtBoxHead/HealthComponentHead
+@onready var healthcompbody: HealthComponent = $Sprite2D/HurtBoxBody/HealthComponentBody
+@onready var healthcompRightArm: HealthComponent = $Sprite2D/HurtBoxRArm/HealthComponentRightArm
+@onready var healthcompLeftArm: HealthComponent = $Sprite2D/HurtBoxLArm/HealthComponentLeftArm
+@onready var healthcompRightLeg: HealthComponent = $Sprite2D/HurtBoxRLeg/HealthComponentRightLeg
+@onready var healthcompLeftLeg: HealthComponent = $Sprite2D/HurtBoxLleg/HealthComponentLeftLeg
+@onready var animplayer: AnimationPlayer = $AnimationPlayer
+@onready var initialized := true
 
 ####################### SIGNALS #######################
 
@@ -29,15 +29,15 @@ var dash_duration := 0.2
 var walljmp_timer: int = 0
 var walljmp_cd: int = 20
 var jump_buffer_counter : int = 0
-var isdebug = false
+var isdebug := false
 var chain_velocity := Vector2(0,0)
 var chain2_velocity := Vector2(0,0)
-var chain_pull_force = 60
-var on_ground_friction = 0.01
-var on_air_friction = 0.002 
+var chain_pull_force := 60
+var on_ground_friction := 0.01
+var on_air_friction := 0.002 
 var unsigned_speed : float
-var gravityfactor = 0.02
-var normal
+var gravityfactor := 0.02
+var normal: Vector2
 var _is_dead: bool
 var is_taking_damage: bool
 var is_attacking: bool
@@ -70,7 +70,7 @@ func _ready() -> void:
 	healthcompLeftLeg.death.connect(die)
 	healthcompLeftLeg.dismember_LLEG.connect(dismember_bodypart)
 	
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	set_floor_snap_length(20)
 	debug()
 	moveplayer(delta)
@@ -81,7 +81,7 @@ func _physics_process(delta):
 	animatedattackWIP()
 	print(velocity.x)
 
-func moveplayer(_delta):
+func moveplayer(_delta: float) -> void:
 	unsigned_speed = velocity.x*-1 if (velocity.x < 0) else velocity.x
 	normal = $RayCastFloor.get_collision_normal()
 	applyGravity()
@@ -90,15 +90,15 @@ func moveplayer(_delta):
 	walljmp()
 	dash()
 
-func start_timer(timer: Timer, duration):
+func start_timer(timer: Timer, duration: float) -> void:
 	timer.wait_time = duration
 	timer.one_shot = true
 	timer.start()
 	
-func hook_phys():
+func hook_phys() -> void:
 	# Hook physics
 	if $Chain.hooked:
-		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE
+		var walk := (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE
 		chain_velocity = to_local($Chain.tip).normalized() * chain_pull_force
 		if chain_velocity.y > 0:
 			chain_velocity.y *= 0.55 ##pull pra cima e pra baixo
@@ -111,7 +111,7 @@ func hook_phys():
 	velocity += chain_velocity
 
 	if $Chain2.hooked:
-		var walk = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE
+		var walk := (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * acceleration		####TODO MEIO Q A TECLA FICA ACHANDO Q TA APERTADA QUANDO TA NA CORRENTE
 		chain2_velocity = to_local($Chain2.tip).normalized() * chain_pull_force
 		if chain2_velocity.y > 0:
 			chain2_velocity.y *= 0.55 ##pull pra cima e pra baixo
@@ -123,9 +123,9 @@ func hook_phys():
 		chain2_velocity = Vector2(0,0)
 	velocity += chain2_velocity
 
-func hook():
+func hook() -> void :
 			if Input.is_action_just_pressed("hook") and initialized and !$Chain.hooked and !$Chain.flying :
-				var mouse_viewport_pos = get_viewport().get_mouse_position()
+				var mouse_viewport_pos := get_viewport().get_mouse_position()
 				$Chain.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
 			elif (Input.is_action_just_pressed("hook") or Input.is_action_just_pressed("jump")and $Chain.hooked):
 				$Chain.release()
@@ -137,7 +137,7 @@ func hook():
 				chain_pull_force = chain_pull_force -10
 
 			if Input.is_action_just_pressed("hook2") and initialized and !$Chain2.hooked and !$Chain2.flying :
-				var mouse_viewport_pos = get_viewport().get_mouse_position()
+				var mouse_viewport_pos := get_viewport().get_mouse_position()
 				$Chain2.shoot(mouse_viewport_pos - get_viewport().size * 0.5)
 			elif (Input.is_action_just_pressed("hook2") or Input.is_action_just_pressed("jump") and $Chain2.hooked):
 				$Chain2.release()
@@ -148,33 +148,33 @@ func hook():
 			if Input.is_action_just_pressed("scroll_down"):
 				chain_pull_force = chain_pull_force -10
 
-func animate_player():
+func animate_player() -> void:
 	handle_horizontal_flip()
 	update_sprite_rotation()
 	play_jump_or_fall_animation()
 	play_movement_animation()
 	handle_special_animations()
 
-func handle_horizontal_flip():
+func handle_horizontal_flip() -> void:
 	if is_input:
 		if Input.is_action_pressed("move_left"):
 			$Sprite2D.flip_h = true
 		elif Input.is_action_pressed("move_right"):
 			$Sprite2D.flip_h = false
 
-func update_sprite_rotation():
+func update_sprite_rotation() -> void:
 	if $RayCastFloor.is_colliding():
 		$Sprite2D.rotation = normal.angle() + deg_to_rad(90)
 	else:
 		$Sprite2D.rotation = lerp($Sprite2D.rotation, 0.0, 0.08)
 
-func play_jump_or_fall_animation():
+func play_jump_or_fall_animation() -> void:
 	if velocity.y < 1 and not is_on_floor() and Input.is_action_just_pressed("jump") and not is_restricted():
 		animplayer.play("jump" if not $Sprite2D.flip_h else "jump_left")
 	elif velocity.y >= 0 and not is_on_floor() and not is_restricted():
 		animplayer.play("fall" if not $Sprite2D.flip_h else "fall_left")
 
-func play_movement_animation():
+func play_movement_animation() -> void:
 	if is_on_floor():
 		if (velocity.x < 20 and velocity.x > -20) and velocity.y < 10 and not is_restricted():
 			animplayer.play("idle" if not $Sprite2D.flip_h else "idle_left")
@@ -182,16 +182,16 @@ func play_movement_animation():
 			animplayer.play("run" if not $Sprite2D.flip_h else "run_left")
 			animplayer.speed_scale = unsigned_speed / 200
 
-func handle_special_animations():
+func handle_special_animations() -> void:
 	if is_dash and not is_walljmp:
 		animplayer.play("dash" if not $Sprite2D.flip_h else "dash_left")
 	if is_walljmp:
 		animplayer.play("walljmp" if not $Sprite2D.flip_h else "walljmp_left")
 
-func is_restricted():
+func is_restricted() -> bool:
 	return is_attacking or is_taking_damage or is_dash or is_walljmp
 
-func animatedattackWIP():
+func animatedattackWIP() -> void:
 	if Input.is_action_just_pressed("attack") and !$Sprite2D.flip_h:
 		is_attacking = true
 		if is_attacking:
@@ -268,7 +268,7 @@ func dismember_bodypart(compname: String) -> void:
 		$"Sprite2D/Dismember Icon LeftLeg".visible = true
 		print("L Leg dismem")	
 	
-func dash():
+func dash() -> void:
 	if (Input.is_action_just_pressed("dash")) and $DashTimer.is_stopped():
 		if $DashTimer.is_stopped():
 			start_timer($DashTimer, dash_duration)
@@ -278,7 +278,7 @@ func dash():
 		is_input = false
 		is_dash = true
 		# HANDLE STOPPED DASH
-		var dash_speed = 600 
+		var dash_speed := 600 
 		
 		#if velocity.x == 0: 
 		if $Sprite2D.flip_h:
@@ -291,7 +291,7 @@ func dash():
 		is_dash = false
 		is_input = true
 					
-func jump():
+func jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor() and is_input:
 		jump_buffer_counter = jump_buffer_time
 	if jump_buffer_counter > 0:
@@ -303,7 +303,7 @@ func jump():
 		if velocity.y < 0:
 			velocity.y *= 0.2
 
-func walljmp():
+func walljmp() -> void:
 	if velocity.y >= 10 and is_on_wall_only() and is_input and walljmp_timer <= walljmp_cd:
 		walljmp_timer += 1
 		is_walljmp = true
@@ -312,8 +312,8 @@ func walljmp():
 		walljmp_timer = 0
 		is_walljmp = false		
 	
-func moveRL():
-	var friction = on_ground_friction if is_on_floor() else on_air_friction
+func moveRL() -> void:
+	var friction := on_ground_friction if is_on_floor() else on_air_friction
 	if is_dash:
 		friction *= 4
 	if Input.is_action_pressed("move_right") and (!$Chain.hooked and !$Chain2.hooked) and is_input: #cant walk wile hooked
@@ -333,12 +333,12 @@ func moveRL():
 			velocity.x = 0
 	velocity.x = clamp(velocity.x, -max_speed, max_speed)
 	
-func applyGravity():
+func applyGravity() -> void:
 	if  !is_on_floor() and is_gravity and !is_walljmp:
 		velocity.y = lerp(velocity.y, float(max_speed),0.02)
 		velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 
-func debug():
+func debug() -> void:
 	if Input.is_action_just_released("debug"):
 		isdebug = not(isdebug)
 		print("breakpoint")
@@ -361,7 +361,7 @@ func debug():
 			$Camera2D.zoom = $Camera2D.zoom / 1.2
 			print("zoom:",$Camera2D.zoom)
 
-func player():
+func player() -> void:
 	#Essa função só existe para poder identificar o CharactherBody como player em outros scripts. Remover vai quebrar muita coisa
 	#if body.has_method("player"):
 		#player = body

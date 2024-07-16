@@ -6,7 +6,7 @@
 [sub_resource type="GDScript" id="GDScript_sjgqf"]
 script/source = "
 extends Node2D
-@export var chain_len = 250
+@export var chain_len := 250
 var direction := Vector2(0,0)
 var tip := Vector2(0,0)
 
@@ -15,8 +15,8 @@ var tip := Vector2(0,0)
 
 const SPEED = 20
 
-var flying = false
-var hooked = false
+var flying := false
+var hooked := false
 
 func shoot(dir: Vector2) -> void:
 	direction = dir.normalized()
@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 	self.visible = flying or hooked
 	if not self.visible:
 		return
-	var tip_loc = to_local(tip)
+	var tip_loc := to_local(tip)
 
 	$Tip.rotation = self.position.angle_to_point(tip_loc) - deg_to_rad(90)
 	$Line2D.set_point_position(0, tip_loc)
@@ -49,9 +49,6 @@ func _physics_process(_delta: float) -> void:
 			hooked = true
 			flying = false
 	tip = $Tip.global_position
-
-
-
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ua10k"]

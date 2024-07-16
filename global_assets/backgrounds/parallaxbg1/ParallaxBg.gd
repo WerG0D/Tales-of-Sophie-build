@@ -1,12 +1,12 @@
 extends Line2D
-@onready var camera = $"../../player/Camera2D"
+@onready var camera := $"../../player/Camera2D"
 @export var parallaxvelocityX: float #SO LEMBRAR QUE É INVERTIDO!!!
 @export var parallaxvelocityY: float 
  
-var camerainit = Vector2()
-func _ready():
+var camerainit := Vector2()
+func _ready() -> void:
 	camerainit = camera.global_position
-func _physics_process(_delta):
+func _physics_process(_delta: float) -> void:
 	while camera == null:
 		print("")		
 	camera = $"../../player/Camera2D"

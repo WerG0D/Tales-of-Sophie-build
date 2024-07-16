@@ -4,7 +4,7 @@ const DEAD_ZONE = 1
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var _target = event.position - get_viewport().size * 0.5
+		var _target: Vector2 = event.position - get_viewport().size * 0.5
 		if _target.length() < DEAD_ZONE:
 			self.position = Vector2(0,0)
 		else:

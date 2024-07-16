@@ -5,26 +5,26 @@ signal death
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var is_roaming: bool = false
-var skeletondmg = 50
-var skeletonstuntime = 0.5
-var skeletonknockbackforce = 0.5
-var player_in_area = false
-var player
+var skeletondmg := 50
+var skeletonstuntime := 0.5
+var skeletonknockbackforce := 0.5
+var player_in_area := false
 var _is_dead: bool
 var is_attacking: bool 
 var is_taking_damage: bool
-@onready var animplayer = $Sprite2D/AnimationPlayer
-@onready var healthcomp = $HealthComponent
+var player: Node
+@onready var animplayer := $Sprite2D/AnimationPlayer
+@onready var healthcomp := $HealthComponent
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	healthcomp.damaged.connect(_damaged)
 	healthcomp.death.connect(die)
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	$RichTextLabel.set_text(str("HP: ",healthcomp._current,
 	"\ndead: ", _is_dead,
 	"\nvelocity:", velocity,
@@ -70,7 +70,7 @@ func get_health() -> HealthComponent:
 	return healthcomp
 
 
-func animateWIP():
+func animateWIP() -> void:
 	if !is_taking_damage and !_is_dead and !is_roaming:
 		$Sprite2D/AnimationPlayer.play("idle")
 	if Input.is_action_just_pressed("roaming"):
@@ -85,7 +85,7 @@ func animateWIP():
 			$Sprite2D/AnimationPlayer.play("attack")
 			$Sprite2D/HitboxComponent/CollisionShape2D.disabled = false
 
-func _on_animation_player_animation_finished(anim_name):
+func _on_animation_player_animation_finished(anim_name: String) -> void:
 	if anim_name == "hurt":
 		is_taking_damage  = false
 	if anim_name == "attack":
