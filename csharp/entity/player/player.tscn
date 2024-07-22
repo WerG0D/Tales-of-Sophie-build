@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entity/player/player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
-[ext_resource type="Script" path="res://entity/player/Camera2D.cs" id="4_87wg4"]
+[ext_resource type="Script" path="res://entity/player/PlayerCamera2D.cs" id="4_87wg4"]
 [ext_resource type="Texture2D" uid="uid://dm1bibfmlvsbi" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://dnp6dylg8t7ad" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="Script" path="res://entity/components/HitBoxComponent.cs" id="8_36c5d"]
@@ -4840,8 +4840,6 @@ vframes = 11
 visible = false
 collision_mask = 10
 script = ExtResource("8_36c5d")
-damage = 100.0
-knockback_enabled = true
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(-7.98346, -8.6742)
@@ -4855,10 +4853,9 @@ shape = SubResource("RectangleShape2D_pcw4w")
 disabled = true
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
-[node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxHead" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
 position = Vector2(0, -6.7466)
@@ -4868,10 +4865,9 @@ shape = SubResource("CircleShape2D_ljyal")
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 
-[node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxBody" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
 position = Vector2(0, 2.8914)
@@ -4881,10 +4877,9 @@ shape = SubResource("RectangleShape2D_n4gu4")
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100000
 
-[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
 position = Vector2(6.20936, 2.8589)
@@ -4897,10 +4892,9 @@ script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 metadata/_edit_lock_ = true
 
-[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
 position = Vector2(-6.20936, 3.3733)
@@ -4912,10 +4906,9 @@ shape = SubResource("RectangleShape2D_00s58")
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 
-[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
 position = Vector2(3.5482, 13.1913)
@@ -4926,10 +4919,9 @@ shape = SubResource("RectangleShape2D_dlu1y")
 script = ExtResource("37_hplil")
 MAX_HEALTH = 100
 
-[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D"]
 collision_mask = 10
 script = ExtResource("35_u515o")
-health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
 position = Vector2(-3.10468, 13.1677)

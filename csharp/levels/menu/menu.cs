@@ -1,19 +1,20 @@
 using Godot;
 using System;
 
-public partial class Control : Godot.Control
+public partial class Menu : Godot.Control
 {
-    // Called when the node enters the scene tree for the first time.
+    PackedScene packedScene;
     public override void _Ready()
     {
         GetNode<Button>("VBoxContainer/StartButton").GrabFocus();
-        Level levelScene = GD.Load<tests>("res://levels/tests/tests.tscn");
+        packedScene = (PackedScene)GD.Load("res://levels/tests/tests.tscn");
     }
 
     // Called when the StartButton is pressed
-    public void _on_StartButton_pressed()
+    public void _on_start_button_pressed()
     {
-        var menu = levelScene = levelScene.Instantiate();  
+        Node node = packedScene.Instantiate();
+        GetTree().Root.AddChild(node); 
     }
 
     // Called when the OptionsButton is pressed

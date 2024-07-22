@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class MyCamera2D : Camera2D
+public partial class PlayerCamera2D : Camera2D
 {
     public float DEAD_ZONE { get; private set; }
 

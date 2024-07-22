@@ -4,41 +4,41 @@ using System;
 public partial class HealthComponent : Node2D
 {
     [Export] public int MAX_HEALTH { get; set; }
-    private float _current;
+    public float CurrentHP;
 
-    [Signal] delegate void DismemberHead(string compname);
-    [Signal] delegate void DismemberRARM(string compname);
-    [Signal] delegate void DismemberLARM(string compname);
-    [Signal] delegate void DismemberRLEG(string compname);
-    [Signal] delegate void DismemberLLEG(string compname);
+    [Signal] public delegate void DismemberHeadEventHandler(string compname);
+    [Signal] public delegate void DismemberRARMEventHandler(string compname);
+    [Signal] public delegate void DismemberLARMEventHandler(string compname);
+    [Signal] public delegate void DismemberRLEGEventHandler(string compname);
+    [Signal] public delegate void DismemberLLEGEventHandler(string compname);
 
-    [Signal] delegate void Death();
-    [Signal] delegate void Damaged(float amount, Vector2 knockback);
+    [Signal] public delegate void DeathEventHandler();
+    [Signal] public delegate void DamagedEventHandler(float amount, Vector2 knockback);
 
     public override void _Ready()
     {
-        _current = MAX_HEALTH;
+        CurrentHP = MAX_HEALTH;
     }
 
     public void HealthReduce(float amount, Vector2 knockback)
     {
         if (Name == "HealthComponentHead")
         {
-            _current -= 2.5f * amount;
-            _current = Math.Max(_current, 0.0f);
+            CurrentHP -= 2.5f * amount;
+            CurrentHP = Math.Max(CurrentHP, 0.0f);
         }
         else if (Name == "HealthComponentBody")
         {
-            _current -= 0.2f * amount;
-            _current = Math.Max(_current, 0.0f);
+            CurrentHP -= 0.2f * amount;
+            CurrentHP = Math.Max(CurrentHP, 0.0f);
         }
         else
         {
-            _current -= amount;
-            _current = Math.Max(_current, 0.0f);
+            CurrentHP -= amount;
+            CurrentHP = Math.Max(CurrentHP, 0.0f);
         }
 
-        if (_current <= 0.0f)
+        if (CurrentHP <= 0.0f)
         {
             if (Name == "HealthComponentHead")
             {

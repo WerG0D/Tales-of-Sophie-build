@@ -1,15 +1,14 @@
 using Godot;
 using System;
-
-public partial class HurtboxComponent : Node
+[GlobalClass]
+public partial class HurtboxComponent : Area2D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	[Export] HealthComponent health_component;
+	public Vector2 last_attack_vector; 
+	
+	public void TakeDamage(float amount, Vector2 knockback, HitBoxComponent source) {
+		last_attack_vector = GlobalPosition - (Vector2)source.GetOwner()._Get("GlobalPosition");
+		health_component.HealthReduce(amount, knockback);
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 }
