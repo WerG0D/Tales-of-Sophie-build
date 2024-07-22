@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://fnf2qr4inu8i"]
+
+[ext_resource type="Texture2D" uid="uid://cqddkhr6nonvh" path="res://assets/backgrounds/parallaxbg1/Background/Background1.png" id="1_wlbcj"]
+[ext_resource type="Texture2D" uid="uid://cjhy1rx23q35q" path="res://assets/backgrounds/parallaxbg1/Background/Background2.png" id="2_2mqh5"]
+[ext_resource type="Texture2D" uid="uid://7ifqaekc0l3d" path="res://assets/backgrounds/parallaxbg1/Background/Background3.png" id="3_yjh7p"]
+[ext_resource type="Texture2D" uid="uid://dh7003jyg0bpu" path="res://assets/backgrounds/parallaxbg1/Background/Background debug.png" id="4_j66uw"]
+[ext_resource type="Texture2D" uid="uid://csfq123c2wy0j" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="5_txwmy"]
+
+[sub_resource type="GDScript" id="GDScript_a1gef"]
+script/source = "extends ParallaxBackground
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	#$RichTextLabel.set_text(str(\"HP: \", $\".\".global_position))
+	pass
+"
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+follow_viewport_enabled = true
+script = SubResource("GDScript_a1gef")
+
+[node name="Fundo" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo"]
+texture = ExtResource("1_wlbcj")
+
+[node name="Fundo2" type="ParallaxLayer" parent="."]
+position = Vector2(320, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo2"]
+texture = ExtResource("1_wlbcj")
+
+[node name="Fundo3" type="ParallaxLayer" parent="."]
+position = Vector2(1280, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Fundo3"]
+texture = ExtResource("1_wlbcj")
+
+[node name="Montanha_Deepest" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Deepest"]
+texture = ExtResource("2_2mqh5")
+
+[node name="Montanha_Deepest2" type="ParallaxLayer" parent="."]
+position = Vector2(320, 0)
+motion_mirroring = Vector2(639, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Deepest2"]
+texture = ExtResource("2_2mqh5")
+
+[node name="Montanha_Deepest3" type="ParallaxLayer" parent="."]
+position = Vector2(960, 0)
+motion_mirroring = Vector2(639, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Deepest3"]
+texture = ExtResource("2_2mqh5")
+
+[node name="Montanha_Deep" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Deep"]
+texture = ExtResource("3_yjh7p")
+
+[node name="Montanha_Deep2" type="ParallaxLayer" parent="."]
+position = Vector2(320, 0)
+motion_mirroring = Vector2(639, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Deep2"]
+texture = ExtResource("3_yjh7p")
+
+[node name="Montanha_Near" type="ParallaxLayer" parent="."]
+visible = false
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Near"]
+texture = ExtResource("4_j66uw")
+
+[node name="Montanha_Near2" type="ParallaxLayer" parent="."]
+visible = false
+position = Vector2(320, 0)
+motion_mirroring = Vector2(639, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Near2"]
+texture = ExtResource("4_j66uw")
+
+[node name="Montanha_Nearest" type="ParallaxLayer" parent="."]
+visible = false
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Nearest"]
+texture = ExtResource("5_txwmy")
+
+[node name="Montanha_Nearest2" type="ParallaxLayer" parent="."]
+visible = false
+position = Vector2(320, 0)
+motion_mirroring = Vector2(639, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Montanha_Nearest2"]
+scale = Vector2(1, 1.00242)
+texture = ExtResource("5_txwmy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(9.36, 1)

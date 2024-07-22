@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cn70xcy6cqkk0"]
+
+[ext_resource type="Script" path="res://entity/chain/Chain.cs" id="1_222em"]
+[ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="2_evmuk"]
+[ext_resource type="Texture2D" uid="uid://dcbc7c2skmgik" path="res://entity/chain/graphs/HOOK.png" id="3_2p0ru"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ua10k"]
+radius = 3.0
+height = 8.0
+
+[node name="Chain" type="Node2D"]
+script = ExtResource("1_222em")
+
+[node name="Line2D" type="Line2D" parent="."]
+texture_repeat = 2
+points = PackedVector2Array(0, -100, 0, 0)
+width = 5.0
+texture = ExtResource("2_evmuk")
+texture_mode = 1
+
+[node name="Tip" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 10
+
+[node name="Hook" type="Sprite2D" parent="Tip"]
+position = Vector2(0, -1.78814e-07)
+texture = ExtResource("3_2p0ru")
+offset = Vector2(0, 6.705)
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_ua10k")
