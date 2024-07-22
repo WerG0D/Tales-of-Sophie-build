@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dokt3153uh26b"
-path="res://.godot/imported/Shredded.png-c061e6c92328a1b0728a7492292d01f6.ctex"
+path="res://.godot/imported/Shredded.png-3d7040fd206f98e6f0b94181f4da48f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Solid (240x240)/Shredded.png"
-dest_files=["res://.godot/imported/Shredded.png-c061e6c92328a1b0728a7492292d01f6.ctex"]
+source_file="res://assets/icons/ConditionIcons/Solid (240x240)/Shredded.png"
+dest_files=["res://.godot/imported/Shredded.png-3d7040fd206f98e6f0b94181f4da48f0.ctex"]
 
 [params]
 

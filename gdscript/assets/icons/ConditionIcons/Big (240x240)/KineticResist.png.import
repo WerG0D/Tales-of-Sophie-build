@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2pkx04tanwyo"
-path="res://.godot/imported/KineticResist.png-e833496a3c49776318423df8bc54e97d.ctex"
+path="res://.godot/imported/KineticResist.png-57d8398879ff26223f0b5a0bcdde150d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/KineticResist.png"
-dest_files=["res://.godot/imported/KineticResist.png-e833496a3c49776318423df8bc54e97d.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/KineticResist.png"
+dest_files=["res://.godot/imported/KineticResist.png-57d8398879ff26223f0b5a0bcdde150d.ctex"]
 
 [params]
 

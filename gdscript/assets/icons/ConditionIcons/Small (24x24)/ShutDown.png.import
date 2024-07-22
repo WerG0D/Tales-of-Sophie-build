@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://fqdhrmy0j23v"
-path="res://.godot/imported/ShutDown.png-8fa031fda44079b794d48af67bd6f952.ctex"
+path="res://.godot/imported/ShutDown.png-c554f1028ee255204d3c73c7d712d99c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/ShutDown.png"
-dest_files=["res://.godot/imported/ShutDown.png-8fa031fda44079b794d48af67bd6f952.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/ShutDown.png"
+dest_files=["res://.godot/imported/ShutDown.png-c554f1028ee255204d3c73c7d712d99c.ctex"]
 
 [params]
 

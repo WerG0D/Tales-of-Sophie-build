@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7w4u5tws06e5"
-path="res://.godot/imported/Immobilized.png-7915d73e95a6fe40de0c69f29e7a4f31.ctex"
+path="res://.godot/imported/Immobilized.png-437232cea37cc3e4769a9721c2f9a82a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/Immobilized.png"
-dest_files=["res://.godot/imported/Immobilized.png-7915d73e95a6fe40de0c69f29e7a4f31.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/Immobilized.png"
+dest_files=["res://.godot/imported/Immobilized.png-437232cea37cc3e4769a9721c2f9a82a.ctex"]
 
 [params]
 

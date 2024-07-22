@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brw355y4vjqw5"
-path="res://.godot/imported/EnergyImmune.png-e930609dec58d1ffa0e375cd1ef0d3ef.ctex"
+path="res://.godot/imported/EnergyImmune.png-31247090f5d9abb2e8d5b7e44c7d1a01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/EnergyImmune.png"
-dest_files=["res://.godot/imported/EnergyImmune.png-e930609dec58d1ffa0e375cd1ef0d3ef.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/EnergyImmune.png"
+dest_files=["res://.godot/imported/EnergyImmune.png-31247090f5d9abb2e8d5b7e44c7d1a01.ctex"]
 
 [params]
 

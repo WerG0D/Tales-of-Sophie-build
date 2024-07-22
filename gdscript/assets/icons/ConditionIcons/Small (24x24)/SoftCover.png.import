@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpolg1cf7lg2q"
-path="res://.godot/imported/SoftCover.png-21a24c02bd6b4f12afa40abe4190fabf.ctex"
+path="res://.godot/imported/SoftCover.png-148883289ad72591e66dae72027e334e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/SoftCover.png"
-dest_files=["res://.godot/imported/SoftCover.png-21a24c02bd6b4f12afa40abe4190fabf.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/SoftCover.png"
+dest_files=["res://.godot/imported/SoftCover.png-148883289ad72591e66dae72027e334e.ctex"]
 
 [params]
 

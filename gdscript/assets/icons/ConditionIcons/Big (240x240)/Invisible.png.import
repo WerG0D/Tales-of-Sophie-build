@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://swi85mehc0ux"
-path="res://.godot/imported/Invisible.png-bf65ac1625861c7c8d0f7d69034ed5ca.ctex"
+path="res://.godot/imported/Invisible.png-76697c5a183fe2a5686fb318e89a96cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/Invisible.png"
-dest_files=["res://.godot/imported/Invisible.png-bf65ac1625861c7c8d0f7d69034ed5ca.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/Invisible.png"
+dest_files=["res://.godot/imported/Invisible.png-76697c5a183fe2a5686fb318e89a96cd.ctex"]
 
 [params]
 

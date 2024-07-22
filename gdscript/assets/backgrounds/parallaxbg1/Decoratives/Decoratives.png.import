@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d143300tkn321"
-path="res://.godot/imported/Decoratives.png-efcafa49705cb1183a247b6f5f9126cf.ctex"
+path="res://.godot/imported/Decoratives.png-4905813a60d01005ebb382fe74a39665.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/backgrounds/parallaxbg1/Decoratives/Decoratives.png"
-dest_files=["res://.godot/imported/Decoratives.png-efcafa49705cb1183a247b6f5f9126cf.ctex"]
+source_file="res://assets/backgrounds/parallaxbg1/Decoratives/Decoratives.png"
+dest_files=["res://.godot/imported/Decoratives.png-4905813a60d01005ebb382fe74a39665.ctex"]
 
 [params]
 

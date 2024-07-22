@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1sggrc7ysxcu"
-path="res://.godot/imported/LockOn.png-5170380d1dd36de04cab2777c202269d.ctex"
+path="res://.godot/imported/LockOn.png-938861b2b19a898ae5a30fdc0f454360.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Solid (240x240)/LockOn.png"
-dest_files=["res://.godot/imported/LockOn.png-5170380d1dd36de04cab2777c202269d.ctex"]
+source_file="res://assets/icons/ConditionIcons/Solid (240x240)/LockOn.png"
+dest_files=["res://.godot/imported/LockOn.png-938861b2b19a898ae5a30fdc0f454360.ctex"]
 
 [params]
 

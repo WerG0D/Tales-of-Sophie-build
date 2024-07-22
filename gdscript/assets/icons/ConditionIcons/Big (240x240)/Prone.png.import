@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4l423cjosp25"
-path="res://.godot/imported/Prone.png-df53485200b40612d30fc7b0668cf2a8.ctex"
+path="res://.godot/imported/Prone.png-38235e712bda96c3f094e2c317800777.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/Prone.png"
-dest_files=["res://.godot/imported/Prone.png-df53485200b40612d30fc7b0668cf2a8.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/Prone.png"
+dest_files=["res://.godot/imported/Prone.png-38235e712bda96c3f094e2c317800777.ctex"]
 
 [params]
 

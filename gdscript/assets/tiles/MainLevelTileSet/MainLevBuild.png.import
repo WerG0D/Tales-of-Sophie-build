@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhfftuyimcu2x"
-path="res://.godot/imported/MainLevBuild.png-81874fd2feba8394107fd2e3b1ce90e4.ctex"
+path="res://.godot/imported/MainLevBuild.png-1c452e4d0fee12691da34665f81cb21b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/tiles/MainLevelTileSet/MainLevBuild.png"
-dest_files=["res://.godot/imported/MainLevBuild.png-81874fd2feba8394107fd2e3b1ce90e4.ctex"]
+source_file="res://assets/tiles/MainLevelTileSet/MainLevBuild.png"
+dest_files=["res://.godot/imported/MainLevBuild.png-1c452e4d0fee12691da34665f81cb21b.ctex"]
 
 [params]
 

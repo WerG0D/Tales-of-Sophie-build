@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dx8l88pfdd20s"
-path="res://.godot/imported/book_shelf_stairs.png-108c23d6505954401cb5d1c15e76940e.ctex"
+path="res://.godot/imported/book_shelf_stairs.png-3c8b1142196ef01c27973e22867be0d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/tiles/Misc/book_shelf_stairs.png"
-dest_files=["res://.godot/imported/book_shelf_stairs.png-108c23d6505954401cb5d1c15e76940e.ctex"]
+source_file="res://assets/tiles/Misc/book_shelf_stairs.png"
+dest_files=["res://.godot/imported/book_shelf_stairs.png-3c8b1142196ef01c27973e22867be0d1.ctex"]
 
 [params]
 

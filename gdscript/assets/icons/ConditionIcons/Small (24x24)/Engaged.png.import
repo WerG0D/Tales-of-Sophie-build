@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tpq6y0vuehvy"
-path="res://.godot/imported/Engaged.png-ad005aa10a5881d51175508979c4a1d4.ctex"
+path="res://.godot/imported/Engaged.png-4677e1aa717d6ea901487407434dc9bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/Engaged.png"
-dest_files=["res://.godot/imported/Engaged.png-ad005aa10a5881d51175508979c4a1d4.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/Engaged.png"
+dest_files=["res://.godot/imported/Engaged.png-4677e1aa717d6ea901487407434dc9bd.ctex"]
 
 [params]
 

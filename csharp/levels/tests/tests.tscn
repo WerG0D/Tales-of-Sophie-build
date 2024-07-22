@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cuh8nxvkl687a" path="res://assets/tiles/MainLevelTileSet/Decoratives.png" id="5_igtch"]
 [ext_resource type="Texture2D" uid="uid://c1y8rofkdsdba" path="res://assets/tiles/MainLevelTileSet/Torchs/light2.png" id="5_x2y4m"]
 [ext_resource type="Texture2D" uid="uid://b32s4hohfpieo" path="res://assets/tiles/MainLevelTileSet/Torchs/light1.png" id="6_ixaub"]
-[ext_resource type="PackedScene" path="res://entity/skeleton/skeleton.tscn" id="6_qyfn6"]
+[ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="6_qyfn6"]
 [ext_resource type="Script" path="res://assets/backgrounds/parallaxbg1/ParallaxBg.cs" id="14_ogrgr"]
 [ext_resource type="Texture2D" uid="uid://cqddkhr6nonvh" path="res://assets/backgrounds/parallaxbg1/Background/Background1.png" id="17_g1fgk"]
 [ext_resource type="Texture2D" uid="uid://cjhy1rx23q35q" path="res://assets/backgrounds/parallaxbg1/Background/Background2.png" id="18_romjn"]
@@ -2641,7 +2641,6 @@ script = ExtResource("1_22424")
 
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
-texture_filter = 1
 position = Vector2(480, 64)
 scale = Vector2(1, 1)
 safe_margin = 1.0

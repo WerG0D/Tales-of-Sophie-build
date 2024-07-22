@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b77rtqg0odnde"
-path="res://.godot/imported/DownAndOut.png-655e7749303f75baccf4ac946978c227.ctex"
+path="res://.godot/imported/DownAndOut.png-18bf0c543c07dac17a154fecf793f1ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/DownAndOut.png"
-dest_files=["res://.godot/imported/DownAndOut.png-655e7749303f75baccf4ac946978c227.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/DownAndOut.png"
+dest_files=["res://.godot/imported/DownAndOut.png-18bf0c543c07dac17a154fecf793f1ea.ctex"]
 
 [params]
 

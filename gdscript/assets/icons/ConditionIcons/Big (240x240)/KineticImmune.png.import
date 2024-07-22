@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bvcw6irb3ihty"
-path="res://.godot/imported/KineticImmune.png-6f6eb912da06a3b4211b0a709fb07aab.ctex"
+path="res://.godot/imported/KineticImmune.png-a6d3df49aa0e90f0687ee2d3993973a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/KineticImmune.png"
-dest_files=["res://.godot/imported/KineticImmune.png-6f6eb912da06a3b4211b0a709fb07aab.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/KineticImmune.png"
+dest_files=["res://.godot/imported/KineticImmune.png-a6d3df49aa0e90f0687ee2d3993973a3.ctex"]
 
 [params]
 

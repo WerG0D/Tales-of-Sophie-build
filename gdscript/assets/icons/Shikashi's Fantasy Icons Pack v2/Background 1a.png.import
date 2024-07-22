@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b601jlqrqpmut"
-path="res://.godot/imported/Background 1a.png-61b72e3af54dce3fc3a594b5385db190.ctex"
+path="res://.godot/imported/Background 1a.png-a581f371e151fa9dc201a0318c334d89.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/Shikashi's Fantasy Icons Pack v2/Background 1a.png"
-dest_files=["res://.godot/imported/Background 1a.png-61b72e3af54dce3fc3a594b5385db190.ctex"]
+source_file="res://assets/icons/Shikashi's Fantasy Icons Pack v2/Background 1a.png"
+dest_files=["res://.godot/imported/Background 1a.png-a581f371e151fa9dc201a0318c334d89.ctex"]
 
 [params]
 

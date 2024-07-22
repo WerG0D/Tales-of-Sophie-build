@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://diyd6nh8g8rhe"
-path="res://.godot/imported/statue_no_sap.png-c1bf2449549dceba46cc48095351ff53.ctex"
+path="res://.godot/imported/statue_no_sap.png-9415905b139eecc01965b7a3d045ac70.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/tiles/Eldersap/statue_no_sap.png"
-dest_files=["res://.godot/imported/statue_no_sap.png-c1bf2449549dceba46cc48095351ff53.ctex"]
+source_file="res://assets/tiles/Eldersap/statue_no_sap.png"
+dest_files=["res://.godot/imported/statue_no_sap.png-9415905b139eecc01965b7a3d045ac70.ctex"]
 
 [params]
 

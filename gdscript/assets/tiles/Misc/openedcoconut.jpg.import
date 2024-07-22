@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cn3m8bevw7h3s"
-path="res://.godot/imported/openedcoconut.jpg-1c3c07c55b35906236e32dbe0332ad2e.ctex"
+path="res://.godot/imported/openedcoconut.jpg-dffe8aeba07c640251b3453b11f2c5ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/tiles/Misc/openedcoconut.jpg"
-dest_files=["res://.godot/imported/openedcoconut.jpg-1c3c07c55b35906236e32dbe0332ad2e.ctex"]
+source_file="res://assets/tiles/Misc/openedcoconut.jpg"
+dest_files=["res://.godot/imported/openedcoconut.jpg-dffe8aeba07c640251b3453b11f2c5ae.ctex"]
 
 [params]
 

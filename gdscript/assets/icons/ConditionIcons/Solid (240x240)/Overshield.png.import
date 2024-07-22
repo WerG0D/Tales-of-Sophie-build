@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://yfep6bf0t6xs"
-path="res://.godot/imported/Overshield.png-cf31a5f43cfc3437badf6cb714f59fd2.ctex"
+path="res://.godot/imported/Overshield.png-65e10edee9e9110e9fcb1abed9c157b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Solid (240x240)/Overshield.png"
-dest_files=["res://.godot/imported/Overshield.png-cf31a5f43cfc3437badf6cb714f59fd2.ctex"]
+source_file="res://assets/icons/ConditionIcons/Solid (240x240)/Overshield.png"
+dest_files=["res://.godot/imported/Overshield.png-65e10edee9e9110e9fcb1abed9c157b7.ctex"]
 
 [params]
 

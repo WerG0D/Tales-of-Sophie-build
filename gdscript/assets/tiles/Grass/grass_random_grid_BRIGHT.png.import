@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drsrqk0craunc"
-path="res://.godot/imported/grass_random_grid_BRIGHT.png-a621454fe60aea7a23e78a2a45c6e911.ctex"
+path="res://.godot/imported/grass_random_grid_BRIGHT.png-fe35c111346fd061569ef8298a9e916b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/tiles/Grass/grass_random_grid_BRIGHT.png"
-dest_files=["res://.godot/imported/grass_random_grid_BRIGHT.png-a621454fe60aea7a23e78a2a45c6e911.ctex"]
+source_file="res://assets/tiles/Grass/grass_random_grid_BRIGHT.png"
+dest_files=["res://.godot/imported/grass_random_grid_BRIGHT.png-fe35c111346fd061569ef8298a9e916b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cytaer6f0k7ir"
-path="res://.godot/imported/main_plat.png-0431d1350521bc7366e00e2b0da7ce55.ctex"
+uid="uid://dvt06s0g3nnjq"
+path="res://.godot/imported/NightBorne.png-017b87e7383060003282b00d7c271502.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/MainLevelTileSet/main_plat.png"
-dest_files=["res://.godot/imported/main_plat.png-0431d1350521bc7366e00e2b0da7ce55.ctex"]
+source_file="res://entity/nightborn/NightBorne.png"
+dest_files=["res://.godot/imported/NightBorne.png-017b87e7383060003282b00d7c271502.ctex"]
 
 [params]
 

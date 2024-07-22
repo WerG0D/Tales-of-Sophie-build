@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dawjrxv8w451q"
-path="res://.godot/imported/EnergyResist.png-36e40ac1725a32a36d332de58c02d8af.ctex"
+path="res://.godot/imported/EnergyResist.png-afb98f3f09bd3b5d05a5fc424f66b86f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/EnergyResist.png"
-dest_files=["res://.godot/imported/EnergyResist.png-36e40ac1725a32a36d332de58c02d8af.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/EnergyResist.png"
+dest_files=["res://.godot/imported/EnergyResist.png-afb98f3f09bd3b5d05a5fc424f66b86f.ctex"]
 
 [params]
 

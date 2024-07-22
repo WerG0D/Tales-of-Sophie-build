@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crvnn72pvr4d3"
-path="res://.godot/imported/Slowed.png-660c900f7c6d1b18ca507dc8c4c5cee1.ctex"
+path="res://.godot/imported/Slowed.png-b8947eb605f19f349d774b201f500b32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/Slowed.png"
-dest_files=["res://.godot/imported/Slowed.png-660c900f7c6d1b18ca507dc8c4c5cee1.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/Slowed.png"
+dest_files=["res://.godot/imported/Slowed.png-b8947eb605f19f349d774b201f500b32.ctex"]
 
 [params]
 

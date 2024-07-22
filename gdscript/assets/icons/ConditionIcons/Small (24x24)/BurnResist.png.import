@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cv1lrt57cb62d"
-path="res://.godot/imported/BurnResist.png-f0c41581f38db14e0709e48ae6cdd9be.ctex"
+path="res://.godot/imported/BurnResist.png-0691d18ae70df06ed39b3ea75e0e16e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/BurnResist.png"
-dest_files=["res://.godot/imported/BurnResist.png-f0c41581f38db14e0709e48ae6cdd9be.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/BurnResist.png"
+dest_files=["res://.godot/imported/BurnResist.png-0691d18ae70df06ed39b3ea75e0e16e7.ctex"]
 
 [params]
 

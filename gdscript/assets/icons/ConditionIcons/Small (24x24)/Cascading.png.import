@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://p2fdplma1cbi"
-path="res://.godot/imported/Cascading.png-8290d2c5dcef3b0711492e58f994efba.ctex"
+path="res://.godot/imported/Cascading.png-ef4fb0e72a5f23d65c2d6fff33f839c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/Cascading.png"
-dest_files=["res://.godot/imported/Cascading.png-8290d2c5dcef3b0711492e58f994efba.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/Cascading.png"
+dest_files=["res://.godot/imported/Cascading.png-ef4fb0e72a5f23d65c2d6fff33f839c4.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dy6o5dnuvhv6v"
-path="res://.godot/imported/HardCover.png-2c93ca50506b1f7eb897ef9a74466534.ctex"
+path="res://.godot/imported/HardCover.png-fc0f3cffee5185bfad9686a5f71803da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/HardCover.png"
-dest_files=["res://.godot/imported/HardCover.png-2c93ca50506b1f7eb897ef9a74466534.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/HardCover.png"
+dest_files=["res://.godot/imported/HardCover.png-fc0f3cffee5185bfad9686a5f71803da.ctex"]
 
 [params]
 

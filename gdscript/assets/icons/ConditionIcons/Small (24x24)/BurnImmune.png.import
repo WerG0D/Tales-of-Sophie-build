@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dq6nuaqxm4sep"
-path="res://.godot/imported/BurnImmune.png-7eaf82df3594699a759ffe4b075f3a9b.ctex"
+path="res://.godot/imported/BurnImmune.png-540e6139a3cdd7126b3f48842c9424bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/BurnImmune.png"
-dest_files=["res://.godot/imported/BurnImmune.png-7eaf82df3594699a759ffe4b075f3a9b.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/BurnImmune.png"
+dest_files=["res://.godot/imported/BurnImmune.png-540e6139a3cdd7126b3f48842c9424bc.ctex"]
 
 [params]
 

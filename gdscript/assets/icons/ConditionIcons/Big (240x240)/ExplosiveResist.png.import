@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dnvy8cvefnks1"
-path="res://.godot/imported/ExplosiveResist.png-94c420e5640aa5e9a945589a14aa537c.ctex"
+path="res://.godot/imported/ExplosiveResist.png-42cd50147810b47de34996267781359a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/ExplosiveResist.png"
-dest_files=["res://.godot/imported/ExplosiveResist.png-94c420e5640aa5e9a945589a14aa537c.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/ExplosiveResist.png"
+dest_files=["res://.godot/imported/ExplosiveResist.png-42cd50147810b47de34996267781359a.ctex"]
 
 [params]
 

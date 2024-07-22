@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bflk3po4ia42c"
-path="res://.godot/imported/#1 - Transparent Icons.png-d25f9c23987cab9fa0a91e8a344fa3d9.ctex"
+path="res://.godot/imported/#1 - Transparent Icons.png-0f95ad6b0b8b387ca2e1e227a078a0a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png"
-dest_files=["res://.godot/imported/#1 - Transparent Icons.png-d25f9c23987cab9fa0a91e8a344fa3d9.ctex"]
+source_file="res://assets/icons/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png"
+dest_files=["res://.godot/imported/#1 - Transparent Icons.png-0f95ad6b0b8b387ca2e1e227a078a0a0.ctex"]
 
 [params]
 

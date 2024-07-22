@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl5nw48oc4lj0"
-path="res://.godot/imported/Stunned.png-8398dcbbaeee28f885b4632e1b7f5dc3.ctex"
+path="res://.godot/imported/Stunned.png-58c3fe098ade465063b8b574da07e62d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Small (24x24)/Stunned.png"
-dest_files=["res://.godot/imported/Stunned.png-8398dcbbaeee28f885b4632e1b7f5dc3.ctex"]
+source_file="res://assets/icons/ConditionIcons/Small (24x24)/Stunned.png"
+dest_files=["res://.godot/imported/Stunned.png-58c3fe098ade465063b8b574da07e62d.ctex"]
 
 [params]
 

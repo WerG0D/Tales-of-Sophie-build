@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bohpj4hr3ou16"
-path="res://.godot/imported/SelfDestruct.png-6194e7d97f51dff50fb9d272ad9a6115.ctex"
+path="res://.godot/imported/SelfDestruct.png-eba3ce381924a2f5da7f1a7e2ea49cf4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/icons/ConditionIcons/Big (240x240)/SelfDestruct.png"
-dest_files=["res://.godot/imported/SelfDestruct.png-6194e7d97f51dff50fb9d272ad9a6115.ctex"]
+source_file="res://assets/icons/ConditionIcons/Big (240x240)/SelfDestruct.png"
+dest_files=["res://.godot/imported/SelfDestruct.png-eba3ce381924a2f5da7f1a7e2ea49cf4.ctex"]
 
 [params]
 

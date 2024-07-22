@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dw4116ua31vrj"
-path="res://.godot/imported/sap1.png-f179dd25df5028f4b2a4149b1f604d7d.ctex"
+path="res://.godot/imported/sap1.png-8e736e532d52bbadada0e2212e7ca0b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global_assets/tiles/Eldersap/sap1.png"
-dest_files=["res://.godot/imported/sap1.png-f179dd25df5028f4b2a4149b1f604d7d.ctex"]
+source_file="res://assets/tiles/Eldersap/sap1.png"
+dest_files=["res://.godot/imported/sap1.png-8e736e532d52bbadada0e2212e7ca0b4.ctex"]
 
 [params]
 
