@@ -291,9 +291,13 @@ func dash() -> void:
 					
 func jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor() and is_input:
+		
 		jump_buffer_counter = jump_buffer_time
+	
 	if jump_buffer_counter > 0:
+		
 		jump_buffer_counter -= 1
+
 	if jump_buffer_counter > 0:
 		velocity = velocity +get_floor_normal()* jump_force
 		jump_buffer_counter = 0

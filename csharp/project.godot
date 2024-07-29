@@ -15,9 +15,17 @@ run/main_scene="res://levels/menu/menu.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+InputHelper="*res://addons/input_helper/input_helper.gd"
+
 [dotnet]
 
 project/assembly_name="TosCsharp"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/input_helper/plugin.cfg")
 
 [rendering]
 
