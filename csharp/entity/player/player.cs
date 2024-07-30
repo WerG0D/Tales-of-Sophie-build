@@ -72,6 +72,8 @@ public partial class player : CharacterBody2D
 	{
 		Debug();
 		MoveAndSlide();
+		MovePlayer(delta);
+		Hook();
 	}
 
 	
@@ -83,6 +85,7 @@ public partial class player : CharacterBody2D
 		MoveRL();
 		Jump();
 		Walljmp();
+		Dash();
 	}
 	public void MoveRL()
 	{
@@ -189,6 +192,83 @@ public partial class player : CharacterBody2D
 				StartTimer(timer, dash_duration);
 				GD.Print("Timer");
 			}
+		}
+		if (timer.IsStopped() == false) 
+		{
+			is_dash = true;
+			is_gravity = false;
+			is_input = false;
+			var dash_speed = 600;
+
+			if (GetNode<Sprite2D>("Sprite2D").FlipH == true) 
+			{
+				tempVelocity = Velocity;
+				tempVelocity.X = -dash_speed;
+				Velocity = tempVelocity;
+			}
+			else 
+			{
+				tempVelocity = Velocity;
+				tempVelocity.X = dash_speed;
+				Velocity = tempVelocity;
+			}
+			tempVelocity = Velocity;
+			tempVelocity.Y = 0;
+			Velocity = tempVelocity;
+		}
+		else 
+		{
+			is_dash = false;
+			is_gravity = true;
+			is_input = true;
+		}
+	}
+	public void Hook()
+	{
+		if (Input.IsActionJustPressed("hook") && initialized && !GetNode<Chain>("Chain").hooked && !GetNode<Chain>("Chain").flying) 
+		{
+			var mouse_viewport_pos = GetViewport().GetMousePosition();
+			GetNode<Chain>("Chain").shoot((mouse_viewport_pos - GetViewportRect().Size / 2).Normalized()); //Talvez GetViewportRect().Size * 0.5f
+		}
+		else if (Input.IsActionJustPressed("hook") || Input.IsActionJustPressed("jump") && GetNode<Chain>("Chain").hooked) 
+		{
+			GetNode<Chain>("Chain").Release();
+			Velocity = Velocity * 1.2f;
+		}
+		if (Input.IsActionJustPressed("scroll_up")) 
+		{
+			chain_pull_force = chain_pull_force + 10;
+		}
+		if (Input.IsActionJustPressed("scroll_down")) 
+		{
+			chain_pull_force = chain_pull_force - 10;
+		}
+		if (Input.IsActionJustPressed("hook2") && initialized && !GetNode<Chain>("Chain2").hooked && !GetNode<Chain>("Chain2").flying) 
+		{
+			var mouse_viewport_pos = GetViewport().GetMousePosition();
+			GetNode<Chain>("Chain2").shoot((mouse_viewport_pos - GetViewportRect().Size / 2).Normalized()); //Talvez GetViewportRect().Size * 0.5f
+		}
+		else if (Input.IsActionJustPressed("hook2") || Input.IsActionJustPressed("jump") && GetNode<Chain>("Chain2").hooked) 
+		{
+			GetNode<Chain>("Chain2").Release();
+			Velocity = Velocity * 1.2f;
+		}
+	}
+	public void HookPhys()
+	{
+		if (GetNode<Chain>("Chain").hooked) 
+		{
+			chain_velocity = GetNode<Chain>("Chain").chain_velocity;
+			tempVelocity = Velocity;
+			tempVelocity = chain_velocity * chain_pull_force;
+			Velocity = tempVelocity;
+		}
+		if (GetNode<Chain>("Chain2").hooked) 
+		{
+			chain2_velocity = GetNode<Chain>("Chain2").chain_velocity;
+			tempVelocity = Velocity;
+			tempVelocity = chain2_velocity * chain_pull_force;
+			Velocity = tempVelocity;
 		}
 	}
 	public void StartTimer(Timer timer, float duration)
