@@ -1,15 +1,18 @@
 using Godot;
 using System;
 
-public partial class eldersap_collectable : Node
+public partial class eldersap_collectable : StaticBody2D
 {
-	// Called when the node enters the scene tree for the first time.
+	public const float SHINE_TIME = 1.0f;
 	public override void _Ready()
 	{
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+
+	public async void FallFromTree()
 	{
+		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("sapfall");
+		await ToSignal(GetTree().CreateTimer(1.5), "timeout");
+		GD.Print("ElderSap fell, +1 ElderSap");
 	}
 }

@@ -1,8 +1,7 @@
 using Godot;
 using System;
-using System.ComponentModel;
 
-public partial class player : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	// ####################### ONREADY VAR #######################
 	public Camera2D camera;
@@ -17,6 +16,13 @@ public partial class player : CharacterBody2D
 
 	// ####################### ONREADY VAR #######################
 
+	// ####################### SIGNALS #########################
+
+	[Signal] public delegate void DeathEventHandler();
+	[Signal] public delegate void DismemberEventHandler();
+
+	// ####################### SIGNALS #########################
+	
 	// ####################### VARS #########################
 	
 	public int max_speed = 1600;
@@ -56,12 +62,36 @@ public partial class player : CharacterBody2D
 	public override void _Ready()
 	{
 		camera = GetNode<Camera2D>("Camera2D");
+		
 		healthcomphead = GetNode<HealthComponent>("Sprite2D/HurtboxHead/HealthComponentHead");
+		healthcomphead.DismemberHead += DismemberBodyPart;
+		healthcomphead.Damaged += Damage;
+		healthcomphead.Death += Death;
+		
 		healthcompbody = GetNode<HealthComponent>("Sprite2D/HurtboxBody/HealthComponentBody");
+		healthcompbody.Damaged += Damage;
+		healthcompbody.Death += Death;
+
 		healthcompRightArm = GetNode<HealthComponent>("Sprite2D/HurtboxRarm/HealthComponentRightArm");
+		healthcompRightArm.DismemberRARM += DismemberBodyPart;
+		healthcompRightArm.Damaged += Damage;
+		healthcompRightArm.Death += Death;
+
 		healthcompLeftArm = GetNode<HealthComponent>("Sprite2D/HurtboxLarm/HealthComponentLeftArm");
+		healthcompLeftArm.DismemberLARM += DismemberBodyPart;
+		healthcompLeftArm.Damaged += Damage;
+		healthcompLeftArm.Death += Death;	
+
 		healthcompRightLeg = GetNode<HealthComponent>("Sprite2D/HurtboxRLeg/HealthComponentRightLeg");
+		healthcompRightLeg.DismemberRLEG += DismemberBodyPart;
+		healthcompRightLeg.Damaged += Damage;
+		healthcompRightLeg.Death += Death;
+
 		healthcompLeftLeg = GetNode<HealthComponent>("Sprite2D/HurtboxLLeg/HealthComponentLeftLeg");
+		healthcompLeftLeg.DismemberLLEG += DismemberBodyPart;
+		healthcompLeftLeg.Damaged += Damage;
+		healthcompLeftLeg.Death += Death;
+
 		animplayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		initialized = true;
 		
@@ -70,13 +100,14 @@ public partial class player : CharacterBody2D
 
 	public override void _Process(double delta)
 	{
+		FloorSnapLength = 20.0f;
 		Debug();
 		MoveAndSlide();
 		MovePlayer(delta);
 		Hook();
+		HookPhys();
 	}
 
-	
 	public void MovePlayer(double delta) 
 	{
 		unsigned_speed = Velocity.X < 0 ? Velocity.X * -1 : Velocity.X;
@@ -87,6 +118,19 @@ public partial class player : CharacterBody2D
 		Walljmp();
 		Dash();
 	}
+	public void AnimatePlayer()
+	{
+		HandleHorizontalFlip();
+		HandleSpriteRotation();
+		PlayJumpOrFallAnimation();
+		PlayMovementAnimation();
+		PlayDashAnimation();
+		PlayWalljmpAnimation();
+		PlayHurtAnimation();
+		PlayDeathAnimation();
+
+	}
+	// ####################### HANDLE MOVEMENT #########################
 	public void MoveRL()
 	{
 		var friction = IsOnFloor() ? on_ground_friction : on_air_friction;
@@ -258,18 +302,216 @@ public partial class player : CharacterBody2D
 	{
 		if (GetNode<Chain>("Chain").hooked) 
 		{
-			chain_velocity = GetNode<Chain>("Chain").chain_velocity;
-			tempVelocity = Velocity;
-			tempVelocity = chain_velocity * chain_pull_force;
-			Velocity = tempVelocity;
+			var walk = (Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left")) * acceleration;
+			chain_velocity = ToLocal(GetNode<Chain>("Chain").tip).Normalized() * chain_pull_force;
+			if (chain_velocity.Y > 0) 
+			{
+				chain_velocity.Y *= 0.55f;
+
+			}
+			else 
+			{
+				chain_velocity.Y *= 1.1f;
+			}
+			if (Mathf.Sign(chain_velocity.X) != Mathf.Sign(walk)) 
+			{
+				chain_velocity.X *= 0.3f;
+			}
 		}
+		else 
+		{
+			chain_velocity = new Vector2(0, 0);
+		}
+		Velocity += chain_velocity;
+
 		if (GetNode<Chain>("Chain2").hooked) 
 		{
-			chain2_velocity = GetNode<Chain>("Chain2").chain_velocity;
-			tempVelocity = Velocity;
-			tempVelocity = chain2_velocity * chain_pull_force;
-			Velocity = tempVelocity;
+			var walk = (Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left")) * acceleration;
+			chain2_velocity = ToLocal(GetNode<Chain>("Chain2").tip).Normalized() * chain_pull_force;
+			if (chain2_velocity.Y > 0) 
+			{
+				chain2_velocity.Y *= 0.55f;
+
+			}
+			else 
+			{
+				chain2_velocity.Y *= 1.1f;
+			}
+			if (Mathf.Sign(chain2_velocity.X) != Mathf.Sign(walk)) 
+			{
+				chain2_velocity.X *= 0.3f;
+			}
 		}
+		else 
+		{
+			chain2_velocity = new Vector2(0, 0);
+		}
+		Velocity += chain2_velocity;
+	}
+	
+	// ####################### HANDLE COMBAT & DISMEMBERS #########################
+	public async void Damage(float amount, Vector2 knockback)
+	{
+		is_taking_damage = true;
+		await ToSignal(animplayer, AnimationPlayer.SignalName.AnimationFinished);
+		is_taking_damage = false;
+	}
+
+	public async void Death()
+	{
+		if (is_dead) {return;}
+		
+		await ToSignal(animplayer, AnimationPlayer.SignalName.AnimationFinished);
+		EmitSignal(nameof(DeathEventHandler));
+		is_dead = true;
+		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
+		GetNode<CollisionShape2D>("CollisionShape2D2").SetDeferred("disabled", true);
+
+	}
+
+	public void DismemberBodyPart(string bodypart)
+	{
+		EmitSignal(nameof(DismemberEventHandler));
+		
+		if (bodypart == "HealthComponentHead") 
+		{
+			if (is_head_dismembered) {return;}
+			is_head_dismembered = true;
+			GD.Print("Head dismembered");
+			GetNode<Sprite2D>("Sprite2D/Dismember Icon Head").Visible = false;
+		}
+		if (bodypart == "HealthComponentRightArm") 
+		{
+			if (is_RARM_dismembered) {return;}
+			is_RARM_dismembered = true;
+			GD.Print("Right Arm dismembered");
+			GetNode<Sprite2D>("Sprite2D/Dismember Icon RightArm").Visible = false;
+		}
+		if (bodypart == "HealthComponentLeftArm") 
+		{
+			if (is_LARM_dismembered) {return;}
+			is_LARM_dismembered = true;
+			GD.Print("Left Arm dismembered");
+			GetNode<Sprite2D>("Sprite2D/Dismember Icon LeftArm").Visible = false;
+		}
+		if (bodypart == "HealthComponentRightLeg") 
+		{
+			if (is_RLEG_dismembered) {return;}
+			is_RLEG_dismembered = true;
+			GD.Print("Right Leg dismembered");
+			GetNode<Sprite2D>("Sprite2D/Dismember Icon RightLeg").Visible = false;
+		}
+		if (bodypart == "HealthComponentLeftLeg") 
+		{
+			if (is_LLEG_dismembered) {return;}
+			is_LLEG_dismembered = true;
+			GD.Print("Left Leg dismembered");
+			GetNode<Sprite2D>("Sprite2D/Dismember Icon LeftLeg").Visible = false;
+		}
+	}
+
+	public async void ApplyKnockback(Vector2 knockback, int frames = 10)
+	{
+		if (knockback.IsZeroApprox()) {return;}
+		for (int i = 0; i < frames; i++) 
+		{
+			tempVelocity = Velocity;
+			tempVelocity += knockback;
+			Velocity = tempVelocity;
+			await ToSignal(GetTree(), "physics_frame");
+		}
+		
+	}
+
+	// ####################### HANDLE ANIMATIONS #########################
+	
+	public void PlayJumpOrFallAnimation()
+	{
+		if (Velocity.Y < 1 && !IsOnFloor() && Input.IsActionJustPressed("jump") && !IsRestricted())  
+		{
+			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "jump" : "jump_left");
+		}
+		else if (Velocity.Y >= 0 && !IsOnFloor() && !IsRestricted())
+		{
+			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "fall" : "fall_left");
+		}
+	}
+	public void PlayMovementAnimation()
+	{
+		if (IsOnFloor()) 
+		{
+			if (Velocity.X < 20  && Velocity.X > -20 && Velocity.Y <10 && !IsRestricted()) 
+			{
+				animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "idle" : "idle_left");
+			}
+			else if (Velocity.X != 0 && Input.IsActionPressed("move_right") || Input.IsActionJustPressed("move_left") && !IsRestricted()) 
+			{
+				animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "run" : "run_left");
+				animplayer.SpeedScale = unsigned_speed / 200;
+			}
+		}
+	}
+	public void PlayDashAnimation()
+	{
+		if (is_dash) 
+		{
+			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "dash" : "dash_left");
+		}
+	}
+	public void PlayWalljmpAnimation()
+	{
+		if (is_walljmp) 
+		{
+			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "walljmp" : "walljmp_left");
+		}
+	}
+	public void PlayHurtAnimation()
+	{
+		if (is_taking_damage) 
+		{
+			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "hurt" : "hurt_left");
+		}
+	}
+	public void PlayDeathAnimation()
+	{
+		if (is_dead) 
+		{
+			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "death" : "death_left");
+		}
+	}
+	public void OnAnimationFinished(StringName anim_name)
+	{
+	}
+
+	// ####################### UTILS #########################
+	public void HandleHorizontalFlip() 
+	{
+		if (is_input) 
+		{ 
+			if (Input.IsActionPressed("move_right")) 
+			{
+				GetNode<Sprite2D>("Sprite2D").FlipH = false;
+			}
+			if (Input.IsActionPressed("move_left")) 
+			{
+				GetNode<Sprite2D>("Sprite2D").FlipH = true;
+			}
+		}
+	}
+	public void HandleSpriteRotation()
+	{
+		if (GetNode<RayCast2D>("RayCastFloor").IsColliding()) 
+		{
+			GetNode<Sprite2D>("Sprite2D").Rotation = normal.Angle() + Mathf.DegToRad(90);
+		}
+		else 
+		{
+			GetNode<Sprite2D>("Sprite2D").Rotation = Mathf.Lerp(GetNode<Sprite2D>("Sprite2D").Rotation, 0.0f, 0.08f);
+		}
+	}
+	public bool IsRestricted()
+	{
+		return is_attacking || is_taking_damage || is_dash || is_walljmp;
 	}
 	public void StartTimer(Timer timer, float duration)
 	{
@@ -329,5 +571,5 @@ public partial class player : CharacterBody2D
 		}
 
 	}
-	public void Player() {}
+	public void player() {}
 }
