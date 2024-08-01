@@ -1,16 +1,27 @@
 using Godot;
 using System;
 
-public partial class tiles : Node
+public partial class Tiles : Node
 {
-	// Called when the node enters the scene tree for the first time.
+	
 	public override void _Ready()
 	{
 		
 	}
 
 	
-	public override void _Process(double delta)
+	public void PlayAnimationsInNode(CanvasItem node)
 	{
+    	foreach (Node child in node.GetChildren())
+    	{
+        	if (child is AnimatedSprite2D animatedSprite)
+        	{
+            	animatedSprite.Play("default");  // Play the default animation of the AnimatedSprite2D
+        	}
+        	else if (child is Node)  // If the child is a node, we call the function recursively
+        	{
+            PlayAnimationsInNode(child as CanvasItem);
+        	}
+    	}
 	}
 }

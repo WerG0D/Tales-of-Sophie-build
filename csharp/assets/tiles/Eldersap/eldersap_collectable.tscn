@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bkcqes42l5jw3"]
 
-[ext_resource type="Script" path="res://global_assets/tiles/Eldersap/eldersap_collectable.gd" id="1_q2mfe"]
-[ext_resource type="Texture2D" uid="uid://cfiys3m2u1fc7" path="res://global_assets/tiles/Eldersap/sap2.png" id="2_7i6r0"]
+[ext_resource type="Script" path="res://assets/tiles/Eldersap/eldersap_collectable.cs" id="1_q2mfe"]
+[ext_resource type="Texture2D" uid="uid://djsu3cs827cdj" path="res://assets/tiles/Eldersap/sap2.png" id="2_7i6r0"]
 [ext_resource type="Shader" path="res://shaders/shine.gdshader" id="2_yr3j2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1uv80"]

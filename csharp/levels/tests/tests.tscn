@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" path="res://levels/tests/world.cs" id="1_22424"]
 [ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://assets/tiles/Eldersap/eldersap_tree.tscn" id="2_i6he7"]
-[ext_resource type="Script" path="res://shaders/PointLight2D.cs" id="3_arkdb"]
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
-[ext_resource type="Script" path="res://levels/tests/tiles.cs" id="3_s7fqm"]
+[ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
 [ext_resource type="Texture2D" uid="uid://dm37byyoxdk3w" path="res://assets/tiles/MainLevelTileSet/front_dec_plat.png" id="4_b2x4o"]
 [ext_resource type="Texture2D" uid="uid://ck6d8s5oimhhb" path="res://assets/tiles/MainLevelTileSet/back_walls.png" id="4_crqkh"]
 [ext_resource type="Texture2D" uid="uid://cn67cepd8qwiy" path="res://assets/tiles/MainLevelTileSet/Torchs/swordlight.png" id="4_lnjls"]
@@ -18,6 +17,7 @@
 [ext_resource type="Script" path="res://assets/backgrounds/parallaxbg1/ParallaxBg.cs" id="14_ogrgr"]
 [ext_resource type="Texture2D" uid="uid://cqddkhr6nonvh" path="res://assets/backgrounds/parallaxbg1/Background/Background1.png" id="17_g1fgk"]
 [ext_resource type="Texture2D" uid="uid://cjhy1rx23q35q" path="res://assets/backgrounds/parallaxbg1/Background/Background2.png" id="18_romjn"]
+[ext_resource type="Script" path="res://shaders/PointLight.cs" id="18_xbmu8"]
 [ext_resource type="Texture2D" uid="uid://bkfi6fs02fk2e" path="res://assets/backgrounds/parallaxbg1/Decoratives/tree597976819.png" id="18_yapfc"]
 [ext_resource type="Texture2D" uid="uid://7ifqaekc0l3d" path="res://assets/backgrounds/parallaxbg1/Background/Background3.png" id="19_346xc"]
 [ext_resource type="Texture2D" uid="uid://bm82kgtde8qu1" path="res://assets/backgrounds/parallaxbg1/Decoratives/tree597976819_n.png" id="19_j70u7"]
@@ -2651,7 +2651,7 @@ safe_margin = 1.0
 position = Vector2(-48, -48)
 
 [node name="Tiles" type="Node2D" parent="."]
-script = ExtResource("3_s7fqm")
+script = ExtResource("4_a5t1t")
 
 [node name="Torchs" type="Node2D" parent="Tiles"]
 
@@ -2742,7 +2742,7 @@ energy = 2.84
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_wk2nu")
 texture_scale = 0.1
-script = ExtResource("3_arkdb")
+script = ExtResource("18_xbmu8")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Shaders"]
 visible = false

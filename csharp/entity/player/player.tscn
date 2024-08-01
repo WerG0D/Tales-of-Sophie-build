@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=3 uid="uid://bl12ts1ibfykd"]
 
-[ext_resource type="Script" path="res://entity/player/player.cs" id="1_b3mxi"]
+[ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://entity/player/PlayerCamera2D.cs" id="4_87wg4"]
 [ext_resource type="Texture2D" uid="uid://dm1bibfmlvsbi" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b8b8d4juo8581" path="res://assets/icons/ConditionIcons/Big (240x240)/Stunned.png" id="12_inlxp"]
 [ext_resource type="Script" path="res://entity/components/HurtboxComponent.cs" id="35_u515o"]
 [ext_resource type="Script" path="res://entity/components/HealthComponent.cs" id="37_hplil"]
-[ext_resource type="Script" path="res://entity/player/RichTextLabel.cs" id="78_3wrjh"]
+[ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
 diffuse_texture = ExtResource("2_1gfqm")
@@ -31,7 +31,7 @@ radius = 4.43526
 size = Vector2(8.87051, 11.0839)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
-size = Vector2(3.84387, 9.573)
+size = Vector2(4.58309, 5.98212)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
 size = Vector2(10.6018, 3.8552)
@@ -4835,6 +4835,7 @@ script = ExtResource("4_87wg4")
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
+frame = 42
 
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 visible = false
@@ -4858,7 +4859,7 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
-position = Vector2(0, -6.7466)
+position = Vector2(2.66115, -0.9638)
 shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
@@ -4870,7 +4871,7 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
-position = Vector2(0, 2.8914)
+position = Vector2(0.000102699, 5.7828)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
@@ -4882,8 +4883,8 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
-position = Vector2(6.20936, 2.8589)
-rotation = -0.172788
+position = Vector2(6.87057, 5.45786)
+rotation = -0.607374
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
 
@@ -4897,8 +4898,8 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
-position = Vector2(-6.20936, 3.3733)
-rotation = 1.5708
+position = Vector2(-6.34028, 3.85515)
+rotation = -0.71384
 scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
 
@@ -4911,8 +4912,7 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
-position = Vector2(3.5482, 13.1913)
-rotation = -0.520108
+position = Vector2(4.87878, 13.4932)
 shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
@@ -4924,8 +4924,8 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
-position = Vector2(-3.10468, 13.1677)
-rotation = 0.0331613
+position = Vector2(-6.46344, 13.4316)
+rotation = 0.553025
 scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
 
@@ -5001,10 +5001,12 @@ shape = SubResource("CapsuleShape2D_slk7t")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
-speed_scale = 0.5
+speed_scale = 1.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationFinished"]
 
 [editable path="Chain"]
 [editable path="Chain2"]

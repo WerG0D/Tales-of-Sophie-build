@@ -18,7 +18,7 @@ public partial class Player : CharacterBody2D
 
 	// ####################### SIGNALS #########################
 
-	[Signal] public delegate void DeathEventHandler();
+	[Signal] public delegate void DieEventHandler();
 	[Signal] public delegate void DismemberEventHandler();
 
 	// ####################### SIGNALS #########################
@@ -61,33 +61,33 @@ public partial class Player : CharacterBody2D
 	
 	public override void _Ready()
 	{
-		camera = GetNode<Camera2D>("Camera2D");
+		camera = GetNode<Camera2D>("Camera2D"); // mano oq ta acontecendo é q simplesmente o debugger nao le o node tlgd? o path pra ele ta certo, 100%, mas ele so encontra o node as vezes
 		
-		healthcomphead = GetNode<HealthComponent>("Sprite2D/HurtboxHead/HealthComponentHead");
+		healthcomphead = GetNode<HealthComponent>("Sprite2D/HurtBoxHead/HealthComponentHead"); //Leu certo dps de 2 tentativas
 		healthcomphead.DismemberHead += DismemberBodyPart;
 		healthcomphead.Damaged += Damage;
 		healthcomphead.Death += Death;
 		
-		healthcompbody = GetNode<HealthComponent>("Sprite2D/HurtboxBody/HealthComponentBody");
+		healthcompbody = GetNode<HealthComponent>("Sprite2D/HurtBoxBody/HealthComponentBody"); //Leu certo dps de 3 tentativas
 		healthcompbody.Damaged += Damage;
 		healthcompbody.Death += Death;
 
-		healthcompRightArm = GetNode<HealthComponent>("Sprite2D/HurtboxRarm/HealthComponentRightArm");
+		healthcompRightArm = GetNode<HealthComponent>("Sprite2D/HurtBoxRArm/HealthComponentRightArm"); //Leu certo dps de 6 tentativas
 		healthcompRightArm.DismemberRARM += DismemberBodyPart;
 		healthcompRightArm.Damaged += Damage;
 		healthcompRightArm.Death += Death;
 
-		healthcompLeftArm = GetNode<HealthComponent>("Sprite2D/HurtboxLarm/HealthComponentLeftArm");
+		healthcompLeftArm = GetNode<HealthComponent>("Sprite2D/HurtBoxLArm/HealthComponentLeftArm"); //Leu certo dps de 3 tentativas
 		healthcompLeftArm.DismemberLARM += DismemberBodyPart;
 		healthcompLeftArm.Damaged += Damage;
 		healthcompLeftArm.Death += Death;	
 
-		healthcompRightLeg = GetNode<HealthComponent>("Sprite2D/HurtboxRLeg/HealthComponentRightLeg");
+		healthcompRightLeg = GetNode<HealthComponent>("Sprite2D/HurtBoxRLeg/HealthComponentRightLeg"); // wtf kkkkkkkkkkkkkkk eu nn mudei nada e agora leu
 		healthcompRightLeg.DismemberRLEG += DismemberBodyPart;
 		healthcompRightLeg.Damaged += Damage;
 		healthcompRightLeg.Death += Death;
 
-		healthcompLeftLeg = GetNode<HealthComponent>("Sprite2D/HurtboxLLeg/HealthComponentLeftLeg");
+		healthcompLeftLeg = GetNode<HealthComponent>("Sprite2D/HurtBoxLleg/HealthComponentLeftLeg");
 		healthcompLeftLeg.DismemberLLEG += DismemberBodyPart;
 		healthcompLeftLeg.Damaged += Damage;
 		healthcompLeftLeg.Death += Death;
@@ -362,7 +362,7 @@ public partial class Player : CharacterBody2D
 		if (is_dead) {return;}
 		
 		await ToSignal(animplayer, AnimationPlayer.SignalName.AnimationFinished);
-		EmitSignal(nameof(DeathEventHandler));
+		EmitSignal(nameof(DieEventHandler));
 		is_dead = true;
 		GetNode<CollisionShape2D>("CollisionShape2D").SetDeferred("disabled", true);
 		GetNode<CollisionShape2D>("CollisionShape2D2").SetDeferred("disabled", true);
