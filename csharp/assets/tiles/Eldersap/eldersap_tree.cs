@@ -11,7 +11,7 @@ public partial class eldersap_tree : Node2D
 	{
 		if (state == "no sap")
 		{
-			GetNode<Timer>("grow_timer").Start();
+			GetNode<Timer>("growth_timer").Start();
 		}
 	}
 
@@ -38,7 +38,7 @@ public partial class eldersap_tree : Node2D
 		GetParent().AddChild(instance);
 
 		await ToSignal(GetTree().CreateTimer(3), "timeout");
-		GetNode<Timer>("grow_timer").Start();
+		GetNode<Timer>("growth_timer").Start();
 	}
 	public void OnGrowthTimerTimeout() 
 	{
