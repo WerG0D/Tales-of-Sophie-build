@@ -45,20 +45,4 @@ public partial class eldersap_tree : Node2D
 		if (state == "no sap") {state = "sap";}
 	}
 
-	public void OnPickableAreaEntered(CharacterBody2D body)
-	{
-		if (body.HasMethod("player"))
-		{
-			player_in_area = true;
-		}
-		else {return;}
-	}
-	public void OnPickableAreaExited(CharacterBody2D body)
-	{
-		if (body.HasMethod("player"))
-		{
-			player_in_area = false;
-		}
-		else {return;}
-	}
 }

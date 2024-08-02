@@ -43,6 +43,5 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 text = "Quit"
 
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="OnStartPressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="OnQuitPressed"]

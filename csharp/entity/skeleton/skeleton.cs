@@ -30,12 +30,12 @@ public partial class skeleton : CharacterBody2D
 	}
 
 	public Vector2 LerpVector2(Vector2 from, Vector2 to, float weight)
-{
+	{
     return new Vector2(
         Mathf.Lerp(from.X, to.X, weight),
         Mathf.Lerp(from.Y, to.Y, weight)
     );
-}
+	}
 
 	private void Death()
 	{

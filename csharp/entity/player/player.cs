@@ -1,10 +1,17 @@
+// TODO 
+// FAZER O ANIMPLAYER FUNCIONAR DE VERDADE
+// FAZER O HOOK FUNCIONAR DE VERDADE
+// FAZER O HOOKPHYS FUNCIONAR DE VERDADE
+// MUDAR VELOCIDADE DE PULO E RUN ETC 
+// OTIMIZAR MUDANDO A LINHA 
+
 using Godot;
 using System;
 
 public partial class Player : CharacterBody2D
 {
 	// ####################### ONREADY VAR #######################
-	public Camera2D camera;
+	public  Camera2D camera;
 	public  HealthComponent healthcomphead;
     public  HealthComponent healthcompbody;
     public  HealthComponent healthcompRightArm;
@@ -61,28 +68,28 @@ public partial class Player : CharacterBody2D
 	
 	public override void _Ready()
 	{
-		camera = GetNode<Camera2D>("Camera2D"); // mano oq ta acontecendo é q simplesmente o debugger nao le o node tlgd? o path pra ele ta certo, 100%, mas ele so encontra o node as vezes
+		camera = GetNode<Camera2D>("Camera2D"); 
 		
-		healthcomphead = GetNode<HealthComponent>("Sprite2D/HurtBoxHead/HealthComponentHead"); //Leu certo dps de 2 tentativas
+		healthcomphead = GetNode<HealthComponent>("Sprite2D/HurtBoxHead/HealthComponentHead"); 
 		healthcomphead.DismemberHead += DismemberBodyPart;
 		healthcomphead.Damaged += Damage;
 		healthcomphead.Death += Death;
 		
-		healthcompbody = GetNode<HealthComponent>("Sprite2D/HurtBoxBody/HealthComponentBody"); //Leu certo dps de 3 tentativas
+		healthcompbody = GetNode<HealthComponent>("Sprite2D/HurtBoxBody/HealthComponentBody"); 
 		healthcompbody.Damaged += Damage;
 		healthcompbody.Death += Death;
 
-		healthcompRightArm = GetNode<HealthComponent>("Sprite2D/HurtBoxRArm/HealthComponentRightArm"); //Leu certo dps de 6 tentativas
+		healthcompRightArm = GetNode<HealthComponent>("Sprite2D/HurtBoxRArm/HealthComponentRightArm");
 		healthcompRightArm.DismemberRARM += DismemberBodyPart;
 		healthcompRightArm.Damaged += Damage;
 		healthcompRightArm.Death += Death;
 
-		healthcompLeftArm = GetNode<HealthComponent>("Sprite2D/HurtBoxLArm/HealthComponentLeftArm"); //Leu certo dps de 3 tentativas
+		healthcompLeftArm = GetNode<HealthComponent>("Sprite2D/HurtBoxLArm/HealthComponentLeftArm"); 
 		healthcompLeftArm.DismemberLARM += DismemberBodyPart;
 		healthcompLeftArm.Damaged += Damage;
 		healthcompLeftArm.Death += Death;	
 
-		healthcompRightLeg = GetNode<HealthComponent>("Sprite2D/HurtBoxRLeg/HealthComponentRightLeg"); // wtf kkkkkkkkkkkkkkk eu nn mudei nada e agora leu
+		healthcompRightLeg = GetNode<HealthComponent>("Sprite2D/HurtBoxRLeg/HealthComponentRightLeg"); 
 		healthcompRightLeg.DismemberRLEG += DismemberBodyPart;
 		healthcompRightLeg.Damaged += Damage;
 		healthcompRightLeg.Death += Death;
@@ -98,8 +105,7 @@ public partial class Player : CharacterBody2D
 	}
 
 
-	public override void _Process(double delta)
-	{
+	public override void _Process(double delta){
 		FloorSnapLength = 20.0f;
 		Debug();
 		MoveAndSlide();
@@ -107,6 +113,15 @@ public partial class Player : CharacterBody2D
 		Hook();
 		HookPhys();
 	}
+
+	public Vector2 LerpVector2(Vector2 from, Vector2 to, float weight)
+	{
+    return new Vector2(
+        Mathf.Lerp(from.X, to.X, weight),
+        Mathf.Lerp(from.Y, to.Y, weight)
+    );
+	}
+
 
 	public void MovePlayer(double delta) 
 	{
@@ -524,8 +539,13 @@ public partial class Player : CharacterBody2D
 		if (!IsOnFloor() && is_gravity && !is_walljmp) 
 		{
 			Vector2 tempVelocity = Velocity;
-			tempVelocity.Y += gravityfactor;
+			tempVelocity.Y += Mathf.Lerp(tempVelocity.Y, (float)max_speed, 0.02f);
 			Velocity = tempVelocity;
+			tempVelocity.Y = Mathf.Clamp(Velocity.Y, (float)-max_speed + 100, (float)max_speed + 100);
+			Velocity = tempVelocity;
+
+			//velocity.y = lerp(velocity.y, float(max_speed),0.02)
+		    //velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 		}
 	}
 	public void Debug()
@@ -541,16 +561,6 @@ public partial class Player : CharacterBody2D
 		{
 			richTextLabel.Text = "Velocity: " + Velocity + 
 			"\nNormal: " + normal + 
-			"\nIs Dead: " + is_dead + 
-			"\nIs Taking Damage: " + is_taking_damage + 
-			"\nIs Attacking: " + is_attacking + 
-			"\nIs Dashing: " + is_dash + 
-			"\nIs Wall Jumping: " + is_walljmp + 
-			"\nIs Head Dismembered: " + is_head_dismembered + 
-			"\nIs Right Arm Dismembered: " + is_RARM_dismembered + 
-			"\nIs Left Arm Dismembered: " + is_LARM_dismembered + 
-			"\nIs Right Leg Dismembered: " + is_RLEG_dismembered + 
-			"\nIs Left Leg Dismembered: " + is_LLEG_dismembered + 
 			"\nIs Gravity: " + is_gravity + 
 			"\nIs Input: " + is_input;
 		}

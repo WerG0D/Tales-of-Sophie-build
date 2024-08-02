@@ -1,7 +1,6 @@
-[gd_scene load_steps=66 format=4 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=64 format=4 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Script" path="res://levels/tests/world.cs" id="1_22424"]
-[ext_resource type="PackedScene" uid="uid://c3x50sjt3lsc2" path="res://assets/tiles/Eldersap/eldersap_tree.tscn" id="2_i6he7"]
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
 [ext_resource type="Texture2D" uid="uid://dm37byyoxdk3w" path="res://assets/tiles/MainLevelTileSet/front_dec_plat.png" id="4_b2x4o"]
@@ -13,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://cuh8nxvkl687a" path="res://assets/tiles/MainLevelTileSet/Decoratives.png" id="5_igtch"]
 [ext_resource type="Texture2D" uid="uid://c1y8rofkdsdba" path="res://assets/tiles/MainLevelTileSet/Torchs/light2.png" id="5_x2y4m"]
 [ext_resource type="Texture2D" uid="uid://b32s4hohfpieo" path="res://assets/tiles/MainLevelTileSet/Torchs/light1.png" id="6_ixaub"]
-[ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="6_qyfn6"]
 [ext_resource type="Script" path="res://assets/backgrounds/parallaxbg1/ParallaxBg.cs" id="14_ogrgr"]
 [ext_resource type="Texture2D" uid="uid://cqddkhr6nonvh" path="res://assets/backgrounds/parallaxbg1/Background/Background1.png" id="17_g1fgk"]
 [ext_resource type="Texture2D" uid="uid://cjhy1rx23q35q" path="res://assets/backgrounds/parallaxbg1/Background/Background2.png" id="18_romjn"]
@@ -2641,14 +2639,11 @@ script = ExtResource("1_22424")
 
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
-position = Vector2(480, 64)
+position = Vector2(322, -365)
 scale = Vector2(1, 1)
 safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="EldersapTree" parent="." instance=ExtResource("2_i6he7")]
-position = Vector2(-48, -48)
 
 [node name="Tiles" type="Node2D" parent="."]
 script = ExtResource("4_a5t1t")
@@ -2880,9 +2875,5 @@ texture_mode = 1
 script = ExtResource("14_ogrgr")
 
 [node name="Entities" type="Node2D" parent="."]
-
-[node name="Skeleton" parent="Entities" instance=ExtResource("6_qyfn6")]
-z_index = 11
-position = Vector2(607, 73)
 
 [connection signal="body_entered" from="Cutscenes & Areas/cutscene" to="." method="_on_cutscene_body_entered"]
