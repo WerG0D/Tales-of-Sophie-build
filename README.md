@@ -8,7 +8,7 @@
 
 ## Welcome
 
-![Welcome](https://github.com/WerG0D/ToSGodotProject/blob/Tests/graphs/assets/2024-06-05-09-04-29.gif?raw=true)
+![Welcome](https://github.com/WerG0D/Tales-of-Sophie-build/blob/csharp/assets/icons/readmeassets/2024-06-05-09-04-29.gif?raw=true)
 
 ## Index
 
@@ -76,9 +76,9 @@ Download E-books:
 ## Obsidian Project
 > We have a project on Obsidian full of lore and gameplay details.
 
-![Screenshot1](https://github.com/WerG0D/ToSGodotProject/blob/Tests/graphs/assets/Screenshot_1.png?raw=true)
+![Screenshot1](https://github.com/WerG0D/Tales-of-Sophie-build/blob/csharp/assets/icons/readmeassets/Screenshot_1.png?raw=true)
 
-![Screenshot2](https://github.com/WerG0D/ToSGodotProject/blob/Tests/graphs/assets/Screenshot_2.png?raw=true)
+![Screenshot2](https://github.com/WerG0D/Tales-of-Sophie-build/blob/csharp/assets/icons/readmeassets/Screenshot_2.png?raw=true)
 
 
 > Para instalar o Obsidian, clique [aqui](https://obsidian.md/).
@@ -89,7 +89,7 @@ Download E-books:
 
 > To access the Obsidian project, clone the project and open the Tales_Of_Sophie_Obsidian_Project folder as an Obsidian vault.
 
-![Tutorial](https://github.com/WerG0D/ToSGodotProject/blob/Tests/graphs/assets/2024-06-05%2012-18-56.gif?raw=true)
+![Tutorial](https://github.com/WerG0D/Tales-of-Sophie-build/blob/csharp/assets/icons/readmeassets/2024-06-05%2012-18-56.gif?raw=true)
 
 
 
