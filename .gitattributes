@@ -10,3 +10,7 @@
 *.tscn linguist-detectable=false
 *.svg linguist-detectable=false
 *.png linguist-detectable=false
+*.yml linguist-detectable=false
+*.json linguist-detectable=false
+*.cfg linguist-detectable=false
+*.import linguist-detectable=false
