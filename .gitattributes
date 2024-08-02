@@ -5,3 +5,8 @@
 *.sln linguist-detectable=false
 *.txt linguist-detectable=false
 *.md linguist-detectable=false
+*.tres linguist-detectable=false
+*.godot linguist-detectable=false
+*.tscn linguist-detectable=false
+*.svg linguist-detectable=false
+*.png linguist-detectable=false
