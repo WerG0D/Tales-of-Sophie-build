@@ -4786,6 +4786,9 @@ position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
 collision_mask = 10
 script = ExtResource("1_b3mxi")
+JumpHeight = 100.0
+JumpTimeToPeak = 0.5
+JumpTimeToDescent = 0.4
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
 target_position = Vector2(0, 28.914)

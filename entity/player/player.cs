@@ -23,6 +23,18 @@ public partial class Player : CharacterBody2D
 
 	// ####################### ONREADY VAR #######################
 
+	// ####################### EXPORT VAR ########################
+
+	[Export] public float JumpHeight;
+	[Export] public float JumpTimeToPeak;
+	[Export] public float JumpTimeToDescent;
+
+
+
+
+
+	// ####################### EXPORT VAR ########################
+
 	// ####################### SIGNALS #########################
 
 	[Signal] public delegate void DieEventHandler();
@@ -34,6 +46,11 @@ public partial class Player : CharacterBody2D
 	
 	public int max_speed = 1600;
 	public int jump_force = 500;
+	public float JumpVelocity;
+	public float JumpGravity;
+	public float FallGravity;
+
+
 	public int acceleration = 300;
 	public int jump_buffer_time = 15;
 	public int jump_buffer_counter = 0;
@@ -99,6 +116,10 @@ public partial class Player : CharacterBody2D
 		healthcompLeftLeg.Damaged += Damage;
 		healthcompLeftLeg.Death += Death;
 
+		JumpVelocity = ((2.0f * JumpHeight) / JumpTimeToPeak) * -1;
+		JumpGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToPeak, 2)) * -1;
+		FallGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToDescent, 2)) * -1;
+
 		animplayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		initialized = true;
 		
@@ -110,6 +131,7 @@ public partial class Player : CharacterBody2D
 		Debug();
 		MoveAndSlide();
 		MovePlayer(delta);
+		ApplyGravity(delta);
 		Hook();
 		HookPhys();
 	}
@@ -127,7 +149,6 @@ public partial class Player : CharacterBody2D
 	{
 		unsigned_speed = Velocity.X < 0 ? Velocity.X * -1 : Velocity.X;
 		normal = GetNode<RayCast2D>("RayCastFloor").GetCollisionNormal();
-		ApplyGravity();
 		MoveRL();
 		Jump();
 		Walljmp();
@@ -202,6 +223,7 @@ public partial class Player : CharacterBody2D
 	}
 	public void Jump() 
 	{
+		var floor = GetFloorNormal();
 		if (Input.IsActionJustPressed("jump") && IsOnFloor() && is_input) 
 		{
 			jump_buffer_counter = jump_buffer_time;
@@ -212,19 +234,16 @@ public partial class Player : CharacterBody2D
 		}
 		if (jump_buffer_counter > 0) 
 		{
-			Velocity +=  GetFloorNormal() * jump_force;
+			tempVelocity.Y = JumpVelocity;
+			Velocity = tempVelocity;
 			jump_buffer_counter = 0;
 		}
-		if (Input.IsActionJustReleased("jump")) 
+		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0) 
 		{
-			if (Velocity.Y < 0) 
-			{
-				tempVelocity = Velocity;
-				tempVelocity.Y = Velocity.Y * 0.2f;
-				Velocity = tempVelocity;
-			}
+			tempVelocity = Velocity;
+			tempVelocity.Y = Velocity.Y / 2;
+			Velocity = tempVelocity;
 		}
-
 
 
 	}
@@ -534,19 +553,23 @@ public partial class Player : CharacterBody2D
 		timer.OneShot = true;
 		timer.Start();
 	}
-	public void ApplyGravity()
+	public void ApplyGravity(double delta)
 	{
-		if (!IsOnFloor() && is_gravity && !is_walljmp) 
+		if (is_gravity && !is_walljmp) 
 		{
 			Vector2 tempVelocity = Velocity;
-			tempVelocity.Y += Mathf.Lerp(tempVelocity.Y, (float)max_speed, 0.02f);
-			Velocity = tempVelocity;
-			tempVelocity.Y = Mathf.Clamp(Velocity.Y, (float)-max_speed + 100, (float)max_speed + 100);
+			tempVelocity.Y += ReturnGravity() * (float)delta;
+			tempVelocity.Y = Mathf.Clamp(tempVelocity.Y, -max_speed, max_speed);
 			Velocity = tempVelocity;
 
-			//velocity.y = lerp(velocity.y, float(max_speed),0.02)
+			//velocity.y = lerp(velocity.y,  float(max_speed),0.02)
 		    //velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
 		}
+	}
+
+	public float ReturnGravity()
+	{
+		return Velocity.Y < 0.0 ? JumpGravity : FallGravity;
 	}
 	public void Debug()
 	 
