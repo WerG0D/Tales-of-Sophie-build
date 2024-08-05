@@ -241,7 +241,7 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0) 
 		{
 			tempVelocity = Velocity;
-			tempVelocity.Y = Velocity.Y / 2;
+			tempVelocity.Y = Velocity.Y * 0.5f;
 			Velocity = tempVelocity;
 		}
 
@@ -555,15 +555,20 @@ public partial class Player : CharacterBody2D
 	}
 	public void ApplyGravity(double delta)
 	{
-		if (is_gravity && !is_walljmp) 
+		if (!IsOnFloor() && is_gravity && !is_walljmp) 
 		{
-			Vector2 tempVelocity = Velocity;
+			tempVelocity = Velocity;
 			tempVelocity.Y += ReturnGravity() * (float)delta;
 			tempVelocity.Y = Mathf.Clamp(tempVelocity.Y, -max_speed, max_speed);
 			Velocity = tempVelocity;
 
 			//velocity.y = lerp(velocity.y,  float(max_speed),0.02)
 		    //velocity.y = clamp(velocity.y, -max_speed+100, max_speed+100)	#dallingspeed should be faster than walking
+		}
+		else if (Velocity.Y > 0){
+			tempVelocity = Velocity;
+			tempVelocity.Y = 0;
+			Velocity = tempVelocity;
 		}
 	}
 

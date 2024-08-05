@@ -2639,7 +2639,7 @@ script = ExtResource("1_22424")
 
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
-position = Vector2(523, 74)
+position = Vector2(460, 79)
 scale = Vector2(1, 1)
 safe_margin = 1.0
 
