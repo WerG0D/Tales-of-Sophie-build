@@ -165,12 +165,13 @@ public partial class Player : CharacterBody2D
 		PlayWalljmpAnimation();
 		PlayHurtAnimation();
 		PlayDeathAnimation();
+		PlayAttackAnimation();
 
 	}
 	// ####################### HANDLE MOVEMENT #########################
 	public void MoveRL()
 	{
-		var friction = IsOnFloor() ? on_ground_friction : on_air_friction;
+		float friction = IsOnFloor() ? on_ground_friction : on_air_friction;
 		tempVelocity = Velocity;
 		
 		if (is_dash) friction *= 4;
@@ -384,6 +385,7 @@ public partial class Player : CharacterBody2D
 		Velocity += chain2_velocity;
 	}
 	
+	
 	// ####################### HANDLE COMBAT & DISMEMBERS #########################
 	public async void Damage(float amount, Vector2 knockback)
 	{
@@ -462,7 +464,6 @@ public partial class Player : CharacterBody2D
 	
 	public void PlayJumpOrFallAnimation()
 	{
-		GD.Print(Velocity.Y, IsOnFloor(), Input.IsActionPressed("jump"), IsRestricted(), animplayer.CurrentAnimation);
 		if (Velocity.Y < 1 && !IsOnFloor() && Input.IsActionPressed("jump") && !IsRestricted())  
 		{
 			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "jump" : "jump_left");
