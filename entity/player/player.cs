@@ -131,6 +131,7 @@ public partial class Player : CharacterBody2D
 		Debug();
 		MoveAndSlide();
 		MovePlayer(delta);
+		AnimatePlayer();
 		ApplyGravity(delta);
 		Hook();
 		HookPhys();
@@ -461,7 +462,8 @@ public partial class Player : CharacterBody2D
 	
 	public void PlayJumpOrFallAnimation()
 	{
-		if (Velocity.Y < 1 && !IsOnFloor() && Input.IsActionJustPressed("jump") && !IsRestricted())  
+		GD.Print(Velocity.Y, IsOnFloor(), Input.IsActionPressed("jump"), IsRestricted(), animplayer.CurrentAnimation);
+		if (Velocity.Y < 1 && !IsOnFloor() && Input.IsActionPressed("jump") && !IsRestricted())  
 		{
 			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "jump" : "jump_left");
 		}
@@ -513,8 +515,19 @@ public partial class Player : CharacterBody2D
 			animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "death" : "death_left");
 		}
 	}
-	public void OnAnimationFinished(StringName anim_name)
+	public async void PlayAttackAnimation()
 	{
+		if (Input.IsActionJustPressed("attack") && !is_attacking && !IsRestricted())
+		{
+			is_attacking = true;
+			if (is_attacking) 
+			{
+				animplayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? "attack" : "attack_left");
+				await ToSignal(animplayer, AnimationPlayer.SignalName.AnimationFinished);
+				is_attacking = false;
+			}
+			
+		}
 	}
 
 	// ####################### UTILS #########################
@@ -522,13 +535,13 @@ public partial class Player : CharacterBody2D
 	{
 		if (is_input) 
 		{ 
-			if (Input.IsActionPressed("move_right")) 
-			{
-				GetNode<Sprite2D>("Sprite2D").FlipH = false;
-			}
 			if (Input.IsActionPressed("move_left")) 
 			{
 				GetNode<Sprite2D>("Sprite2D").FlipH = true;
+			}
+			else if (Input.IsActionPressed("move_right")) 
+			{
+				GetNode<Sprite2D>("Sprite2D").FlipH = false;
 			}
 		}
 	}
@@ -590,7 +603,10 @@ public partial class Player : CharacterBody2D
 			richTextLabel.Text = "Velocity: " + Velocity + 
 			"\nNormal: " + normal + 
 			"\nIs Gravity: " + is_gravity + 
-			"\nIs Input: " + is_input;
+			"\nIs Input: " + is_input +
+			"\nIs Restricted: " + IsRestricted() +
+			"\nIs Jumping: " + Input.IsActionJustPressed("jump") +
+			"\n Current Animation: " + animplayer.CurrentAnimation;
 		}
 		else {richTextLabel.Text = "";}
 		if (is_debug && Input.IsActionPressed("ctrl")) 
