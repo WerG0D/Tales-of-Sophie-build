@@ -8,53 +8,53 @@ public partial class Player : CharacterBody2D
 	[Export] public float JumpTimeToPeak;
 	[Export] public float JumpTimeToDescent;
 
-	private Camera2D _camera;
-	private AnimationPlayer _animPlayer;
-	private bool _initialized = false;
+	private Camera2D camera;
+	private AnimationPlayer animPlayer;
+	private bool initialized = false;
 
-	private HealthComponent _healthCompHead;
-    private HealthComponent _healthCompBody;
-    private HealthComponent _healthCompRightArm;
-    private HealthComponent _healthCompLeftArm;
-    private HealthComponent _healthCompRightLeg;
-    private HealthComponent _healthCompLeftLeg;
+	private HealthComponent healthCompHead;
+    private HealthComponent healthCompBody;
+    private HealthComponent healthCompRightArm;
+    private HealthComponent healthCompLeftArm;
+    private HealthComponent healthCompRightLeg;
+    private HealthComponent healthCompLeftLeg;
 
 	// ####################### VARIABLES #########################
 
-	private int _maxSpeed = 1600;
-	private int _jumpForce = 500;
-	private float _jumpVelocity;
-	private float _jumpGravity;
-	private float _fallGravity;
+	private int maxSpeed = 1600;
+	private int jumpForce = 500;
+	private float jumpVelocity;
+	private float jumpGravity;
+	private float fallGravity;
 
-	private int _acceleration = 300;
-	private int _jumpBufferTime = 15;
-	private int _jumpBufferCounter = 0;
-	private float _dashDuration = 0.2f;
-	private int _wallJumpTimer = 0;
-	private int _wallJumpCooldown = 20;
+	private int acceleration = 300;
+	private int jumpBufferTime = 15;
+	private int jumpBufferCounter = 0;
+	private float dashDuration = 0.2f;
+	private int wallJumpTimer = 0;
+	private int wallJumpCooldown = 20;
 
-	private Vector2 _chainVelocity = new Vector2(0, 0);
-	private Vector2 _tempVelocity = new Vector2(0, 0);
-	private int _chainPullForce = 60;
-	private float _onGroundFriction = 0.01f;
-	private float _onAirFriction = 0.002f;
-	private float _unsignedSpeed = 0.0f;
-	private float _gravityFactor = 0.02f;
-	private Vector2 _normal = new Vector2(0, 0);
-	private bool _isDead = false;
-	private bool _isTakingDamage = false;
-	private bool _isAttacking = false;
-	private bool _isDash = false;
-	private bool _isWallJump = false;
-	private bool _isHeadDismembered = false;
-	private bool _isRightArmDismembered = false;
-	private bool _isLeftArmDismembered = false;
-	private bool _isRightLegDismembered = false;
-	private bool _isLeftLegDismembered = false;
-	private bool _isGravity = true;
-	private bool _isInput = true;
-	private bool _isDebug = false;
+	private Vector2 chainVelocity = new Vector2(0, 0);
+	private Vector2 tempVelocity = new Vector2(0, 0);
+	private int chainPullForce = 60;
+	private float onGroundFriction = 0.1f;
+	private float onAirFriction = 0.02f;
+	private float unsignedSpeed = 0.0f;
+	private float gravityFactor = 0.2f;
+	private Vector2 normal = new Vector2(0, 0);
+	private bool isDead = false;
+	private bool isTakingDamage = false;
+	private bool isAttacking = false;
+	private bool isDash = false;
+	private bool isWallJump = false;
+	private bool isHeadDismembered = false;
+	private bool isRightArmDismembered = false;
+	private bool isLeftArmDismembered = false;
+	private bool isRightLegDismembered = false;
+	private bool isLeftLegDismembered = false;
+	private bool isGravity = true;
+	private bool isInput = true;
+	private bool isDebug = false;
 
 	// ####################### SIGNALS #########################
 
@@ -68,20 +68,20 @@ public partial class Player : CharacterBody2D
 		InitializeComponents();
 		CalculateJumpPhysics();
 
-		_initialized = true;
+		initialized = true;
 	}
 
 	private void InitializeComponents()
 	{
-		_camera = GetNode<Camera2D>("Camera2D");
-		_animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		camera = GetNode<Camera2D>("Camera2D");
+		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
-		_healthCompHead = SetupHealthComponent("Sprite2D/HurtBoxHead/HealthComponentHead");
-		_healthCompBody = SetupHealthComponent("Sprite2D/HurtBoxBody/HealthComponentBody");
-		_healthCompRightArm = SetupHealthComponent("Sprite2D/HurtBoxRArm/HealthComponentRightArm");
-		_healthCompLeftArm = SetupHealthComponent("Sprite2D/HurtBoxLArm/HealthComponentLeftArm");
-		_healthCompRightLeg = SetupHealthComponent("Sprite2D/HurtBoxRLeg/HealthComponentRightLeg");
-		_healthCompLeftLeg = SetupHealthComponent("Sprite2D/HurtBoxLleg/HealthComponentLeftLeg");
+		healthCompHead = SetupHealthComponent("Sprite2D/HurtBoxHead/HealthComponentHead");
+		healthCompBody = SetupHealthComponent("Sprite2D/HurtBoxBody/HealthComponentBody");
+		healthCompRightArm = SetupHealthComponent("Sprite2D/HurtBoxRArm/HealthComponentRightArm");
+		healthCompLeftArm = SetupHealthComponent("Sprite2D/HurtBoxLArm/HealthComponentLeftArm");
+		healthCompRightLeg = SetupHealthComponent("Sprite2D/HurtBoxRLeg/HealthComponentRightLeg");
+		healthCompLeftLeg = SetupHealthComponent("Sprite2D/HurtBoxLleg/HealthComponentLeftLeg");
 	}
 
 	private HealthComponent SetupHealthComponent(string path)
@@ -95,9 +95,9 @@ public partial class Player : CharacterBody2D
 
 	private void CalculateJumpPhysics()
 	{
-		_jumpVelocity = ((2.0f * JumpHeight) / JumpTimeToPeak) * -1;
-		_jumpGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToPeak, 2)) * -1;
-		_fallGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToDescent, 2)) * -1;
+		jumpVelocity = ((2.0f * JumpHeight) / JumpTimeToPeak) * -1;
+		jumpGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToPeak, 2)) * -1;
+		fallGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToDescent, 2)) * -1;
 	}
 
 	public override void _Process(double delta)
@@ -113,8 +113,8 @@ public partial class Player : CharacterBody2D
 
 	private void MovePlayer(double delta)
 	{
-		_unsignedSpeed = Mathf.Abs(Velocity.X);
-		_normal = GetNode<RayCast2D>("RayCastFloor").GetCollisionNormal();
+		unsignedSpeed = Mathf.Abs(Velocity.X);
+		normal = GetNode<RayCast2D>("RayCastFloor").GetCollisionNormal();
 		MoveHorizontal();
 		Jump();
 		WallJump();
@@ -123,45 +123,45 @@ public partial class Player : CharacterBody2D
 
 	private void MoveHorizontal()
 	{
-		float friction = IsOnFloor() ? _onGroundFriction : _onAirFriction;
-		_tempVelocity = Velocity;
+		float friction = IsOnFloor() ? onGroundFriction : onAirFriction;
+		tempVelocity = Velocity;
 
-		if (_isDash) friction *= 4;
+		if (isDash) friction *= 4;
 
-		if (Input.IsActionPressed("move_right") && !IsHooked() && _isInput)
+		if (Input.IsActionPressed("move_right") && !IsHooked() && isInput)
 		{
-			ApplyMovement(friction, _acceleration);
+			ApplyMovement(friction, acceleration);
 		}
-		else if (Input.IsActionPressed("move_left") && !IsHooked() && _isInput)
+		else if (Input.IsActionPressed("move_left") && !IsHooked() && isInput)
 		{
-			ApplyMovement(friction, -_acceleration);
+			ApplyMovement(friction, -acceleration);
 		}
 		else if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right"))
 		{
 			if (!IsHooked())
 			{
-				_tempVelocity.X = 0;
-				Velocity = _tempVelocity;
+				tempVelocity.X = 0;
+				Velocity = tempVelocity;
 			}
 		}
-		_tempVelocity.X = Mathf.Clamp(Velocity.X, -_maxSpeed, _maxSpeed);
-		Velocity = _tempVelocity;
+		tempVelocity.X = Mathf.Clamp(Velocity.X, -maxSpeed, maxSpeed);
+		Velocity = tempVelocity;
 	}
 
 	private void ApplyMovement(float friction, int acceleration)
 	{
 		if (!(Velocity.X >= -acceleration && Velocity.X <= acceleration))
 		{
-			_tempVelocity.X = Mathf.Lerp(_tempVelocity.X, (float)acceleration, 1);
-			Velocity = _tempVelocity;
+			tempVelocity.X = Mathf.Lerp(tempVelocity.X, (float)acceleration, 1);
+			Velocity = tempVelocity;
 		}
 		else
 		{
-			_tempVelocity.X = Mathf.Lerp(_tempVelocity.X, (float)acceleration, 1);
-			Velocity = _tempVelocity;
+			tempVelocity.X = Mathf.Lerp(tempVelocity.X, (float)acceleration, 1);
+			Velocity = tempVelocity;
 		}
-		_tempVelocity.X = Velocity.X * (_normal.X + 0.9f);
-		Velocity = _tempVelocity;
+		tempVelocity.X = Velocity.X * (normal.X + 0.9f);
+		Velocity = tempVelocity;
 	}
 
 	private bool IsHooked()
@@ -171,38 +171,38 @@ public partial class Player : CharacterBody2D
 
 	private void Jump()
 	{
-		if (Input.IsActionJustPressed("jump") && IsOnFloor() && _isInput)
+		if (Input.IsActionJustPressed("jump") && IsOnFloor() && isInput)
 		{
-			_jumpBufferCounter = _jumpBufferTime;
+			jumpBufferCounter = jumpBufferTime;
 		}
-		if (_jumpBufferCounter > 0)
+		if (jumpBufferCounter > 0)
 		{
-			_jumpBufferCounter--;
+			jumpBufferCounter--;
 		}
-		if (_jumpBufferCounter > 0)
+		if (jumpBufferCounter > 0)
 		{
-			_tempVelocity.Y = _jumpVelocity;
-			Velocity = _tempVelocity;
-			_jumpBufferCounter = 0;
+			tempVelocity.Y = jumpVelocity;
+			Velocity = tempVelocity;
+			jumpBufferCounter = 0;
 		}
 		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
 		{
-			_tempVelocity.Y *= 0.5f;
-			Velocity = _tempVelocity;
+			tempVelocity.Y *= 0.5f;
+			Velocity = tempVelocity;
 		}
 	}
 
 	private void WallJump()
 	{
-		if (Velocity.Y >= 10 && _wallJumpTimer < _wallJumpCooldown && IsOnWallOnly())
+		if (Velocity.Y >= 10 && wallJumpTimer < wallJumpCooldown && IsOnWallOnly())
 		{
-			_wallJumpTimer++;
-			_isWallJump = true;
+			wallJumpTimer++;
+			isWallJump = true;
 		}
 		else
 		{
-			_wallJumpTimer = 0;
-			_isWallJump = false;
+			wallJumpTimer = 0;
+			isWallJump = false;
 		}
 	}
 
@@ -211,31 +211,31 @@ public partial class Player : CharacterBody2D
 		var timer = GetNode<Timer>("DashTimer");
 		if (Input.IsActionJustPressed("dash") && timer.IsStopped())
 		{
-			StartTimer(timer, _dashDuration);
+			StartTimer(timer, dashDuration);
 		}
 		if (!timer.IsStopped())
 		{
-			_isDash = true;
-			_isGravity = false;
-			_isInput = false;
+			isDash = true;
+			isGravity = false;
+			isInput = false;
 			ApplyDashSpeed();
 		}
 		else
 		{
-			_isDash = false;
-			_isGravity = true;
-			_isInput = true;
+			isDash = false;
+			isGravity = true;
+			isInput = true;
 		}
 	}
 
 	private void ApplyDashSpeed()
 	{
 		int dashSpeed = 600;
-		_tempVelocity = Velocity;
+		tempVelocity = Velocity;
 
-		_tempVelocity.X = GetNode<Sprite2D>("Sprite2D").FlipH ? -dashSpeed : dashSpeed;
-		_tempVelocity.Y = 0;
-		Velocity = _tempVelocity;
+		tempVelocity.X = GetNode<Sprite2D>("Sprite2D").FlipH ? -dashSpeed : dashSpeed;
+		tempVelocity.Y = 0;
+		Velocity = tempVelocity;
 	}
 
 	private void Hook()
@@ -247,7 +247,7 @@ public partial class Player : CharacterBody2D
 	private void HandleHook(string hookAction, string chainNodeName)
 	{
 		var chain = GetNode<Chain>(chainNodeName);
-		if (Input.IsActionJustPressed(hookAction) && _initialized && !chain.hooked && !chain.flying)
+		if (Input.IsActionJustPressed(hookAction) && initialized && !chain.hooked && !chain.flying)
 		{
 			var mouseViewportPos = GetViewport().GetMousePosition();
 			chain.shoot((mouseViewportPos - GetViewportRect().Size / 2).Normalized());
@@ -261,8 +261,8 @@ public partial class Player : CharacterBody2D
 
 	private void HookPhys()
 	{
-		HandleHookPhysics("Chain", ref _chainVelocity);
-		HandleHookPhysics("Chain2", ref _chainVelocity);
+		HandleHookPhysics("Chain", ref chainVelocity);
+		HandleHookPhysics("Chain2", ref chainVelocity);
 	}
 
 	private void HandleHookPhysics(string chainNodeName, ref Vector2 chainVelocity)
@@ -270,8 +270,8 @@ public partial class Player : CharacterBody2D
 		var chain = GetNode<Chain>(chainNodeName);
 		if (chain.hooked)
 		{
-			var walk = (Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left")) * _acceleration;
-			chainVelocity = ToLocal(chain.tip).Normalized() * _chainPullForce;
+			var walk = (Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left")) * acceleration;
+			chainVelocity = ToLocal(chain.tip).Normalized() * chainPullForce;
 			chainVelocity.Y *= chainVelocity.Y > 0 ? 0.55f : 1.1f;
 			if (Mathf.Sign(chainVelocity.X) != Mathf.Sign(walk))
 			{
@@ -287,18 +287,18 @@ public partial class Player : CharacterBody2D
 
 	private async void Damage(float amount, Vector2 knockback)
 	{
-		_isTakingDamage = true;
-		await ToSignal(_animPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_isTakingDamage = false;
+		isTakingDamage = true;
+		await ToSignal(animPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		isTakingDamage = false;
 	}
 
 	private async void Death()
 	{
-		if (_isDead) return;
+		if (isDead) return;
 
-		await ToSignal(_animPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		await ToSignal(animPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		EmitSignal(nameof(DieEventHandler));
-		_isDead = true;
+		isDead = true;
 		DisableCollisionShapes();
 	}
 
@@ -315,32 +315,32 @@ public partial class Player : CharacterBody2D
 		switch (bodyPart)
 		{
 			case "HealthComponentHead":
-				if (_isHeadDismembered) return;
-				_isHeadDismembered = true;
+				if (isHeadDismembered) return;
+				isHeadDismembered = true;
 				GD.Print("Head dismembered");
 				SetDismemberIconVisible("Dismember Icon Head", false);
 				break;
 			case "HealthComponentRightArm":
-				if (_isRightArmDismembered) return;
-				_isRightArmDismembered = true;
+				if (isRightArmDismembered) return;
+				isRightArmDismembered = true;
 				GD.Print("Right Arm dismembered");
 				SetDismemberIconVisible("Dismember Icon RightArm", false);
 				break;
 			case "HealthComponentLeftArm":
-				if (_isLeftArmDismembered) return;
-				_isLeftArmDismembered = true;
+				if (isLeftArmDismembered) return;
+				isLeftArmDismembered = true;
 				GD.Print("Left Arm dismembered");
 				SetDismemberIconVisible("Dismember Icon LeftArm", false);
 				break;
 			case "HealthComponentRightLeg":
-				if (_isRightLegDismembered) return;
-				_isRightLegDismembered = true;
+				if (isRightLegDismembered) return;
+				isRightLegDismembered = true;
 				GD.Print("Right Leg dismembered");
 				SetDismemberIconVisible("Dismember Icon RightLeg", false);
 				break;
 			case "HealthComponentLeftLeg":
-				if (_isLeftLegDismembered) return;
-				_isLeftLegDismembered = true;
+				if (isLeftLegDismembered) return;
+				isLeftLegDismembered = true;
 				GD.Print("Left Leg dismembered");
 				SetDismemberIconVisible("Dismember Icon LeftLeg", false);
 				break;
@@ -358,8 +358,8 @@ public partial class Player : CharacterBody2D
 
 		for (int i = 0; i < frames; i++)
 		{
-			_tempVelocity += knockback;
-			Velocity = _tempVelocity;
+			tempVelocity += knockback;
+			Velocity = tempVelocity;
 			await ToSignal(GetTree(), "physics_frame");
 		}
 	}
@@ -386,26 +386,26 @@ public partial class Player : CharacterBody2D
 			else if (IsMoving())
 			{
 				PlayAnimation("run", "run_left");
-				_animPlayer.SpeedScale = _unsignedSpeed / 200;
+				animPlayer.SpeedScale = unsignedSpeed / 200;
 			}
 		}
-		if (_isDash)
+		if (isDash)
 		{
 			PlayAnimation("dash", "dash_left");
 		}
-		if (_isWallJump)
+		if (isWallJump)
 		{
 			PlayAnimation("walljmp", "walljmp_left");
 		}
-		if (_isTakingDamage)
+		if (isTakingDamage)
 		{
 			PlayAnimation("hurt", "hurt_left");
 		}
-		if (_isDead)
+		if (isDead)
 		{
 			PlayAnimation("death", "death_left");
 		}
-		if (Input.IsActionJustPressed("attack") && !_isAttacking && !IsRestricted())
+		if (Input.IsActionJustPressed("attack") && !isAttacking && !IsRestricted())
 		{
 			PlayAttackAnimation();
 		}
@@ -413,7 +413,7 @@ public partial class Player : CharacterBody2D
 
 	private void PlayAnimation(string anim, string animLeft)
 	{
-		_animPlayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? anim : animLeft);
+		animPlayer.Play(!GetNode<Sprite2D>("Sprite2D").FlipH ? anim : animLeft);
 	}
 
 	private bool IsJumping()
@@ -433,20 +433,20 @@ public partial class Player : CharacterBody2D
 
 	private bool IsMoving()
 	{
-		return Velocity.X != 0 && Input.IsActionPressed("move_right") || Input.IsActionJustPressed("move_left") && !IsRestricted();
+		return Velocity.X != 0 && (Input.IsActionPressed("move_right") || Input.IsActionPressed("move_left")) && !IsRestricted();
 	}
 
 	private async void PlayAttackAnimation()
 	{
-		_isAttacking = true;
+		isAttacking = true;
 		PlayAnimation("attack", "attack_left");
-		await ToSignal(_animPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_isAttacking = false;
+		await ToSignal(animPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		isAttacking = false;
 	}
 
 	private void HandleHorizontalFlip()
 	{
-		if (_isInput)
+		if (isInput)
 		{
 			if (Input.IsActionPressed("move_left"))
 			{
@@ -463,7 +463,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (GetNode<RayCast2D>("RayCastFloor").IsColliding())
 		{
-			GetNode<Sprite2D>("Sprite2D").Rotation = _normal.Angle() + Mathf.DegToRad(90);
+			GetNode<Sprite2D>("Sprite2D").Rotation = normal.Angle() + Mathf.DegToRad(90);
 		}
 		else
 		{
@@ -473,7 +473,7 @@ public partial class Player : CharacterBody2D
 
 	private bool IsRestricted()
 	{
-		return _isAttacking || _isTakingDamage || _isDash || _isWallJump;
+		return isAttacking || isTakingDamage || isDash || isWallJump;
 	}
 
 	private void StartTimer(Timer timer, float duration)
@@ -485,22 +485,22 @@ public partial class Player : CharacterBody2D
 
 	private void ApplyGravity(double delta)
 	{
-		if (!IsOnFloor() && _isGravity && !_isWallJump)
+		if (!IsOnFloor() && isGravity && !isWallJump)
 		{
-			_tempVelocity.Y += ReturnGravity() * (float)delta;
-			_tempVelocity.Y = Mathf.Clamp(_tempVelocity.Y, -_maxSpeed, _maxSpeed);
-			Velocity = _tempVelocity;
+			tempVelocity.Y += ReturnGravity() * (float)delta;
+			tempVelocity.Y = Mathf.Clamp(tempVelocity.Y, -maxSpeed, maxSpeed);
+			Velocity = tempVelocity;
 		}
 		else if (Velocity.Y > 0)
 		{
-			_tempVelocity.Y = 0;
-			Velocity = _tempVelocity;
+			tempVelocity.Y = 0;
+			Velocity = tempVelocity;
 		}
 	}
 
 	private float ReturnGravity()
 	{
-		return Velocity.Y < 0.0 ? _jumpGravity : _fallGravity;
+		return Velocity.Y < 0.0 ? jumpGravity : fallGravity;
 	}
 
 	private void Debug()
@@ -508,29 +508,29 @@ public partial class Player : CharacterBody2D
 		RichTextLabel richTextLabel = GetNode<RichTextLabel>("RichTextLabel");
 		if (Input.IsActionJustPressed("debug"))
 		{
-			_isDebug = !_isDebug;
-			GD.Print("Debug mode: " + _isDebug);
+			isDebug = !isDebug;
+			GD.Print("Debug mode: " + isDebug);
 		}
-		if (_isDebug)
+		if (isDebug)
 		{
-			richTextLabel.Text = $"Velocity: {Velocity}\nNormal: {_normal}\nIs Gravity: {_isGravity}\nIs Input: {_isInput}\nIs Restricted: {IsRestricted()}\nIs Jumping: {Input.IsActionJustPressed("jump")}\nCurrent Animation: {_animPlayer.CurrentAnimation}";
+			richTextLabel.Text = $"Velocity: {Velocity}\nNormal: {normal}\nIs Gravity: {isGravity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}\nIs Jumping: {Input.IsActionJustPressed("jump")}\nCurrent Animation: {animPlayer.CurrentAnimation}";
 		}
 		else
 		{
 			richTextLabel.Text = "";
 		}
-		if (_isDebug && Input.IsActionPressed("ctrl"))
+		if (isDebug && Input.IsActionPressed("ctrl"))
 		{
 			if (Input.IsActionPressed("scroll_up"))
 			{
-				_camera.Zoom *= new Vector2(1.2f, 1.2f);
-				GD.Print("Zoom: " + _camera.Zoom);
+				camera.Zoom *= new Vector2(1.2f, 1.2f);
+				GD.Print("Zoom: " + camera.Zoom);
 			}
 
 			if (Input.IsActionPressed("scroll_down"))
 			{
-				_camera.Zoom /= new Vector2(1.2f, 1.2f);
-				GD.Print("Zoom: " + _camera.Zoom);
+				camera.Zoom /= new Vector2(1.2f, 1.2f);
+				GD.Print("Zoom: " + camera.Zoom);
 			}
 		}
 	}
