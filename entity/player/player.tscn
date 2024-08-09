@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=122 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -28,16 +28,16 @@ size = Vector2(15.5234, 7.7104)
 radius = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4gu4"]
-size = Vector2(8.42699, 11.0839)
+size = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
-size = Vector2(6.27995, 3.83578)
+size = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
-size = Vector2(6.71752, 3.8552)
+size = Vector2(0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpleu"]
-size = Vector2(4.63197, 10.1108)
+size = Vector2(0, 0)
 
 [sub_resource type="Animation" id="Animation_5bjfo"]
 length = 0.001
@@ -97,7 +97,7 @@ radius = 0.274961
 height = 2.50588
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dlu1y"]
-size = Vector2(4.42932, 8.4306)
+size = Vector2(0, 0)
 
 [sub_resource type="Animation" id="Animation_w74ge"]
 resource_name = "attack"
@@ -4887,6 +4887,7 @@ advance_mode = 2
 advance_condition = &"is_dead"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v1xcj"]
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_dead"
 
@@ -4941,6 +4942,24 @@ advance_condition = &"is_idle"
 advance_mode = 2
 advance_condition = &"is_falling"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_np5di"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ssdvh"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nr028"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_falling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4g8hr"]
+advance_mode = 2
+advance_condition = &"is_taking_damage"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_20kph"]
 states/Attacking/node = SubResource("AnimationNodeBlendSpace1D_hlkkg")
 states/Attacking/position = Vector2(543.793, 100)
@@ -4954,8 +4973,8 @@ states/fall/node = SubResource("AnimationNodeBlendSpace1D_p2lbf")
 states/fall/position = Vector2(543.793, -18.6403)
 states/idle/node = SubResource("AnimationNodeBlendSpace1D_2ej48")
 states/idle/position = Vector2(304.793, 100)
-transitions = ["idle", "Attacking", SubResource("AnimationNodeStateMachineTransition_3wsht"), "Attacking", "idle", SubResource("AnimationNodeStateMachineTransition_g5anx"), "Hurt", "idle", SubResource("AnimationNodeStateMachineTransition_pirvp"), "Hurt", "Attacking", SubResource("AnimationNodeStateMachineTransition_uh81a"), "idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_lnkwu"), "Attacking", "Hurt", SubResource("AnimationNodeStateMachineTransition_omjtp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_a4kmx"), "Hurt", "die", SubResource("AnimationNodeStateMachineTransition_m2xwl"), "Attacking", "die", SubResource("AnimationNodeStateMachineTransition_v1xcj"), "Start", "die", SubResource("AnimationNodeStateMachineTransition_ufq6m"), "die", "End", SubResource("AnimationNodeStateMachineTransition_b3pgv"), "idle", "Jump", SubResource("AnimationNodeStateMachineTransition_as8ca"), "Jump", "idle", SubResource("AnimationNodeStateMachineTransition_q10wc"), "Jump", "Attacking", SubResource("AnimationNodeStateMachineTransition_idu6c"), "Attacking", "Jump", SubResource("AnimationNodeStateMachineTransition_ktijy"), "Jump", "Hurt", SubResource("AnimationNodeStateMachineTransition_888of"), "Hurt", "Jump", SubResource("AnimationNodeStateMachineTransition_o2bom"), "Jump", "die", SubResource("AnimationNodeStateMachineTransition_hskrp"), "Jump", "fall", SubResource("AnimationNodeStateMachineTransition_82ut3"), "fall", "die", SubResource("AnimationNodeStateMachineTransition_bxdwo"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_stdlp"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_gkv4e")]
-graph_offset = Vector2(-175.761, -119.64)
+transitions = ["idle", "Attacking", SubResource("AnimationNodeStateMachineTransition_3wsht"), "Attacking", "idle", SubResource("AnimationNodeStateMachineTransition_g5anx"), "Hurt", "idle", SubResource("AnimationNodeStateMachineTransition_pirvp"), "Hurt", "Attacking", SubResource("AnimationNodeStateMachineTransition_uh81a"), "idle", "Hurt", SubResource("AnimationNodeStateMachineTransition_lnkwu"), "Attacking", "Hurt", SubResource("AnimationNodeStateMachineTransition_omjtp"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_a4kmx"), "Hurt", "die", SubResource("AnimationNodeStateMachineTransition_m2xwl"), "Attacking", "die", SubResource("AnimationNodeStateMachineTransition_v1xcj"), "Start", "die", SubResource("AnimationNodeStateMachineTransition_ufq6m"), "die", "End", SubResource("AnimationNodeStateMachineTransition_b3pgv"), "idle", "Jump", SubResource("AnimationNodeStateMachineTransition_as8ca"), "Jump", "idle", SubResource("AnimationNodeStateMachineTransition_q10wc"), "Jump", "Attacking", SubResource("AnimationNodeStateMachineTransition_idu6c"), "Attacking", "Jump", SubResource("AnimationNodeStateMachineTransition_ktijy"), "Jump", "Hurt", SubResource("AnimationNodeStateMachineTransition_888of"), "Hurt", "Jump", SubResource("AnimationNodeStateMachineTransition_o2bom"), "Jump", "die", SubResource("AnimationNodeStateMachineTransition_hskrp"), "Jump", "fall", SubResource("AnimationNodeStateMachineTransition_82ut3"), "fall", "die", SubResource("AnimationNodeStateMachineTransition_bxdwo"), "fall", "idle", SubResource("AnimationNodeStateMachineTransition_stdlp"), "idle", "fall", SubResource("AnimationNodeStateMachineTransition_gkv4e"), "fall", "Attacking", SubResource("AnimationNodeStateMachineTransition_np5di"), "Attacking", "fall", SubResource("AnimationNodeStateMachineTransition_ssdvh"), "Hurt", "fall", SubResource("AnimationNodeStateMachineTransition_nr028"), "fall", "Hurt", SubResource("AnimationNodeStateMachineTransition_4g8hr")]
+graph_offset = Vector2(-231.685, -119.64)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_78eah"]
 animation = &"attack_left"
@@ -5110,9 +5129,9 @@ blend_point_1/pos = 1.0
 animation = &"walljmp_left"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_60wpk"]
-graph_offset = Vector2(391.233, 919.989)
+graph_offset = Vector2(-429.349, 303.185)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_20kph")
-nodes/StateMachine/position = Vector2(914.377, 819.42)
+nodes/StateMachine/position = Vector2(620, 420)
 nodes/attack/node = SubResource("AnimationNodeBlendSpace1D_gvaw3")
 nodes/attack/position = Vector2(20, 1080)
 nodes/dash/node = SubResource("AnimationNodeBlendSpace1D_cwc5e")
@@ -5131,14 +5150,14 @@ nodes/output/position = Vector2(840, 440)
 nodes/run/node = SubResource("AnimationNodeBlendSpace1D_lve06")
 nodes/run/position = Vector2(20, 420)
 nodes/state/node = SubResource("AnimationNodeTransition_a1vbr")
-nodes/state/position = Vector2(600, 700)
+nodes/state/position = Vector2(400, 600)
 nodes/walljmp/node = SubResource("AnimationNodeAnimation_qja4w")
 nodes/walljmp/position = Vector2(-240, 2440)
 nodes/walljump/node = SubResource("AnimationNodeBlendSpace1D_va5h3")
 nodes/walljump/position = Vector2(20, 1560)
 nodes/walljump_left/node = SubResource("AnimationNodeAnimation_oghq2")
 nodes/walljump_left/position = Vector2(-240, 2580)
-node_connections = [&"output", 0, &"state", &"state", 0, &"idle", &"state", 1, &"run", &"state", 2, &"jump", &"state", 3, &"fall", &"state", 4, &"dash", &"state", 5, &"attack", &"state", 6, &"die", &"state", 7, &"hurt"]
+node_connections = [&"output", 0, &"StateMachine", &"state", 0, &"idle", &"state", 1, &"run", &"state", 2, &"jump", &"state", 3, &"fall", &"state", 4, &"dash", &"state", 5, &"attack", &"state", 6, &"die", &"state", 7, &"hurt"]
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
@@ -5198,7 +5217,6 @@ script = ExtResource("4_87wg4")
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
-frame = 11
 
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 visible = false
@@ -5207,12 +5225,10 @@ script = ExtResource("8_36c5d")
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 shape = SubResource("RectangleShape2D_5oav3")
-disabled = true
 debug_color = Color(0.996078, 0, 0.207843, 0.419608)
 
 [node name="CollisionSword2" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 shape = SubResource("RectangleShape2D_pcw4w")
-disabled = true
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
 [node name="HurtBoxHead" type="Area2D" parent="Sprite2D"]
@@ -5220,7 +5236,6 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
-position = Vector2(6.20936, -5.7828)
 shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
@@ -5232,7 +5247,6 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
-position = Vector2(3.32644, 3.61435)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
@@ -5244,8 +5258,6 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
-position = Vector2(12.8265, 1.91756)
-rotation = 0.020944
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
 
@@ -5259,8 +5271,6 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
-position = Vector2(-1.7741, -0.9638)
-rotation = 0.867429
 scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
 
@@ -5273,8 +5283,6 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
-position = Vector2(5.32231, 10.6018)
-rotation = 0.623083
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
 script = ExtResource("37_hplil")
@@ -5285,8 +5293,6 @@ collision_mask = 10
 script = ExtResource("35_u515o")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
-position = Vector2(-1.83969, 13.0091)
-rotation = 0.520108
 scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
 
@@ -5363,6 +5369,7 @@ shape = SubResource("CapsuleShape2D_slk7t")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
+speed_scale = 0.0
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
@@ -5370,84 +5377,84 @@ one_shot = true
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_60wpk")
 anim_player = NodePath("../AnimationPlayer")
-parameters/current_length = 0.60001
-parameters/current_position = 0.357469
-parameters/current_delta = 0.0166667
-parameters/StateMachine/current_length = false
-parameters/StateMachine/current_position = false
-parameters/StateMachine/current_delta = false
+parameters/current_length = 0.0
+parameters/current_position = 0.0
+parameters/current_delta = 0.0
+parameters/StateMachine/current_length = 0.0
+parameters/StateMachine/current_position = 0.0
+parameters/StateMachine/current_delta = 0.0
 parameters/StateMachine/conditions/is_attacking = false
 parameters/StateMachine/conditions/is_dead = false
 parameters/StateMachine/conditions/is_falling = false
 parameters/StateMachine/conditions/is_idle = false
 parameters/StateMachine/conditions/is_jumping = false
 parameters/StateMachine/conditions/is_taking_damage = false
-parameters/StateMachine/Attacking/current_length = 0
-parameters/StateMachine/Attacking/current_position = 0
-parameters/StateMachine/Attacking/current_delta = 0
-parameters/StateMachine/Attacking/blend_position = 0
+parameters/StateMachine/Attacking/current_length = 1.60001
+parameters/StateMachine/Attacking/current_position = 1.60001
+parameters/StateMachine/Attacking/current_delta = 0.0333233
+parameters/StateMachine/Attacking/blend_position = 1.0
 parameters/StateMachine/Attacking/0/current_length = null
 parameters/StateMachine/Attacking/0/current_position = null
 parameters/StateMachine/Attacking/0/current_delta = null
-parameters/StateMachine/Attacking/1/current_length = null
-parameters/StateMachine/Attacking/1/current_position = null
-parameters/StateMachine/Attacking/1/current_delta = null
-parameters/StateMachine/End/current_length = null
-parameters/StateMachine/End/current_position = null
-parameters/StateMachine/End/current_delta = null
-parameters/StateMachine/Hurt/current_length = 0
-parameters/StateMachine/Hurt/current_position = 0
-parameters/StateMachine/Hurt/current_delta = 0
-parameters/StateMachine/Hurt/blend_position = 0
+parameters/StateMachine/Attacking/1/current_length = 1.60001
+parameters/StateMachine/Attacking/1/current_position = 1.60001
+parameters/StateMachine/Attacking/1/current_delta = 0.0333233
+parameters/StateMachine/End/current_length = 0.0
+parameters/StateMachine/End/current_position = 0.0
+parameters/StateMachine/End/current_delta = 0.0
+parameters/StateMachine/Hurt/current_length = 0.30001
+parameters/StateMachine/Hurt/current_position = 0.30001
+parameters/StateMachine/Hurt/current_delta = 0.0333233
+parameters/StateMachine/Hurt/blend_position = 1.0
 parameters/StateMachine/Hurt/0/current_length = null
 parameters/StateMachine/Hurt/0/current_position = null
 parameters/StateMachine/Hurt/0/current_delta = null
-parameters/StateMachine/Hurt/1/current_length = null
-parameters/StateMachine/Hurt/1/current_position = null
-parameters/StateMachine/Hurt/1/current_delta = null
-parameters/StateMachine/Jump/current_length = 0
-parameters/StateMachine/Jump/current_position = 0
-parameters/StateMachine/Jump/current_delta = 0
-parameters/StateMachine/Jump/blend_position = 0
+parameters/StateMachine/Hurt/1/current_length = 0.30001
+parameters/StateMachine/Hurt/1/current_position = 0.30001
+parameters/StateMachine/Hurt/1/current_delta = 0.0333233
+parameters/StateMachine/Jump/current_length = 0.40001
+parameters/StateMachine/Jump/current_position = 0.40001
+parameters/StateMachine/Jump/current_delta = 0.0
+parameters/StateMachine/Jump/blend_position = 1.0
 parameters/StateMachine/Jump/0/current_length = null
 parameters/StateMachine/Jump/0/current_position = null
 parameters/StateMachine/Jump/0/current_delta = null
-parameters/StateMachine/Jump/1/current_length = null
-parameters/StateMachine/Jump/1/current_position = null
-parameters/StateMachine/Jump/1/current_delta = null
-parameters/StateMachine/Start/current_length = null
-parameters/StateMachine/Start/current_position = null
-parameters/StateMachine/Start/current_delta = null
-parameters/StateMachine/die/current_length = 0
-parameters/StateMachine/die/current_position = 0
-parameters/StateMachine/die/current_delta = 0
-parameters/StateMachine/die/blend_position = 0
-parameters/StateMachine/die/0/current_length = null
-parameters/StateMachine/die/0/current_position = null
-parameters/StateMachine/die/0/current_delta = null
-parameters/StateMachine/die/1/current_length = null
-parameters/StateMachine/die/1/current_position = null
-parameters/StateMachine/die/1/current_delta = null
-parameters/StateMachine/fall/current_length = 0
-parameters/StateMachine/fall/current_position = 0
-parameters/StateMachine/fall/current_delta = 0
-parameters/StateMachine/fall/blend_position = 0
-parameters/StateMachine/fall/0/current_length = null
-parameters/StateMachine/fall/0/current_position = null
-parameters/StateMachine/fall/0/current_delta = null
-parameters/StateMachine/fall/1/current_length = null
-parameters/StateMachine/fall/1/current_position = null
-parameters/StateMachine/fall/1/current_delta = null
-parameters/StateMachine/idle/current_length = 0
-parameters/StateMachine/idle/current_position = 0
-parameters/StateMachine/idle/current_delta = 0
-parameters/StateMachine/idle/blend_position = 0
+parameters/StateMachine/Jump/1/current_length = 0.40001
+parameters/StateMachine/Jump/1/current_position = 0.40001
+parameters/StateMachine/Jump/1/current_delta = 0.0
+parameters/StateMachine/Start/current_length = 0.0
+parameters/StateMachine/Start/current_position = 0.0
+parameters/StateMachine/Start/current_delta = 0.0
+parameters/StateMachine/die/current_length = 0.60001
+parameters/StateMachine/die/current_position = 0.60001
+parameters/StateMachine/die/current_delta = 0.0333234
+parameters/StateMachine/die/blend_position = 1.0
+parameters/StateMachine/die/0/current_length = 1.0
+parameters/StateMachine/die/0/current_position = 1.0
+parameters/StateMachine/die/0/current_delta = 0.0229493
+parameters/StateMachine/die/1/current_length = 0.60001
+parameters/StateMachine/die/1/current_position = 0.60001
+parameters/StateMachine/die/1/current_delta = 0.0333234
+parameters/StateMachine/fall/current_length = 0.20001
+parameters/StateMachine/fall/current_position = 0.0
+parameters/StateMachine/fall/current_delta = 0.0
+parameters/StateMachine/fall/blend_position = 1.0
+parameters/StateMachine/fall/0/current_length = 0.20001
+parameters/StateMachine/fall/0/current_position = 0.0
+parameters/StateMachine/fall/0/current_delta = 0.0
+parameters/StateMachine/fall/1/current_length = 0.20001
+parameters/StateMachine/fall/1/current_position = 0.0
+parameters/StateMachine/fall/1/current_delta = 0.0
+parameters/StateMachine/idle/current_length = 0.40001
+parameters/StateMachine/idle/current_position = 0.266105
+parameters/StateMachine/idle/current_delta = 0.0166667
+parameters/StateMachine/idle/blend_position = 1.0
 parameters/StateMachine/idle/0/current_length = null
 parameters/StateMachine/idle/0/current_position = null
 parameters/StateMachine/idle/0/current_delta = null
-parameters/StateMachine/idle/1/current_length = null
-parameters/StateMachine/idle/1/current_position = null
-parameters/StateMachine/idle/1/current_delta = null
+parameters/StateMachine/idle/1/current_length = 0.40001
+parameters/StateMachine/idle/1/current_position = 0.266105
+parameters/StateMachine/idle/1/current_delta = 0.0166667
 parameters/attack/current_length = 0
 parameters/attack/current_position = 0
 parameters/attack/current_delta = 0
@@ -5518,21 +5525,21 @@ parameters/jump/0/current_delta = null
 parameters/jump/1/current_length = null
 parameters/jump/1/current_position = null
 parameters/jump/1/current_delta = null
-parameters/output/current_length = 0.60001
-parameters/output/current_position = 0.357469
-parameters/output/current_delta = 0.0166667
+parameters/output/current_length = 0.0
+parameters/output/current_position = 0.0
+parameters/output/current_delta = 0.0
 parameters/run/current_length = 0.60001
-parameters/run/current_position = 0.357469
+parameters/run/current_position = 0.336581
 parameters/run/current_delta = 0.0166667
 parameters/run/blend_position = 1.0
 parameters/run/0/current_length = null
 parameters/run/0/current_position = null
 parameters/run/0/current_delta = null
 parameters/run/1/current_length = 0.60001
-parameters/run/1/current_position = 0.357469
+parameters/run/1/current_position = 0.336581
 parameters/run/1/current_delta = 0.0166667
 parameters/state/current_length = 0.60001
-parameters/state/current_position = 0.357469
+parameters/state/current_position = 0.336581
 parameters/state/current_delta = 0.0166667
 parameters/state/current_state = "run"
 parameters/state/transition_request = ""
