@@ -4,9 +4,10 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	// ####################### ONREADY VAR #######################
-	[Export] public float JumpHeight;
-	[Export] public float JumpTimeToPeak;
-	[Export] public float JumpTimeToDescent;
+
+	[Export] public VelocityComponent velocityComponent;
+	[Export] public WallJumpComponent wallJumpComponent;
+	[Export] public DashComponent dashComponent;
 
 	private Camera2D camera;
 	private AnimationPlayer animPlayer;
@@ -23,30 +24,22 @@ public partial class Player : CharacterBody2D
 
 	private int maxSpeed = 1600;
 	private int jumpForce = 500;
-	private float jumpVelocity;
-	private float jumpGravity;
-	private float fallGravity;
 
 	private int acceleration = 300;
 	private int jumpBufferTime = 15;
 	private int jumpBufferCounter = 0;
 	private float dashDuration = 0.2f;
-	private int wallJumpTimer = 0;
-	private int wallJumpCooldown = 20;
 
 	private Vector2 chainVelocity = new Vector2(0, 0);
 	private Vector2 tempVelocity = new Vector2(0, 0);
 	private int chainPullForce = 60;
 	private float onGroundFriction = 0.1f;
 	private float onAirFriction = 0.02f;
-	private float unsignedSpeed = 0.0f;
 	private float gravityFactor = 0.2f;
 	private Vector2 normal = new Vector2(0, 0);
 	private bool isDead = false;
 	private bool isTakingDamage = false;
 	private bool isAttacking = false;
-	private bool isDash = false;
-	private bool isWallJump = false;
 	private bool isHeadDismembered = false;
 	private bool isRightArmDismembered = false;
 	private bool isLeftArmDismembered = false;
@@ -66,7 +59,6 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		InitializeComponents();
-		CalculateJumpPhysics();
 
 		initialized = true;
 	}
@@ -93,75 +85,18 @@ public partial class Player : CharacterBody2D
 		return healthComponent;
 	}
 
-	private void CalculateJumpPhysics()
-	{
-		jumpVelocity = ((2.0f * JumpHeight) / JumpTimeToPeak) * -1;
-		jumpGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToPeak, 2)) * -1;
-		fallGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToDescent, 2)) * -1;
-	}
 
 	public override void _Process(double delta)
 	{
 		Debug();
-		MoveAndSlide();
-		MovePlayer(delta);
+		velocityComponent.ActivateMove();
+		velocityComponent.HandleVelocity(delta);
+		wallJumpComponent.HandleWallJump();
+		dashComponent.HandleDash();
+		
 		AnimatePlayer();
-		ApplyGravity(delta);
 		Hook();
 		HookPhys();
-	}
-
-	private void MovePlayer(double delta)
-	{
-		unsignedSpeed = Mathf.Abs(Velocity.X);
-		normal = GetNode<RayCast2D>("RayCastFloor").GetCollisionNormal();
-		MoveHorizontal();
-		Jump();
-		WallJump();
-		Dash();
-	}
-
-	private void MoveHorizontal()
-	{
-		float friction = IsOnFloor() ? onGroundFriction : onAirFriction;
-		tempVelocity = Velocity;
-
-		if (isDash) friction *= 4;
-
-		if (Input.IsActionPressed("move_right") && !IsHooked() && isInput)
-		{
-			ApplyMovement(friction, acceleration);
-		}
-		else if (Input.IsActionPressed("move_left") && !IsHooked() && isInput)
-		{
-			ApplyMovement(friction, -acceleration);
-		}
-		else if (!Input.IsActionPressed("move_left") && !Input.IsActionPressed("move_right"))
-		{
-			if (!IsHooked())
-			{
-				tempVelocity.X = 0;
-				Velocity = tempVelocity;
-			}
-		}
-		tempVelocity.X = Mathf.Clamp(Velocity.X, -maxSpeed, maxSpeed);
-		Velocity = tempVelocity;
-	}
-
-	private void ApplyMovement(float friction, int acceleration)
-	{
-		if (!(Velocity.X >= -acceleration && Velocity.X <= acceleration))
-		{
-			tempVelocity.X = Mathf.Lerp(tempVelocity.X, (float)acceleration, 1);
-			Velocity = tempVelocity;
-		}
-		else
-		{
-			tempVelocity.X = Mathf.Lerp(tempVelocity.X, (float)acceleration, 1);
-			Velocity = tempVelocity;
-		}
-		tempVelocity.X = Velocity.X * (normal.X + 0.9f);
-		Velocity = tempVelocity;
 	}
 
 	private bool IsHooked()
@@ -169,74 +104,6 @@ public partial class Player : CharacterBody2D
 		return GetNode<Chain>("Chain").hooked || GetNode<Chain>("Chain2").hooked;
 	}
 
-	private void Jump()
-	{
-		if (Input.IsActionJustPressed("jump") && IsOnFloor() && isInput)
-		{
-			jumpBufferCounter = jumpBufferTime;
-		}
-		if (jumpBufferCounter > 0)
-		{
-			jumpBufferCounter--;
-		}
-		if (jumpBufferCounter > 0)
-		{
-			tempVelocity.Y = jumpVelocity;
-			Velocity = tempVelocity;
-			jumpBufferCounter = 0;
-		}
-		if (Input.IsActionJustReleased("jump") && Velocity.Y < 0)
-		{
-			tempVelocity.Y *= 0.5f;
-			Velocity = tempVelocity;
-		}
-	}
-
-	private void WallJump()
-	{
-		if (Velocity.Y >= 10 && wallJumpTimer < wallJumpCooldown && IsOnWallOnly())
-		{
-			wallJumpTimer++;
-			isWallJump = true;
-		}
-		else
-		{
-			wallJumpTimer = 0;
-			isWallJump = false;
-		}
-	}
-
-	private void Dash()
-	{
-		var timer = GetNode<Timer>("DashTimer");
-		if (Input.IsActionJustPressed("dash") && timer.IsStopped())
-		{
-			StartTimer(timer, dashDuration);
-		}
-		if (!timer.IsStopped())
-		{
-			isDash = true;
-			isGravity = false;
-			isInput = false;
-			ApplyDashSpeed();
-		}
-		else
-		{
-			isDash = false;
-			isGravity = true;
-			isInput = true;
-		}
-	}
-
-	private void ApplyDashSpeed()
-	{
-		int dashSpeed = 600;
-		tempVelocity = Velocity;
-
-		tempVelocity.X = GetNode<Sprite2D>("Sprite2D").FlipH ? -dashSpeed : dashSpeed;
-		tempVelocity.Y = 0;
-		Velocity = tempVelocity;
-	}
 
 	private void Hook()
 	{
@@ -386,14 +253,13 @@ public partial class Player : CharacterBody2D
 			else if (IsMoving())
 			{
 				PlayAnimation("run", "run_left");
-				animPlayer.SpeedScale = unsignedSpeed / 200;
 			}
 		}
-		if (isDash)
+		if (dashComponent.isDash)
 		{
 			PlayAnimation("dash", "dash_left");
 		}
-		if (isWallJump)
+		if (wallJumpComponent.isWallJump)
 		{
 			PlayAnimation("walljmp", "walljmp_left");
 		}
@@ -460,10 +326,10 @@ public partial class Player : CharacterBody2D
 	}
 
 	private void HandleSpriteRotation()
-	{
+	{	
 		if (GetNode<RayCast2D>("RayCastFloor").IsColliding())
 		{
-			GetNode<Sprite2D>("Sprite2D").Rotation = normal.Angle() + Mathf.DegToRad(90);
+			GetNode<Sprite2D>("Sprite2D").Rotation = velocityComponent.normal.Angle() + Mathf.DegToRad(90);
 		}
 		else
 		{
@@ -473,7 +339,7 @@ public partial class Player : CharacterBody2D
 
 	private bool IsRestricted()
 	{
-		return isAttacking || isTakingDamage || isDash || isWallJump;
+		return isAttacking || isTakingDamage || dashComponent.isDash || wallJumpComponent.isWallJump;
 	}
 
 	private void StartTimer(Timer timer, float duration)
@@ -481,26 +347,6 @@ public partial class Player : CharacterBody2D
 		timer.WaitTime = duration;
 		timer.OneShot = true;
 		timer.Start();
-	}
-
-	private void ApplyGravity(double delta)
-	{
-		if (!IsOnFloor() && isGravity && !isWallJump)
-		{
-			tempVelocity.Y += ReturnGravity() * (float)delta;
-			tempVelocity.Y = Mathf.Clamp(tempVelocity.Y, -maxSpeed, maxSpeed);
-			Velocity = tempVelocity;
-		}
-		else if (Velocity.Y > 0)
-		{
-			tempVelocity.Y = 0;
-			Velocity = tempVelocity;
-		}
-	}
-
-	private float ReturnGravity()
-	{
-		return Velocity.Y < 0.0 ? jumpGravity : fallGravity;
 	}
 
 	private void Debug()

@@ -1,16 +1,19 @@
-[gd_scene load_steps=46 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=49 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://entity/player/PlayerCamera2D.cs" id="4_87wg4"]
 [ext_resource type="Texture2D" uid="uid://dm1bibfmlvsbi" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://dnp6dylg8t7ad" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
-[ext_resource type="Script" path="res://entity/components/HitBoxComponent.cs" id="8_36c5d"]
 [ext_resource type="PackedScene" uid="uid://cn70xcy6cqkk0" path="res://entity/chain/chain.tscn" id="8_bc8it"]
+[ext_resource type="Script" path="res://entity/components/DetectionComponents/HitBoxComponent.cs" id="8_c0k1x"]
+[ext_resource type="Script" path="res://entity/components/DetectionComponents/HurtboxComponent.cs" id="9_lgubq"]
+[ext_resource type="Script" path="res://entity/components/DetectionComponents/HealthComponent.cs" id="10_4re3h"]
 [ext_resource type="Texture2D" uid="uid://d31ggdxram14e" path="res://entity/player/Graphs/Sophie/sophie_idle.png" id="10_j58qy"]
 [ext_resource type="Texture2D" uid="uid://b8b8d4juo8581" path="res://assets/icons/ConditionIcons/Big (240x240)/Stunned.png" id="12_inlxp"]
-[ext_resource type="Script" path="res://entity/components/HurtboxComponent.cs" id="35_u515o"]
-[ext_resource type="Script" path="res://entity/components/HealthComponent.cs" id="37_hplil"]
+[ext_resource type="Script" path="res://entity/components/MovementComponents/VelocityComponent.cs" id="13_x5rlm"]
+[ext_resource type="Script" path="res://entity/components/MovementComponents/WallJumpComponent.cs" id="14_padl0"]
+[ext_resource type="Script" path="res://entity/components/MovementComponents/DashComponent.cs" id="15_nxtd6"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
@@ -4780,15 +4783,15 @@ _data = {
 "walljmp_left": SubResource("Animation_tpj68")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent")]
 texture_filter = 1
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
 collision_mask = 10
 script = ExtResource("1_b3mxi")
-JumpHeight = 100.0
-JumpTimeToPeak = 0.5
-JumpTimeToDescent = 0.4
+velocityComponent = NodePath("VelocityComponent")
+wallJumpComponent = NodePath("WallJumpComponent")
+dashComponent = NodePath("DashComponent")
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
 target_position = Vector2(0, 28.914)
@@ -4843,7 +4846,7 @@ frame = 42
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
 visible = false
 collision_mask = 10
-script = ExtResource("8_36c5d")
+script = ExtResource("8_c0k1x")
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
 position = Vector2(-7.98346, -8.6742)
@@ -4857,33 +4860,34 @@ shape = SubResource("RectangleShape2D_pcw4w")
 disabled = true
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
-[node name="HurtBoxHead" type="Area2D" parent="Sprite2D"]
+[node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
-script = ExtResource("35_u515o")
+script = ExtResource("9_lgubq")
+health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
 position = Vector2(2.66115, -0.9638)
 shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
-script = ExtResource("37_hplil")
-MAX_HEALTH = 100
+script = ExtResource("10_4re3h")
 
-[node name="HurtBoxBody" type="Area2D" parent="Sprite2D"]
+[node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
-script = ExtResource("35_u515o")
+script = ExtResource("9_lgubq")
+health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
 position = Vector2(0.000102699, 5.7828)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
-script = ExtResource("37_hplil")
-MAX_HEALTH = 100000
+script = ExtResource("10_4re3h")
 
-[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D"]
+[node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
-script = ExtResource("35_u515o")
+script = ExtResource("9_lgubq")
+health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
 position = Vector2(6.87057, 5.45786)
@@ -4892,13 +4896,13 @@ scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
-script = ExtResource("37_hplil")
-MAX_HEALTH = 100
+script = ExtResource("10_4re3h")
 metadata/_edit_lock_ = true
 
-[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D"]
+[node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
-script = ExtResource("35_u515o")
+script = ExtResource("9_lgubq")
+health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
 position = Vector2(-6.34028, 3.85515)
@@ -4907,24 +4911,24 @@ scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
 
 [node name="HealthComponentRightArm" type="Node2D" parent="Sprite2D/HurtBoxRArm"]
-script = ExtResource("37_hplil")
-MAX_HEALTH = 100
+script = ExtResource("10_4re3h")
 
-[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D"]
+[node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
-script = ExtResource("35_u515o")
+script = ExtResource("9_lgubq")
+health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
 position = Vector2(4.87878, 13.4932)
 shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
-script = ExtResource("37_hplil")
-MAX_HEALTH = 100
+script = ExtResource("10_4re3h")
 
-[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D"]
+[node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
-script = ExtResource("35_u515o")
+script = ExtResource("9_lgubq")
+health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
 position = Vector2(-6.46344, 13.4316)
@@ -4933,8 +4937,7 @@ scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
 
 [node name="HealthComponentLeftLeg" type="Node2D" parent="Sprite2D/HurtBoxLleg"]
-script = ExtResource("37_hplil")
-MAX_HEALTH = 100
+script = ExtResource("10_4re3h")
 
 [node name="Dismember Icon Head" type="Sprite2D" parent="Sprite2D"]
 visible = false
@@ -5008,6 +5011,23 @@ speed_scale = 1.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="VelocityComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("13_x5rlm")
+Entity = NodePath("..")
+JumpHeight = 100.0
+JumpTimeToPeak = 0.5
+JumpTimeToDescent = 0.4
+onGroundFriction = 0.8
+onAirFriction = 0.1
+
+[node name="WallJumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("14_padl0")
+Entity = NodePath("..")
+
+[node name="DashComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("15_nxtd6")
+Entity = NodePath("..")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationFinished"]
 
