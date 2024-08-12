@@ -8,17 +8,16 @@ public partial class Player : CharacterBody2D
 	[Export] public float JumpTimeToPeak;
 	[Export] public float JumpTimeToDescent;
 
-	public Camera2D camera;
-	public AnimationPlayer animPlayer;
-	public AnimationTree animationTree;
-	public bool initialized = false;
+	private Camera2D camera;
+	private AnimationPlayer animPlayer;
+	private bool initialized = false;
 
-	public HealthComponent healthCompHead;
-    public HealthComponent healthCompBody;
-    public HealthComponent healthCompRightArm;
-    public HealthComponent healthCompLeftArm;
-    public HealthComponent healthCompRightLeg;
-    public HealthComponent healthCompLeftLeg;
+	private HealthComponent healthCompHead;
+    private HealthComponent healthCompBody;
+    private HealthComponent healthCompRightArm;
+    private HealthComponent healthCompLeftArm;
+    private HealthComponent healthCompRightLeg;
+    private HealthComponent healthCompLeftLeg;
 
 	// ####################### VARIABLES #########################
 
@@ -76,7 +75,6 @@ public partial class Player : CharacterBody2D
 	{
 		camera = GetNode<Camera2D>("Camera2D");
 		animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-		animationTree = GetNode<AnimationTree>("AnimationTree");
 
 		healthCompHead = SetupHealthComponent("Sprite2D/HurtBoxHead/HealthComponentHead");
 		healthCompBody = SetupHealthComponent("Sprite2D/HurtBoxBody/HealthComponentBody");
@@ -366,63 +364,50 @@ public partial class Player : CharacterBody2D
 		}
 	}
 
-	private void FlipAnimationTree() 
-	{
-		
-		
-		
-		
-		
-		
-		
-		
-	}
-
 	private void AnimatePlayer()
 	{
 		HandleHorizontalFlip();
 		HandleSpriteRotation();
-		FlipAnimationTree();
 
 		if (IsJumping())
 		{
-			animationTree.Set("parameters/Jump/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAnimation("jump", "jump_left");
 		}
 		else if (IsFalling())
 		{
-			animationTree.Set("parameters/Fall/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAnimation("fall", "fall_left");
 		}
 		else if (IsOnFloor())
 		{
 			if (IsIdle())
 			{
-				animationTree.Set("parameters/Idle/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+				PlayAnimation("idle", "idle_left");
 			}
 			else if (IsMoving())
 			{
-				animationTree.Set("parameters/Run/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+				PlayAnimation("run", "run_left");
 				animPlayer.SpeedScale = unsignedSpeed / 200;
 			}
 		}
 		if (isDash)
 		{
-			animationTree.Set("parameters/Dash/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAnimation("dash", "dash_left");
 		}
 		if (isWallJump)
 		{
-			animationTree.Set("parameters/WallJump/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAnimation("walljmp", "walljmp_left");
 		}
 		if (isTakingDamage)
 		{
-			animationTree.Set("parameters/Hurt/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAnimation("hurt", "hurt_left");
 		}
 		if (isDead)
 		{
-			animationTree.Set("parameters/Death/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAnimation("death", "death_left");
 		}
 		if (Input.IsActionJustPressed("attack") && !isAttacking && !IsRestricted())
 		{
-			animationTree.Set("parameters/Attack/blend_position", GetNode<Sprite2D>("Sprite2D").FlipH ? -1 : 1);
+			PlayAttackAnimation();
 		}
 	}
 

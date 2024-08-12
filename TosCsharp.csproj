@@ -5,8 +5,4 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Firebelley.GodotUtilities" Version="5.0.0" />
-    <PackageReference Include="Firebelley.GodotUtilities.SourceGenerators" Version="5.0.0" />
-  </ItemGroup>
 </Project>
