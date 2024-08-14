@@ -17,7 +17,7 @@ public partial class VelocityComponent: Node2D
 	[Export] public int jumpBufferTime = 15;
 	public int jumpBufferCounter = 0;
     [Export] public float onGroundFriction = 0.1f;
-	[Export] public float onAirFriction = 0.02f;
+	[Export] public float onAirFriction = 0.1f;
     public Vector2 normal = new Vector2(0, 0);
 
     public Vector2 tempVelocity = new Vector2(0, 0);
@@ -37,7 +37,7 @@ public partial class VelocityComponent: Node2D
         Entity.MoveAndSlide();
     }
 
-    private void CalculateJumpPhysics()
+    public void CalculateJumpPhysics()
 	{
 		jumpVelocity = ((2.0f * JumpHeight) / JumpTimeToPeak) * -1;
 		jumpGravity = -((2.0f * JumpHeight) / Mathf.Pow(JumpTimeToPeak, 2)) * -1;
@@ -68,7 +68,7 @@ public partial class VelocityComponent: Node2D
 		}
 	}
 
-    private void CalculateSpeed(Array<float> addModifiers, Array<float> multiplyModifiers)
+    public void CalculateSpeed(Array<float> addModifiers, Array<float> multiplyModifiers)
     {
      
 
@@ -87,11 +87,6 @@ public partial class VelocityComponent: Node2D
 	{
 		friction = Entity.IsOnFloor() ? onGroundFriction : onAirFriction;
 
-        if (Input.IsActionPressed("dash")) 
-        {
-            friction *= 4;
-        }
-
 		tempVelocity = Entity.Velocity;
 
 
@@ -107,42 +102,38 @@ public partial class VelocityComponent: Node2D
 		{
 			if (!IsHooked())
 			{
+                tempVelocity = Entity.Velocity;
 				tempVelocity.X = 0;
 				Entity.Velocity = tempVelocity;
 			}
 		}
-		tempVelocity.X = Mathf.Clamp(Entity.Velocity.X, -maxSpeed, maxSpeed);
-		Entity.Velocity = tempVelocity;
-	}
-
-	private void ApplyMovement(float friction, float acceleration)
-	{
-		tempVelocity.X = Mathf.Lerp(tempVelocity.X, acceleration, 1);
-		Entity.Velocity = tempVelocity;
-		tempVelocity.X = Entity.Velocity.X * (normal.X + 0.9f);
-		Entity.Velocity = tempVelocity;
-	}
-
-    public void ApplyDashSpeed(float DashSpeed)
-	{
 		
-		var tempVelocity = Entity.Velocity;
-
-		tempVelocity.X = Entity.GetNode<Sprite2D>("Sprite2D").FlipH ? -DashSpeed : DashSpeed;
-		tempVelocity.Y = 0;
-		Entity.Velocity = tempVelocity;
 	}
 
-    private void ApplyGravity(double delta)
+	public void ApplyMovement(float friction, float acceleration)
+	{
+        
+        tempVelocity = Entity.Velocity;
+        tempVelocity.X = Mathf.Lerp(tempVelocity.X, acceleration, friction);
+        Entity.Velocity = tempVelocity;
+        tempVelocity.X = Entity.Velocity.X * (normal.X + 0.9f);
+        tempVelocity.X = Mathf.Clamp(Entity.Velocity.X, -maxSpeed, maxSpeed);
+        Entity.Velocity = tempVelocity;
+    }
+
+
+
+    public void ApplyGravity(double delta)
     {
         if (!Entity.IsOnFloor())
-        {
+        {   tempVelocity = Entity.Velocity;
             tempVelocity.Y += ReturnGravity() * (float)delta;
             tempVelocity.Y = Mathf.Clamp(tempVelocity.Y, -maxSpeed, maxSpeed);
             Entity.Velocity = tempVelocity;
         }
         else if (Entity.Velocity.Y > 0)
         {
+            tempVelocity = Entity.Velocity;
             tempVelocity.Y = 0;
             Entity.Velocity = tempVelocity;
         }
@@ -157,7 +148,7 @@ public partial class VelocityComponent: Node2D
 	{
         if (Owner.HasNode("Chain") || Owner.HasNode("Chain2"))
         {
-            return Owner.GetNode<Chain>("Chain").hooked || Owner.GetNode<Chain>("Chain2").hooked;
+            return Owner.GetNode<ChainComponent>("Chain").hooked || Owner.GetNode<ChainComponent>("Chain2").hooked;
         }
         else
         {

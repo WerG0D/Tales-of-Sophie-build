@@ -4783,7 +4783,7 @@ _data = {
 "walljmp_left": SubResource("Animation_tpj68")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent", "chainComponent", "chainComponent2")]
 texture_filter = 1
 position = Vector2(0, -18)
 scale = Vector2(1.14495, 1.03756)
@@ -4792,6 +4792,45 @@ script = ExtResource("1_b3mxi")
 velocityComponent = NodePath("VelocityComponent")
 wallJumpComponent = NodePath("WallJumpComponent")
 dashComponent = NodePath("DashComponent")
+chainComponent = NodePath("Chain")
+chainComponent2 = NodePath("Chain2")
+
+[node name="VelocityComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("13_x5rlm")
+Entity = NodePath("..")
+JumpHeight = 100.0
+JumpTimeToPeak = 0.5
+JumpTimeToDescent = 0.4
+onAirFriction = 0.2
+
+[node name="WallJumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
+script = ExtResource("14_padl0")
+Entity = NodePath("..")
+
+[node name="DashComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity", "VelocityComponent")]
+position = Vector2(-3.4936, 0)
+script = ExtResource("15_nxtd6")
+Entity = NodePath("..")
+VelocityComponent = NodePath("../VelocityComponent")
+DashSpeed = 600.0
+
+[node name="Chain" parent="." node_paths=PackedStringArray("Entity", "velocityComponent") instance=ExtResource("8_bc8it")]
+visible = false
+position = Vector2(-1.66588e-06, 0)
+Entity = NodePath("..")
+velocityComponent = NodePath("../VelocityComponent")
+
+[node name="Hook" parent="Chain/Tip" index="0"]
+modulate = Color(0.168627, 0.113725, 1, 1)
+
+[node name="Chain2" parent="." node_paths=PackedStringArray("Entity", "velocityComponent") instance=ExtResource("8_bc8it")]
+visible = false
+HookInput = "hook2"
+Entity = NodePath("..")
+velocityComponent = NodePath("../VelocityComponent")
+
+[node name="Hook" parent="Chain2/Tip" index="0"]
+modulate = Color(1, 0, 0, 1)
 
 [node name="RayCastFloor" type="RayCast2D" parent="."]
 target_position = Vector2(0, 28.914)
@@ -4815,19 +4854,6 @@ scroll_active = false
 autowrap_mode = 0
 tab_size = 1
 script = ExtResource("78_3wrjh")
-
-[node name="Chain" parent="." instance=ExtResource("8_bc8it")]
-visible = false
-position = Vector2(-1.66588e-06, 0)
-
-[node name="Hook" parent="Chain/Tip" index="0"]
-modulate = Color(0.168627, 0.113725, 1, 1)
-
-[node name="Chain2" parent="." instance=ExtResource("8_bc8it")]
-visible = false
-
-[node name="Hook" parent="Chain2/Tip" index="0"]
-modulate = Color(1, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 ignore_rotation = false
@@ -5011,23 +5037,6 @@ speed_scale = 1.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="VelocityComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
-script = ExtResource("13_x5rlm")
-Entity = NodePath("..")
-JumpHeight = 100.0
-JumpTimeToPeak = 0.5
-JumpTimeToDescent = 0.4
-onGroundFriction = 0.8
-onAirFriction = 0.1
-
-[node name="WallJumpComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
-script = ExtResource("14_padl0")
-Entity = NodePath("..")
-
-[node name="DashComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
-script = ExtResource("15_nxtd6")
-Entity = NodePath("..")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationFinished"]
 

@@ -8,17 +8,19 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
+	[Export] public ChainComponent chainComponent;
+	[Export] public ChainComponent chainComponent2;
 
 	private Camera2D camera;
 	private AnimationPlayer animPlayer;
 	private bool initialized = false;
 
 	private HealthComponent healthCompHead;
-    private HealthComponent healthCompBody;
-    private HealthComponent healthCompRightArm;
-    private HealthComponent healthCompLeftArm;
-    private HealthComponent healthCompRightLeg;
-    private HealthComponent healthCompLeftLeg;
+	private HealthComponent healthCompBody;
+	private HealthComponent healthCompRightArm;
+	private HealthComponent healthCompLeftArm;
+	private HealthComponent healthCompRightLeg;
+	private HealthComponent healthCompLeftLeg;
 
 	// ####################### VARIABLES #########################
 
@@ -29,10 +31,7 @@ public partial class Player : CharacterBody2D
 	private int jumpBufferTime = 15;
 	private int jumpBufferCounter = 0;
 	private float dashDuration = 0.2f;
-
-	private Vector2 chainVelocity = new Vector2(0, 0);
 	private Vector2 tempVelocity = new Vector2(0, 0);
-	private int chainPullForce = 60;
 	private float onGroundFriction = 0.1f;
 	private float onAirFriction = 0.02f;
 	private float gravityFactor = 0.2f;
@@ -93,65 +92,16 @@ public partial class Player : CharacterBody2D
 		velocityComponent.HandleVelocity(delta);
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
-		
 		AnimatePlayer();
-		Hook();
-		HookPhys();
+		chainComponent.Hook();
+		chainComponent.HookPhys();
+		chainComponent2.Hook();
+		chainComponent2.HookPhys();
+
+		
 	}
 
-	private bool IsHooked()
-	{
-		return GetNode<Chain>("Chain").hooked || GetNode<Chain>("Chain2").hooked;
-	}
-
-
-	private void Hook()
-	{
-		HandleHook("hook", "Chain");
-		HandleHook("hook2", "Chain2");
-	}
-
-	private void HandleHook(string hookAction, string chainNodeName)
-	{
-		var chain = GetNode<Chain>(chainNodeName);
-		if (Input.IsActionJustPressed(hookAction) && initialized && !chain.hooked && !chain.flying)
-		{
-			var mouseViewportPos = GetViewport().GetMousePosition();
-			chain.shoot((mouseViewportPos - GetViewportRect().Size / 2).Normalized());
-		}
-		else if (Input.IsActionJustPressed(hookAction) || (Input.IsActionJustPressed("jump") && chain.hooked))
-		{
-			chain.Release();
-			Velocity *= 1.2f;
-		}
-	}
-
-	private void HookPhys()
-	{
-		HandleHookPhysics("Chain", ref chainVelocity);
-		HandleHookPhysics("Chain2", ref chainVelocity);
-	}
-
-	private void HandleHookPhysics(string chainNodeName, ref Vector2 chainVelocity)
-	{
-		var chain = GetNode<Chain>(chainNodeName);
-		if (chain.hooked)
-		{
-			var walk = (Input.GetActionStrength("move_right") - Input.GetActionStrength("move_left")) * acceleration;
-			chainVelocity = ToLocal(chain.tip).Normalized() * chainPullForce;
-			chainVelocity.Y *= chainVelocity.Y > 0 ? 0.55f : 1.1f;
-			if (Mathf.Sign(chainVelocity.X) != Mathf.Sign(walk))
-			{
-				chainVelocity.X *= 0.3f;
-			}
-		}
-		else
-		{
-			chainVelocity = Vector2.Zero;
-		}
-		Velocity += chainVelocity;
-	}
-
+	
 	private async void Damage(float amount, Vector2 knockback)
 	{
 		isTakingDamage = true;

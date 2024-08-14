@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://entity/skeleton/skeleton.cs" id="1_gep1k"]
 [ext_resource type="Texture2D" uid="uid://b7kftycjftomj" path="res://entity/skeleton/Skeleton enemy.png" id="2_4utay"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="3_3bwqj"]
-[ext_resource type="Script" path="res://entity/components/HurtboxComponent.cs" id="3_i3cgn"]
-[ext_resource type="Script" path="res://entity/components/HitBoxComponent.cs" id="4_xnfj1"]
-[ext_resource type="PackedScene" uid="uid://t4j7nk4uuk3n" path="res://entity/components/HealthComponent.tscn" id="5_acdkq"]
+[ext_resource type="Script" path="res://entity/components/DetectionComponents/HurtboxComponent.cs" id="3_4syiy"]
+[ext_resource type="Script" path="res://entity/components/DetectionComponents/HitBoxComponent.cs" id="4_t522e"]
+[ext_resource type="Script" path="res://entity/components/DetectionComponents/HealthComponent.cs" id="6_5exmp"]
 
 [sub_resource type="Animation" id="Animation_rvq3t"]
 length = 0.001
@@ -129,7 +129,7 @@ libraries = {
 visible = false
 collision_layer = 8
 collision_mask = 9
-script = ExtResource("3_i3cgn")
+script = ExtResource("3_4syiy")
 health_component = NodePath("../../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
@@ -138,9 +138,7 @@ shape = SubResource("CapsuleShape2D_up7ql")
 [node name="HitboxComponent" type="Area2D" parent="Sprite2D"]
 collision_layer = 8
 collision_mask = 9
-script = ExtResource("4_xnfj1")
-damage = 100.0
-knockback_enabled = true
+script = ExtResource("4_t522e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
 position = Vector2(21, -2)
@@ -164,9 +162,6 @@ scroll_active = false
 autowrap_mode = 0
 script = ExtResource("3_3bwqj")
 
-[node name="HealthComponent" parent="." instance=ExtResource("5_acdkq")]
-MAX_HEALTH = 300
-
 [node name="DetectionArea" type="Area2D" parent="."]
 visible = false
 monitoring = false
@@ -174,6 +169,9 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource("CircleShape2D_yp8a4")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("6_5exmp")
 
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]
 [connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]

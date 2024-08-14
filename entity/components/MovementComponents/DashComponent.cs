@@ -23,16 +23,24 @@ public partial class DashComponent: Node2D
 		    timer.OneShot = true;
 		    timer.Start();
 		}
-		if (!timer.IsStopped())
-		{
-			isDash = true;
+        if (!timer.IsStopped())
+        {
+            isDash = true;
+            ApplyDashSpeed((Entity.GetNode<Sprite2D>("Sprite2D").FlipH ? -DashSpeed : DashSpeed));
+        }
+        else
+        {
+            isDash = false;
+        }
+    }
 
-			VelocityComponent.ApplyDashSpeed(DashSpeed);
-		}
-		else
-		{
-			isDash = false;
-		}
+    public void ApplyDashSpeed(float DashSpeed)
+    {
+        var tempVelocity = Entity.Velocity;
+        tempVelocity.Y = 0;
+        VelocityComponent.ApplyMovement(VelocityComponent.friction * 4, DashSpeed);
+        tempVelocity.X = Mathf.Clamp(Entity.Velocity.X, VelocityComponent.maxSpeed * -1 , VelocityComponent.maxSpeed);
+		Entity.Velocity = tempVelocity;
     }
     
 

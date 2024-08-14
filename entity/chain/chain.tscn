@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cn70xcy6cqkk0"]
 
-[ext_resource type="Script" path="res://entity/chain/Chain.cs" id="1_222em"]
+[ext_resource type="Script" path="res://entity/components/MovementComponents/ChainComponent.cs" id="1_7asuu"]
 [ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="2_evmuk"]
 [ext_resource type="Texture2D" uid="uid://dcbc7c2skmgik" path="res://entity/chain/graphs/HOOK.png" id="3_2p0ru"]
 
@@ -9,7 +9,7 @@ radius = 3.0
 height = 8.0
 
 [node name="Chain" type="Node2D"]
-script = ExtResource("1_222em")
+script = ExtResource("1_7asuu")
 
 [node name="Line2D" type="Line2D" parent="."]
 texture_repeat = 2
