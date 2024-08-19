@@ -2785,6 +2785,8 @@ width = 5.0
 texture = ExtResource("17_g1fgk")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 1.0
+parallaxvelocityY = 1.0
 
 [node name="8" type="Line2D" parent="Background"]
 z_index = -5
@@ -2796,6 +2798,8 @@ width = 5.0
 texture = ExtResource("18_romjn")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.9
+parallaxvelocityY = 0.9
 
 [node name="7" type="Line2D" parent="Background"]
 z_index = -5
@@ -2807,6 +2811,8 @@ width = 5.0
 texture = ExtResource("19_346xc")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.8
+parallaxvelocityY = 0.8
 
 [node name="6" type="Line2D" parent="Background"]
 z_index = -5
@@ -2818,6 +2824,8 @@ width = 5.0
 texture = ExtResource("20_qddg1")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.7
+parallaxvelocityY = 0.7
 
 [node name="5" type="Line2D" parent="Background"]
 z_index = -5
@@ -2829,6 +2837,8 @@ width = 5.0
 texture = ExtResource("21_pyfyx")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.6
+parallaxvelocityY = 0.6
 
 [node name="4" type="Line2D" parent="Background"]
 z_index = -5
@@ -2840,6 +2850,8 @@ width = 5.0
 texture = ExtResource("21_pyfyx")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.5
+parallaxvelocityY = 0.5
 
 [node name="3" type="Line2D" parent="Background"]
 z_index = -5
@@ -2851,6 +2863,8 @@ width = 5.0
 texture = ExtResource("21_pyfyx")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.4
+parallaxvelocityY = 0.4
 
 [node name="2" type="Line2D" parent="Background"]
 z_index = -5
@@ -2862,6 +2876,8 @@ width = 5.0
 texture = ExtResource("21_pyfyx")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.3
+parallaxvelocityY = 0.3
 
 [node name="1" type="Line2D" parent="Background"]
 z_index = -5
@@ -2873,6 +2889,8 @@ width = 5.0
 texture = ExtResource("21_pyfyx")
 texture_mode = 1
 script = ExtResource("14_ogrgr")
+parallaxvelocityX = 0.2
+parallaxvelocityY = 0.2
 
 [node name="Entities" type="Node2D" parent="."]
 

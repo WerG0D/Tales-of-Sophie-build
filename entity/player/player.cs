@@ -8,6 +8,7 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
+	[Export] public HookComponent hookComponent;
 	[Export] public ChainComponent chainComponent;
 	[Export] public ChainComponent chainComponent2;
 
@@ -60,6 +61,7 @@ public partial class Player : CharacterBody2D
 		InitializeComponents();
 
 		initialized = true;
+		
 	}
 
 	private void InitializeComponents()
@@ -93,10 +95,11 @@ public partial class Player : CharacterBody2D
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
 		AnimatePlayer();
-		chainComponent.Hook();
-		chainComponent.HookPhys();
-		chainComponent2.Hook();
-		chainComponent2.HookPhys();
+		hookComponent.HandleHook();
+		//chainComponent.Hook();
+		//chainComponent.HookPhys();
+		//chainComponent2.Hook();
+		//chainComponent2.HookPhys();
 
 		
 	}
@@ -199,10 +202,13 @@ public partial class Player : CharacterBody2D
 			if (IsIdle())
 			{
 				PlayAnimation("idle", "idle_left");
+				GetNode<AnimatedSprite2D>("SophieSprite").Play("idle");
+				
 			}
 			else if (IsMoving())
 			{
 				PlayAnimation("run", "run_left");
+				GetNode<AnimatedSprite2D>("SophieSprite").Play("run");
 			}
 		}
 		if (dashComponent.isDash)
@@ -267,10 +273,12 @@ public partial class Player : CharacterBody2D
 			if (Input.IsActionPressed("move_left"))
 			{
 				GetNode<Sprite2D>("Sprite2D").FlipH = true;
+				GetNode<AnimatedSprite2D>("SophieSprite").FlipH = false;
 			}
 			else if (Input.IsActionPressed("move_right"))
 			{
 				GetNode<Sprite2D>("Sprite2D").FlipH = false;
+				GetNode<AnimatedSprite2D>("SophieSprite").FlipH = true;
 			}
 		}
 	}
@@ -280,10 +288,12 @@ public partial class Player : CharacterBody2D
 		if (GetNode<RayCast2D>("RayCastFloor").IsColliding())
 		{
 			GetNode<Sprite2D>("Sprite2D").Rotation = velocityComponent.normal.Angle() + Mathf.DegToRad(90);
+			GetNode<AnimatedSprite2D>("SophieSprite").Rotation = velocityComponent.normal.Angle() + Mathf.DegToRad(90);
 		}
 		else
 		{
 			GetNode<Sprite2D>("Sprite2D").Rotation = Mathf.Lerp(GetNode<Sprite2D>("Sprite2D").Rotation, 0.0f, 0.08f);
+			GetNode<AnimatedSprite2D>("SophieSprite").Rotation = Mathf.Lerp(GetNode<Sprite2D>("Sprite2D").Rotation, 0.0f, 0.08f);
 		}
 	}
 

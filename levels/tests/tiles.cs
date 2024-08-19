@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public partial class Tiles : Node
+public partial class Tiles : Node2D
 {
 	
 	public override void _Ready()
 	{
-		
+		PlayAnimationsInNode(this);
 	}
 
 	
@@ -16,9 +16,9 @@ public partial class Tiles : Node
     	{
         	if (child is AnimatedSprite2D animatedSprite)
         	{
-            	animatedSprite.Play("default");  // Play the default animation of the AnimatedSprite2D
+            	animatedSprite.Play("default");
         	}
-        	else if (child is Node)  // If the child is a node, we call the function recursively
+        	else if (child is Node)
         	{
             PlayAnimationsInNode(child as CanvasItem);
         	}

@@ -10,6 +10,7 @@ public partial class ChainComponent : Node2D
 	[Export] public string HookInput = "hook";
 	[Export] public CharacterBody2D Entity;
 	[Export] public VelocityComponent velocityComponent;
+	[Export] public DampedSpringJoint2D joint2D;
 	public Vector2 direction = new Vector2(0, 0);
 	public Vector2 tip = new Vector2(0, 0);
 	
@@ -29,6 +30,7 @@ public partial class ChainComponent : Node2D
 		var tip_loc = ToLocal(tip);
 		GetNode<RigidBody2D>("Tip").Rotation = Position.AngleToPoint(tip_loc) - Mathf.DegToRad(90);
 		GetNode<Line2D>("Line2D").SetPointPosition(0, tip_loc);
+		
 		if (tip_loc.DistanceTo(GetNode<Line2D>("Line2D").GetPointPosition(1)) > ChainLenght)
 		{
 			Release();
@@ -76,13 +78,13 @@ public partial class ChainComponent : Node2D
 		else if (Input.IsActionJustPressed(hookAction) || (Input.IsActionJustPressed("jump") && hooked))
 		{
 			Release();
-			Entity.Velocity *= 1.2f;
+			//Entity.Velocity *= 1.2f;
 		}
 	}
 
 	public void HookPhys()
 	{
-		HandleHookPhysics(ref chainVelocity);
+		//HandleHookPhysics(ref chainVelocity);
 		
 	}
 
@@ -90,7 +92,7 @@ public partial class ChainComponent : Node2D
 	{
 		
 		if (hooked)
-		{
+		{	// gabriel guerra eu juro que vou me matar
 			float distanceToHook = Entity.GlobalPosition.DistanceTo(tip);
             float pullForce = SPEED * Mathf.Clamp(distanceToHook / ChainLenght, 1.0f, chainPullForce);
             
