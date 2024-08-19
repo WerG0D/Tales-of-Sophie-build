@@ -78,13 +78,13 @@ public partial class ChainComponent : Node2D
 		else if (Input.IsActionJustPressed(hookAction) || (Input.IsActionJustPressed("jump") && hooked))
 		{
 			Release();
-			//Entity.Velocity *= 1.2f;
+			Entity.Velocity *= 1.2f;
 		}
 	}
 
 	public void HookPhys()
 	{
-		//HandleHookPhysics(ref chainVelocity);
+		HandleHookPhysics(ref chainVelocity);
 		
 	}
 

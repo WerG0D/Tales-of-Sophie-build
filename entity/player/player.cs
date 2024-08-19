@@ -319,7 +319,7 @@ public partial class Player : CharacterBody2D
 		}
 		if (isDebug)
 		{
-			richTextLabel.Text = $"Velocity: {Velocity}\nNormal: {normal}\nIs Gravity: {isGravity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}\nIs Jumping: {Input.IsActionJustPressed("jump")}\nCurrent Animation: {animPlayer.CurrentAnimation}";
+			richTextLabel.Text = $"Velocity: {Velocity}\nNormal: {normal}\nIs Gravity: {isGravity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}\nNode A: {hookComponent.Hook.NodeA}\nNode B: {hookComponent.Hook.NodeB}";
 		}
 		else
 		{

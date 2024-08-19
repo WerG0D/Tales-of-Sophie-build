@@ -1,10 +1,11 @@
-[gd_scene load_steps=71 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=70 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://entity/player/PlayerCamera2D.cs" id="4_87wg4"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/HookComponent.cs" id="5_vcrxh"]
 [ext_resource type="Texture2D" uid="uid://dm1bibfmlvsbi" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
+[ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="6_x0xgs"]
 [ext_resource type="Texture2D" uid="uid://dnp6dylg8t7ad" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="Script" path="res://entity/chain/HookChain.cs" id="7_x2ur6"]
 [ext_resource type="PackedScene" uid="uid://cn70xcy6cqkk0" path="res://entity/chain/chain.tscn" id="8_bc8it"]
@@ -17,13 +18,9 @@
 [ext_resource type="Script" path="res://entity/components/MovementComponents/WallJumpComponent.cs" id="14_padl0"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/DashComponent.cs" id="15_nxtd6"]
 [ext_resource type="Texture2D" uid="uid://bngke028iacpf" path="res://entity/player/Graphs/Sophie/sophie_run.png" id="16_qrdr6"]
-[ext_resource type="Texture2D" uid="uid://dmuoswnc8dvis" path="res://assets/tiles/Misc/coconut.png" id="18_w7dre"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c3qrd"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0oyia"]
-size = Vector2(57.6444, 66.5022)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olevx"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
 diffuse_texture = ExtResource("2_1gfqm")
@@ -4917,28 +4914,27 @@ DashSpeed = 600.0
 script = ExtResource("5_vcrxh")
 Entity = NodePath("..")
 Hook = NodePath("Hook")
-HookRayCast = NodePath("HookRayCast")
+HookRayCast = NodePath("HookRay")
 Cursor = NodePath("Cursor")
 
 [node name="Hook" type="DampedSpringJoint2D" parent="HookComponent"]
 node_a = NodePath("../..")
 
 [node name="Cursor" type="StaticBody2D" parent="HookComponent"]
-physics_material_override = SubResource("PhysicsMaterial_c3qrd")
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HookComponent/Cursor"]
-position = Vector2(62.0114, -47.7081)
-shape = SubResource("RectangleShape2D_0oyia")
-
-[node name="Sprite2D" type="Sprite2D" parent="HookComponent/Cursor"]
-position = Vector2(62.0114, -48.19)
-scale = Vector2(0.227062, 0.26658)
-texture = ExtResource("18_w7dre")
+shape = SubResource("RectangleShape2D_olevx")
 
 [node name="HookChain" type="Line2D" parent="HookComponent"]
+texture_repeat = 2
+texture = ExtResource("6_x0xgs")
+texture_mode = 1
 script = ExtResource("7_x2ur6")
 
-[node name="HookRayCast" type="RayCast2D" parent="HookComponent"]
+[node name="HookRay" type="RayCast2D" parent="HookComponent"]
+collision_mask = 2
 
 [node name="Chain" parent="." node_paths=PackedStringArray("Entity", "velocityComponent") instance=ExtResource("8_bc8it")]
 visible = false

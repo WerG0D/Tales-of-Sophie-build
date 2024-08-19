@@ -1,8 +1,7 @@
 using Godot;
 using System;
 
-[GlobalClass]
-public partial class HookComponent : Node2D
+public partial class Tests : Node2D
 {
 	[Export] public float Tension = 0.5f;
 	[Export] public CharacterBody2D Entity;
@@ -19,7 +18,7 @@ public partial class HookComponent : Node2D
 
 	public override void _Process(double delta)
 	{
-		//HandleHook();
+		HandleHook();
 	}
 
 	public void HandleHook() 
