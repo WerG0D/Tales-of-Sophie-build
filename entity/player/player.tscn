@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=69 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -15,6 +15,9 @@
 [ext_resource type="Script" path="res://entity/components/MovementComponents/WallJumpComponent.cs" id="14_padl0"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/DashComponent.cs" id="15_nxtd6"]
 [ext_resource type="Texture2D" uid="uid://bngke028iacpf" path="res://entity/player/Graphs/Sophie/sophie_run.png" id="16_qrdr6"]
+[ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="17_upovd"]
+[ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="18_cltku"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeRendererLine2D.gd" id="19_4tvn4"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
@@ -4875,7 +4878,6 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent", "chainComponent", "chainComponent2")]
 texture_filter = 1
-position = Vector2(0, -18)
 collision_mask = 10
 script = ExtResource("1_b3mxi")
 velocityComponent = NodePath("VelocityComponent")
@@ -5121,6 +5123,16 @@ one_shot = true
 [node name="SophieSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jwvgl")
 animation = &"idle"
+
+[node name="Rope" type="Node2D" parent="."]
+script = ExtResource("17_upovd")
+
+[node name="RopeRendererLine2D" type="Line2D" parent="Rope"]
+position = Vector2(23, 2)
+points = PackedVector2Array(-23, -2, -23, 9.22272, -23, 20.3719, -23, 31.4202, -23, 42.3467, -23, 53.136, -23, 63.7771, -23, 74.2626, -23, 84.5879, -23, 94.7505, -23, 104.751)
+texture = ExtResource("18_cltku")
+texture_mode = 1
+script = ExtResource("19_4tvn4")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="OnAnimationFinished"]
 
