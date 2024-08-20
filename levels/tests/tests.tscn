@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=64 format=4 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dh7003jyg0bpu" path="res://assets/backgrounds/parallaxbg1/Background/Background debug.png" id="20_qddg1"]
 [ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="21_cwcri"]
 [ext_resource type="Texture2D" uid="uid://csfq123c2wy0j" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="21_pyfyx"]
+[ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="23_e345a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvl47"]
 atlas = ExtResource("6_ixaub")
@@ -2647,6 +2648,7 @@ safe_margin = 1.0
 script = ExtResource("4_a5t1t")
 
 [node name="Torchs" type="Node2D" parent="Tiles"]
+visible = false
 
 [node name="Torch" type="AnimatedSprite2D" parent="Tiles/Torchs"]
 position = Vector2(-127, -81)
@@ -2891,5 +2893,8 @@ parallaxvelocityX = 0.2
 parallaxvelocityY = 0.2
 
 [node name="Entities" type="Node2D" parent="."]
+
+[node name="Skeleton" parent="Entities" instance=ExtResource("23_e345a")]
+position = Vector2(575, 49)
 
 [connection signal="body_entered" from="Cutscenes & Areas/cutscene" to="." method="_on_cutscene_body_entered"]

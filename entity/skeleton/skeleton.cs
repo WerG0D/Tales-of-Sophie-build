@@ -107,7 +107,7 @@ public partial class skeleton : CharacterBody2D
 	public void AnimateSkeleton() 
 	{ 
 		if (!is_taking_damage && !is_dead && !is_roaming) {
-			animplayer.Play("idle");
+			animplayer.Play("skeleton1_idle");
 		}
 		if (Input.IsActionJustPressed("roaming")) {
 			is_roaming = is_roaming ? false : true;
