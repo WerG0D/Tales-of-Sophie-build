@@ -8,7 +8,6 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
-	[Export] public HookComponent hookComponent;
 	[Export] public ChainComponent chainComponent;
 	[Export] public ChainComponent chainComponent2;
 
@@ -45,7 +44,7 @@ public partial class Player : CharacterBody2D
 	private bool isLeftArmDismembered = false;
 	private bool isRightLegDismembered = false;
 	private bool isLeftLegDismembered = false;
-	private bool isGravity = true;
+	
 	private bool isInput = true;
 	private bool isDebug = false;
 
@@ -95,11 +94,9 @@ public partial class Player : CharacterBody2D
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
 		AnimatePlayer();
-		hookComponent.HandleHook();
-		//chainComponent.Hook();
-		//chainComponent.HookPhys();
-		//chainComponent2.Hook();
-		//chainComponent2.HookPhys();
+		chainComponent.ActivateHook();
+		chainComponent2.ActivateHook();
+
 
 		
 	}
@@ -319,7 +316,8 @@ public partial class Player : CharacterBody2D
 		}
 		if (isDebug)
 		{
-			richTextLabel.Text = $"Velocity: {Velocity}\nNormal: {normal}\nIs Gravity: {isGravity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}\nNode A: {hookComponent.Hook.NodeA}\nNode B: {hookComponent.Hook.NodeB}";
+			richTextLabel.Text = $"Velocity: {Velocity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}";
+			GD.Print(richTextLabel.Text);	
 		}
 		else
 		{
@@ -327,13 +325,13 @@ public partial class Player : CharacterBody2D
 		}
 		if (isDebug && Input.IsActionPressed("ctrl"))
 		{
-			if (Input.IsActionPressed("scroll_up"))
+			if (Input.IsActionJustPressed("scroll_up"))
 			{
 				camera.Zoom *= new Vector2(1.2f, 1.2f);
 				GD.Print("Zoom: " + camera.Zoom);
 			}
 
-			if (Input.IsActionPressed("scroll_down"))
+			if (Input.IsActionJustPressed("scroll_down"))
 			{
 				camera.Zoom /= new Vector2(1.2f, 1.2f);
 				GD.Print("Zoom: " + camera.Zoom);

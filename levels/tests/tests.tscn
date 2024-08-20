@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=66 format=4 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
@@ -23,6 +23,7 @@
 [ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="21_cwcri"]
 [ext_resource type="Texture2D" uid="uid://csfq123c2wy0j" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="21_pyfyx"]
 [ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="23_e345a"]
+[ext_resource type="Texture2D" uid="uid://bkc47j4y372dc" path="res://icon.svg" id="24_183nv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvl47"]
 atlas = ExtResource("6_ixaub")
@@ -831,7 +832,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_40jeg"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 2
-physics_layer_0/collision_mask = 15
+physics_layer_0/collision_mask = 13
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_7nuoo")
 terrain_set_0/mode = 0
 sources/1 = SubResource("TileSetAtlasSource_vrme2")
@@ -2634,12 +2635,14 @@ _data = {
 }
 point_count = 5
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ius4"]
+size = Vector2(40.75, 50)
+
 [node name="tests" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
-position = Vector2(482, 59)
-scale = Vector2(1, 1)
+position = Vector2(526, 82)
 safe_margin = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -2648,7 +2651,6 @@ safe_margin = 1.0
 script = ExtResource("4_a5t1t")
 
 [node name="Torchs" type="Node2D" parent="Tiles"]
-visible = false
 
 [node name="Torch" type="AnimatedSprite2D" parent="Tiles/Torchs"]
 position = Vector2(-127, -81)
@@ -2895,6 +2897,19 @@ parallaxvelocityY = 0.2
 [node name="Entities" type="Node2D" parent="."]
 
 [node name="Skeleton" parent="Entities" instance=ExtResource("23_e345a")]
-position = Vector2(575, 49)
+position = Vector2(557, 66)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(368.625, 18)
+shape = SubResource("RectangleShape2D_7ius4")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(368, 18)
+scale = Vector2(0.289063, 0.398438)
+texture = ExtResource("24_183nv")
 
 [connection signal="body_entered" from="Cutscenes & Areas/cutscene" to="." method="_on_cutscene_body_entered"]

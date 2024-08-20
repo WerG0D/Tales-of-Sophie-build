@@ -18,6 +18,7 @@ public partial class VelocityComponent: Node2D
 	public int jumpBufferCounter = 0;
     [Export] public float onGroundFriction = 0.1f;
 	[Export] public float onAirFriction = 0.1f;
+    [Export] public bool isGravity = true;
     public Vector2 normal = new Vector2(0, 0);
 
     public Vector2 tempVelocity = new Vector2(0, 0);
@@ -125,7 +126,7 @@ public partial class VelocityComponent: Node2D
 
     public void ApplyGravity(double delta)
     {
-        if (!Entity.IsOnFloor())
+        if (!Entity.IsOnFloor() && isGravity)
         {   tempVelocity = Entity.Velocity;
             tempVelocity.Y += ReturnGravity() * (float)delta;
             tempVelocity.Y = Mathf.Clamp(tempVelocity.Y, -maxSpeed, maxSpeed);
@@ -148,7 +149,7 @@ public partial class VelocityComponent: Node2D
 	{
         if (Owner.HasNode("Chain") || Owner.HasNode("Chain2"))
         {
-            return Owner.GetNode<ChainComponent>("Chain").hooked || Owner.GetNode<ChainComponent>("Chain2").hooked;
+            return Owner.GetNode<ChainComponent>("Chain").IsHooked || Owner.GetNode<ChainComponent>("Chain2").IsHooked;
         }
         else
         {

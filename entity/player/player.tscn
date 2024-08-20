@@ -1,13 +1,10 @@
-[gd_scene load_steps=70 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=66 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://entity/player/PlayerCamera2D.cs" id="4_87wg4"]
-[ext_resource type="Script" path="res://entity/components/MovementComponents/HookComponent.cs" id="5_vcrxh"]
 [ext_resource type="Texture2D" uid="uid://dm1bibfmlvsbi" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
-[ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="6_x0xgs"]
 [ext_resource type="Texture2D" uid="uid://dnp6dylg8t7ad" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
-[ext_resource type="Script" path="res://entity/chain/HookChain.cs" id="7_x2ur6"]
 [ext_resource type="PackedScene" uid="uid://cn70xcy6cqkk0" path="res://entity/chain/chain.tscn" id="8_bc8it"]
 [ext_resource type="Script" path="res://entity/components/DetectionComponents/HitBoxComponent.cs" id="8_c0k1x"]
 [ext_resource type="Script" path="res://entity/components/DetectionComponents/HurtboxComponent.cs" id="9_lgubq"]
@@ -19,8 +16,6 @@
 [ext_resource type="Script" path="res://entity/components/MovementComponents/DashComponent.cs" id="15_nxtd6"]
 [ext_resource type="Texture2D" uid="uid://bngke028iacpf" path="res://entity/player/Graphs/Sophie/sophie_run.png" id="16_qrdr6"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_olevx"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_tnjmh"]
 diffuse_texture = ExtResource("2_1gfqm")
@@ -4814,7 +4809,7 @@ region = Rect2(136, 35, 34, 35)
 [sub_resource type="SpriteFrames" id="SpriteFrames_jwvgl"]
 animations = [{
 "frames": [{
-"duration": 1.2,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1c1p1")
 }, {
 "duration": 1.0,
@@ -4878,16 +4873,14 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent", "hookComponent", "chainComponent", "chainComponent2")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent", "chainComponent", "chainComponent2")]
 texture_filter = 1
 position = Vector2(0, -18)
-scale = Vector2(1.14495, 1.03756)
 collision_mask = 10
 script = ExtResource("1_b3mxi")
 velocityComponent = NodePath("VelocityComponent")
 wallJumpComponent = NodePath("WallJumpComponent")
 dashComponent = NodePath("DashComponent")
-hookComponent = NodePath("HookComponent")
 chainComponent = NodePath("Chain")
 chainComponent2 = NodePath("Chain2")
 
@@ -4910,46 +4903,21 @@ Entity = NodePath("..")
 VelocityComponent = NodePath("../VelocityComponent")
 DashSpeed = 600.0
 
-[node name="HookComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity", "Hook", "HookRayCast", "Cursor")]
-script = ExtResource("5_vcrxh")
-Entity = NodePath("..")
-Hook = NodePath("Hook")
-HookRayCast = NodePath("HookRay")
-Cursor = NodePath("Cursor")
-
-[node name="Hook" type="DampedSpringJoint2D" parent="HookComponent"]
-node_a = NodePath("../..")
-
-[node name="Cursor" type="StaticBody2D" parent="HookComponent"]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HookComponent/Cursor"]
-shape = SubResource("RectangleShape2D_olevx")
-
-[node name="HookChain" type="Line2D" parent="HookComponent"]
-texture_repeat = 2
-texture = ExtResource("6_x0xgs")
-texture_mode = 1
-script = ExtResource("7_x2ur6")
-
-[node name="HookRay" type="RayCast2D" parent="HookComponent"]
-collision_mask = 2
-
-[node name="Chain" parent="." node_paths=PackedStringArray("Entity", "velocityComponent") instance=ExtResource("8_bc8it")]
+[node name="Chain" parent="." node_paths=PackedStringArray("Entity", "VelocityComponent") instance=ExtResource("8_bc8it")]
 visible = false
 position = Vector2(-1.66588e-06, 0)
+HookSpeed = 50
 Entity = NodePath("..")
-velocityComponent = NodePath("../VelocityComponent")
+VelocityComponent = NodePath("../VelocityComponent")
 
 [node name="Hook" parent="Chain/Tip" index="0"]
 modulate = Color(0.168627, 0.113725, 1, 1)
 
-[node name="Chain2" parent="." node_paths=PackedStringArray("Entity", "velocityComponent") instance=ExtResource("8_bc8it")]
+[node name="Chain2" parent="." node_paths=PackedStringArray("Entity", "VelocityComponent") instance=ExtResource("8_bc8it")]
 visible = false
-HookInput = "hook2"
+HookSpeed = 50
 Entity = NodePath("..")
-velocityComponent = NodePath("../VelocityComponent")
+VelocityComponent = NodePath("../VelocityComponent")
 
 [node name="Hook" parent="Chain2/Tip" index="0"]
 modulate = Color(1, 0, 0, 1)

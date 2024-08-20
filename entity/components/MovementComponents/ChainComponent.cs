@@ -4,112 +4,119 @@ using System;
 [GlobalClass]
 public partial class ChainComponent : Node2D
 {
-	[Export] public int ChainLenght = 800;
-	[Export] public int SPEED = 150;
-	[Export] public int chainPullForce = 60;
-	[Export] public string HookInput = "hook";
-	[Export] public CharacterBody2D Entity;
-	[Export] public VelocityComponent velocityComponent;
-	[Export] public DampedSpringJoint2D joint2D;
-	public Vector2 direction = new Vector2(0, 0);
-	public Vector2 tip = new Vector2(0, 0);
-	
-	public bool flying = false;
-	public bool hooked = false;
-	private Vector2 chainVelocity = new Vector2(0, 0);
+    [Export] public int MaxChainLength = 800; // Comprimento máximo da corrente
+    [Export] public int HookSpeed = 150; // Velocidade de movimento do gancho, basicamente o quão rápido ele vai ser disparado e se conectar a parede
+    [Export] public int PullForce = 60; // Força de puxão do gancho, recomendo fortemente deixar em 60, quanto maior mais forte o personagem vai ser puxado
+    [Export] public string HookInputAction = "hook"; // O input map pra disparar o gancho. Nn sei se tem uma maneira melhor de fzr isso mas blz
+    [Export] public CharacterBody2D Entity; 
+    [Export] public VelocityComponent VelocityComponent; 
 
-	public override void _Ready()
-	{
-	}
+    public Vector2 HookDirection = Vector2.Zero; 
+    public Vector2 HookTipPosition = Vector2.Zero;
 
+    public bool IsFlying = false; //dumb code boolean lolz isso com certeza vai dar algum pau no futuro mas fzr oq a gnt ama ficar trackeando booleano
+    public bool IsHooked = false; 
 
-	public override void _Process(double delta)
-	{
-		Visible = flying || hooked;
-		if (!Visible) return;
-		var tip_loc = ToLocal(tip);
-		GetNode<RigidBody2D>("Tip").Rotation = Position.AngleToPoint(tip_loc) - Mathf.DegToRad(90);
-		GetNode<Line2D>("Line2D").SetPointPosition(0, tip_loc);
-		
-		if (tip_loc.DistanceTo(GetNode<Line2D>("Line2D").GetPointPosition(1)) > ChainLenght)
-		{
-			Release();
-		}
+    private Vector2 ChainVelocity = Vector2.Zero; 
 
-	}
-	public override void _PhysicsProcess(double delta)
-	{
-		GetNode<RigidBody2D>("Tip").GlobalPosition = tip;
-		if (flying)
-		{
-			if (GetNode<RigidBody2D>("Tip").MoveAndCollide(direction * SPEED) != null) 
-			{
-				hooked = true;
-				flying = false;
-			}
-			tip = GetNode<RigidBody2D>("Tip").GlobalPosition;
-		}
-	}
+    public override void _Ready()
+    {
 
-		public void shoot(Vector2 dir)
-	{
-		direction = dir.Normalized();
-		flying = true;
-		tip =  GlobalPosition;
-	}
-	public void Release() 
-	{
-		flying = false;
-		hooked = false;
-	}
+    }
 
-	public void Hook()
-	{
-		HandleHook(HookInput);
-	}
+    public override void _Process(double delta)
+    {
+        Visible = IsFlying || IsHooked;
+        if (!Visible) return;
 
-	private void HandleHook(string hookAction)
-	{
-		if (Input.IsActionJustPressed(hookAction) && !hooked && !flying)
-		{
-			var mouseViewportPos = GetViewport().GetMousePosition();
-			shoot((mouseViewportPos - GetViewportRect().Size / 2).Normalized());
-		}
-		else if (Input.IsActionJustPressed(hookAction) || (Input.IsActionJustPressed("jump") && hooked))
-		{
-			Release();
-			Entity.Velocity *= 1.2f;
-		}
-	}
+        var hookTipLocalPosition = ToLocal(HookTipPosition);
 
-	public void HookPhys()
-	{
-		HandleHookPhysics(ref chainVelocity);
-		
-	}
+        // Alinha a rotação da ponta do gancho, pq tem que subtrair 90 graus? não sei, mas funciona
+        GetNode<RigidBody2D>("Tip").Rotation = Position.AngleToPoint(hookTipLocalPosition) - Mathf.DegToRad(90);
 
-	private void HandleHookPhysics(ref Vector2 chainVelocity)
-	{
-		
-		if (hooked)
-		{	// gabriel guerra eu juro que vou me matar
-			float distanceToHook = Entity.GlobalPosition.DistanceTo(tip);
-            float pullForce = SPEED * Mathf.Clamp(distanceToHook / ChainLenght, 1.0f, chainPullForce);
-            
-            chainVelocity = ToLocal(tip).Normalized() * pullForce;
-            chainVelocity.Y *= chainVelocity.Y > 0 ? 0.55f : 1.1f;
-            if (Mathf.Sign(chainVelocity.X) != Mathf.Sign(velocityComponent.acceleration))
+        GetNode<Line2D>("Line2D").SetPointPosition(0, hookTipLocalPosition);
+
+        // Libera o gancho se ele exceder o comprimento máximo da corrente
+        if (hookTipLocalPosition.DistanceTo(GetNode<Line2D>("Line2D").GetPointPosition(1)) > MaxChainLength)
+        {
+            ReleaseHook();
+        }
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        // Atualiza a posição da ponta do gancho
+        GetNode<RigidBody2D>("Tip").GlobalPosition = HookTipPosition;
+
+        if (IsFlying)
+        {
+            if (GetNode<RigidBody2D>("Tip").MoveAndCollide(HookDirection * HookSpeed) != null)
             {
-                chainVelocity.X *= 0.3f;
+                IsHooked = true;
+                IsFlying = false;
+            }
+            HookTipPosition = GetNode<RigidBody2D>("Tip").GlobalPosition;
+        }
+    }
+
+    public void ShootHook(Vector2 direction)
+    {
+        HookDirection = direction.Normalized();
+        IsFlying = true;
+        HookTipPosition = GlobalPosition;
+    }
+
+    public void ReleaseHook()
+    {
+        IsFlying = false;
+        IsHooked = false;
+    }
+
+    public void ActivateHook()
+    {
+        HandleHookInput(HookInputAction);
+        ApplyHookPhysics();
+    }
+
+    private void HandleHookInput(string hookAction)
+    {
+        if (Input.IsActionJustPressed(hookAction) && !IsHooked && !IsFlying)
+        {
+            var mouseViewportPosition = GetViewport().GetMousePosition();
+            ShootHook((mouseViewportPosition - GetViewportRect().Size / 2).Normalized());
+        }
+        else if (Input.IsActionJustPressed(hookAction) || (Input.IsActionJustPressed("jump") && IsHooked))
+        {
+            ReleaseHook();
+            Entity.Velocity *= 1.2f; // Adiciona impulso ao personagem ao liberar o gancho
+        }
+    }
+
+    private void ApplyHookPhysics()
+    {
+        if (IsHooked)
+        {
+            float distanceToHook = Entity.GlobalPosition.DistanceTo(HookTipPosition);
+            float calculatedPullForce = HookSpeed * Mathf.Clamp(distanceToHook / MaxChainLength, 1.0f, PullForce);
+
+            Vector2 pullDirection = ToLocal(HookTipPosition).Normalized();
+            Entity.Velocity += pullDirection * calculatedPullForce;
+
+            // fuck it eu resolvi aquele bug chato simplesmente na marra e é isso, tnt faz. Simplesmente seta pra nao ter isso
+            if (Mathf.Sign(Entity.Velocity.X) != Mathf.Sign(pullDirection.X))
+            {
+                Entity.Velocity = new Vector2(0, Entity.Velocity.Y);
+            }
+
+            // eu simplesmente acho q isso vai dar problema no futuro, mas isso é coisa pra outra era 
+            if (Entity.Velocity.Y > 0 && pullDirection.Y < 0)
+            {
+                Entity.Velocity = new Vector2(Entity.Velocity.X, 0);
             }
         }
         else
         {
-            chainVelocity = Vector2.Zero;
+            ChainVelocity = Vector2.Zero;
         }
-        
-        Entity.Velocity += chainVelocity;
-		
-	}
-
+    }
 }
