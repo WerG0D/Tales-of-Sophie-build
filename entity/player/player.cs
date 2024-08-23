@@ -8,8 +8,8 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
-	[Export] public ChainComponent chainComponent;
-	[Export] public ChainComponent chainComponent2;
+	//[Export] public ChainComponent chainComponent;
+	//[Export] public ChainComponent chainComponent2;
 
 	private Camera2D camera;
 	private AnimationPlayer animPlayer;
@@ -94,8 +94,8 @@ public partial class Player : CharacterBody2D
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
 		AnimatePlayer();
-		chainComponent.ActivateHook();
-		chainComponent2.ActivateHook();
+		//chainComponent.ActivateHook();
+		//chainComponent2.ActivateHook();
 
 
 		

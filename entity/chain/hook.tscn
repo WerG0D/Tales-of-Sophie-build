@@ -1,43 +1,42 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxl5rdxq16ruw"]
+[gd_scene load_steps=7 format=3 uid="uid://dftlew3ev2j3m"]
 
-[ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="1_02t3f"]
-[ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="2_qrlcu"]
-[ext_resource type="Script" path="res://addons/ropesim/RopeRendererLine2D.gd" id="3_1sj5g"]
-[ext_resource type="Script" path="res://addons/ropesim/RopeAnchor.gd" id="4_fehs4"]
-[ext_resource type="Texture2D" uid="uid://dcbc7c2skmgik" path="res://entity/chain/graphs/HOOK.png" id="5_fdorr"]
+[ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="1_gr0r8"]
+[ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="2_i8vtq"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeRendererLine2D.gd" id="3_jmoaw"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeAnchor.gd" id="4_n37qf"]
+[ext_resource type="Texture2D" uid="uid://dcbc7c2skmgik" path="res://entity/chain/graphs/HOOK.png" id="5_w4oeg"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeCollisionShapeGenerator.gd" id="6_2cqg0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xbnwx"]
-
-[node name="Hook" type="Node2D"]
-position = Vector2(-4, 0)
-script = ExtResource("1_02t3f")
-line_width = 0.0
+[node name="Rope" type="Node2D"]
+script = ExtResource("1_gr0r8")
+num_segments = 15
+rope_length = 250.0
+max_endpoint_distance = 270.0
+num_constraint_iterations = 30
+line_width = 6.0
+color = Color(1, 1, 1, 0)
 
 [node name="RopeRendererLine2D" type="Line2D" parent="."]
 texture_filter = 1
 texture_repeat = 2
-points = PackedVector2Array(0, 0, -9.53674e-07, 11.2227, -1.43051e-06, 22.3719, 0, 33.4202, -4.76837e-07, 44.3467, -1.90735e-06, 55.136, -3.33786e-06, 65.7771, 0, 76.2627, 2.38419e-06, 86.5879, 5.96046e-06, 96.7505, 1.07288e-05, 106.751)
-texture = ExtResource("2_qrlcu")
+position = Vector2(-9, 2)
+points = PackedVector2Array(9, -2, 9, 14.6667, 9, 31.3333, 9, 48, 9, 64.6667, 9, 81.3333, 9, 98, 9, 114.667, 9, 131.333, 9, 148, 9, 164.667, 9, 181.333, 9, 198, 9, 214.667, 9, 231.333, 9, 248)
+texture = ExtResource("2_i8vtq")
 texture_mode = 1
-script = ExtResource("3_1sj5g")
+script = ExtResource("3_jmoaw")
 
 [node name="RopeAnchor" type="Marker2D" parent="."]
-position = Vector2(1.07288e-05, 106.751)
-rotation = 1.5708
-script = ExtResource("4_fehs4")
+position = Vector2(0, 250)
+script = ExtResource("4_n37qf")
 rope_path = NodePath("..")
 precise = true
 
-[node name="RigidBody2D" type="RigidBody2D" parent="RopeAnchor"]
-collision_layer = 4
-collision_mask = 10
-mass = 0.001
-gravity_scale = 0.0
+[node name="Sprite2D" type="Sprite2D" parent="RopeAnchor"]
+rotation = 3.14159
+texture = ExtResource("5_w4oeg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RopeAnchor/RigidBody2D"]
-shape = SubResource("CircleShape2D_xbnwx")
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="RopeAnchor/RigidBody2D"]
-position = Vector2(8.24945, 1.43051e-05)
-rotation = 1.5708
-texture = ExtResource("5_fdorr")
+[node name="RopeCollisionShapeGenerator" type="Node" parent="Area2D"]
+script = ExtResource("6_2cqg0")
+rope_path = NodePath("../..")
