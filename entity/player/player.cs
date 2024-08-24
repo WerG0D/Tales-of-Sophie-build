@@ -8,6 +8,9 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
+	[Export] public HookComponent HookComponent;
+
+	[Export] public Node RopeInteractionEnd;
 	//[Export] public ChainComponent chainComponent;
 	//[Export] public ChainComponent chainComponent2;
 
@@ -93,7 +96,9 @@ public partial class Player : CharacterBody2D
 		velocityComponent.HandleVelocity(delta);
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
-		AnimatePlayer();
+		HookComponent.Hook();
+		//AnimatePlayer();
+		
 		//chainComponent.ActivateHook();
 		//chainComponent2.ActivateHook();
 

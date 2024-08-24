@@ -26,7 +26,7 @@
 - [@Wallisson](https://github.com/wallissu) -> GameDeveloper & Lawman
 - [@BryanCodex](https://github.com/BryanCodex) -> GameDeveloper
 - [@Gagacosta](https://github.com/gagacosta) -> GameDeveloper & TabletopRPG Developer
-- [@Peachylemunydrawns](https://www.instagram.com/pewchylemunydraws?igsh=MThmNWM5Yjdkajlkcg==) -> PixelArtist & Art Team Manager
+- [@Peachylemunydrawns ](https://www.instagram.com/pewchylemunydraws?igsh=MThmNWM5Yjdkajlkcg==) -> PixelArtist & Art Team Manager
 - @AlienKitty -> Artist 
 - [@MatheusWerneckRosa](https://www.instagram.com/matheuswerneckr?igsh=MWcwaTJ3N2gzbTJ4eQ==) -> Sound Director & OST 
 
@@ -90,8 +90,3 @@ Download E-books:
 > To access the Obsidian project, clone the project and open the Tales_Of_Sophie_Obsidian_Project folder as an Obsidian vault.
 
 ![Tutorial](https://github.com/WerG0D/Tales-of-Sophie-build/blob/csharp/assets/icons/readmeassets/2024-06-05%2012-18-56.gif?raw=true)
-
-
-
-
-

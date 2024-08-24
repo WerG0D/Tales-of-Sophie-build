@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=70 format=4 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
@@ -24,6 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://csfq123c2wy0j" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="21_pyfyx"]
 [ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="23_e345a"]
 [ext_resource type="Texture2D" uid="uid://bkc47j4y372dc" path="res://icon.svg" id="24_183nv"]
+[ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="24_viuaq"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeInteraction.gd" id="25_8oml8"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeRendererLine2D.gd" id="25_fbcuu"]
+[ext_resource type="Script" path="res://levels/tests/Cursor.cs" id="27_l8nwj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvl47"]
 atlas = ExtResource("6_ixaub")
@@ -2635,15 +2639,21 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ius4"]
-size = Vector2(40.75, 50)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6ivp"]
+size = Vector2(119, 115)
 
 [node name="tests" type="Node2D"]
 
-[node name="player" parent="." instance=ExtResource("5_g2cb2")]
+[node name="player" parent="." node_paths=PackedStringArray("HookComponent", "RopeInteractionEnd") instance=ExtResource("5_g2cb2")]
 z_index = 10
-position = Vector2(526, 82)
+position = Vector2(212.618, 350.812)
 safe_margin = 1.0
+HookComponent = NodePath("HookComponent")
+RopeInteractionEnd = NodePath("../Rope/RopeInteractionEnd")
+
+[node name="HookComponent" parent="player" index="3" node_paths=PackedStringArray("Rope", "Cursor")]
+Rope = NodePath("../../Rope")
+Cursor = NodePath("../../Cursor")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -2899,17 +2909,40 @@ parallaxvelocityY = 0.2
 [node name="Skeleton" parent="Entities" instance=ExtResource("23_e345a")]
 position = Vector2(557, 66)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 2
-collision_mask = 2
+[node name="Rope" type="Node2D" parent="."]
+position = Vector2(182, -116)
+script = ExtResource("24_viuaq")
+num_segments = 20
+fixate_begin = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(368.625, 18)
-shape = SubResource("RectangleShape2D_7ius4")
+[node name="RopeRendererLine2D" type="Line2D" parent="Rope"]
+points = PackedVector2Array(30.8943, 591.122, 30.8599, 580.79, 30.828, 570.252, 30.7982, 559.509, 30.7704, 548.608, 30.7447, 537.642, 30.7211, 526.721, 30.6994, 515.953, 30.6796, 505.415, 30.6614, 495.146, 30.6445, 485.146)
+script = ExtResource("25_fbcuu")
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(368, 18)
-scale = Vector2(0.289063, 0.398438)
+[node name="RopeInteractionEnd" type="Node" parent="Rope" node_paths=PackedStringArray("target_node", "rope")]
+script = ExtResource("25_8oml8")
+position_update_mode = 1
+target_node = NodePath("../../player")
+rope = NodePath("..")
+
+[node name="RopeInteractionBegin" type="Node" parent="Rope" node_paths=PackedStringArray("target_node", "rope")]
+script = ExtResource("25_8oml8")
+position_update_mode = 0
+target_node = NodePath("../../Cursor")
+rope = NodePath("..")
+rope_position = 0.0
+
+[node name="Cursor" type="StaticBody2D" parent="."]
+script = ExtResource("27_l8nwj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor"]
+scale = Vector2(0.606176, 0.678746)
+shape = SubResource("RectangleShape2D_h6ivp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
+scale = Vector2(0.578923, 0.656308)
 texture = ExtResource("24_183nv")
 
 [connection signal="body_entered" from="Cutscenes & Areas/cutscene" to="." method="_on_cutscene_body_entered"]
+
+[editable path="player"]

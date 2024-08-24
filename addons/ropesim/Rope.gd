@@ -1,6 +1,7 @@
 @tool
 extends Node2D
 class_name Rope
+#TODO: Emitir o sinal q deleta qnd apertar o E 
 
 # TODO: Split line rendering into a separate node
 
@@ -12,6 +13,8 @@ signal on_unregistered()
 
 ## Triggered when the point count changes, i.e. when the number of segments changes.
 signal on_point_count_changed()
+
+signal algo()
 
 
 ## Pause the simulation.
@@ -330,7 +333,6 @@ func get_point_simulation_weight(index: int) -> float:
 
 
 # Setters
-
 func _set_num_segs(value: int) -> void:
     if value == num_segments:
         return
@@ -386,3 +388,6 @@ func _resize_with_default(arr: PackedFloat32Array, new_size: int, default: float
 
     for i in range(oldsize, new_size):
         arr[i] = default
+
+func _delete_myself() -> void:
+    _set_pause(true)
