@@ -8,7 +8,7 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
-	[Export] public HookComponent HookComponent;
+	[Export] public Node HookComponent;
 
 	[Export] public Node RopeInteractionEnd;
 	//[Export] public ChainComponent chainComponent;
@@ -96,7 +96,7 @@ public partial class Player : CharacterBody2D
 		velocityComponent.HandleVelocity(delta);
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
-		HookComponent.Hook();
+		//ookComponent.Hook();
 		//AnimatePlayer();
 		
 		//chainComponent.ActivateHook();
@@ -321,7 +321,7 @@ public partial class Player : CharacterBody2D
 		}
 		if (isDebug)
 		{
-			richTextLabel.Text = $"Velocity: {Velocity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}";
+			richTextLabel.Text = $"Velocity: {Velocity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}\nInput: {Input.IsActionPressed("hook")}";
 			GD.Print(richTextLabel.Text);	
 		}
 		else

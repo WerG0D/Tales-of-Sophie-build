@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
 [ext_resource type="Script" path="res://entity/player/PlayerCamera2D.cs" id="4_87wg4"]
-[ext_resource type="Script" path="res://entity/components/MovementComponents/HookComponent.cs" id="5_hiks7"]
 [ext_resource type="Texture2D" uid="uid://dm1bibfmlvsbi" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_n.png" id="6_7uhr8"]
 [ext_resource type="Texture2D" uid="uid://dnp6dylg8t7ad" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet_s.png" id="7_n0qo7"]
 [ext_resource type="Script" path="res://entity/components/DetectionComponents/HitBoxComponent.cs" id="8_c0k1x"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" path="res://entity/components/MovementComponents/VelocityComponent.cs" id="13_x5rlm"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/WallJumpComponent.cs" id="14_padl0"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/DashComponent.cs" id="15_nxtd6"]
+[ext_resource type="Script" path="res://entity/components/MovementComponents/RopeController.gd" id="17_voe15"]
 [ext_resource type="Texture2D" uid="uid://7jyxnnt1itkl" path="res://entity/player/Graphs/Sophie/sophie_idle_n.png" id="18_kwuu6"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
 
@@ -4738,13 +4738,14 @@ _data = {
 diffuse_texture = ExtResource("10_j58qy")
 normal_texture = ExtResource("18_kwuu6")
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent", "HookComponent")]
 texture_filter = 1
 collision_mask = 10
 script = ExtResource("1_b3mxi")
 velocityComponent = NodePath("VelocityComponent")
 wallJumpComponent = NodePath("WallJumpComponent")
 dashComponent = NodePath("DashComponent")
+HookComponent = NodePath("RopeInteractionController")
 
 [node name="VelocityComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
 script = ExtResource("13_x5rlm")
@@ -4765,11 +4766,9 @@ Entity = NodePath("..")
 VelocityComponent = NodePath("../VelocityComponent")
 DashSpeed = 600.0
 
-[node name="HookComponent" type="Node2D" parent="." node_paths=PackedStringArray("Rope", "HookRayCast", "Entity")]
-script = ExtResource("5_hiks7")
-Rope = NodePath("")
+[node name="RopeInteractionController" type="Node2D" parent="." node_paths=PackedStringArray("HookRayCast")]
+script = ExtResource("17_voe15")
 HookRayCast = NodePath("../HookRaycast")
-Entity = NodePath("..")
 
 [node name="HookRaycast" type="RayCast2D" parent="."]
 target_position = Vector2(145.97, 0)

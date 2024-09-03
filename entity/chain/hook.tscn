@@ -1,12 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dftlew3ev2j3m"]
+[gd_scene load_steps=6 format=3 uid="uid://dftlew3ev2j3m"]
 
 [ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="1_gr0r8"]
 [ext_resource type="Texture2D" uid="uid://ctn1h8na1je0h" path="res://entity/chain/graphs/CHAIN.png" id="2_i8vtq"]
 [ext_resource type="Script" path="res://addons/ropesim/RopeRendererLine2D.gd" id="3_jmoaw"]
-[ext_resource type="Script" path="res://addons/ropesim/RopeAnchor.gd" id="4_n37qf"]
 [ext_resource type="Script" path="res://addons/ropesim/RopeCollisionShapeGenerator.gd" id="6_2cqg0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksljo"]
+[ext_resource type="Script" path="res://addons/ropesim/RopeInteraction.gd" id="6_2jlg2"]
 
 [node name="Rope" type="Node2D"]
 script = ExtResource("1_gr0r8")
@@ -26,21 +24,20 @@ texture = ExtResource("2_i8vtq")
 texture_mode = 1
 script = ExtResource("3_jmoaw")
 
-[node name="RopeAnchor" type="Marker2D" parent="."]
-position = Vector2(0, 250)
-scale = Vector2(1.00715, 0.938023)
-script = ExtResource("4_n37qf")
-rope_path = NodePath("..")
-rope_position = 0.635
-precise = true
-
-[node name="StaticBody2D" type="StaticBody2D" parent="RopeAnchor"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RopeAnchor/StaticBody2D"]
-shape = SubResource("RectangleShape2D_ksljo")
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="RopeCollisionShapeGenerator" type="Node" parent="Area2D"]
 script = ExtResource("6_2cqg0")
 rope_path = NodePath("../..")
+
+[node name="RopeInteractionBegin" type="Node" parent="." node_paths=PackedStringArray("rope")]
+script = ExtResource("6_2jlg2")
+enable = false
+position_update_mode = 1
+rope = NodePath("..")
+
+[node name="RopeInteractionEnd" type="Node" parent="." node_paths=PackedStringArray("rope")]
+script = ExtResource("6_2jlg2")
+enable = false
+rope = NodePath("..")
+rope_position = 0.0

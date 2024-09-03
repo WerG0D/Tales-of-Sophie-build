@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=67 format=4 uid="uid://cdo4rijnuka4p"]
 
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
@@ -23,11 +23,9 @@
 [ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="21_cwcri"]
 [ext_resource type="Texture2D" uid="uid://csfq123c2wy0j" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="21_pyfyx"]
 [ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="23_e345a"]
-[ext_resource type="Texture2D" uid="uid://bkc47j4y372dc" path="res://icon.svg" id="24_183nv"]
-[ext_resource type="Script" path="res://addons/ropesim/Rope.gd" id="24_viuaq"]
-[ext_resource type="Script" path="res://addons/ropesim/RopeInteraction.gd" id="25_8oml8"]
-[ext_resource type="Script" path="res://addons/ropesim/RopeRendererLine2D.gd" id="25_fbcuu"]
-[ext_resource type="Script" path="res://levels/tests/Cursor.cs" id="27_l8nwj"]
+[ext_resource type="Script" path="res://levels/tests/Cursor.cs" id="25_2jqjj"]
+[ext_resource type="PackedScene" uid="uid://dftlew3ev2j3m" path="res://entity/chain/Hook.tscn" id="25_gclrl"]
+[ext_resource type="Texture2D" uid="uid://dcbc7c2skmgik" path="res://entity/chain/graphs/HOOK.png" id="29_om3hi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvl47"]
 atlas = ExtResource("6_ixaub")
@@ -2639,21 +2637,21 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h6ivp"]
-size = Vector2(119, 115)
-
 [node name="tests" type="Node2D"]
 
-[node name="player" parent="." node_paths=PackedStringArray("HookComponent", "RopeInteractionEnd") instance=ExtResource("5_g2cb2")]
+[node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
 position = Vector2(212.618, 350.812)
 safe_margin = 1.0
-HookComponent = NodePath("HookComponent")
-RopeInteractionEnd = NodePath("../Rope/RopeInteractionEnd")
 
-[node name="HookComponent" parent="player" index="3" node_paths=PackedStringArray("Rope", "Cursor")]
-Rope = NodePath("../../Rope")
+[node name="RopeInteractionController" parent="player" index="3" node_paths=PackedStringArray("RopeInteractionBegin", "RopeInteractionEnd", "Hook", "Cursor", "CursorCollision", "Entity", "VelocityComp")]
+RopeInteractionBegin = NodePath("../../Rope/RopeInteractionBegin")
+RopeInteractionEnd = NodePath("../../Rope/RopeInteractionEnd")
+Hook = NodePath("../../Rope")
 Cursor = NodePath("../../Cursor")
+CursorCollision = NodePath("../../Cursor/CollisionPolygon2D")
+Entity = NodePath("..")
+VelocityComp = NodePath("../VelocityComponent")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -2909,40 +2907,38 @@ parallaxvelocityY = 0.2
 [node name="Skeleton" parent="Entities" instance=ExtResource("23_e345a")]
 position = Vector2(557, 66)
 
-[node name="Rope" type="Node2D" parent="."]
-position = Vector2(182, -116)
-script = ExtResource("24_viuaq")
-num_segments = 20
-fixate_begin = false
+[node name="Rope" parent="." instance=ExtResource("25_gclrl")]
 
-[node name="RopeRendererLine2D" type="Line2D" parent="Rope"]
-points = PackedVector2Array(30.8943, 591.122, 30.8599, 580.79, 30.828, 570.252, 30.7982, 559.509, 30.7704, 548.608, 30.7447, 537.642, 30.7211, 526.721, 30.6994, 515.953, 30.6796, 505.415, 30.6614, 495.146, 30.6445, 485.146)
-script = ExtResource("25_fbcuu")
+[node name="CollisionPolygon2D" parent="Rope/RopeAnchor/Tip" index="1"]
+disabled = true
 
-[node name="RopeInteractionEnd" type="Node" parent="Rope" node_paths=PackedStringArray("target_node", "rope")]
-script = ExtResource("25_8oml8")
-position_update_mode = 1
+[node name="Area2D" parent="Rope" index="2"]
+monitoring = false
+monitorable = false
+
+[node name="RopeCollisionShapeGenerator" parent="Rope/Area2D" index="0"]
+enable = false
+
+[node name="RopeInteractionBegin" parent="Rope" index="3" node_paths=PackedStringArray("target_node")]
+enable = true
 target_node = NodePath("../../player")
-rope = NodePath("..")
 
-[node name="RopeInteractionBegin" type="Node" parent="Rope" node_paths=PackedStringArray("target_node", "rope")]
-script = ExtResource("25_8oml8")
+[node name="RopeInteractionEnd" parent="Rope" index="4" node_paths=PackedStringArray("target_node")]
+enable = true
 position_update_mode = 0
 target_node = NodePath("../../Cursor")
-rope = NodePath("..")
-rope_position = 0.0
 
 [node name="Cursor" type="StaticBody2D" parent="."]
-script = ExtResource("27_l8nwj")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor"]
-scale = Vector2(0.606176, 0.678746)
-shape = SubResource("RectangleShape2D_h6ivp")
+script = ExtResource("25_2jqjj")
 
 [node name="Sprite2D" type="Sprite2D" parent="Cursor"]
-scale = Vector2(0.578923, 0.656308)
-texture = ExtResource("24_183nv")
+rotation = 3.14159
+texture = ExtResource("29_om3hi")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Cursor"]
+polygon = PackedVector2Array(0, -3.05176e-05, -0.992901, -1.0661, -7.94321, -5.33041, -15.8864, -15.9911, -9.92901, -15.9911, -3.9716, -10.6608, 3.9716, -10.6608, 10.9219, -17.0572, 16.8793, -17.0572, 15.8864, -13.859, 7.94321, -4.26431, 3.9716, -1.0661)
 
 [connection signal="body_entered" from="Cutscenes & Areas/cutscene" to="." method="_on_cutscene_body_entered"]
 
 [editable path="player"]
+[editable path="Rope"]

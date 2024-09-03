@@ -19,80 +19,80 @@ var _target: Object
 
 
 func _init(update_hook: String, target: Object, target_method: String) -> void:
-    _update_hook = update_hook
-    _target = target
-    _target_method = target_method
+	_update_hook = update_hook
+	_target = target
+	_target_method = target_method
 
 
 func _enter_tree() -> void:
-    start_stop_process()
+	start_stop_process()
 
 
 func _exit_tree() -> void:
-    _unregister_server()
+	_unregister_server()
 
 
 func _unregister_server() -> void:
-    if _is_registered():
-        NativeRopeServer.disconnect(_update_hook, _on_update)
+	if _is_registered():
+		NativeRopeServer.disconnect(_update_hook, _on_update)
 
 
 func _is_registered() -> bool:
-    return NativeRopeServer.is_connected(_update_hook, _on_update)
+	return NativeRopeServer.is_connected(_update_hook, _on_update)
 
 
 func _on_update() -> void:
-    if not target_rope.pause:
-        _target.call(_target_method)
+	if not target_rope.pause:
+		_target.call(_target_method)
 
 
 # Start or stop the process depending on internal variables.
 func start_stop_process() -> void:
-    # NOTE: It sounds smart to disable this helper if the rope is paused, but maybe there are exceptions.
-    if enable and is_inside_tree() and target_rope and not target_rope.pause:
-        if not _is_registered():
-            NativeRopeServer.connect(_update_hook, _on_update)
-    else:
-        _unregister_server()
+	# NOTE: It sounds smart to disable this helper if the rope is paused, but maybe there are exceptions.
+	if enable and is_inside_tree() and target_rope and not target_rope.pause:
+		if not _is_registered():
+			NativeRopeServer.connect(_update_hook, _on_update)
+	else:
+		_unregister_server()
 
 
 func set_enable(value: bool) -> void:
-    enable = value
-    start_stop_process()
+	enable = value
+	start_stop_process()
 
 
 func set_target_rope(value: Rope) -> void:
-    if value == target_rope:
-        return
+	if value == target_rope:
+		return
 
-    if target_rope and is_instance_valid(target_rope):
-        target_rope.on_registered.disconnect(start_stop_process)
-        target_rope.on_unregistered.disconnect(start_stop_process)
+	if target_rope and is_instance_valid(target_rope):
+		target_rope.on_registered.disconnect(start_stop_process)
+		target_rope.on_unregistered.disconnect(start_stop_process)
 
-    var old := target_rope
-    target_rope = value
+	var old := target_rope
+	target_rope = value
 
-    if target_rope and is_instance_valid(target_rope):
-        target_rope.on_registered.connect(start_stop_process)
-        target_rope.on_unregistered.connect(start_stop_process)
+	if target_rope and is_instance_valid(target_rope):
+		target_rope.on_registered.connect(start_stop_process)
+		target_rope.on_unregistered.connect(start_stop_process)
 
-    start_stop_process()
-    on_rope_assigned.emit(old)
+	start_stop_process()
+	on_rope_assigned.emit(old)
 
 
 ## Set the target rope using a NodePath. Allows empty paths and treats them as null.
 ## If [param path_relative_node] is given, the path will be resolved relative to that node.
 func set_target_rope_path(rope_path: NodePath, path_relative_node: Node = null) -> void:
-    if not is_inside_tree():
-        push_warning("RopeToolHelper: Trying to assign rope but not added to tree")
-        return
+	if not is_inside_tree():
+		push_warning("RopeToolHelper: Trying to assign rope but not added to tree")
+		return
 
-    var node: Rope = null
+	var node: Rope = null
 
-    if rope_path:
-        if path_relative_node:
-            node = path_relative_node.get_node(rope_path) as Rope
-        else:
-            node = get_node(rope_path) as Rope
+	if rope_path:
+		if path_relative_node:
+			node = path_relative_node.get_node(rope_path) as Rope
+		else:
+			node = get_node(rope_path) as Rope
 
-    set_target_rope(node)
+	set_target_rope(node)
