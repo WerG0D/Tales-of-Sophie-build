@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bl12ts1ibfykd"]
+[gd_scene load_steps=47 format=3 uid="uid://bl12ts1ibfykd"]
 
 [ext_resource type="Script" path="res://entity/player/Player.cs" id="1_b3mxi"]
 [ext_resource type="Texture2D" uid="uid://cj34k5aovnw15" path="res://entity/player/Graphs/Adventurer/adventurer-Sheet.png" id="2_1gfqm"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://entity/components/MovementComponents/VelocityComponent.cs" id="13_x5rlm"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/WallJumpComponent.cs" id="14_padl0"]
 [ext_resource type="Script" path="res://entity/components/MovementComponents/DashComponent.cs" id="15_nxtd6"]
-[ext_resource type="Script" path="res://entity/components/MovementComponents/RopeController.gd" id="17_voe15"]
 [ext_resource type="Texture2D" uid="uid://7jyxnnt1itkl" path="res://entity/player/Graphs/Sophie/sophie_idle_n.png" id="18_kwuu6"]
 [ext_resource type="Script" path="res://entity/player/DebugText.cs" id="78_3wrjh"]
 
@@ -23,7 +22,7 @@ normal_texture = ExtResource("6_7uhr8")
 specular_texture = ExtResource("7_n0qo7")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5oav3"]
-size = Vector2(3.54821, 11.5656)
+size = Vector2(17.0757, 4.09615)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcw4w"]
 size = Vector2(15.5234, 7.7104)
@@ -32,19 +31,19 @@ size = Vector2(15.5234, 7.7104)
 radius = 4.43526
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4gu4"]
-size = Vector2(8.87051, 11.0839)
+size = Vector2(8.42699, 11.0839)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6mo1"]
-size = Vector2(4.58309, 5.98212)
+size = Vector2(3.13998, 2.84432)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00s58"]
-size = Vector2(10.6018, 3.8552)
+size = Vector2(4.56452, 5.15125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dlu1y"]
-size = Vector2(5.32231, 9.0343)
+size = Vector2(4.51805, 9.83489)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lpleu"]
-size = Vector2(4.43526, 8.98702)
+size = Vector2(5.23518, 5.40048)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsb3e"]
 size = Vector2(11.3539, 6.86675)
@@ -4738,14 +4737,13 @@ _data = {
 diffuse_texture = ExtResource("10_j58qy")
 normal_texture = ExtResource("18_kwuu6")
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent", "HookComponent")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "wallJumpComponent", "dashComponent")]
 texture_filter = 1
 collision_mask = 10
 script = ExtResource("1_b3mxi")
 velocityComponent = NodePath("VelocityComponent")
 wallJumpComponent = NodePath("WallJumpComponent")
 dashComponent = NodePath("DashComponent")
-HookComponent = NodePath("RopeInteractionController")
 
 [node name="VelocityComponent" type="Node2D" parent="." node_paths=PackedStringArray("Entity")]
 script = ExtResource("13_x5rlm")
@@ -4765,10 +4763,6 @@ script = ExtResource("15_nxtd6")
 Entity = NodePath("..")
 VelocityComponent = NodePath("../VelocityComponent")
 DashSpeed = 600.0
-
-[node name="RopeInteractionController" type="Node2D" parent="." node_paths=PackedStringArray("HookRayCast")]
-script = ExtResource("17_voe15")
-HookRayCast = NodePath("../HookRaycast")
 
 [node name="HookRaycast" type="RayCast2D" parent="."]
 target_position = Vector2(145.97, 0)
@@ -4806,40 +4800,40 @@ rotation_smoothing_speed = 3.0
 script = ExtResource("4_87wg4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = SubResource("CanvasTexture_tnjmh")
 hframes = 7
 vframes = 11
-frame = 42
+frame = 12
 
 [node name="HitBox" type="Area2D" parent="Sprite2D"]
-visible = false
 collision_mask = 10
 script = ExtResource("8_c0k1x")
 
 [node name="CollisionSword1" type="CollisionShape2D" parent="Sprite2D/HitBox"]
-position = Vector2(-7.98346, -8.6742)
+position = Vector2(-15.9669, 2.77092)
 shape = SubResource("RectangleShape2D_5oav3")
 disabled = true
 debug_color = Color(0.996078, 0, 0.207843, 0.419608)
 
 [node name="CollisionSword2" type="CollisionShape2D" parent="Sprite2D/HitBox"]
-position = Vector2(-7.09641, 14.457)
+position = Vector2(-13.3058, 12.1979)
 shape = SubResource("RectangleShape2D_pcw4w")
 disabled = true
 debug_color = Color(0.995183, 0, 0.209667, 0.42)
 
 [node name="HurtBoxHead" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
+position = Vector2(-10, 20)
 collision_mask = 10
 script = ExtResource("9_lgubq")
 health_component = NodePath("HealthComponentHead")
 
 [node name="CollisionHead" type="CollisionShape2D" parent="Sprite2D/HurtBoxHead"]
-position = Vector2(2.66115, -0.9638)
+position = Vector2(6.20936, -5.7828)
 shape = SubResource("CircleShape2D_ljyal")
 
 [node name="HealthComponentHead" type="Node2D" parent="Sprite2D/HurtBoxHead"]
 script = ExtResource("10_4re3h")
+MAX_HEALTH = 100
 
 [node name="HurtBoxBody" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -4847,11 +4841,12 @@ script = ExtResource("9_lgubq")
 health_component = NodePath("HealthComponentBody")
 
 [node name="CollisionBody" type="CollisionShape2D" parent="Sprite2D/HurtBoxBody"]
-position = Vector2(0.000102699, 5.7828)
+position = Vector2(3.32644, 3.61435)
 shape = SubResource("RectangleShape2D_n4gu4")
 
 [node name="HealthComponentBody" type="Node2D" parent="Sprite2D/HurtBoxBody"]
 script = ExtResource("10_4re3h")
+MAX_HEALTH = 100
 
 [node name="HurtBoxLArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -4859,13 +4854,14 @@ script = ExtResource("9_lgubq")
 health_component = NodePath("HealthComponentLeftArm")
 
 [node name="CollisionlArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxLArm"]
-position = Vector2(6.87057, 5.45786)
-rotation = -0.607374
+position = Vector2(9.06459, 3.35414)
+rotation = 0.020944
 scale = Vector2(0.999999, 0.999999)
 shape = SubResource("RectangleShape2D_u6mo1")
 
 [node name="HealthComponentLeftArm" type="Node2D" parent="Sprite2D/HurtBoxLArm"]
 script = ExtResource("10_4re3h")
+MAX_HEALTH = 100
 metadata/_edit_lock_ = true
 
 [node name="HurtBoxRArm" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
@@ -4874,13 +4870,14 @@ script = ExtResource("9_lgubq")
 health_component = NodePath("HealthComponentRightArm")
 
 [node name="CollisionRArm" type="CollisionShape2D" parent="Sprite2D/HurtBoxRArm"]
-position = Vector2(-6.34028, 3.85515)
-rotation = -0.71384
+position = Vector2(-0.268004, 2.1321)
+rotation = -0.778417
 scale = Vector2(1.025, 1.025)
 shape = SubResource("RectangleShape2D_00s58")
 
 [node name="HealthComponentRightArm" type="Node2D" parent="Sprite2D/HurtBoxRArm"]
 script = ExtResource("10_4re3h")
+MAX_HEALTH = 100
 
 [node name="HurtBoxRLeg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -4888,11 +4885,13 @@ script = ExtResource("9_lgubq")
 health_component = NodePath("HealthComponentRightLeg")
 
 [node name="CollisionRLeg" type="CollisionShape2D" parent="Sprite2D/HurtBoxRLeg"]
-position = Vector2(4.87878, 13.4932)
+position = Vector2(7.58192, 13.7651)
+rotation = -0.595157
 shape = SubResource("RectangleShape2D_dlu1y")
 
 [node name="HealthComponentRightLeg" type="Node2D" parent="Sprite2D/HurtBoxRLeg"]
 script = ExtResource("10_4re3h")
+MAX_HEALTH = 100
 
 [node name="HurtBoxLleg" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
 collision_mask = 10
@@ -4900,13 +4899,14 @@ script = ExtResource("9_lgubq")
 health_component = NodePath("HealthComponentLeftLeg")
 
 [node name="CollisionLleg" type="CollisionShape2D" parent="Sprite2D/HurtBoxLleg"]
-position = Vector2(-6.46344, 13.4316)
-rotation = 0.553025
+position = Vector2(-0.810452, 10.5368)
+rotation = 0.867429
 scale = Vector2(1, 0.999999)
 shape = SubResource("RectangleShape2D_lpleu")
 
 [node name="HealthComponentLeftLeg" type="Node2D" parent="Sprite2D/HurtBoxLleg"]
 script = ExtResource("10_4re3h")
+MAX_HEALTH = 100
 
 [node name="Dismember Icon Head" type="Sprite2D" parent="Sprite2D"]
 visible = false
@@ -4965,12 +4965,12 @@ shape = SubResource("CapsuleShape2D_slk7t")
 libraries = {
 "": SubResource("AnimationLibrary_g5p4h")
 }
-speed_scale = 1.5
 
 [node name="DashTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="SophieSprite" type="Sprite2D" parent="."]
+visible = false
 texture = SubResource("CanvasTexture_sjadq")
 hframes = 4
 vframes = 2

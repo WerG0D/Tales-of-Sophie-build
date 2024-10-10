@@ -217,12 +217,13 @@ radius = 6.4663
 height = 39.7321
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yp8a4"]
-radius = 458.373
+radius = 43.7379
 
 [node name="Skeleton" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 3
 script = ExtResource("1_gep1k")
+metadata/_edit_vertical_guides_ = [-166.0]
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7jjgt")
@@ -235,11 +236,10 @@ libraries = {
 speed_scale = 0.1
 
 [node name="HurtBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("health_component")]
-visible = false
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("3_4syiy")
-health_component = NodePath("../../HealthComponent")
+health_component = NodePath("../../HealthCompGeneral")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HurtBox"]
 shape = SubResource("CapsuleShape2D_up7ql")
@@ -248,17 +248,16 @@ shape = SubResource("CapsuleShape2D_up7ql")
 collision_layer = 8
 collision_mask = 9
 script = ExtResource("4_t522e")
+damage = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitboxComponent"]
-visible = false
-position = Vector2(21, -2)
+position = Vector2(-17, -2)
 scale = Vector2(0.25, 0.25)
 shape = SubResource("RectangleShape2D_bkw4v")
 disabled = true
 debug_color = Color(1, 0, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(6, 12)
 scale = Vector2(1.54648, 1.05708)
 shape = SubResource("CapsuleShape2D_bchs7")
@@ -274,18 +273,15 @@ autowrap_mode = 0
 script = ExtResource("3_3bwqj")
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
-monitoring = false
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-visible = false
 shape = SubResource("CircleShape2D_yp8a4")
 
-[node name="HealthComponent" type="Node2D" parent="."]
+[node name="HealthCompGeneral" type="Node2D" parent="."]
 script = ExtResource("6_5exmp")
+MAX_HEALTH = 100
 
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="OnAnimationPlayerAnimationFinished"]
 [connection signal="area_entered" from="Sprite2D/HurtBox" to="." method="_on_hurt_box_area_entered"]
-[connection signal="area_entered" from="Sprite2D/HitboxComponent" to="." method="_on_hitbox_component_area_entered"]
+[connection signal="area_entered" from="Sprite2D/HitboxComponent" to="." method="_on_area_entered"]
 [connection signal="body_entered" from="DetectionArea" to="." method="OnDetectionAreaEntered"]

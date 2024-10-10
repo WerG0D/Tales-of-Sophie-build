@@ -1,5 +1,6 @@
-[gd_scene load_steps=67 format=4 uid="uid://cdo4rijnuka4p"]
+[gd_scene load_steps=65 format=4 uid="uid://cdo4rijnuka4p"]
 
+[ext_resource type="Script" path="res://mechanics/BattleManager/BattleManager.cs" id="1_unemr"]
 [ext_resource type="Texture2D" uid="uid://bslnwxlhaes6f" path="res://assets/tiles/MainLevelTileSet/MainLevBuild.png" id="3_fx2kr"]
 [ext_resource type="Script" path="res://levels/tests/Tiles.cs" id="4_a5t1t"]
 [ext_resource type="Texture2D" uid="uid://dm37byyoxdk3w" path="res://assets/tiles/MainLevelTileSet/front_dec_plat.png" id="4_b2x4o"]
@@ -23,9 +24,6 @@
 [ext_resource type="Shader" path="res://shaders/wind sway.gdshader" id="21_cwcri"]
 [ext_resource type="Texture2D" uid="uid://csfq123c2wy0j" path="res://assets/backgrounds/parallaxbg1/Background/Background5.png" id="21_pyfyx"]
 [ext_resource type="PackedScene" uid="uid://bvofog5cxvno8" path="res://entity/skeleton/skeleton.tscn" id="23_e345a"]
-[ext_resource type="Script" path="res://levels/tests/Cursor.cs" id="25_2jqjj"]
-[ext_resource type="PackedScene" uid="uid://dftlew3ev2j3m" path="res://entity/chain/Hook.tscn" id="25_gclrl"]
-[ext_resource type="Texture2D" uid="uid://dcbc7c2skmgik" path="res://entity/chain/graphs/HOOK.png" id="29_om3hi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dvl47"]
 atlas = ExtResource("6_ixaub")
@@ -2639,19 +2637,13 @@ point_count = 5
 
 [node name="tests" type="Node2D"]
 
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("1_unemr")
+
 [node name="player" parent="." instance=ExtResource("5_g2cb2")]
 z_index = 10
-position = Vector2(212.618, 350.812)
+position = Vector2(470, 77)
 safe_margin = 1.0
-
-[node name="RopeInteractionController" parent="player" index="3" node_paths=PackedStringArray("RopeInteractionBegin", "RopeInteractionEnd", "Hook", "Cursor", "CursorCollision", "Entity", "VelocityComp")]
-RopeInteractionBegin = NodePath("../../Rope/RopeInteractionBegin")
-RopeInteractionEnd = NodePath("../../Rope/RopeInteractionEnd")
-Hook = NodePath("../../Rope")
-Cursor = NodePath("../../Cursor")
-CursorCollision = NodePath("../../Cursor/CollisionPolygon2D")
-Entity = NodePath("..")
-VelocityComp = NodePath("../VelocityComponent")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -2782,7 +2774,6 @@ loop = false
 zoom = Vector2(2, 2)
 
 [node name="Background" type="Node2D" parent="."]
-visible = false
 position = Vector2(0, 128)
 
 [node name="9" type="Line2D" parent="Background"]
@@ -2902,43 +2893,9 @@ script = ExtResource("14_ogrgr")
 parallaxvelocityX = 0.2
 parallaxvelocityY = 0.2
 
-[node name="Entities" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="."]
 
-[node name="Skeleton" parent="Entities" instance=ExtResource("23_e345a")]
+[node name="Skeleton" parent="Enemies" instance=ExtResource("23_e345a")]
 position = Vector2(557, 66)
 
-[node name="Rope" parent="." instance=ExtResource("25_gclrl")]
-
-[node name="CollisionPolygon2D" parent="Rope/RopeAnchor/Tip" index="1"]
-disabled = true
-
-[node name="Area2D" parent="Rope" index="2"]
-monitoring = false
-monitorable = false
-
-[node name="RopeCollisionShapeGenerator" parent="Rope/Area2D" index="0"]
-enable = false
-
-[node name="RopeInteractionBegin" parent="Rope" index="3" node_paths=PackedStringArray("target_node")]
-enable = true
-target_node = NodePath("../../player")
-
-[node name="RopeInteractionEnd" parent="Rope" index="4" node_paths=PackedStringArray("target_node")]
-enable = true
-position_update_mode = 0
-target_node = NodePath("../../Cursor")
-
-[node name="Cursor" type="StaticBody2D" parent="."]
-script = ExtResource("25_2jqjj")
-
-[node name="Sprite2D" type="Sprite2D" parent="Cursor"]
-rotation = 3.14159
-texture = ExtResource("29_om3hi")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Cursor"]
-polygon = PackedVector2Array(0, -3.05176e-05, -0.992901, -1.0661, -7.94321, -5.33041, -15.8864, -15.9911, -9.92901, -15.9911, -3.9716, -10.6608, 3.9716, -10.6608, 10.9219, -17.0572, 16.8793, -17.0572, 15.8864, -13.859, 7.94321, -4.26431, 3.9716, -1.0661)
-
 [connection signal="body_entered" from="Cutscenes & Areas/cutscene" to="." method="_on_cutscene_body_entered"]
-
-[editable path="player"]
-[editable path="Rope"]

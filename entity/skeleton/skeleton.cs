@@ -20,13 +20,13 @@ public partial class skeleton : CharacterBody2D
 	public int dir = 1;
 	public AnimationPlayer animplayer;
 	public HealthComponent healthcomp;
+	public HitBoxComponent hitBoxComponent;
 	public float gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
 	public override void _Ready()
 	{
 		animplayer = GetNode<AnimationPlayer>("Sprite2D/AnimationPlayer");
-		healthcomp = GetNode<HealthComponent>("HealthComponent");
+		healthcomp = GetNode<HealthComponent>("HealthCompGeneral");
 
-		healthcomp.Death += Death;
 	}
 
 	public Vector2 LerpVector2(Vector2 from, Vector2 to, float weight)
@@ -67,7 +67,8 @@ public partial class skeleton : CharacterBody2D
 		}
 		MoveAndSlide();
 		AnimateSkeleton();
-		Move();
+		Debug();
+		Attack();
 
 	}
 
@@ -99,9 +100,9 @@ public partial class skeleton : CharacterBody2D
 		}
 	}
 
-	public HealthComponent GetHealth()
+	public float GetHealth()
 	{
-		return healthcomp;
+		return healthcomp.CurrentHP;
 	}
 
 	public void AnimateSkeleton() 
@@ -135,6 +136,17 @@ public partial class skeleton : CharacterBody2D
 		}
 	}
 
+	private void Attack() {
+
+		if (Input.IsActionJustPressed("Skeleton")) {
+			is_attacking = true;
+			GetNode<CollisionShape2D>("Sprite2D/HitboxComponent/CollisionShape2D").SetDeferred("disabled", false);
+
+
+		}
+
+	}
+
 	public void OnDetectionAreaEntered(object body)
 	{
 		if (body is CharacterBody2D)
@@ -156,4 +168,19 @@ public partial class skeleton : CharacterBody2D
 			is_attacking = false;
 		}
 	}
+
+	private void Debug()
+{
+    var richTextLabel = GetNodeOrNull<RichTextLabel>("RichTextLabel");
+    
+    if (richTextLabel != null)
+    {
+        richTextLabel.Text = $"Velocity: {Velocity}\nHealth: {healthcomp.CurrentHP}";
+    }
+    else
+    {
+        GD.PrintErr("RichTextLabel not found in the scene.");
+    }
+}
+
 }

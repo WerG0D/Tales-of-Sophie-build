@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "D:/Godot_v4.3.exe",
+            "program": "D:/wer/Godot_v4.3.exe",
             "args": ["--debug","--debug-collisions", "--debug-paths", "--debug-navigation","--debug-avoidance"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

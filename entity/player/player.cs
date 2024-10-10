@@ -8,11 +8,6 @@ public partial class Player : CharacterBody2D
 	[Export] public VelocityComponent velocityComponent;
 	[Export] public WallJumpComponent wallJumpComponent;
 	[Export] public DashComponent dashComponent;
-	[Export] public Node HookComponent;
-
-	[Export] public Node RopeInteractionEnd;
-	//[Export] public ChainComponent chainComponent;
-	//[Export] public ChainComponent chainComponent2;
 
 	private Camera2D camera;
 	private AnimationPlayer animPlayer;
@@ -27,17 +22,7 @@ public partial class Player : CharacterBody2D
 
 	// ####################### VARIABLES #########################
 
-	private int maxSpeed = 1600;
-	private int jumpForce = 500;
-
-	private int acceleration = 300;
-	private int jumpBufferTime = 15;
-	private int jumpBufferCounter = 0;
-	private float dashDuration = 0.2f;
 	private Vector2 tempVelocity = new Vector2(0, 0);
-	private float onGroundFriction = 0.1f;
-	private float onAirFriction = 0.02f;
-	private float gravityFactor = 0.2f;
 	private Vector2 normal = new Vector2(0, 0);
 	private bool isDead = false;
 	private bool isTakingDamage = false;
@@ -83,6 +68,10 @@ public partial class Player : CharacterBody2D
 	{
 		var healthComponent = GetNode<HealthComponent>(path);
 		healthComponent.DismemberHead += DismemberBodyPart;
+		healthComponent.DismemberLARM += DismemberBodyPart;
+		healthComponent.DismemberLLEG += DismemberBodyPart;
+		healthComponent.DismemberRARM += DismemberBodyPart;
+		healthComponent.DismemberRLEG += DismemberBodyPart;
 		healthComponent.Damaged += Damage;
 		healthComponent.Death += Death;
 		return healthComponent;
@@ -96,14 +85,7 @@ public partial class Player : CharacterBody2D
 		velocityComponent.HandleVelocity(delta);
 		wallJumpComponent.HandleWallJump();
 		dashComponent.HandleDash();
-		//ookComponent.Hook();
-		//AnimatePlayer();
-		
-		//chainComponent.ActivateHook();
-		//chainComponent2.ActivateHook();
-
-
-		
+		AnimatePlayer();
 	}
 
 	
@@ -140,31 +122,31 @@ public partial class Player : CharacterBody2D
 				if (isHeadDismembered) return;
 				isHeadDismembered = true;
 				GD.Print("Head dismembered");
-				SetDismemberIconVisible("Dismember Icon Head", false);
+				SetDismemberIconVisible("Dismember Icon Head", true);
 				break;
 			case "HealthComponentRightArm":
 				if (isRightArmDismembered) return;
 				isRightArmDismembered = true;
 				GD.Print("Right Arm dismembered");
-				SetDismemberIconVisible("Dismember Icon RightArm", false);
+				SetDismemberIconVisible("Dismember Icon RightArm", true);
 				break;
 			case "HealthComponentLeftArm":
 				if (isLeftArmDismembered) return;
 				isLeftArmDismembered = true;
 				GD.Print("Left Arm dismembered");
-				SetDismemberIconVisible("Dismember Icon LeftArm", false);
+				SetDismemberIconVisible("Dismember Icon LeftArm", true);
 				break;
 			case "HealthComponentRightLeg":
 				if (isRightLegDismembered) return;
 				isRightLegDismembered = true;
 				GD.Print("Right Leg dismembered");
-				SetDismemberIconVisible("Dismember Icon RightLeg", false);
+				SetDismemberIconVisible("Dismember Icon RightLeg", true);
 				break;
 			case "HealthComponentLeftLeg":
 				if (isLeftLegDismembered) return;
 				isLeftLegDismembered = true;
 				GD.Print("Left Leg dismembered");
-				SetDismemberIconVisible("Dismember Icon LeftLeg", false);
+				SetDismemberIconVisible("Dismember Icon LeftLeg", true);
 				break;
 		}
 	}
@@ -204,13 +186,11 @@ public partial class Player : CharacterBody2D
 			if (IsIdle())
 			{
 				PlayAnimation("idle", "idle_left");
-				GetNode<AnimatedSprite2D>("SophieSprite").Play("idle");
 				
 			}
 			else if (IsMoving())
 			{
 				PlayAnimation("run", "run_left");
-				GetNode<AnimatedSprite2D>("SophieSprite").Play("run");
 			}
 		}
 		if (dashComponent.isDash)
@@ -275,12 +255,10 @@ public partial class Player : CharacterBody2D
 			if (Input.IsActionPressed("move_left"))
 			{
 				GetNode<Sprite2D>("Sprite2D").FlipH = true;
-				GetNode<AnimatedSprite2D>("SophieSprite").FlipH = false;
 			}
 			else if (Input.IsActionPressed("move_right"))
 			{
 				GetNode<Sprite2D>("Sprite2D").FlipH = false;
-				GetNode<AnimatedSprite2D>("SophieSprite").FlipH = true;
 			}
 		}
 	}
@@ -290,12 +268,10 @@ public partial class Player : CharacterBody2D
 		if (GetNode<RayCast2D>("RayCastFloor").IsColliding())
 		{
 			GetNode<Sprite2D>("Sprite2D").Rotation = velocityComponent.normal.Angle() + Mathf.DegToRad(90);
-			GetNode<AnimatedSprite2D>("SophieSprite").Rotation = velocityComponent.normal.Angle() + Mathf.DegToRad(90);
 		}
 		else
 		{
 			GetNode<Sprite2D>("Sprite2D").Rotation = Mathf.Lerp(GetNode<Sprite2D>("Sprite2D").Rotation, 0.0f, 0.08f);
-			GetNode<AnimatedSprite2D>("SophieSprite").Rotation = Mathf.Lerp(GetNode<Sprite2D>("Sprite2D").Rotation, 0.0f, 0.08f);
 		}
 	}
 
@@ -321,7 +297,7 @@ public partial class Player : CharacterBody2D
 		}
 		if (isDebug)
 		{
-			richTextLabel.Text = $"Velocity: {Velocity}\nIs Input: {isInput}\nIs Restricted: {IsRestricted()}\nInput: {Input.IsActionPressed("hook")}";
+			richTextLabel.Text = $"Velocity: {Velocity}\nHead: {healthCompHead.CurrentHP}";
 			GD.Print(richTextLabel.Text);	
 		}
 		else
